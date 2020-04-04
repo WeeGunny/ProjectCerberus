@@ -53,7 +53,7 @@ public class LevelGenerator : MonoBehaviour
         // Level Generation Finished
         Debug.Log("Level Generation complete. Jobs Done!");
         yield return new WaitForSeconds(3);
-        ResetLevelGenerator();
+        //ResetLevelGenerator();
     }
     void ResetLevelGenerator()
     {
@@ -141,7 +141,7 @@ public class LevelGenerator : MonoBehaviour
     void PlaceStartRoom()
     {
         //Instantiate Room
-       Room startRoom = Instantiate(startRoomPrefab) as StartRoom;
+        startRoom = Instantiate(startRoomPrefab) as StartRoom;
         startRoom.transform.parent = this.transform;
 
         // Get doorways from current room & add to list of available doorways at random index
