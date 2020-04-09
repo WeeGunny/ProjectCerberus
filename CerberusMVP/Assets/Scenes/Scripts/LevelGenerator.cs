@@ -22,7 +22,7 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-        roomLayerMask = LayerMask.GetMask("Room");
+        roomLayerMask = LayerMask.GetMask("Ground");
         StartCoroutine("GenerateLevel");
     }
     IEnumerator GenerateLevel()
