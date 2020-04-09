@@ -1,33 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!64 &5583011979362084223
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2791131662162235682}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5495902117074765545, guid: 0316b70122c7d82409526030cff1d2b5, type: 3}
---- !u!64 &7891325676428519632
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5297879262359978052}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2222346464153789849, guid: 0316b70122c7d82409526030cff1d2b5, type: 3}
 --- !u!1 &1040545515528724716
 GameObject:
   m_ObjectHideFlags: 0
@@ -38,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6513285847179018962}
   - component: {fileID: 1279856374840951811}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EndRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,6 +47,20 @@ MonoBehaviour:
   doorways:
   - {fileID: 2011932140138974393}
   meshCollider: {fileID: 5583011979362084223}
+--- !u!64 &5583011979362084223
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2791131662162235682}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: 0316b70122c7d82409526030cff1d2b5, type: 3}
 --- !u!1 &2941000581789207415
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,6 +92,20 @@ Transform:
   m_Father: {fileID: 7892695717128081519}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &7891325676428519632
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5297879262359978052}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2222346464153789849, guid: 0316b70122c7d82409526030cff1d2b5, type: 3}
 --- !u!1001 &289789720625431323
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,6 +172,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EndRoom Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 0316b70122c7d82409526030cff1d2b5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0316b70122c7d82409526030cff1d2b5, type: 3}

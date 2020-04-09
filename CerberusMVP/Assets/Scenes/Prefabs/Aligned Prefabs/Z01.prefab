@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4003666536594950636}
   - component: {fileID: 4003666536594950635}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Z01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,6 +334,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Z01 Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 78dba812d9c7834409d5045b2f0a1817,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78dba812d9c7834409d5045b2f0a1817, type: 3}

@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!64 &7309552778937925369
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608157321343477757}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2232907140198574739, guid: 29e9fcec7f8e630499d473a12c381682, type: 3}
 --- !u!1 &7309552777722088150
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7309552778876431887}
   - component: {fileID: 2149832367822497448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,20 +201,6 @@ MonoBehaviour:
   - {fileID: 7309552778436434183}
   - {fileID: 7309552779374424794}
   meshCollider: {fileID: 7309552778937925369}
---- !u!64 &7309552778937925369
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608157321343477757}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2232907140198574739, guid: 29e9fcec7f8e630499d473a12c381682, type: 3}
 --- !u!1 &7309552779374424792
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,6 +374,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pit Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 29e9fcec7f8e630499d473a12c381682,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29e9fcec7f8e630499d473a12c381682, type: 3}

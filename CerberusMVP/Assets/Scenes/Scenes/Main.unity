@@ -159,9 +159,8 @@ MonoBehaviour:
   - {fileID: 2149832367822497448, guid: 2e4b1d8ad21685245a02bfcd2f4d2e98, type: 3}
   - {fileID: 8615867681092293170, guid: 0964f9b1fd26c40458088dfdc6adecf1, type: 3}
   - {fileID: 3568877463264536624, guid: 073f33cb93ec00644976c3d487cde195, type: 3}
-  - {fileID: 9153212145554714753, guid: a56592dc3bc98b94987dcc7bf0cac207, type: 3}
   - {fileID: 4003666536594950635, guid: dd70fb421bde23543ad751599a27234c, type: 3}
-  iterationRange: {x: 3, y: 10}
+  iterationRange: {x: 6, y: 10}
 --- !u!4 &1886411915
 Transform:
   m_ObjectHideFlags: 0
