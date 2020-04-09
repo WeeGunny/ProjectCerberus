@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startRoomPrefab: {fileID: 1749779103, guid: 2c5a40663fe478b41adee846a8d584f5, type: 3}
-  endRoomPrefab: {fileID: 1279856374840951811, guid: dd641725c488c844eb490a022f677c71,
+  endRoomPrefab: {fileID: 366917723354733935, guid: dd641725c488c844eb490a022f677c71,
     type: 3}
   roomPrefabs:
   - {fileID: 6520847324212808030, guid: 9d743d2349b558b46b9266834d597231, type: 3}
