@@ -151,13 +151,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startRoomPrefab: {fileID: 1749779103, guid: 2c5a40663fe478b41adee846a8d584f5, type: 3}
-  endRoomPrefab: {fileID: 501371053, guid: b3060274b4566f84cab32fa5fedc97d9, type: 3}
+  endRoomPrefab: {fileID: 1279856374840951811, guid: dd641725c488c844eb490a022f677c71,
+    type: 3}
   roomPrefabs:
-  - {fileID: 5821365345378904806, guid: 3976410739f6b8045a020be4709beae8, type: 3}
-  - {fileID: 3386331729886859856, guid: 5293cead27e47f941a4d4cf2cc297c42, type: 3}
-  - {fileID: 3340051828796262567, guid: 3ff65be9623247b439c46c07cd5d9332, type: 3}
-  - {fileID: 4571223786580931327, guid: 24592e0acb66b5f4f927f1fb3d2392f9, type: 3}
-  - {fileID: 2725030146411295719, guid: 1b7c2cf7968e41c46a0b60ba6b3c4496, type: 3}
+  - {fileID: 6520847324212808030, guid: 9d743d2349b558b46b9266834d597231, type: 3}
+  - {fileID: 2631480911805846137, guid: bc5a12d082f502749a50ef872be82454, type: 3}
+  - {fileID: 2149832367822497448, guid: 2e4b1d8ad21685245a02bfcd2f4d2e98, type: 3}
+  - {fileID: 8615867681092293170, guid: 0964f9b1fd26c40458088dfdc6adecf1, type: 3}
+  - {fileID: 3568877463264536624, guid: 073f33cb93ec00644976c3d487cde195, type: 3}
+  - {fileID: 9153212145554714753, guid: a56592dc3bc98b94987dcc7bf0cac207, type: 3}
+  - {fileID: 4003666536594950635, guid: dd70fb421bde23543ad751599a27234c, type: 3}
   iterationRange: {x: 3, y: 10}
 --- !u!4 &1886411915
 Transform:
