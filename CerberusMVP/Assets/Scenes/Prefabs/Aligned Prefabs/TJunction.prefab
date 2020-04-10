@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3568877463264536625}
   - component: {fileID: 3568877463264536624}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TJunction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,6 +82,7 @@ MonoBehaviour:
   - {fileID: 8424062013666576757}
   - {fileID: 8424062012819985934}
   meshCollider: {fileID: 3568877461915935941}
+  isColliding: 0
 --- !u!64 &3568877461915935941
 MeshCollider:
   m_ObjectHideFlags: 0

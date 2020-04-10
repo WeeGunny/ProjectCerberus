@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9153212145554714752}
   - component: {fileID: 9153212145554714753}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Vertical01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,6 +94,7 @@ MonoBehaviour:
   - {fileID: 4209116410325570510}
   - {fileID: 4209116411794986661}
   meshCollider: {fileID: 9153212145560306469}
+  isColliding: 0
 --- !u!1001 &9153212144254811905
 PrefabInstance:
   m_ObjectHideFlags: 0

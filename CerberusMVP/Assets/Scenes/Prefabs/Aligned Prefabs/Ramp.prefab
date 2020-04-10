@@ -224,7 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 397468881978356604}
   - component: {fileID: 8615867681092293170}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,6 +263,7 @@ MonoBehaviour:
   - {fileID: 169148495081223390}
   - {fileID: 75993359340408615}
   meshCollider: {fileID: 8564119305911880726}
+  isColliding: 0
 --- !u!1 &5443628489110950579
 GameObject:
   m_ObjectHideFlags: 0

@@ -163,7 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7309552778876431887}
   - component: {fileID: 2149832367822497448}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Pit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,6 +201,7 @@ MonoBehaviour:
   - {fileID: 7309552778436434183}
   - {fileID: 7309552779374424794}
   meshCollider: {fileID: 7309552778937925369}
+  isColliding: 0
 --- !u!1 &7309552779374424792
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4003666536594950636}
   - component: {fileID: 4003666536594950635}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Z01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,7 @@ MonoBehaviour:
   - {fileID: 8277780357635874041}
   - {fileID: 8277780357066348019}
   meshCollider: {fileID: 4003666537762851489}
+  isColliding: 0
 --- !u!1 &4003666537161321609
 GameObject:
   m_ObjectHideFlags: 0

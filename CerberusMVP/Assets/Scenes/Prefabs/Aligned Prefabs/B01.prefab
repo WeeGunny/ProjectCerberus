@@ -238,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2217938275935656759}
   - component: {fileID: 6520847324212808030}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: B01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,6 +276,7 @@ MonoBehaviour:
   - {fileID: 2623802640161029708}
   - {fileID: 4719166823511059470}
   meshCollider: {fileID: 2721566621670138722}
+  isColliding: 0
 --- !u!1 &5469789778428402427
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraControl : MonoBehaviour
+public class FPSCam : MonoBehaviour
 {
 
     public float sensitivity =100f;

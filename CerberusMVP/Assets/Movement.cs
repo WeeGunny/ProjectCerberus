@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Movement : MonoBehaviour
 {
+    //this is the third person movement script
+
     public CharacterController controller;
     public float movementSpeed =1;
+    //Rotation speed must be between 0 and 1
+    public float rotationSpeed;
     public float jumpHeight = 3;
     Vector3 velocity;
     public float gravity = -9.81f;
@@ -47,5 +51,6 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement),rotationSpeed);
     }
 }
