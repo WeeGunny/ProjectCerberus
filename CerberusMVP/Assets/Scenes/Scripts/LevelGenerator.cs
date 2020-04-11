@@ -1,33 +1,52 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Reflection;
+using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour {
+    
     //What rooms will be the start or end room
     public Room startRoomPrefab, endRoomPrefab;
     // List of room Prefabs between start and finish 
+    [Header("Random Room Gen")]
     public List<Room> roomPrefabs = new List<Room>();
     // Range of rooms to create
     public Vector2 iterationRange = new Vector2(3, 10);
+    public LayerMask roomLayerMask;
 
     // List of Doorways we can access
     List<Doorway> availableDoorways = new List<Doorway>();
 
+    // create a startRoom, endRoom and placedRooms for easier referencing
     StartRoom startRoom;
     EndRoom endRoom;
     List<Room> placedRooms = new List<Room>();
 
-    LayerMask roomLayerMask;
+    //Set up player
+    [Header("Player")]
+    public GameObject playerPrefab;
+    public Transform spawnPoint;
+    GameObject player;
+
+    //UI Stuff
+    [Header("UI refences")]
+    public GameObject LoadScreen;
+    public GameObject WinScreen;
+    public GameObject inGameUI;
+
+  
+  
 
     void Start() {
-        roomLayerMask = LayerMask.GetMask("Ground");
         StartCoroutine("GenerateLevel");
     }
     IEnumerator GenerateLevel() {
-        WaitForSeconds startup = new WaitForSeconds(1);
+        // WaitForSeconds startup = new WaitForSeconds(1);
         WaitForFixedUpdate interval = new WaitForFixedUpdate();
 
-        yield return startup;
+        // yield return startup;
 
         //Place startRoom
         PlaceStartRoom();
@@ -48,8 +67,9 @@ public class LevelGenerator : MonoBehaviour {
 
         // Level Generation Finished
         Debug.Log("Level Generation complete. Jobs Done!");
-        yield return new WaitForSeconds(3);
-        ResetLevelGenerator();
+        //uncommnet these lines for frequent level building
+       // yield return new WaitForSeconds(3);
+       // ResetLevelGenerator();
     }
 
     void AddDoorwaysToList(Room room, ref List<Doorway> list) {
@@ -69,10 +89,9 @@ public class LevelGenerator : MonoBehaviour {
         Debug.Log("Placing Start Room! Wrrrrrrr");
     }
     void PlaceRoom() {
-        Debug.Log("Placing random room from list! Wrrrrr");
         //Instantiate Room
-        Room currentRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]) as Room;
-        currentRoom.transform.parent = this.transform;
+        Room currentRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], transform) as Room;
+        Debug.Log("Placing random room!: " + currentRoom.gameObject.name);
         bool roomPlaced = false;
         // Try all available doorways
         foreach (Doorway availableDoorway in availableDoorways) {
@@ -85,7 +104,7 @@ public class LevelGenerator : MonoBehaviour {
                 if (!CheckRoomOverlap(currentRoom) && roomPlaced == false) {
                     //Position room
 
-                    Debug.Log("Room Placed !");
+                    Debug.Log("Room Placed!: " + currentRoom.gameObject.name);
                     // Add room to global room list
                     placedRooms.Add(currentRoom);
 
@@ -138,14 +157,9 @@ public class LevelGenerator : MonoBehaviour {
     bool CheckRoomOverlap(Room room) {
         Bounds bounds = room.RoomBounds;
         bounds.center = room.transform.position;
-        bounds.Expand(0.1f);
+        bounds.Expand(-0.1f);
 
         Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask);
-        if (colliders.Length > 0) {
-            foreach (Collider c in colliders) {
-                Debug.Log("Colliding with: " + c.gameObject.name + " Parent: " + c.transform.parent.name);
-            }
-        }
         if (colliders.Length > 0) {
             // Ignore collisions with current room
             foreach (Collider c in colliders) {
@@ -160,14 +174,14 @@ public class LevelGenerator : MonoBehaviour {
                 }
             }
         }
+        Debug.Log("No collisions yay");
         return false;
     }
     void PlaceEndRoom() {
         Debug.Log("Placing the End Room! Wrrrrrr");
 
         // Instantiate Room
-        endRoom = Instantiate(endRoomPrefab) as EndRoom;
-        endRoom.transform.parent = this.transform;
+        endRoom = Instantiate(endRoomPrefab, transform) as EndRoom;
 
         // Add endRoom Doorway to index 0
         Doorway endDoorway = endRoom.doorways[0];
@@ -192,6 +206,10 @@ public class LevelGenerator : MonoBehaviour {
 
                 availableDoorways[doorToPlace].gameObject.SetActive(false);
                 availableDoorways.Remove(availableDoorways[doorToPlace]);
+                //once all rooms placed, spawn the player at the spawnpoint and remove loadscreen
+                
+                player = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
+                LoadScreen.SetActive(false);
                 break;
             }
 
@@ -204,7 +222,12 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     void ResetLevelGenerator() {
-        Debug.LogError("Resetting Level Generator");
+        // Clears the log so all logs are from current iteration of level gen
+        Type.GetType("UnityEditor.LogEntries,UnityEditor.dll")
+            .GetMethod("Clear", BindingFlags.Static | BindingFlags.Public)
+            .Invoke(null, null);
+
+        Debug.Log("Could not place room anywhere, resetting levelGen");
 
         StopCoroutine("GenerateLevel");
 
@@ -214,6 +237,9 @@ public class LevelGenerator : MonoBehaviour {
         }
         if (endRoom) {
             Destroy(endRoom.gameObject);
+        }
+        if (player) {
+            Destroy(player);
         }
 
         foreach (Room room in placedRooms) {
@@ -227,6 +253,16 @@ public class LevelGenerator : MonoBehaviour {
 
         StartCoroutine("GenerateLevel");
 
+    }
+
+    public void Win() {
+        WinScreen.SetActive(true);
+    }
+
+    public void ResetButton() {
+        WinScreen.gameObject.SetActive(false);
+        LoadScreen.gameObject.SetActive(true);
+        ResetLevelGenerator();
     }
 }
 

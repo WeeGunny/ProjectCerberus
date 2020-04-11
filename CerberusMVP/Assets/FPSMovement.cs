@@ -48,4 +48,11 @@ public class FPSMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "Goal") {
+            LevelGenerator level = FindObjectOfType<LevelGenerator>();
+            level.Win();
+        }
+    }
 }
