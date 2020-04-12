@@ -17,7 +17,7 @@ public class LevelGenerator : MonoBehaviour {
     public LayerMask roomLayerMask;
 
     // List of Doorways we can access
-    List<Doorway> availableDoorways = new List<Doorway>();
+    public List<Doorway> availableDoorways = new List<Doorway>();
 
     // create a startRoom, endRoom and placedRooms for easier referencing
     StartRoom startRoom;
@@ -72,20 +72,10 @@ public class LevelGenerator : MonoBehaviour {
        // ResetLevelGenerator();
     }
 
-    void AddDoorwaysToList(Room room, ref List<Doorway> list) {
-        foreach (Doorway doorway in room.doorways) {
-            int r = Random.Range(0, list.Count);
-            list.Insert(r, doorway);
-
-        }
-    }
-
     void PlaceStartRoom() {
         //Instantiate Room at 0,0,0, rotation identity, and this transform as parent
         startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity, transform) as StartRoom;
-
-        // Get doorways from current room & add to list of available doorways at random index
-        AddDoorwaysToList(startRoom, ref availableDoorways);
+        availableDoorways.Add(startRoom.doorways[0]);
         Debug.Log("Placing Start Room! Wrrrrrrr");
     }
     void PlaceRoom() {
@@ -97,8 +87,13 @@ public class LevelGenerator : MonoBehaviour {
         foreach (Doorway availableDoorway in availableDoorways) {
             // Try all available doorways in current room
             foreach (Doorway currentDoorway in currentRoom.doorways) {
-                if (roomPlaced == false)
+                if (roomPlaced == false) {
                     PositionRoomAtDoorway(ref currentRoom, currentDoorway, availableDoorway);
+                }
+                //if the room has already been placed remaining doorways are added to available doorways.
+                if (roomPlaced == true) {
+                    availableDoorways.Add(currentDoorway);
+                }
 
                 // Check for overlapping rooms false
                 if (!CheckRoomOverlap(currentRoom) && roomPlaced == false) {
@@ -118,10 +113,7 @@ public class LevelGenerator : MonoBehaviour {
                     roomPlaced = true;
                 }
 
-                //if the room has already been placed but another doorway would not cause an overlap it is added to available doorways.
-                else if (!CheckRoomOverlap(currentRoom) && roomPlaced == true) {
-                    availableDoorways.Add(currentDoorway);
-                }
+                
 
             }
 
@@ -157,7 +149,6 @@ public class LevelGenerator : MonoBehaviour {
     bool CheckRoomOverlap(Room room) {
         Bounds bounds = room.RoomBounds;
         bounds.center = room.transform.position;
-        bounds.Expand(-0.1f);
 
         Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask);
         if (colliders.Length > 0) {
@@ -170,11 +161,9 @@ public class LevelGenerator : MonoBehaviour {
                 else {
                     Debug.LogError("Overlap Detected! " + c.gameObject.name);
                     return true;
-
                 }
             }
         }
-        Debug.Log("No collisions yay");
         return false;
     }
     void PlaceEndRoom() {
@@ -226,8 +215,8 @@ public class LevelGenerator : MonoBehaviour {
         Type.GetType("UnityEditor.LogEntries,UnityEditor.dll")
             .GetMethod("Clear", BindingFlags.Static | BindingFlags.Public)
             .Invoke(null, null);
-
-        Debug.Log("Could not place room anywhere, resetting levelGen");
+        //Debug.Log("reset");
+       Debug.Log("Could not place room anywhere, resetting levelGen");
 
         StopCoroutine("GenerateLevel");
 

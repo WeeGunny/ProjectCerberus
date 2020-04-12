@@ -280,7 +280,6 @@ MonoBehaviour:
   - {fileID: 4209116410325570510}
   - {fileID: 4209116411794986661}
   meshCollider: {fileID: 9153212145560306469}
-  isColliding: 0
 --- !u!1001 &9153212144254811905
 PrefabInstance:
   m_ObjectHideFlags: 0

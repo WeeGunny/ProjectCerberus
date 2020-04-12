@@ -357,7 +357,6 @@ MonoBehaviour:
   - {fileID: 169148495081223390}
   - {fileID: 75993359340408615}
   meshCollider: {fileID: 8564119305911880726}
-  isColliding: 0
 --- !u!1 &5043653472713332836
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,7 +48,6 @@ MonoBehaviour:
   doorways:
   - {fileID: 4645737178796682848}
   meshCollider: {fileID: 4951867124523813366}
-  isColliding: 0
 --- !u!1 &366917724012044478
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,13 +165,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6153261732343211217}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.3201666, y: 27.95, z: 51.14}
+  m_LocalRotation: {x: 0.7723926, y: -0.003593319, z: 0.0026709668, w: 0.63512963}
+  m_LocalPosition: {x: 6.423, y: 30.46, z: 51.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 366917723354733932}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 101.14, y: 0.13, z: 0.64}
 --- !u!108 &286698673351100078
 Light:
   m_ObjectHideFlags: 0
@@ -182,16 +181,16 @@ Light:
   m_GameObject: {fileID: 6153261732343211217}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 2
+  m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0.93733996, b: 0, a: 1}
-  m_Intensity: 0.8
+  m_Intensity: 1.4
   m_Range: 16.03
-  m_SpotAngle: 30
+  m_SpotAngle: 43.8
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -224,7 +223,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
