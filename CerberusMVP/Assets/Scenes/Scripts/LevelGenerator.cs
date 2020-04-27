@@ -31,7 +31,7 @@ public class LevelGenerator : MonoBehaviour {
     GameObject player;
 
     //UI Stuff
-    [Header("UI refences")]
+    [Header("UI References")]
     public GameObject LoadScreen;
     public GameObject WinScreen;
     public GameObject inGameUI;
@@ -41,6 +41,14 @@ public class LevelGenerator : MonoBehaviour {
 
     void Start() {
         StartCoroutine("GenerateLevel");
+    }
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            ResetLevelGenerator();
+        }
+        
     }
     IEnumerator GenerateLevel() {
         // WaitForSeconds startup = new WaitForSeconds(1);
@@ -72,7 +80,8 @@ public class LevelGenerator : MonoBehaviour {
        // ResetLevelGenerator();
     }
 
-    void PlaceStartRoom() {
+    void PlaceStartRoom()
+    {
         //Instantiate Room at 0,0,0, rotation identity, and this transform as parent
         startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity, transform) as StartRoom;
         availableDoorways.Add(startRoom.doorways[0]);
@@ -210,7 +219,8 @@ public class LevelGenerator : MonoBehaviour {
 
     }
 
-    void ResetLevelGenerator() {
+    public void ResetLevelGenerator()
+    {
         // Clears the log so all logs are from current iteration of level gen
         Type.GetType("UnityEditor.LogEntries,UnityEditor.dll")
             .GetMethod("Clear", BindingFlags.Static | BindingFlags.Public)
