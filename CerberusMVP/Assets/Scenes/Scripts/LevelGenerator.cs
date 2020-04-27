@@ -13,7 +13,7 @@ public class LevelGenerator : MonoBehaviour {
     [Header("Random Room Gen")]
     public List<Room> roomPrefabs = new List<Room>();
     // Range of rooms to create
-    public Vector2 iterationRange = new Vector2(10, 20);
+    public Vector2 iterationRange = new Vector2(3, 10);
     public LayerMask roomLayerMask;
 
     // List of Doorways we can access
@@ -42,8 +42,7 @@ public class LevelGenerator : MonoBehaviour {
     void Start() {
         StartCoroutine("GenerateLevel");
     }
-    /*void Update()
-      //Debugging keyboard shortcut to restart the level generation
+    /*private void Update()
     {
         if (Input.GetKey(KeyCode.LeftControl))
         {
@@ -76,7 +75,7 @@ public class LevelGenerator : MonoBehaviour {
 
         // Level Generation Finished
         Debug.Log("Level Generation complete. Jobs Done!");
-        //uncommnet these lines for repeated level building
+        //uncommnet these lines for frequent level building
        // yield return new WaitForSeconds(3);
        // ResetLevelGenerator();
     }
@@ -161,8 +160,7 @@ public class LevelGenerator : MonoBehaviour {
         bounds.center = room.transform.position;
 
         Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask);
-        if (colliders.Length > 0)
-        {
+        if (colliders.Length > 0) {
             // Ignore collisions with current room
             foreach (Collider c in colliders) {
                 if (c.transform.parent.gameObject.Equals(room.gameObject)) {
