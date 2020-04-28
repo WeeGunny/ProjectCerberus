@@ -69,16 +69,16 @@ public class LevelGenerator : MonoBehaviour {
             PlaceRoom();
             yield return interval;
         }
-
+        
         //Place endRoom
         PlaceEndRoom();
         yield return interval;
 
         // Level Generation Finished
         Debug.Log("Level Generation complete. Jobs Done!");
-        //uncommnet these lines for frequent level building
-       // yield return new WaitForSeconds(3);
-       // ResetLevelGenerator();
+        //uncomment these lines for frequent level building
+        //yield return new WaitForSeconds(3);
+        //ResetLevelGenerator();
     }
 
     void PlaceStartRoom()
