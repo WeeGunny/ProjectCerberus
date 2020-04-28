@@ -42,14 +42,14 @@ public class LevelGenerator : MonoBehaviour {
     void Start() {
         StartCoroutine("GenerateLevel");
     }
-    /*private void Update()
+    private void Update()
     {
         if (Input.GetKey(KeyCode.LeftControl))
         {
             ResetLevelGenerator();
         }
-        
-    }*/
+       
+    }
     IEnumerator GenerateLevel() {
         // WaitForSeconds startup = new WaitForSeconds(1);
         WaitForFixedUpdate interval = new WaitForFixedUpdate();
