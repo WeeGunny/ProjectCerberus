@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Reflection;
 using Random = UnityEngine.Random;
+using UnityEngine.Rendering;
 
 public class LevelGenerator : MonoBehaviour {
     
@@ -106,15 +107,13 @@ public class LevelGenerator : MonoBehaviour {
 
                 // Check for overlapping rooms false
                 if (!CheckRoomOverlap(currentRoom) && roomPlaced == false) {
-                    //Position room
-
                     Debug.Log("Room Placed!: " + currentRoom.gameObject.name);
                     // Add room to global room list
                     placedRooms.Add(currentRoom);
 
-                    // Remove doorway in room
+                    // Remove doorway object in room
                     currentDoorway.gameObject.SetActive(false);
-                    // Remove doorway room is connecting to
+                    // Remove doorway object the room is connecting to
                     availableDoorway.gameObject.SetActive(false);
                     availableDoorways.Remove(availableDoorway);
 
@@ -131,6 +130,7 @@ public class LevelGenerator : MonoBehaviour {
                 break;
         }
         if (!roomPlaced) {
+            Debug.LogError("Room Destroyed!" + currentRoom.gameObject.name);
             Destroy(currentRoom.gameObject);
             ResetLevelGenerator();
         }
@@ -159,6 +159,8 @@ public class LevelGenerator : MonoBehaviour {
         Bounds bounds = room.RoomBounds;
         bounds.center = room.transform.position;
 
+        
+
         Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask);
         if (colliders.Length > 0) {
             // Ignore collisions with current room
@@ -168,7 +170,7 @@ public class LevelGenerator : MonoBehaviour {
                 }
 
                 else {
-                    Debug.LogError("Overlap Detected! " + c.gameObject.name);
+                    Debug.LogError("Overlap Detected between " + c.gameObject.name + " " + room.gameObject.name);
                     return true;
                 }
             }
@@ -204,8 +206,9 @@ public class LevelGenerator : MonoBehaviour {
 
                 availableDoorways[doorToPlace].gameObject.SetActive(false);
                 availableDoorways.Remove(availableDoorways[doorToPlace]);
-                //once all rooms placed, spawn the player at the spawnpoint and remove loadscreen
                 
+                //once all rooms placed, spawn the player at the spawnpoint and remove loadscreen
+
                 player = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
                 LoadScreen.SetActive(false);
                 break;
