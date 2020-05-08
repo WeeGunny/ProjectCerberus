@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour {
     public float health = 10f;
     public float lookRadius = 10f;
     public float shootRadius = 5f;
-    public Transform target,gun;
+    public Transform target, gun;
     NavMeshAgent agent;
     public float startShotDelay;
     private float shotDelay;
@@ -15,36 +15,38 @@ public class EnemyController : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         agent = GetComponent<NavMeshAgent>();
-        target = PlayerManager.instance.player.transform;
         shotDelay = startShotDelay;
+        target = transform;
     }
 
     // Update is called once per frame
     void Update() {
-        if(target == null) {
+        if (target == transform && PlayerManager.playerExists) {
             target = PlayerManager.instance.player.transform;
         }
         float distance = Vector3.Distance(target.position, transform.position);
+        FaceTarget();
 
-        if(distance<= lookRadius && distance>= shootRadius) {
+        if (distance <= lookRadius && distance >= shootRadius) {
             agent.SetDestination(target.position);
         }
 
-        if(distance<= agent.stoppingDistance) {
-            FaceTarget();
+        if (distance <= agent.stoppingDistance) {
         }
 
-        if(shotDelay <= 0) {
+        if (shotDelay <= 0) {
 
             if (distance <= shootRadius) {
-                FaceTarget();
-                Instantiate(projectile, gun.position, Quaternion.identity);
+                GameObject bullet = Instantiate(projectile, gun.position, Quaternion.identity);
+                EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
+                bulletProperties.direction = transform.forward;
+
                 Debug.Log("shots fired");
                 shotDelay = startShotDelay;
             }
-            
+
         }
-        else{
+        else {
             shotDelay -= Time.deltaTime;
         }
     }
@@ -60,7 +62,7 @@ public class EnemyController : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, shootRadius);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
-       
+
     }
 
     public void TakeDamage(float damage) {

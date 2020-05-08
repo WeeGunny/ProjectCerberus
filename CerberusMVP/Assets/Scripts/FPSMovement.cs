@@ -18,6 +18,7 @@ public class FPSMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Awake() {
         PlayerManager.instance.player = this.gameObject;
+        
     }
 
     // Update is called once per frame

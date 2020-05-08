@@ -3,19 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour {
+public class EnemyProjectile : MonoBehaviour {
     public float speed = 10;
     public float damage = 10;
     public float range = 25;
     private Transform player;
-    private Vector3 target, direction;
+    public Vector3 target, direction;
     Rigidbody rb;
     // Start is called before the first frame update
     void Start() {
         rb = GetComponent<Rigidbody>();
         player = PlayerManager.instance.player.transform;
         target = new Vector3(player.position.x, player.position.y, player.position.z);
-        direction = (target - transform.position).normalized;
+        //direction = (target - transform.position).normalized;
         rb.AddForce(direction * speed *100);
 
     }
@@ -29,17 +29,16 @@ public class Projectile : MonoBehaviour {
 
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnCollisionEnter(Collision collision) {
+        GameObject other = collision.gameObject;
         if (other.CompareTag("Player")) {
             DestroyProjectile();
             Debug.Log("Player Hit");
+            PlayerManager.instance.stats.TakeDamage(damage);
         }
         else if (other.tag != "Enemy") {
             DestroyProjectile();
             Debug.Log("bullet destroyed, hit: " + other.name);
-        }
-        else if (other.tag == "Enemy") {
-            other.GetComponent<EnemyController>().TakeDamage(damage);
         }
 
     }
