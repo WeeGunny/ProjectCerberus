@@ -12,13 +12,16 @@ public class LevelGenerator : MonoBehaviour {
     public Room startRoomPrefab, endRoomPrefab;
     // List of room Prefabs between start and finish 
     [Header("Random Room Gen")]
-    public List<Room> roomPrefabs = new List<Room>();
+    public List<Room> mainRoomPrefabs = new List<Room>();
+    private List<Room> allMainRooms;
+    public List<Room> connectingRoomPrefabs = new List<Room>();
     // Range of rooms to create
     public Vector2 iterationRange = new Vector2(3, 10);
     public LayerMask roomLayerMask;
 
     // List of Doorways we can access
     public List<Doorway> availableDoorways = new List<Doorway>();
+    public List<Doorway> availableMainDoorways = new List<Doorway>();
 
     // create a startRoom, endRoom and placedRooms for easier referencing
     StartRoom startRoom;
@@ -38,6 +41,7 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject inGameUI;
 
     void Start() {
+        allMainRooms = mainRoomPrefabs;
         StartCoroutine("GenerateLevel");
     }
     private void Update() {
@@ -61,7 +65,10 @@ public class LevelGenerator : MonoBehaviour {
                                       (int)iterationRange.y);
         for (int i = 0; i < iterations; i++) {
             // Place random room from list
-            PlaceRoom();
+            PlaceMainRoom();
+            i++;
+            if(i<iterations)
+            PlaceConnectingRoom();
             yield return interval;
         }
 
@@ -88,13 +95,71 @@ public class LevelGenerator : MonoBehaviour {
         availableDoorways.Add(startRoom.doorways[0]);
         Debug.Log("Placing Start Room! Wrrrrrrr");
     }
-    void PlaceRoom() {
+    void PlaceMainRoom() {
         //Instantiate Room
-        Room currentRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], transform) as Room;
-        Debug.Log("Placing random room!: " + currentRoom.gameObject.name);
+        int mainRoomIndex = Random.Range(0,mainRoomPrefabs.Count);
+        Room currentRoom = Instantiate(mainRoomPrefabs[mainRoomIndex], transform) as Room;
+        Debug.Log("Placing random Main room!: " + currentRoom.gameObject.name);
         bool roomPlaced = false;
         // Try all available doorways
         foreach (Doorway availableDoorway in availableDoorways) {
+            // Try all available doorways in current room
+            foreach (Doorway currentDoorway in currentRoom.doorways) {
+                if (roomPlaced == false) {
+                    PositionRoomAtDoorway(ref currentRoom, currentDoorway, availableDoorway);
+                }
+                //if the room has already been placed remaining doorways are added to available doorways.
+                if (roomPlaced == true) {
+                    availableDoorways.Add(currentDoorway);
+                    availableMainDoorways.Add(currentDoorway);
+                    
+                }
+
+                // Check for overlapping rooms false
+                if (!CheckRoomOverlap(currentRoom) && roomPlaced == false) {
+                    Debug.Log("Room Placed!: " + currentRoom.gameObject.name);
+                    // Add room to global room list
+                    placedRooms.Add(currentRoom);
+
+                    // Remove doorway object in room
+                    currentDoorway.gameObject.SetActive(false);
+                    // Remove doorway object the room is connecting to
+                    availableDoorway.gameObject.SetActive(false);
+                    //remove doorway from all available doorways
+                    availableDoorways.Remove(availableDoorway);
+                    //if the door it connects to is in mainDoorways remove it from that list as well.
+                    if (availableMainDoorways.Contains(availableDoorway)) {
+                        availableMainDoorways.Remove(availableDoorway);
+                    }
+                    mainRoomPrefabs.Remove(currentRoom);
+
+                    // Exit Loop if room has been placed
+                    roomPlaced = true;
+                }
+
+
+
+            }
+
+            //if the room is placed it no longer needs to check the remaining available doorways
+            if (roomPlaced)
+                break;
+        }
+        if (!roomPlaced) {
+            Debug.LogError("Room Destroyed!" + currentRoom.gameObject.name);
+            Destroy(currentRoom.gameObject);
+            ResetLevelGenerator();
+        }
+
+    }
+    
+    void PlaceConnectingRoom() {
+        //Instantiate Room
+        Room currentRoom = Instantiate(connectingRoomPrefabs[Random.Range(0,connectingRoomPrefabs.Count)], transform) as Room;
+        Debug.Log("Placing random Connecting room!: " + currentRoom.gameObject.name);
+        bool roomPlaced = false;
+        // Try all available doorways
+        foreach (Doorway availableDoorway in availableMainDoorways) {
             // Try all available doorways in current room
             foreach (Doorway currentDoorway in currentRoom.doorways) {
                 if (roomPlaced == false) {
@@ -115,6 +180,7 @@ public class LevelGenerator : MonoBehaviour {
                     currentDoorway.gameObject.SetActive(false);
                     // Remove doorway object the room is connecting to
                     availableDoorway.gameObject.SetActive(false);
+                    availableMainDoorways.Remove(availableDoorway);
                     availableDoorways.Remove(availableDoorway);
 
                     // Exit Loop if room has been placed
@@ -192,13 +258,12 @@ public class LevelGenerator : MonoBehaviour {
         for (int i = 0; i < availableDoorways.Count; i++) {
             // not sure why casting to room?
             Room room = endRoom;
-
+            PositionRoomAtDoorway(ref room, endDoorway, availableDoorways[doorToPlace]);
             // Check for overlapping rooms
             if (CheckRoomOverlap(endRoom)) {
                 doorToPlace--;
             }
             else {
-                PositionRoomAtDoorway(ref room, endDoorway, availableDoorways[doorToPlace]);
                 roomPlaced = true;
                 // Remove occupied doorways
                 endDoorway.gameObject.SetActive(false);
@@ -218,10 +283,8 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     public void ResetLevelGenerator() {
-        //// Clears the log so all logs are from current iteration of level gen
-        //Type.GetType("UnityEditor.LogEntries,UnityEditor.dll")
-        //    .GetMethod("Clear", BindingFlags.Static | BindingFlags.Public)
-        //    .Invoke(null, null);
+        //// Clears the log so all logs are from current iteration of level gen, reduces clutter in log
+        Type.GetType("UnityEditor.LogEntries,UnityEditor.dll").GetMethod("Clear", BindingFlags.Static | BindingFlags.Public).Invoke(null, null);
         //Debug.Log("reset");
         Debug.Log("Could not place room anywhere, resetting levelGen");
 
@@ -247,6 +310,7 @@ public class LevelGenerator : MonoBehaviour {
 
         placedRooms.Clear();
         availableDoorways.Clear();
+        availableMainDoorways.Clear();
 
         StartCoroutine("GenerateLevel");
 

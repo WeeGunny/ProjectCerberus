@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour {
                 EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
                 bulletProperties.direction = transform.forward;
 
-                Debug.Log("shots fired");
+               // Debug.Log("shots fired");
                 shotDelay = startShotDelay;
             }
 

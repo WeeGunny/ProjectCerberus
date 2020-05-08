@@ -27,7 +27,7 @@ public class PlayerProjectile : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         GameObject hit = collision.gameObject;
-        Debug.Log("You hit: " + hit.name);
+        //Debug.Log("You hit: " + hit.name);
         ContactPoint contact = collision.GetContact(0);
         if (hit.tag == "Enemy") {
             DestroyProjectile();

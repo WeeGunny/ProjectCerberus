@@ -38,7 +38,7 @@ public class EnemyProjectile : MonoBehaviour {
         }
         else if (other.tag != "Enemy") {
             DestroyProjectile();
-            Debug.Log("bullet destroyed, hit: " + other.name);
+           // Debug.Log("bullet destroyed, hit: " + other.name);
         }
 
     }
