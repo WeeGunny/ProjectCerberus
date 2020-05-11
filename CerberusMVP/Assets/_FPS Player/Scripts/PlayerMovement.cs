@@ -25,6 +25,18 @@ public class PlayerMovement : InterpolatedTransform
     [HideInInspector]
     public bool playerControl = false;
 
+    //Grappling Hook
+    public enum Status { idle, hookshotFlying }
+    public Status status;
+
+    [SerializeField]
+    private Transform debugHitTransform;
+
+    private PlayerController playerController;
+    public CameraMovement camera;
+    public Vector3 hookshotPosition;
+    //End
+
     public bool grounded = false;
     public Vector3 jump = Vector3.zero;
     Vector3 jumpedDir;
@@ -43,6 +55,7 @@ public class PlayerMovement : InterpolatedTransform
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        status = Status.idle;
     }
 
     public void AddToReset(UnityAction call)
@@ -78,6 +91,18 @@ public class PlayerMovement : InterpolatedTransform
 
         if (forceTime > 0)
             forceTime -= Time.deltaTime;
+
+        switch (status)
+        {
+            default:
+            case Status.idle:
+                HandleHookshotStart();
+                break;
+
+            case Status.hookshotFlying:
+                HandleHookshotMovement();
+                break;
+        }
     }
 
     public override void FixedUpdate()
@@ -201,5 +226,28 @@ public class PlayerMovement : InterpolatedTransform
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         contactPoint = hit.point;
+    }
+
+
+    public void HandleHookshotStart()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit raycastHit))
+            {
+                debugHitTransform.position = raycastHit.point;
+                hookshotPosition = raycastHit.point;
+                status = Status.hookshotFlying;
+            }
+        }
+    }
+
+    public void HandleHookshotMovement()
+    {
+        Vector3 hookshotDir = (hookshotPosition - transform.position).normalized;
+
+        float hookshotSpeed = 5f;
+
+        controller.Move(hookshotDir * Time.deltaTime);
     }
 }
