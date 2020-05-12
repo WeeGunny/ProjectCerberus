@@ -2,25 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+[CreateAssetMenu(fileName = "New Item", menuName ="Inventory/Item")]
+public class Item : ScriptableObject
 {
-  
+    public new string name = "New Item";
+    public Sprite icon = null;
 
-    public void onUse() {
-
-    }
-
-    public void onPickup() {
-
-        Debug.Log("You picked up: " + gameObject.name );
-    }
-
-    private void OnTriggerEnter(Collider other) {
-
-        if(other.tag == "Player") {
-            onPickup();
-            Destroy(gameObject);
-        }
-        
+    public virtual void Use() {
+        Debug.Log("Using " + name);
     }
 }

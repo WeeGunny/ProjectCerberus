@@ -79,10 +79,12 @@ public class LevelGenerator : MonoBehaviour {
         // Level Generation Finished
         Debug.Log("Level Generation complete. Jobs Done!");
         //once all rooms placed, spawn the player at the spawnpoint and remove loadscreen
+        inGameUI.SetActive(true);
         player = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
         PlayerManager.playerExists = true;
+        PlayerManager.instance.player = player;
         LoadScreen.SetActive(false);
-        inGameUI.SetActive(true);
+        
 
         //uncomment these lines for frequent level building
         //yield return new WaitForSeconds(3);
@@ -284,7 +286,7 @@ public class LevelGenerator : MonoBehaviour {
 
     public void ResetLevelGenerator() {
         //// Clears the log so all logs are from current iteration of level gen, reduces clutter in log
-        Type.GetType("UnityEditor.LogEntries,UnityEditor.dll").GetMethod("Clear", BindingFlags.Static | BindingFlags.Public).Invoke(null, null);
+        //Type.GetType("UnityEditor.LogEntries,UnityEditor.dll").GetMethod("Clear", BindingFlags.Static | BindingFlags.Public).Invoke(null, null);
         //Debug.Log("reset");
         Debug.Log("Could not place room anywhere, resetting levelGen");
 
