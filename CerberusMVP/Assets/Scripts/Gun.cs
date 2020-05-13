@@ -33,7 +33,7 @@ public class Gun : MonoBehaviour
         }
         if (PlayerManager.instance.stats.GritActive == true)
         {
-            PlayerManager.instance.stats.Grit -= Time.deltaTime * 10;
+            PlayerManager.instance.stats.Grit -= Time.deltaTime * 80;
         }
     }
 
