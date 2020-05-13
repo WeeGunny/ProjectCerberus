@@ -18,6 +18,8 @@ public class PlayerStats : MonoBehaviour {
     public TextMeshProUGUI moxieUI;
     public TextMeshProUGUI gritUI;
 
+    public bool GritActive = false;
+
     // Start is called before the first frame update
     void Start() {
         PlayerManager.instance.stats = this;
@@ -28,10 +30,20 @@ public class PlayerStats : MonoBehaviour {
         Moxie += Time.deltaTime;
         Moxie = Mathf.Clamp(Moxie, 0, moxieMax);
         moxieUI.text = "Moxie: " + Moxie.ToString("F0");
+                
+        if(GritActive == false)
+        {
+            Grit += Time.deltaTime;
+            Grit = Mathf.Clamp(Grit, 0, gritMax);
+            Time.timeScale = 1f;
+        }
 
-        Grit += Time.deltaTime;
-        Grit = Mathf.Clamp(Grit, 0, gritMax);
         gritUI.text = "Grit: " + Grit.ToString("F0");
+
+        if (Grit <= 0)
+        {
+            GritActive = false;
+        }
     }
 
     public void TakeDamage(float damage) {

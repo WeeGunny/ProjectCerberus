@@ -26,6 +26,15 @@ public class Gun : MonoBehaviour
             }
             
         }
+        if (Input.GetKeyDown(KeyCode.G) && PlayerManager.instance.stats.Grit > 0)
+        {
+            Grit();
+            Debug.Log("Grit Active");
+        }
+        if (PlayerManager.instance.stats.GritActive == true)
+        {
+            PlayerManager.instance.stats.Grit -= Time.deltaTime * 10;
+        }
     }
 
 
@@ -64,5 +73,11 @@ public class Gun : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
 
+    }
+
+    void Grit()
+    {
+        PlayerManager.instance.stats.GritActive = !PlayerManager.instance.stats.GritActive;
+        Time.timeScale = 0.2f;
     }
 }
