@@ -47,35 +47,7 @@ public class FPSMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //This creates a physic shere at the ground check positon, radius of the sphere and layer it will interact with;
-        isGrounded = Physics.CheckSphere(groundCheck.position, gcRadius, groundMask);
-
-        if(isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
-
-        // Horizontal and Verticle refer to control stick movement not player movement
-        //Therefore x = side to side  and z = Forward and Backward
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        Vector3 movement = transform.right * x + transform.forward * z;
-        controller.Move(movement *movementSpeed * Time.deltaTime);
-
-        if(TestInputJump() && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-        
-        //Apply gravity to velocity
-        velocity.y += gravity * Time.deltaTime;
-
-        //Apply Momentum
-        velocity += velocityMomentum;
-
-        //Move Character Controller
-        controller.Move(velocity * Time.deltaTime);
+       
 
         //Dampen Momentum
         if (velocityMomentum.magnitude >= 0f)
@@ -93,6 +65,7 @@ public class FPSMovement : MonoBehaviour
         {
             default:
             case Status.idle:
+                CharacterMovement();
                 HandleHookshotStart();
                 break;
 
@@ -104,6 +77,37 @@ public class FPSMovement : MonoBehaviour
                 HandleHookshotMovement();
                 break;
         }
+    }
+
+    private void CharacterMovement() {
+        //This creates a physic shere at the ground check positon, radius of the sphere and layer it will interact with;
+        isGrounded = Physics.CheckSphere(groundCheck.position, gcRadius, groundMask);
+
+        if (isGrounded && velocity.y < 0) {
+            velocity.y = -2f;
+        }
+
+        // Horizontal and Verticle refer to control stick movement not player movement
+        //Therefore x = side to side  and z = Forward and Backward
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 movement = transform.right * x + transform.forward * z;
+        controller.Move(movement * movementSpeed * Time.deltaTime);
+
+        if (TestInputJump() && isGrounded) {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        //Apply gravity to velocity
+        velocity.y += gravity * Time.deltaTime;
+
+        //Apply Momentum
+        velocity += velocityMomentum;
+
+        //Move Character Controller
+        controller.Move(velocity * Time.deltaTime);
+
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -121,7 +125,7 @@ public class FPSMovement : MonoBehaviour
     /***************************** GRAPPLING HOOK ******************************/
     private void HandleHookshotStart()
     {
-        if (TestInputDownHookshot())
+        if (HookShotInput())
         {
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit raycastHit))
             {
@@ -129,7 +133,7 @@ public class FPSMovement : MonoBehaviour
                 hookshotPosition = raycastHit.point;
                 hookshotSize = 0f;
                 hookshotTransform.gameObject.SetActive(true);
-                hookshotTransform.localScale = Vector3.zero;
+                hookshotTransform.localScale = new Vector3(0.1f,0.1f,0.5f);
                 status = Status.hookshotThrown;
             }
         }
@@ -140,7 +144,7 @@ public class FPSMovement : MonoBehaviour
         hookshotTransform.LookAt(hookshotPosition);
 
         float hookshotThrowSpeed = 60f;
-        hookshotSize = +hookshotThrowSpeed * Time.deltaTime;
+        hookshotSize += hookshotThrowSpeed * Time.deltaTime;
         hookshotTransform.localScale = new Vector3(1, 1, hookshotSize);
 
         if (hookshotSize >= Vector3.Distance(transform.position, hookshotPosition))
@@ -171,7 +175,7 @@ public class FPSMovement : MonoBehaviour
             StopHookshot();
         }
 
-        if (TestInputDownHookshot())
+        if (HookShotInput())
         {
             //Cancel Grappling Hook
             StopHookshot();
@@ -196,7 +200,7 @@ public class FPSMovement : MonoBehaviour
         hookshotTransform.gameObject.SetActive(false);
     }
 
-    private bool TestInputDownHookshot()
+    private bool HookShotInput()
     {
         return Input.GetKeyDown(KeyCode.Q);
     }
