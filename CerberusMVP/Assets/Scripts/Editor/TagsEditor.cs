@@ -12,8 +12,7 @@ public class TagsEditor : EditorWindow
         public string tagName;
         public bool tagBool;
     }
-    public Tag[] tags = new Tag[10];
-    public List<Tag> tags2 = new List<Tag>(5);
+    public Tag[] tags = new Tag[5];
 
 
     [MenuItem("Window/TagsEditor")]
@@ -33,7 +32,9 @@ public class TagsEditor : EditorWindow
 
 
         if (GUILayout.Button("Add Tag")) {
-            //code when button is clicked
+            Tag[] tempTags = new Tag[tags.Length+1];
+            tags.CopyTo(tempTags, 0);
+            tags = tempTags;
             
 
         }
