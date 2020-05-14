@@ -24,7 +24,8 @@ public class FPSMovement : MonoBehaviour
     { 
         idle,
         hookshotThrown,
-        hookshotFlying
+        hookshotFlying,
+        WallRun
         
     }
     public Status status;
@@ -91,7 +92,10 @@ public class FPSMovement : MonoBehaviour
         }
 
         //Apply gravity to velocity
-        velocity.y += gravity * Time.deltaTime;
+        if(status != Status.WallRun)
+        {
+            velocity.y += gravity * Time.deltaTime;
+        }
 
         //Apply Momentum
         velocity += velocityMomentum;
