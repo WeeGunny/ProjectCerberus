@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
     [Header("Player Stats")]
@@ -14,9 +15,12 @@ public class PlayerStats : MonoBehaviour {
     public float gritMax =100;
 
     [Header("UI Reference")]
-    public TextMeshProUGUI healthUI;
-    public TextMeshProUGUI moxieUI;
-    public TextMeshProUGUI gritUI;
+    public TextMeshProUGUI healthText;
+    public Image healthBar;
+    public TextMeshProUGUI moxieText;
+    public Image MoxieBar;
+    public TextMeshProUGUI gritText;
+    public Image GritBar;
 
     public bool GritActive = false;
 
@@ -29,7 +33,8 @@ public class PlayerStats : MonoBehaviour {
     void Update() {
         Moxie += Time.deltaTime;
         Moxie = Mathf.Clamp(Moxie, 0, moxieMax);
-        moxieUI.text = "Moxie: " + Moxie.ToString("F0");
+        UpdateMoxxiUI();
+        
                 
         if(GritActive == false)
         {
@@ -37,8 +42,8 @@ public class PlayerStats : MonoBehaviour {
             Grit = Mathf.Clamp(Grit, 0, gritMax);
             Time.timeScale = 1f;
         }
-
-        gritUI.text = "Grit: " + Grit.ToString("F0");
+        UpdateGritUI();
+        
 
         if (Grit <= 0)
         {
@@ -50,9 +55,29 @@ public class PlayerStats : MonoBehaviour {
 
         Health -= damage;
         Mathf.Clamp(Health, 0, maxHeath);
-        healthUI.text = "Health: " + Health;
+        UpdateHealthUI();
+        
         if (Health <= 0) {
 
         }
+    }
+
+    private void UpdateMoxxiUI() {
+        moxieText.text = "Moxie: " + Moxie.ToString("F0");
+        MoxieBar.fillAmount = Moxie / 100;
+
+
+    }
+
+    private void UpdateGritUI() {
+        gritText.text = "Grit: " + Grit.ToString("F0");
+        GritBar.fillAmount = Grit / 100;
+
+    }
+
+    private void UpdateHealthUI() {
+        healthText.text = "Health: " + Health;
+        healthBar.fillAmount = Health / 100;
+
     }
 }

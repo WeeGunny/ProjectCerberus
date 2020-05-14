@@ -313,6 +313,7 @@ public class LevelGenerator : MonoBehaviour {
         placedRooms.Clear();
         availableDoorways.Clear();
         availableMainDoorways.Clear();
+        FindObjectOfType<InventoryUI>().ClearInventory();
 
         StartCoroutine("GenerateLevel");
 
