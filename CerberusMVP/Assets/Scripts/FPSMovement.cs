@@ -49,16 +49,6 @@ public class FPSMovement : MonoBehaviour
     {
        
 
-        //Dampen Momentum
-        if (velocityMomentum.magnitude >= 0f)
-        {
-            float momentumDrag = 3f;
-            velocityMomentum -= velocityMomentum * momentumDrag * Time.deltaTime;
-            if(velocityMomentum.magnitude < .0f)
-            {
-                velocityMomentum = Vector3.zero;
-            }
-        }
 
         //GRAPPLING HOOK
         switch (status)
@@ -70,6 +60,7 @@ public class FPSMovement : MonoBehaviour
                 break;
 
             case Status.hookshotThrown:
+                CharacterMovement();
                 HandleHookshotThrown();
                 break;
 
@@ -108,6 +99,16 @@ public class FPSMovement : MonoBehaviour
         //Move Character Controller
         controller.Move(velocity * Time.deltaTime);
 
+
+        //Dampen Momentum
+        if (velocityMomentum.magnitude >= 0f) {
+            float momentumDrag = 3f;
+            velocityMomentum -= velocityMomentum * momentumDrag * Time.deltaTime;
+            if (velocityMomentum.magnitude < .0f) {
+                velocityMomentum = Vector3.zero;
+            }
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -133,7 +134,7 @@ public class FPSMovement : MonoBehaviour
                 hookshotPosition = raycastHit.point;
                 hookshotSize = 0f;
                 hookshotTransform.gameObject.SetActive(true);
-                hookshotTransform.localScale = new Vector3(0.1f,0.1f,0.5f);
+                hookshotTransform.localScale = Vector3.zero;
                 status = Status.hookshotThrown;
             }
         }
@@ -143,7 +144,7 @@ public class FPSMovement : MonoBehaviour
     {
         hookshotTransform.LookAt(hookshotPosition);
 
-        float hookshotThrowSpeed = 60f;
+        float hookshotThrowSpeed = 80f;
         hookshotSize += hookshotThrowSpeed * Time.deltaTime;
         hookshotTransform.localScale = new Vector3(1, 1, hookshotSize);
 
@@ -169,7 +170,7 @@ public class FPSMovement : MonoBehaviour
         controller.Move(hookshotDir * hookshotSpeed * hookshotSpeedMultiplier * Time.deltaTime);
 
         //Fall after reaching hookshot position
-        float reachedHookshotPositionDistance = 2f;
+        float reachedHookshotPositionDistance = 1f;
         if (Vector3.Distance(transform.position, hookshotPosition) < reachedHookshotPositionDistance)
         {
             StopHookshot();
@@ -187,7 +188,7 @@ public class FPSMovement : MonoBehaviour
             float momentumExtraSpeed = 7f;
             velocityMomentum = hookshotDir * hookshotSpeed * momentumExtraSpeed;
 
-            float jumpSpeed = 40f;
+            float jumpSpeed = 3f;
             velocityMomentum += Vector3.up * jumpSpeed;
             StopHookshot();
         }
