@@ -8,18 +8,19 @@ public class FPSMovement : MonoBehaviour
     public CharacterController controller;
     public float movementSpeed =1;
     public float jumpHeight = 3;
-    Vector3 velocity;
+    public Vector3 velocity;
     public float gravity = -9.81f;
 
     public Transform groundCheck;
     public float gcRadius = 0.4f;
     public LayerMask groundMask;
-    bool isGrounded;
+    public bool isGrounded;
 
     [Header("Grappling Hook")]
     [SerializeField] private Transform debugHitTransform;
     [SerializeField] private Transform hookshotTransform;
 
+    [SerializeField]
     public enum Status 
     { 
         idle,
@@ -48,10 +49,7 @@ public class FPSMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-
-
-        //GRAPPLING HOOK
+        //Which methods to call every frame depending on status
         switch (status)
         {
             default:
@@ -67,6 +65,10 @@ public class FPSMovement : MonoBehaviour
 
             case Status.hookshotFlying:
                 HandleHookshotMovement();
+                break;
+            case Status.WallRun:
+                CharacterMovement();
+                HandleHookshotStart();
                 break;
         }
     }
@@ -89,10 +91,23 @@ public class FPSMovement : MonoBehaviour
 
         if (TestInputJump() && isGrounded) {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            
+
         }
 
+        if(TestInputJump() && status == Status.WallRun) {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            Wallrun.wallrun.ExitWallRunning();
+        }
+
+        if (status == Status.WallRun && isGrounded) {
+            Wallrun.wallrun.ExitWallRunning();
+
+        }
+
+
         //Apply gravity to velocity
-        if(status != Status.WallRun)
+        if (status != Status.WallRun)
         {
             velocity.y += gravity * Time.deltaTime;
         }
