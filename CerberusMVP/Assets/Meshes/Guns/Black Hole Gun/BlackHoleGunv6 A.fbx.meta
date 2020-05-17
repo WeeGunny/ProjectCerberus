@@ -1,32 +1,35 @@
 fileFormatVersion: 2
-guid: cfbe4e92d39ef1e4cb8640d5b66dfc17
+guid: 8616458d858bc32488b1fb0501468d48
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
-      74: 5298248553351335838
-    second: BHG_RIG|CubeAction
+      74: 2598365703822201903
+    second: Spin 360
   - first:
-      74: -5259546805298779544
-    second: BHG_RIG|Poot
+      74: 6531755891542270517
+    second: Spin Up
   - first:
-      74: -4616852889076046468
-    second: BHG_RIG|Reload
+      74: -5172339137967033304
+    second: Alternate Fire
   - first:
-      74: 8011071394404001601
-    second: BHG_RIG|SphereAction
+      74: -2919158474266883039
+    second: BHG_RIG.001|Poot.001
   - first:
-      74: -8285270669974899736
-    second: BHG_RIG|Spin
+      74: 4311032397514006195
+    second: Reload
   - first:
-      74: 3532458786311577829
-    second: BHG_RIG|Spin 360
+      74: -9122390366821320389
+    second: BHG_RIG.001|Spin
   - first:
-      74: -4010710372954234023
-    second: BHG_RIG|Spin 360.001
+      74: -4526621226811492700
+    second: BHG_RIG.001|Spin 360
   - first:
-      74: 4450198426771063184
-    second: BHG_RIG|Spin Up
+      74: 8997898778006328423
+    second: BHG_RIG.001|Spin Up
+  - first:
+      74: -3319560710211113982
+    second: BHG_RIG.001|Spin Up.001
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -56,8 +59,66 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: BHG_RIG|Poot
-      takeName: BHG_RIG|Poot
+      name: Spin 360
+      takeName: BHG_RIG.001|NewSpin360
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Spin Up
+      takeName: BHG_RIG.001|NewSpinUp
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Alternate Fire
+      takeName: BHG_RIG.001|Poot
       internalID: 0
       firstFrame: 0
       lastFrame: 13
@@ -85,69 +146,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BHG_RIG|Reload
-      takeName: BHG_RIG|Reload
+      name: Reload
+      takeName: BHG_RIG.001|Reload.001
       internalID: 0
       firstFrame: 0
       lastFrame: 53
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: BHG_RIG|Spin
-      takeName: BHG_RIG|Spin
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 90
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: BHG_RIG|Spin Up
-      takeName: BHG_RIG|Spin Up
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

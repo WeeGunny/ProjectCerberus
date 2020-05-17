@@ -5,8 +5,8 @@ using UnityEngine;
 public class GunAnimControl : MonoBehaviour
 {
     Animator animator;
-    // Start is called before the first frame update
-
+    public GameObject CoreBoneTransform;
+    public GameObject BlackHoleGun;
     void Start()
     {
         animator = GetComponent<Animator>();
