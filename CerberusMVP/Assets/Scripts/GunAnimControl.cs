@@ -9,24 +9,31 @@ public class GunAnimControl : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator> ();
+        animator = GetComponent<Animator>();
 
     }
-
-    // Update is called once per frame
     void Update()
     {
-
+        // While Fire1 is held down, set isShooting is true
         if (Input.GetButton("Fire1"))
         {
             animator.SetBool("isShooting", true);
         }
-        else {
+        else
+        {
             animator.SetBool("isShooting", false);
         }
-        
-        if (Input.GetButton("Reload")) {
+
+        // Tick Reload trigger
+        if (Input.GetButtonDown("Reload"))
+        {
             animator.SetTrigger("isReloading");
+        }
+
+        // Tick Altfire Trigger
+        if (Input.GetButtonDown("Fire2"))
+        {
+            animator.SetTrigger("altFire");
         }
     }
 }
