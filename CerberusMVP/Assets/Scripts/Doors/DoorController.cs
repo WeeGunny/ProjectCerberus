@@ -12,7 +12,7 @@ public class DoorController : MonoBehaviour
         GameEvents.current.onDoorwayTriggerEnter += OnDoorwayOpen;
         GameEvents.current.onDoorwayTriggerExit += OnDoorwayClose;
 
-        this.gameObject.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 
     private void OnDoorwayOpen(int id)
@@ -20,7 +20,7 @@ public class DoorController : MonoBehaviour
         
         if (id == this.id)
         {
-            this.gameObject.SetActive(false);
+            this.gameObject.SetActive(true);
         }
     }
     
@@ -31,5 +31,11 @@ public class DoorController : MonoBehaviour
             this.gameObject.SetActive(true);
         }
             
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.current.onDoorwayTriggerEnter -= OnDoorwayOpen;
+        GameEvents.current.onDoorwayTriggerExit -= OnDoorwayClose;
     }
 }

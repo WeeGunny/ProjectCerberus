@@ -29,4 +29,20 @@ public class GameEvents : MonoBehaviour
             onDoorwayTriggerExit(id);
         }
     }
+
+    private Func<List<GameObject>> onRequestListofDoors;
+    public void SetOnRequestListOfDoors(Func<List<GameObject>> returnEvent)
+    {
+        onRequestListofDoors = returnEvent;
+    }
+
+    public List<GameObject> RequestListOfDoors()
+    {
+        if (onRequestListofDoors != null)
+        {
+            return onRequestListofDoors();
+        }
+
+        return null;
+    }
 }
