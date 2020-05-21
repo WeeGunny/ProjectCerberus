@@ -12,21 +12,21 @@ public class GameEvents : MonoBehaviour
         current = this;
     }
 
-    public event Action<int> onDoorwayTriggerEnter;
-    public void DoorwayTriggerEnter(int id)
-    {
-        if (onDoorwayTriggerEnter != null)
-        {
-            onDoorwayTriggerEnter(id);
-        }
-    }
-
     public event Action<int> onDoorwayTriggerExit;
     public void DoorwayTriggerExit(int id)
     {
         if (onDoorwayTriggerExit != null)
         {
             onDoorwayTriggerExit(id);
+        }
+    }
+
+    public event Action<int> onEnemiesDefeated;
+    public void EnemiesDefeated(int id)
+    {
+        if (onEnemiesDefeated != null)
+        {
+            onEnemiesDefeated(id);
         }
     }
 

@@ -5,11 +5,6 @@ using UnityEngine;
 public class DoorTriggerArea : MonoBehaviour
 {
     public int id;
-
-    private void OnTriggerEnter(Collider other)
-    {
-        GameEvents.current.DoorwayTriggerEnter(id);
-    }
     
     private void OnTriggerExit(Collider other)
     {
