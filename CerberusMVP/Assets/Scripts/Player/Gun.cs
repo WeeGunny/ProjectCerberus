@@ -1,10 +1,13 @@
 ﻿
 using UnityEngine;
 
+public enum GunTypes {Projectile,Beam};
+public enum FireType { Semi, Auto, Burst};
+
 public class Gun : MonoBehaviour
 {
     public float Damage = 10f, altDmg = 10f;
-    public float bulletSpeed = 25f, altSpeed;
+    public float bulletSpeed = 25f, altSpeed = 25f;
     public Camera fpsCam;
     public GameObject primaryAmmo,altAmmo;
     //primaryBH and altBH are the bullet hole prefab to be created;
@@ -15,7 +18,7 @@ public class Gun : MonoBehaviour
     private void Update() {
 
         if (Input.GetButtonDown("Fire1")){
-            Shoot();
+            ShootProjectile();
         }
         if (Input.GetButtonDown("Fire2") ) {
             if(PlayerManager.instance.stats.Moxie>= moxieRequirement) {
@@ -38,11 +41,25 @@ public class Gun : MonoBehaviour
     }
 
 
-    void Shoot() {
+    void ShootProjectile() {
         RaycastHit hit;
         if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit)){
             Vector3 direction = (hit.point - transform.position).normalized;
            GameObject bullet = Instantiate(primaryAmmo, transform.position, Quaternion.identity);
+            PlayerProjectile bulletProperties = bullet.GetComponent<PlayerProjectile>();
+            bulletProperties.damage = Damage;
+            bulletProperties.direction = direction;
+            bulletProperties.speed = bulletSpeed;
+            bulletProperties.range = range;
+            bulletProperties.gun = gameObject;
+            bulletProperties.bulletHolePrefab = primaryBH;
+        }
+    }
+    void ShootBeam() {
+        RaycastHit hit;
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit)) {
+            Vector3 direction = (hit.point - transform.position).normalized;
+            GameObject bullet = Instantiate(primaryAmmo, transform.position, Quaternion.identity);
             PlayerProjectile bulletProperties = bullet.GetComponent<PlayerProjectile>();
             bulletProperties.damage = Damage;
             bulletProperties.direction = direction;
