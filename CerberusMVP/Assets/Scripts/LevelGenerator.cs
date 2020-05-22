@@ -286,7 +286,7 @@ public class LevelGenerator : MonoBehaviour {
 
     public void ResetLevelGenerator() {
         //// Clears the log so all logs are from current iteration of level gen, reduces clutter in log
-        //Type.GetType("UnityEditor.LogEntries,UnityEditor.dll").GetMethod("Clear", BindingFlags.Static | BindingFlags.Public).Invoke(null, null);
+        Type.GetType("UnityEditor.LogEntries,UnityEditor.dll").GetMethod("Clear", BindingFlags.Static | BindingFlags.Public).Invoke(null, null);
         //Debug.Log("reset");
         Debug.Log("Could not place room anywhere, resetting levelGen");
 
