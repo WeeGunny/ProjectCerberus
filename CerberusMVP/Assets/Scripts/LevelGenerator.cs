@@ -110,11 +110,14 @@ public class LevelGenerator : MonoBehaviour {
             foreach (Doorway currentDoorway in currentRoom.doorways) {
                 if (roomPlaced == false) {
                     PositionRoomAtDoorway(ref currentRoom, currentDoorway, availableDoorway);
+                    Debug.Log("Placing room " + currentRoom + "at " + availableDoorway.name);
+                    
                 }
                 //if the room has already been placed remaining doorways are added to available doorways.
                 if (roomPlaced == true) {
                     availableDoorways.Add(currentDoorway);
                     availableMainDoorways.Add(currentDoorway);
+                    Debug.Log("Adding Doorways");
                     
                 }
 
@@ -140,8 +143,6 @@ public class LevelGenerator : MonoBehaviour {
                     roomPlaced = true;
                 }
 
-
-
             }
 
             //if the room is placed it no longer needs to check the remaining available doorways
@@ -149,9 +150,9 @@ public class LevelGenerator : MonoBehaviour {
                 break;
         }
         if (!roomPlaced) {
-            Debug.LogError("Room Destroyed!" + currentRoom.gameObject.name);
+            Debug.LogError("Room could not be placed: " + currentRoom.gameObject.name);
             Destroy(currentRoom.gameObject);
-            ResetLevelGenerator();
+            ResetLevelGenerator(); // should we reset always? can we try again?
         }
 
     }
@@ -233,9 +234,10 @@ public class LevelGenerator : MonoBehaviour {
 
         Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
         if (colliders.Length > 0) { // If there is anything within this arary
-            
+
             foreach (Collider c in colliders) {
-                if (c.transform.parent.gameObject.Equals(room.gameObject)) {    // Ignore collisions with current room
+                if (c.transform.parent.gameObject.Equals(room.gameObject) || c.transform.IsChildOf(room.transform)) // Ignore collisions with parent object
+                {   
                     continue;
                 }
                 else {
@@ -329,31 +331,6 @@ public class LevelGenerator : MonoBehaviour {
         LoadScreen.gameObject.SetActive(true);
         ResetLevelGenerator();
     }
-
-    // WIP
-    private Bounds CalculateLocalBounds() 
-        // Move to Room.cs and make the bounds generated a public value OR
-        // add in Room room as an argument, change 'this' to 'room'
-        // ???
-    {
-        Quaternion currentRotation = this.transform.rotation; // Get whatever the current rotation is of this object
-        this.transform.rotation = Quaternion.Euler(0f, 0f, 0f); // Remove any rotation
-        Bounds roomBounds = new Bounds(this.transform.position, this.transform.localScale); // Create a new Bounding Box centered on the objects position & the scale of the parent object
-
-        foreach (Renderer renderer in GetComponentsInChildren<Renderer>()) // For every child GameObject of this Game Object, find a Renderer
-        {
-            roomBounds.Encapsulate(renderer.bounds);  // Make the bounds include the local bounds of the renderer
-        }
-        Vector3 localCenter = roomBounds.center - this.transform.position; // Return a new center point that is the center of the new bounds, minus the transform of the original object
-        roomBounds.center = localCenter; // Assign this new center point to the variable "localCenter"
-        Debug.Log("The local bounds of this model is " + roomBounds);
-        this.transform.rotation = currentRotation;
-
-        return roomBounds; // returns the new encapsulated bounds
-
-    }
-
-
 }
 
 
