@@ -88,7 +88,11 @@ public class Room : MonoBehaviour {
 
     }
 
-    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(RoomBounds.center, RoomBounds.size);
+    }
 }
       
 
