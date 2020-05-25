@@ -97,7 +97,8 @@ public class LevelGenerator : MonoBehaviour {
         availableDoorways.Add(startRoom.doorways[0]);
         Debug.Log("Placing Start Room! Wrrrrrrr");
     }
-    void PlaceMainRoom() {
+    void PlaceMainRoom()
+    {
         //Instantiate Room
         int mainRoomIndex = Random.Range(0,mainRoomPrefabs.Count);
         Room currentRoom = Instantiate(mainRoomPrefabs[mainRoomIndex], transform) as Room;
@@ -224,19 +225,19 @@ public class LevelGenerator : MonoBehaviour {
 
     }
     bool CheckRoomOverlap(Room room) {
+
         Bounds bounds = room.RoomBounds;
         bounds.center = room.transform.position;
 
 
 
-        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask);
-        if (colliders.Length > 0) {
-            // Ignore collisions with current room
+        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
+        if (colliders.Length > 0) { // If there is anything within this arary
+            
             foreach (Collider c in colliders) {
-                if (c.transform.parent.gameObject.Equals(room.gameObject)) {
+                if (c.transform.parent.gameObject.Equals(room.gameObject)) {    // Ignore collisions with current room
                     continue;
                 }
-
                 else {
                     Debug.LogError("Overlap Detected between " + c.gameObject.name + " " + room.gameObject.name);
                     return true;
@@ -328,6 +329,31 @@ public class LevelGenerator : MonoBehaviour {
         LoadScreen.gameObject.SetActive(true);
         ResetLevelGenerator();
     }
+
+    // WIP
+    private Bounds CalculateLocalBounds() 
+        // Move to Room.cs and make the bounds generated a public value OR
+        // add in Room room as an argument, change 'this' to 'room'
+        // ???
+    {
+        Quaternion currentRotation = this.transform.rotation; // Get whatever the current rotation is of this object
+        this.transform.rotation = Quaternion.Euler(0f, 0f, 0f); // Remove any rotation
+        Bounds roomBounds = new Bounds(this.transform.position, this.transform.localScale); // Create a new Bounding Box centered on the objects position & the scale of the parent object
+
+        foreach (Renderer renderer in GetComponentsInChildren<Renderer>()) // For every child GameObject of this Game Object, find a Renderer
+        {
+            roomBounds.Encapsulate(renderer.bounds);  // Make the bounds include the local bounds of the renderer
+        }
+        Vector3 localCenter = roomBounds.center - this.transform.position; // Return a new center point that is the center of the new bounds, minus the transform of the original object
+        roomBounds.center = localCenter; // Assign this new center point to the variable "localCenter"
+        Debug.Log("The local bounds of this model is " + roomBounds);
+        this.transform.rotation = currentRotation;
+
+        return roomBounds; // returns the new encapsulated bounds
+
+    }
+
+
 }
 
 
