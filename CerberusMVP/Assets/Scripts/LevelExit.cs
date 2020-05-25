@@ -21,7 +21,7 @@ public class LevelExit : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player" && CanExit) {
 
-            SceneManager.LoadScene("Level2");
+            SceneManager.LoadScene("VictoryScene");
         }
     }
 }
