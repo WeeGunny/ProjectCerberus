@@ -12,8 +12,6 @@ public class EnemyController : MonoBehaviour {
     public float startShotDelay;
     private float shotDelay;
     public GameObject projectile;
-    public bool enemyDead = false;
-    public int id;
     // Start is called before the first frame update
     void Start() {
         agent = GetComponent<NavMeshAgent>();
@@ -70,11 +68,7 @@ public class EnemyController : MonoBehaviour {
     public void TakeDamage(float damage) {
         health -= damage;
         if (health <= 0) {
-            //Destroy(gameObject);
-            this.gameObject.SetActive(false);
-            enemyDead = true;
-            GameEvents.current.EnemiesDefeated(id);
+            Destroy(gameObject);
         }
-
     }
 }

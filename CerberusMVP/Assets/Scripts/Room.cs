@@ -18,6 +18,7 @@ public class Room : MonoBehaviour {
     public List<GameObject> itemSPs = new List<GameObject>();
     private List<GameObject> usedItemSPs = new List<GameObject>();
     public int numOfEnemies, numOfItems;
+    public int id;
     // Get the bounding box of a room
     public Bounds RoomBounds {
         //get {return boxCollider.bounds}
