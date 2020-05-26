@@ -52,7 +52,7 @@ public class LevelGenerator : MonoBehaviour {
     }
     IEnumerator GenerateLevel() {
         // WaitForSeconds startup = new WaitForSeconds(1);
-        WaitForFixedUpdate interval = new WaitForFixedUpdate();
+        WaitForSeconds interval = new WaitForSeconds(5);
 
         // yield return startup;
 
@@ -66,6 +66,7 @@ public class LevelGenerator : MonoBehaviour {
         for (int i = 0; i < iterations; i++) {
             // Place random room from list
             PlaceMainRoom();
+            yield return interval;
             i++;
             if(i<iterations)
             PlaceConnectingRoom();
@@ -168,6 +169,7 @@ public class LevelGenerator : MonoBehaviour {
             foreach (Doorway currentDoorway in currentRoom.doorways) {
                 if (roomPlaced == false) {
                     PositionRoomAtDoorway(ref currentRoom, currentDoorway, availableDoorway);
+                    
                 }
                 //if the room has already been placed remaining doorways are added to available doorways.
                 if (roomPlaced == true) {
@@ -331,6 +333,8 @@ public class LevelGenerator : MonoBehaviour {
         LoadScreen.gameObject.SetActive(true);
         ResetLevelGenerator();
     }
+
+
 }
 
 
