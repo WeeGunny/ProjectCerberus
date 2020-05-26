@@ -5,6 +5,7 @@ using UnityEngine;
 public class DoorController : MonoBehaviour
 {
     public int id;
+    public Room room;
     
     // Start is called before the first frame update
     private void Start()
@@ -15,20 +16,21 @@ public class DoorController : MonoBehaviour
         this.gameObject.SetActive(false);
     }
     
-    private void OnDoorwayClose(int id)
+    public void OnDoorwayClose(int id)
     {
         if (id == this.id)
         {
             this.gameObject.SetActive(true);
+            room.SpawnEnemies();
         }
             
     }
 
-    private void OnEnemiesDefeated(int id)
+    public void OnEnemiesDefeated(int id)
     {
-        if (id == this.id)
+        if (room.enemySPs.Count == 0)
         {
-            this.gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 

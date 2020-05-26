@@ -26,7 +26,7 @@ public class Room : MonoBehaviour {
     }
 
     private void Start() {
-        SpawnEnemies();
+        //SpawnEnemies();
         SpawnItems();
     }
 
@@ -34,6 +34,7 @@ public class Room : MonoBehaviour {
 
         for (int i = 0; i < numOfEnemies; i++) {
             if (enemySPs.Count == 0) {
+                //GameEvents.current.EnemiesDefeated(id);
                 //if there are no more empty spawn points break
                 break;
             }
