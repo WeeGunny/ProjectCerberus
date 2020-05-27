@@ -44,6 +44,11 @@ public class Wallrun : MonoBehaviour {
                 if (isWallRunning == false) {
                     EnterWallRunning();
                 }
+                cam.forward = -cam.forward;
+                if (isWallLeft)
+                    cam.localEulerAngles = new Vector3(cam.rotation.x, cam.rotation.y, -30f);
+                if (isWallRight)
+                    cam.localEulerAngles = new Vector3(cam.rotation.x, cam.rotation.y, 30f);
 
             }
 
@@ -69,10 +74,7 @@ public class Wallrun : MonoBehaviour {
         movement.velocity.y = 0;
         isWallRunning = true;
         wallRunCountdown = wallRunDuration;
-        if (isWallLeft)
-            cam.rotation = Quaternion.Euler(cam.rotation.x, cam.rotation.y, -30);
-        if (isWallRight)
-           cam.rotation = Quaternion.Euler(cam.rotation.x, cam.rotation.y, 30);
+        
 
         Debug.Log("Entered WallRun");
        
