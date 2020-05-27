@@ -6,15 +6,17 @@ using UnityEngine;
 public class GunAnimControl : MonoBehaviour
 {
     Animator animator;
-    public Transform CoreBoneTransform;
+    Transform CoreBoneTransform;
     public GameObject BlackHoleGun;
-    public float MoxieCost = 1f;
+    Gun gun;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         CoreBoneTransform = BlackHoleGun.transform.Find("BHG_RIG.001/Core");
         Debug.Log(CoreBoneTransform.localScale + " localScale");
+        gun = GetComponent<Gun>();
+        
 
     }
     void Update()
@@ -33,8 +35,6 @@ public class GunAnimControl : MonoBehaviour
         if (Input.GetButtonDown("Reload"))
         {
             animator.SetTrigger("isReloading");
-            CoreBoneTransform.localScale = new Vector3(1, 1, 1);
-            Debug.Log(CoreBoneTransform.localScale + " localScale");
            
         }
 
@@ -44,7 +44,7 @@ public class GunAnimControl : MonoBehaviour
             animator.SetTrigger("altFire");
             Vector3 scale = CoreBoneTransform.localScale;
 
-            scale -= new Vector3(0.01f, 0.01f, 0.01f) * MoxieCost; // increments scale down in 1/100ths * Moxie cost
+            scale -= new Vector3(0.01f, 0.01f, 0.01f) * gun.moxieRequirement; // increments scale down in 1/100ths * Moxie cost
             //Clamps scale at 0 and max of 1;
             scale.x = Mathf.Clamp(scale.x, 0, 1);
             scale.y = Mathf.Clamp(scale.y, 0, 1);

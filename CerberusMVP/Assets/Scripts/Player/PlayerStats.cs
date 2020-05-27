@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -21,8 +22,10 @@ public class PlayerStats : MonoBehaviour {
     public Image MoxieBar;
     public TextMeshProUGUI gritText;
     public Image GritBar;
+    public TextMeshProUGUI ammoClip, ammoTotal;
 
     public bool GritActive = false;
+    public static Gun activeGun;
 
     // Start is called before the first frame update
     void Start() {
@@ -49,6 +52,9 @@ public class PlayerStats : MonoBehaviour {
         {
             GritActive = false;
         }
+
+        ammoClip.text = activeGun.ammoInClip.ToString();
+        ammoTotal.text = activeGun.currentAmmo.ToString() ;
     }
 
     public void TakeDamage(float damage) {
