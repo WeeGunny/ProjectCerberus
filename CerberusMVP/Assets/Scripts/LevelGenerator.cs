@@ -52,7 +52,7 @@ public class LevelGenerator : MonoBehaviour {
     }
     IEnumerator GenerateLevel() {
         // WaitForSeconds startup = new WaitForSeconds(1);
-        WaitForSeconds interval = new WaitForSeconds(5);
+        WaitForFixedUpdate interval = new WaitForFixedUpdate();
 
         // yield return startup;
 

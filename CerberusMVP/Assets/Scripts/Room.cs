@@ -35,9 +35,14 @@ public class Room : MonoBehaviour {
         Bounds roomBounds = new Bounds(this.transform.position, this.transform.localScale); // Create a new Bounding Box centered on the objects position & the scale of the parent object
 
         foreach (Renderer renderer in GetComponentsInChildren<Renderer>()) // For every child GameObject of this Game Object, find a Renderer
-        {
-            roomBounds.Encapsulate(renderer.bounds);  // Make the bounds include the local bounds of the renderer
-        }
+            if (roomBounds == new Bounds(Vector3.zero, Vector3.zero))
+            {
+                roomBounds = renderer.bounds; // if the bounds has no content, then make it equal to the first renderer
+            }
+            else
+            {
+                roomBounds.Encapsulate(renderer.bounds);  // Make the bounds include the local bounds of the renderer
+            }
         Vector3 localCenter = roomBounds.center - this.transform.position; // Return a new center point that is the center of the new bounds, minus the transform of the original object
         roomBounds.center = localCenter; // Assign this new center point to the variable "localCenter"
         Debug.Log("The local bounds of this model is " + roomBounds);
