@@ -52,7 +52,7 @@ public class LevelGenerator : MonoBehaviour {
     }
     IEnumerator GenerateLevel() {
         // WaitForSeconds startup = new WaitForSeconds(1);
-        WaitForFixedUpdate interval = new WaitForFixedUpdate();
+        WaitForSeconds interval = new WaitForSeconds(5);
 
         // yield return startup;
 
@@ -66,6 +66,7 @@ public class LevelGenerator : MonoBehaviour {
         for (int i = 0; i < iterations; i++) {
             // Place random room from list
             PlaceMainRoom();
+            yield return interval;
             i++;
             if(i<iterations)
             PlaceConnectingRoom();
@@ -97,7 +98,8 @@ public class LevelGenerator : MonoBehaviour {
         availableDoorways.Add(startRoom.doorways[0]);
         Debug.Log("Placing Start Room! Wrrrrrrr");
     }
-    void PlaceMainRoom() {
+    void PlaceMainRoom()
+    {
         //Instantiate Room
         int mainRoomIndex = Random.Range(0,mainRoomPrefabs.Count);
         Room currentRoom = Instantiate(mainRoomPrefabs[mainRoomIndex], transform) as Room;
@@ -109,11 +111,14 @@ public class LevelGenerator : MonoBehaviour {
             foreach (Doorway currentDoorway in currentRoom.doorways) {
                 if (roomPlaced == false) {
                     PositionRoomAtDoorway(ref currentRoom, currentDoorway, availableDoorway);
+                    Debug.Log("Placing room " + currentRoom + "at " + availableDoorway.name);
+                    
                 }
                 //if the room has already been placed remaining doorways are added to available doorways.
                 if (roomPlaced == true) {
                     availableDoorways.Add(currentDoorway);
                     availableMainDoorways.Add(currentDoorway);
+                    Debug.Log("Adding Doorways");
                     
                 }
 
@@ -140,8 +145,6 @@ public class LevelGenerator : MonoBehaviour {
                     currentRoom.id = placedRooms.Count;
                 }
 
-
-
             }
 
             //if the room is placed it no longer needs to check the remaining available doorways
@@ -149,9 +152,9 @@ public class LevelGenerator : MonoBehaviour {
                 break;
         }
         if (!roomPlaced) {
-            Debug.LogError("Room Destroyed!" + currentRoom.gameObject.name);
+            Debug.LogError("Room could not be placed: " + currentRoom.gameObject.name);
             Destroy(currentRoom.gameObject);
-            ResetLevelGenerator();
+            ResetLevelGenerator(); // should we reset always? can we try again?
         }
 
     }
@@ -167,6 +170,7 @@ public class LevelGenerator : MonoBehaviour {
             foreach (Doorway currentDoorway in currentRoom.doorways) {
                 if (roomPlaced == false) {
                     PositionRoomAtDoorway(ref currentRoom, currentDoorway, availableDoorway);
+                    
                 }
                 //if the room has already been placed remaining doorways are added to available doorways.
                 if (roomPlaced == true) {
@@ -225,19 +229,20 @@ public class LevelGenerator : MonoBehaviour {
 
     }
     bool CheckRoomOverlap(Room room) {
+
         Bounds bounds = room.RoomBounds;
         bounds.center = room.transform.position;
 
 
 
-        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask);
-        if (colliders.Length > 0) {
-            // Ignore collisions with current room
+        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
+        if (colliders.Length > 0) { // If there is anything within this arary
+
             foreach (Collider c in colliders) {
-                if (c.transform.parent.gameObject.Equals(room.gameObject)) {
+                if (c.transform.parent.gameObject.Equals(room.gameObject) || c.transform.IsChildOf(room.transform)) // Ignore collisions with parent object
+                {   
                     continue;
                 }
-
                 else {
                     Debug.LogError("Overlap Detected between " + c.gameObject.name + " " + room.gameObject.name);
                     return true;
@@ -287,7 +292,7 @@ public class LevelGenerator : MonoBehaviour {
 
     public void ResetLevelGenerator() {
         //// Clears the log so all logs are from current iteration of level gen, reduces clutter in log
-        //Type.GetType("UnityEditor.LogEntries,UnityEditor.dll").GetMethod("Clear", BindingFlags.Static | BindingFlags.Public).Invoke(null, null);
+        Type.GetType("UnityEditor.LogEntries,UnityEditor.dll").GetMethod("Clear", BindingFlags.Static | BindingFlags.Public).Invoke(null, null);
         //Debug.Log("reset");
         Debug.Log("Could not place room anywhere, resetting levelGen");
 
@@ -329,6 +334,8 @@ public class LevelGenerator : MonoBehaviour {
         LoadScreen.gameObject.SetActive(true);
         ResetLevelGenerator();
     }
+
+
 }
 
 

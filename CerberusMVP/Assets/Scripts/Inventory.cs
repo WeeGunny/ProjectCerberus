@@ -9,6 +9,7 @@ public class Inventory : MonoBehaviour
 
     private void Awake() {
         inventory = this;
+        DontDestroyOnLoad(this);
     }
 
     #endregion

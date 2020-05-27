@@ -23,6 +23,13 @@ public class InventoryUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I)) {
 
             inventoryUI.SetActive(!inventoryUI.activeSelf);
+            if(Cursor.lockState == CursorLockMode.Locked) {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            
         }
         
     }
