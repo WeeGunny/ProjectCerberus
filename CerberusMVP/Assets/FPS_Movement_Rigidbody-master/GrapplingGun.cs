@@ -6,7 +6,7 @@ public class GrapplingGun : MonoBehaviour {
     private Vector3 grapplePoint;
     public LayerMask whatIsGrappleable;
     public Transform gunTip, camera, player;
-    private float maxDistance = 100f;
+    public float maxDistance = 50f;
     private SpringJoint joint;
 
     void Awake() {
@@ -17,7 +17,7 @@ public class GrapplingGun : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q)) {
             StartGrapple();
         }
-        else if (Input.GetKeyDown(KeyCode.Q)) {
+        else if (Input.GetKeyUp(KeyCode.Q)) {
             StopGrapple();
         }
     }
