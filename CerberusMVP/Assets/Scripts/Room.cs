@@ -45,7 +45,7 @@ public class Room : MonoBehaviour {
             }
         Vector3 localCenter = roomBounds.center - this.transform.position; // Return a new center point that is the center of the new bounds, minus the transform of the original object
         roomBounds.center = localCenter; // Assign this new center point to the variable "localCenter"
-        Debug.Log("The local bounds of this model is " + roomBounds);
+       // Debug.Log("The local bounds of this model is " + roomBounds);
         this.transform.rotation = currentRotation;
 
         return roomBounds; // returns the new encapsulated bounds
@@ -56,6 +56,7 @@ public class Room : MonoBehaviour {
         SpawnEnemies();
         SpawnItems();
     }
+
 
     public void SpawnEnemies() {
 
@@ -93,7 +94,7 @@ public class Room : MonoBehaviour {
 
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(RoomBounds.center, RoomBounds.size);

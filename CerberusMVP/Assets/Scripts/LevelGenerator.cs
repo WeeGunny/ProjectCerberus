@@ -52,9 +52,8 @@ public class LevelGenerator : MonoBehaviour {
     }
     IEnumerator GenerateLevel() {
         // WaitForSeconds startup = new WaitForSeconds(1);
-        WaitForFixedUpdate interval = new WaitForFixedUpdate();
-
-        // yield return startup;
+        //WaitForFixedUpdate interval = new WaitForFixedUpdate();
+        WaitForSeconds interval = new WaitForSeconds(3);
 
         //Place startRoom
         PlaceStartRoom();
@@ -88,8 +87,8 @@ public class LevelGenerator : MonoBehaviour {
         
 
         //uncomment these lines for frequent level building
-        //yield return new WaitForSeconds(3);
-        //ResetLevelGenerator();
+        yield return new WaitForSeconds(3);
+        ResetLevelGenerator();
     }
 
     void PlaceStartRoom() {
@@ -152,7 +151,7 @@ public class LevelGenerator : MonoBehaviour {
         }
         if (!roomPlaced) {
             Debug.LogError("Room could not be placed: " + currentRoom.gameObject.name);
-            Destroy(currentRoom.gameObject);
+            //Destroy(currentRoom.gameObject);
             ResetLevelGenerator(); // should we reset always? can we try again?
         }
 
@@ -203,7 +202,7 @@ public class LevelGenerator : MonoBehaviour {
         }
         if (!roomPlaced) {
             Debug.LogError("Room Destroyed!" + currentRoom.gameObject.name);
-            Destroy(currentRoom.gameObject);
+            //Destroy(currentRoom.gameObject);
             ResetLevelGenerator();
         }
 
@@ -230,20 +229,21 @@ public class LevelGenerator : MonoBehaviour {
     bool CheckRoomOverlap(Room room) {
 
         Bounds bounds = room.RoomBounds;
-        bounds.center = room.transform.position;
+        bounds.center = room.RoomBounds.center;
 
-
-
-        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
+        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size /2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
         if (colliders.Length > 0) { // If there is anything within this arary
-
+           
             foreach (Collider c in colliders) {
+                Debug.Log("Colliders: " + c);
+
                 if (c.transform.parent.gameObject.Equals(room.gameObject) || c.transform.IsChildOf(room.transform)) // Ignore collisions with parent object
+
                 {   
                     continue;
                 }
                 else {
-                    Debug.LogError("Overlap Detected between " + c.gameObject.name + " " + room.gameObject.name);
+                    Debug.LogError("Overlap Detected between " + c.gameObject.name + "and " + room.gameObject.name);
                     return true;
                 }
             }
