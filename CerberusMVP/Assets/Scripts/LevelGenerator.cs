@@ -142,7 +142,6 @@ public class LevelGenerator : MonoBehaviour {
 
                     // Exit Loop if room has been placed
                     roomPlaced = true;
-                    currentRoom.id = placedRooms.Count;
                 }
 
             }
