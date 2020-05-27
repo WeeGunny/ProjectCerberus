@@ -9,6 +9,7 @@ public class ItemObject : MonoBehaviour {
     public void OnPickup() {
         if (item.useType == UseType.Pickup) {
             item.Use();
+            Destroy(gameObject);
         }
         else {
             bool wasPickedUp = Inventory.inventory.Add(item);
