@@ -27,7 +27,7 @@ public class Room : MonoBehaviour {
     }
 
     private void Start() {
-        //SpawnEnemies();
+        SpawnEnemies();
         GameEvents.current.onDoorwayTriggerExit += LockDoors;
         GameEvents.current.onEnemiesDefeated += UnlockDoors;
         SpawnItems();
@@ -37,12 +37,12 @@ public class Room : MonoBehaviour {
     {
         if (id != -1)
         {
-
+            if (enemiesAlive == 0)
+            {
+                GameEvents.current.EnemiesDefeated(id);
+            }
         }
-        if(enemiesAlive == 0)
-        {
-
-        }
+        
     }
 
     public void SpawnEnemies() {
@@ -55,7 +55,8 @@ public class Room : MonoBehaviour {
             }
             int randomEnemy = Random.Range(0, enemyPrefabs.Count);
             int randomSpawnPoint = Random.Range(0, enemySPs.Count);
-            Instantiate(enemyPrefabs[randomEnemy], enemySPs[randomSpawnPoint].transform);
+            GameObject enemyClone = Instantiate(enemyPrefabs[randomEnemy], enemySPs[randomSpawnPoint].transform);
+            enemyClone.GetComponent<EnemyController>().roomImIn = this;
             Debug.Log("Enemy Spawned");
             //adds spawn point to used spawn points, and removes it as an available spawn point.
             usedSPs.Add(enemySPs[randomSpawnPoint]);
