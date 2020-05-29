@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GrapplingGun : MonoBehaviour {
 
@@ -6,8 +7,16 @@ public class GrapplingGun : MonoBehaviour {
     private Vector3 grapplePoint;
     public LayerMask whatIsGrappleable;
     public Transform gunTip, camera, player;
+    public Rigidbody controller;
     public float maxDistance = 50f;
     private SpringJoint joint;
+
+    public enum Status
+    {
+        idle,
+        grappleFlying
+    }
+    public Status status;
 
     void Awake() {
         lr = GetComponent<LineRenderer>();
@@ -16,9 +25,17 @@ public class GrapplingGun : MonoBehaviour {
     void Update() {
         if (Input.GetKeyDown(KeyCode.Q)) {
             StartGrapple();
+            GrapplePull();
         }
         else if (Input.GetKeyUp(KeyCode.Q)) {
             StopGrapple();
+        }
+
+        switch (status)
+        {
+            case Status.grappleFlying:
+                GrapplePull();
+                break;
         }
     }
 
@@ -52,6 +69,20 @@ public class GrapplingGun : MonoBehaviour {
             lr.positionCount = 2;
             currentGrapplePosition = gunTip.position;
         }
+    }
+
+    public void GrapplePull()
+    {
+        Vector3 grappleDir = (currentGrapplePosition - transform.position).normalized;
+
+        float grappleSpeedMin = 10f;
+        float grappleSpeedMax = 40f;
+
+        //Slows down the speed as the player gets closer to the hookshot position
+        float grappleSpeed = Mathf.Clamp(Vector3.Distance(transform.position, currentGrapplePosition), grappleSpeedMin, grappleSpeedMax);
+        float grappleSpeedMultiplier = 2f;
+
+        controller.MovePosition(grappleDir * grappleSpeed * grappleSpeedMultiplier * Time.deltaTime);
     }
 
 
