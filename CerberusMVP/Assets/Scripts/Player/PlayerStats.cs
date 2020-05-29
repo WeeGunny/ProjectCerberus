@@ -25,10 +25,9 @@ public class PlayerStats : MonoBehaviour {
     public TextMeshProUGUI ammoClip, ammoTotal;
 
     public bool GritActive = false;
-    public static Gun activeGun;
+    public Gun activeGun;
 
-    // Start is called before the first frame update
-    void Start() {
+    private void Awake() {
         PlayerManager.instance.stats = this;
     }
 
