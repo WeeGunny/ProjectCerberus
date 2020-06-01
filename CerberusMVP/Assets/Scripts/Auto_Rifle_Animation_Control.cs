@@ -7,12 +7,18 @@ public class Auto_Rifle_Animation_Control : MonoBehaviour
     Animator animator;
     public float MoxieCost = 1f;
     public GameObject AutoRifle;
+    public ParticleSystem particle;
 
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+    }
+
+    public void playEffect()
+    {
+        particle.Play();
     }
 
     // Update is called once per frame
