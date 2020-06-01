@@ -20,12 +20,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Gold
-    second: {fileID: 2100000, guid: b6cc2d1ca43e8364085a5997e79e116d, type: 2}
+    second: {fileID: 2100000, guid: 8357dfffee073444087506c469979671, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Gold.001
-    second: {fileID: 2100000, guid: bb98e199598e2b742bfb1189157351ba, type: 2}
+    second: {fileID: 2100000, guid: 8357dfffee073444087506c469979671, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -132,7 +132,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.003
+    globalScale: 0.3
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
