@@ -23,11 +23,10 @@ public class PlayerStats : MonoBehaviour {
     public TextMeshProUGUI gritText;
     public Image GritBar;
     public TextMeshProUGUI ammoClip, ammoTotal;
-
     public bool GritActive = false;
     public Gun activeGun;
 
-    private void Awake() {
+    private void Start() {
         PlayerManager.instance.stats = this;
     }
 

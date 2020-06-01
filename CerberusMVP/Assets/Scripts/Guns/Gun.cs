@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -9,7 +10,7 @@ public class Gun : MonoBehaviour {
     public Transform firePoint;
     public float Damage = 10f, altDmg = 10f;
     public float bulletSpeed = 25f, altSpeed = 25f;
-    //These are the bullet prefabs to shoot
+    //These are the bullet prefabs to shoot, if laser put laser prefab here
     public GameObject primaryAmmo, altAmmo;
     //primaryBH and altBH are the bullet hole prefab to be created;
     public GameObject primaryBH, altBH;
@@ -21,6 +22,8 @@ public class Gun : MonoBehaviour {
     public FireType fireType;
     public float fireRate;
     private float lastTimeFired = 0;
+    GameObject laser;
+    public bool firingLaser = false;
 
 
     private void Start() {
@@ -33,7 +36,11 @@ public class Gun : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.R) && ammoInClip < maxClipAmmo) {
             Reload();
-        }       
+        }
+        if(laser != null && !firingLaser) {
+           Debug.Log("laser Destroyed");
+            Destroy(laser);
+        }
     }
 
     public void ManualFire() {
@@ -46,11 +53,8 @@ public class Gun : MonoBehaviour {
                 }
                 if(fireType == FireType.Burst) {
 
-                    for(int b= 0; b<3; b++) {
-                        if (ammoInClip > 0 && (Time.time - lastTimeFired) > 1 / fireRate) {
-                            ShootProjectile();
-                        }
-                    }
+                    StartCoroutine("BurstFire");
+                   
                 }
                
             }
@@ -72,7 +76,24 @@ public class Gun : MonoBehaviour {
                 Debug.Log("Out of Ammo");
             }
         }
+    }
 
+    public void LaserFire() {
+        Debug.Log("Creating Laser");
+        laser = Instantiate(primaryAmmo,firePoint);
+
+    }
+
+    public IEnumerator BurstFire() {
+
+        Debug.Log("Starting Burst fire");
+        for (int b = 0; b < 3; b++) {
+            if (ammoInClip > 0) {
+                ShootProjectile();
+                yield return new WaitForSeconds(.1f);
+            }
+        }
+       
 
     }
     void ShootProjectile() {
@@ -90,10 +111,34 @@ public class Gun : MonoBehaviour {
         ammoInClip--;
 
     }
-    public void ShootBeam() {
+    public void UpdateLaser() {
+        LineRenderer beam = laser.GetComponentInChildren<LineRenderer>();
         RaycastHit hit;
-        Physics.Raycast(firePoint.position, firePoint.forward, out hit, range);
-            
+        if(Physics.Raycast(firePoint.position, firePoint.forward, out hit, range)) {
+            if ((Time.time - lastTimeFired) > 1 / fireRate) {
+                // will shoot 
+                if (ammoInClip > 0) {
+                    beam.SetPosition(1, new Vector3(0,0,hit.point.z));
+                    EnemyController enemy = hit.collider.GetComponent<EnemyController>();
+                    if(enemy != null) {
+                        enemy.TakeDamage(Damage);
+                    }
+                    lastTimeFired = Time.time;
+                    Debug.Log("Laser hit:" + hit.collider.name);
+                    ammoInClip--;
+                }
+                else {
+                    Debug.Log("Out of Ammo");
+                    Destroy(laser);
+                }
+            }
+        }
+        else {
+            beam.SetPosition(1, new Vector3( 0,0,range));
+        }
+
+       
+
     }
     public virtual void AltFire() {
 

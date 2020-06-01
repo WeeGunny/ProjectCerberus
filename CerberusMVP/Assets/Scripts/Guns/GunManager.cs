@@ -13,26 +13,38 @@ public class GunManager : MonoBehaviour {
     void Start() {
         currentGunObject = Instantiate(guns[0].gunPrefab, transform);
         currentGun = currentGunObject.GetComponent<Gun>();
-        PlayerManager.instance.stats.activeGun = currentGun;
     }
 
     // Update is called once per frame
     void Update() {
         CheckForShooting();
         SwitchGun();
-       
+
 
     }
 
     private void CheckForShooting() {
         if (Input.GetButtonDown("Fire1")) {
-            if (currentGun.fireType == FireType.Semi|| currentGun.fireType == FireType.Burst)
+            if (currentGun.fireType == FireType.Semi || currentGun.fireType == FireType.Burst)
                 currentGun.ManualFire();
+
+            if (currentGun.fireType == FireType.Laser) {
+                currentGun.LaserFire();
+            }
         }
 
         if (Input.GetButton("Fire1")) {
-            if(currentGun.fireType == FireType.Auto || currentGun.fireType == FireType.Laser)
-            currentGun.AutomaticFire();
+            if (currentGun.fireType == FireType.Auto)
+                currentGun.AutomaticFire();
+            if (currentGun.fireType == FireType.Laser) {
+                currentGun.UpdateLaser();
+                currentGun.firingLaser = true;
+            }
+        }
+        if (Input.GetButtonUp("Fire1")) {
+            if (currentGun.fireType == FireType.Laser) {
+                currentGun.firingLaser = false;
+            }
 
         }
 
@@ -43,7 +55,6 @@ public class GunManager : MonoBehaviour {
             else {
                 Debug.Log("Not Enough moxie to fire");
             }
-
         }
     }
 

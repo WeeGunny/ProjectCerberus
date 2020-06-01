@@ -11,7 +11,6 @@ public class Lasers : MonoBehaviour
     void Start()
     {
         spawnedLaser = Instantiate(laserPrefab, firePoint.transform) as GameObject;
-        spawnedLaser.GetComponent<LineRenderer>().useWorldSpace= false;
         spawnedLaser.SetActive(false);
     }
 

@@ -51,6 +51,7 @@ public class rbPlayer : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.G) && PlayerManager.instance.stats.Grit > 0) {
             PlayerManager.instance.stats.GritActive = !PlayerManager.instance.stats.GritActive;
             Time.timeScale = 0.2f;
+            Time.fixedDeltaTime = Time.timeScale * 0.02f;
             Debug.Log("Grit Toggled");
         }
         if (PlayerManager.instance.stats.GritActive == true) {
