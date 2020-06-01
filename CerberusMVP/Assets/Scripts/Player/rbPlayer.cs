@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class rbPlayer : MonoBehaviour {
+public class rbPlayer : MonoBehaviour, IShopCustomer {
     Rigidbody rb;
     public float movementSpeed = 10f;
     public float jumpHeight = 100f;
@@ -43,5 +43,10 @@ public class rbPlayer : MonoBehaviour {
     private bool Grounded() {
 
         return Physics.Raycast(transform.position, Vector3.down, rayDistance, LayerMask.GetMask("Room"));
+    }
+
+    public void BoughtItem(Shop_Item.ItemType itemType)
+    {
+        Debug.Log("Bought item: " + itemType);
     }
 }
