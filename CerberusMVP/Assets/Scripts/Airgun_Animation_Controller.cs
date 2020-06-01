@@ -7,12 +7,19 @@ public class Airgun_Animation_Controller : MonoBehaviour
     Animator animator;
     public float MoxieCost = 1f;
     public GameObject AutoRifle;
+    public ParticleSystem particle;
 
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+    }
+
+
+    public void PlayEffect()
+    {
+        particle.Play();
     }
 
     // Update is called once per frame
