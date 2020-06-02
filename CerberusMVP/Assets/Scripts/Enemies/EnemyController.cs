@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour {
     public float startShotDelay;
     private float shotDelay, distance;
     public GameObject projectile;
+    public Room roomImIn;
     // Start is called before the first frame update
     void Start() {
         agent = GetComponent<NavMeshAgent>();
@@ -68,12 +69,12 @@ public class EnemyController : MonoBehaviour {
         if (health <= 0) {
             Death();
         }
-
     }
 
     protected virtual void Death() {
         Destroy(gameObject);
         Debug.Log("Enemy Has died");
+        roomImIn.enemiesAlive--;
     }
 
     private void OnDrawGizmosSelected() {

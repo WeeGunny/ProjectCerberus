@@ -11,7 +11,6 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake() {
         instance = this;
-        DontDestroyOnLoad(stats);
     }
     #endregion
 
