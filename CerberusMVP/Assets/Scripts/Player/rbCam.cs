@@ -23,9 +23,7 @@ public class rbCam: MonoBehaviour
     {
         if(movePlayerCam == true) {
             RotateCamera();
-        }
-       
-        
+        }            
     }
 
     private void RotateCamera() {

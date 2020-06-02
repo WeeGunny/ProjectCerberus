@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class rbPlayer : MonoBehaviour {
-    Rigidbody rb;
+    public Rigidbody rb;
     public float movementSpeed = 10f;
     public float jumpHeight = 100f;
     public float rayDistance;
@@ -41,7 +41,7 @@ public class rbPlayer : MonoBehaviour {
         }
     }
 
-    private bool Grounded() {
+    public bool Grounded() {
 
         return Physics.Raycast(transform.position, Vector3.down, rayDistance, LayerMask.GetMask("Room"));
     }
