@@ -15,8 +15,10 @@ public class Room : MonoBehaviour {
     public List<GameObject> itemPrefabs = new List<GameObject>();
     public List<GameObject> itemSPs = new List<GameObject>();
     private List<GameObject> usedItemSPs = new List<GameObject>();
-    public int numOfEnemies, numOfItems;
-    
+    public int enemiesToSpawn, itemsToSpawn;
+    public int enemiesAlive = 0;
+    public int id = -1;
+
 
 
     // Property to contain bounds of Room
@@ -43,9 +45,6 @@ public class Room : MonoBehaviour {
             {
                 roomBounds.Encapsulate(renderer.bounds);  // Make the bounds include the local bounds of the renderer
             }
-        //Vector3 localCenter = roomBounds.center - this.transform.position; // Return a new center point that is the center of the new bounds, minus the transform of the original object
-        //roomBounds.center = localCenter; // Assign this new center point to the variable "localCenter"
-        //Debug.Log("The local bounds of this model is " + roomBounds);
         this.transform.rotation = currentRotation;
 
         return roomBounds; // returns the new encapsulated bounds
@@ -54,30 +53,42 @@ public class Room : MonoBehaviour {
 
     private void Start() {
         SpawnEnemies();
+        GameEvents.current.onDoorwayTriggerExit += LockDoors;
+        GameEvents.current.onEnemiesDefeated += UnlockDoors;
         SpawnItems();
+    }
+    private void Update() {
+        if (id != -1) {
+            if (enemiesAlive == 0) {
+                GameEvents.current.EnemiesDefeated(id);
+            }
+        }
+
     }
 
     public void SpawnEnemies() {
 
-        for (int i = 0; i < numOfEnemies; i++) {
+        for (int i = 0; i < enemiesToSpawn; i++) {
             if (enemySPs.Count == 0) {
+                //GameEvents.current.EnemiesDefeated(id);
                 //if there are no more empty spawn points break
                 break;
             }
             int randomEnemy = Random.Range(0, enemyPrefabs.Count);
             int randomSpawnPoint = Random.Range(0, enemySPs.Count);
-            Instantiate(enemyPrefabs[randomEnemy], enemySPs[randomSpawnPoint].transform);
+            GameObject enemyClone = Instantiate(enemyPrefabs[randomEnemy], enemySPs[randomSpawnPoint].transform);
+            enemyClone.GetComponent<EnemyController>().roomImIn = this;
             Debug.Log("Enemy Spawned");
             //adds spawn point to used spawn points, and removes it as an available spawn point.
             usedSPs.Add(enemySPs[randomSpawnPoint]);
             enemySPs.RemoveAt(randomSpawnPoint);
+            enemiesAlive++;
         }
 
     }
-
     public void SpawnItems() {
 
-        for (int i = 0; i < numOfItems; i++) {
+        for (int i = 0; i < itemsToSpawn; i++) {
             if (itemSPs.Count == 0) {
                 //if there are no more empty spawn points break
                 break;
@@ -90,7 +101,33 @@ public class Room : MonoBehaviour {
             usedItemSPs.Add(itemSPs[randomSpawnPoint]);
             itemSPs.RemoveAt(randomSpawnPoint);
         }
+    }
 
+    public void ResetItems() {
+        foreach (GameObject spawnPoint in usedItemSPs) {
+            itemSPs.Add(spawnPoint);
+        }
+
+    }
+
+
+
+    public void LockDoors(int id) {
+        if (id == this.id) {
+            foreach (Doorway doorway in doorways) {
+                doorway.gameObject.SetActive(true);
+            }
+        }
+
+    }
+
+    public void UnlockDoors(int id) {
+        if (id == this.id) {
+            foreach (Doorway doorway in doorways) {
+                doorway.gameObject.SetActive(false);
+            }
+
+        }
     }
 
     private void OnDrawGizmosSelected()
