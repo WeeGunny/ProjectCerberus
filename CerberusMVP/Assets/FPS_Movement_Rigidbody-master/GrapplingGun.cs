@@ -7,16 +7,14 @@ public class GrapplingGun : MonoBehaviour {
     private Vector3 grapplePoint;
     public LayerMask whatIsGrappleable;
 
-    [Header ("Transform Objects")]
-    public Transform gunTip; 
+    [Header("Transform Objects")]
+    public Transform gunTip;
     public Transform camera;
     public Transform player;
-    
+
     [Header("Values")]
     public float maxDistance = 50f;
-    public float cooldownTime = 5;
-    public float nextFireTime = 5;
-    public bool justOnce;
+    public float reelInSpeed = 5f;
     private SpringJoint joint;
 
     void Awake() {
@@ -24,24 +22,31 @@ public class GrapplingGun : MonoBehaviour {
     }
 
     void Update() {
-        if (Time.time > nextFireTime)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                StartGrapple();
-                nextFireTime = Time.time + cooldownTime;
-                justOnce = false;
-            }
+
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            StartGrapple();
         }
-        else if (Input.GetKeyUp(KeyCode.Q))
-        {
+
+        else if (Input.GetKeyUp(KeyCode.Q)) {
             StopGrapple();
         }
 
-        if (Time.time > nextFireTime && justOnce == false)
-        {
-            justOnce = true;
+        if (IsGrappling()) {
+            //Dismount grappling hook after reaching the grappling point
+            float reachedPositionDistance = 1f;
+            float yMultiplier = 1.5f;
+            Vector3 direction = (grapplePoint - player.transform.position).normalized;
+            player.GetComponent<Rigidbody>().velocity += direction * Time.deltaTime * reelInSpeed * yMultiplier* Mathf.Abs(grapplePoint.y - player.transform.position.y);
+            Vector3.ClampMagnitude(player.GetComponent<Rigidbody>().velocity, 5f);
+
+            if (Vector3.Distance(transform.position, grapplePoint) < reachedPositionDistance) {
+                player.GetComponent<Rigidbody>().velocity -= direction * reelInSpeed;
+                StopGrapple();
+            }
         }
+
+       
+
 
     }
 
@@ -64,24 +69,20 @@ public class GrapplingGun : MonoBehaviour {
             float distanceFromPoint = Vector3.Distance(player.position, grapplePoint);
 
             //The distance grapple will try to keep from grapple point. 
-            joint.maxDistance = distanceFromPoint * 0.8f;
-            joint.minDistance = distanceFromPoint * 0.25f;
+            joint.maxDistance = distanceFromPoint * 0.1f;
+            joint.minDistance = 0;
 
             //Adjust these values to fit your game.
             joint.spring = 10f;
-            joint.damper = 0f;
-            joint.massScale = 4.5f;
+            joint.damper = 20f;
+            joint.massScale = 1f;
+            joint.enableCollision = true;
 
             lr.positionCount = 2;
             currentGrapplePosition = gunTip.position;
         }
 
-        //Dismount grappling hook after reaching the grappling point
-        float reachedPositionDistance = 1f;
-        if (Vector3.Distance(transform.position, grapplePoint) < reachedPositionDistance)
-        {
-            StopGrapple();
-        }
+       
     }
 
 
@@ -94,13 +95,13 @@ public class GrapplingGun : MonoBehaviour {
     }
 
     private Vector3 currentGrapplePosition;
-    
+
     void DrawRope() {
         //If not grappling, don't draw rope
         if (!joint) return;
 
         currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint, Time.deltaTime * 8f);
-        
+
         lr.SetPosition(0, gunTip.position);
         lr.SetPosition(1, currentGrapplePosition);
     }
