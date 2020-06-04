@@ -9,19 +9,12 @@ public class ShopTriggerCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        IShopCustomer shopCustomer = collider.GetComponent<IShopCustomer>();
-        if (shopCustomer != null)
-        {
-            shopUI.ShowShop(shopCustomer);
-        }
+
+            shopUI.ShowShop();
     }
 
     private void OnTriggerExit(Collider collider)
     {
-        IShopCustomer shopCustomer = collider.GetComponent<IShopCustomer>();
-        if (shopCustomer != null)
-        {
             shopUI.HideShop();
-        }
     }
 }

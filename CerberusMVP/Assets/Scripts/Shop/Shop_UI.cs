@@ -4,38 +4,42 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Shop_UI : MonoBehaviour
-{
+public class Shop_UI : MonoBehaviour {
     private Transform container;
     private Transform shopItemTemplate;
     private IShopCustomer shopCustomer;
+    // public  List<Item> allItems = new List<Item>();
+    public float shopItemAmount;
+    public List<Item> items = new List<Item>();
 
     //spawns in items into the shop
-    private void Awake()
-    {
+    private void Awake() {
         container = transform.Find("container");
         shopItemTemplate = container.Find("shopItemTemplate");
         shopItemTemplate.gameObject.SetActive(false);
+
+        //for (int i =0; i<shopItemAmount; i++) {
+        //    int randomIndex = Mathf.RoundToInt(Random.Range(0,allItems.Count));
+        //    items.Add(allItems[randomIndex]);
+        //}
+
     }
 
-    private void Start()
-    {
-        CreateItemButton(Shop_Item.ItemType.item1, Shop_Item.GetSprite(Shop_Item.ItemType.item1), "Item 1", Shop_Item.GetCost(Shop_Item.ItemType.item1), 0);
-        CreateItemButton(Shop_Item.ItemType.item2, Shop_Item.GetSprite(Shop_Item.ItemType.item2), "Item 2", Shop_Item.GetCost(Shop_Item.ItemType.item2), 1);
-        CreateItemButton(Shop_Item.ItemType.item3, Shop_Item.GetSprite(Shop_Item.ItemType.item3), "Item 3", Shop_Item.GetCost(Shop_Item.ItemType.item3), 2);
-        CreateItemButton(Shop_Item.ItemType.item4, Shop_Item.GetSprite(Shop_Item.ItemType.item4), "Item 4", Shop_Item.GetCost(Shop_Item.ItemType.item4), 3);
-        CreateItemButton(Shop_Item.ItemType.item5, Shop_Item.GetSprite(Shop_Item.ItemType.item5), "Item 5", Shop_Item.GetCost(Shop_Item.ItemType.item5), 4);
-        CreateItemButton(Shop_Item.ItemType.item6, Shop_Item.GetSprite(Shop_Item.ItemType.item6), "Item 6", Shop_Item.GetCost(Shop_Item.ItemType.item6), 5);
-        CreateItemButton(Shop_Item.ItemType.item7, Shop_Item.GetSprite(Shop_Item.ItemType.item7), "Item 7", Shop_Item.GetCost(Shop_Item.ItemType.item7), 6);
+    private void Start() {
+
+        for (int i = 0; i < items.Count; i++) {
+            CreateItemButton(items[i], i);
+        }
 
         HideShop();
     }
 
     //ensures items are in the correct position, and have the correct values
-    private void CreateItemButton(Shop_Item.ItemType itemType, Sprite itemSprite, string itemName, int itemCost, int positionIndex)
-    {
+    private void CreateItemButton(Item item, int positionIndex) {
         //Duplicates the item template as a reference
         Transform shopItemTransform = Instantiate(shopItemTemplate, container);
+        Button button = shopItemTransform.gameObject.GetComponent<Button>();
+        button.onClick.AddListener(()=>TryBuyItem(item));
         shopItemTransform.gameObject.SetActive(true);
         RectTransform shopItemRectTransform = shopItemTransform.GetComponent<RectTransform>();
 
@@ -44,24 +48,26 @@ public class Shop_UI : MonoBehaviour
         shopItemRectTransform.anchoredPosition = new Vector2(0, -shopItemHeight * positionIndex);
 
         //Sets the item name, image and cost
-        shopItemTransform.Find("itemName").GetComponent<TextMeshProUGUI>().SetText(itemName);
-        shopItemTransform.Find("itemPrice").GetComponent<TextMeshProUGUI>().SetText(itemCost.ToString());
-        shopItemTransform.Find("itemImage").GetComponent<Image>().sprite = itemSprite;
+        shopItemTransform.Find("itemName").GetComponent<TextMeshProUGUI>().SetText(item.name);
+        shopItemTransform.Find("itemPrice").GetComponent<TextMeshProUGUI>().SetText(item.cost.ToString());
+        shopItemTransform.Find("itemImage").GetComponent<Image>().sprite = item.icon;
     }
 
-    private void TryBuyItem(Shop_Item.ItemType itemType)
-    {
-        shopCustomer.BoughtItem(itemType);
+    public void TryBuyItem(Item item) {
+        if (PlayerManager.instance.stats.gold >= item.cost) {
+            Inventory.inventory.Add(item);
+        }
+
     }
 
-    public void ShowShop(IShopCustomer shopCustomer)
-    {
-        this.shopCustomer = shopCustomer;
+    public void ShowShop() {
+        Cursor.lockState = CursorLockMode.None;
+        Debug.Log("Inshop");
         gameObject.SetActive(true);
     }
 
-    public void HideShop()
-    {
+    public void HideShop() {
+        Cursor.lockState = CursorLockMode.Locked;
         gameObject.SetActive(false);
     }
 }
