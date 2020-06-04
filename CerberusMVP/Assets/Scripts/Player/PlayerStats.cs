@@ -24,12 +24,10 @@ public class PlayerStats : MonoBehaviour {
     public TextMeshProUGUI gritText;
     public Image GritBar;
     public TextMeshProUGUI ammoClip, ammoTotal;
-
     public bool GritActive = false;
-    public static Gun activeGun;
+    public Gun activeGun;
 
-    // Start is called before the first frame update
-    void Start() {
+    private void Start() {
         PlayerManager.instance.stats = this;
     }
 
