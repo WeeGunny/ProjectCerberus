@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -16,6 +17,7 @@ public class GrapplingGun : MonoBehaviour {
     public float maxDistance = 50f;
     public float reelInSpeed = 5f;
     public float maxSpeed = 12f;
+    public float dismountTimer = 3f;
     private SpringJoint joint;
 
     void Awake() {
@@ -40,6 +42,12 @@ public class GrapplingGun : MonoBehaviour {
             Vector3 direction = (grapplePoint - player.transform.position).normalized;
             rb.velocity += direction * Time.deltaTime * reelInSpeed * yMultiplier * Mathf.Abs(grapplePoint.y - player.transform.position.y);
 
+            dismountTimer -= Time.deltaTime;
+            if (dismountTimer <= 0)
+            {
+                StopGrapple();
+                
+            }
 
             if (Vector3.Distance(transform.position, grapplePoint) < reachedPositionDistance) {
                 StopGrapple();
@@ -93,6 +101,7 @@ public class GrapplingGun : MonoBehaviour {
     void StopGrapple() {
         lr.positionCount = 0;
         Destroy(joint);
+        dismountTimer = 3f;
     }
 
     private Vector3 currentGrapplePosition;
