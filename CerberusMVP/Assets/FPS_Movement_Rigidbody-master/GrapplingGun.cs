@@ -15,6 +15,7 @@ public class GrapplingGun : MonoBehaviour {
     [Header("Values")]
     public float maxDistance = 50f;
     public float reelInSpeed = 5f;
+    public float maxSpeed = 12f;
     private SpringJoint joint;
 
     void Awake() {
@@ -22,6 +23,7 @@ public class GrapplingGun : MonoBehaviour {
     }
 
     void Update() {
+        Rigidbody rb = player.GetComponent<Rigidbody>();
 
         if (Input.GetKeyDown(KeyCode.Q)) {
             StartGrapple();
@@ -34,18 +36,18 @@ public class GrapplingGun : MonoBehaviour {
         if (IsGrappling()) {
             //Dismount grappling hook after reaching the grappling point
             float reachedPositionDistance = 1f;
-            float yMultiplier = 1.5f;
+            float yMultiplier = 3.5f;
             Vector3 direction = (grapplePoint - player.transform.position).normalized;
-            player.GetComponent<Rigidbody>().velocity += direction * Time.deltaTime * reelInSpeed * yMultiplier* Mathf.Abs(grapplePoint.y - player.transform.position.y);
-            Vector3.ClampMagnitude(player.GetComponent<Rigidbody>().velocity, 5f);
+            rb.velocity += direction * Time.deltaTime * reelInSpeed * yMultiplier * Mathf.Abs(grapplePoint.y - player.transform.position.y);
+
 
             if (Vector3.Distance(transform.position, grapplePoint) < reachedPositionDistance) {
-                player.GetComponent<Rigidbody>().velocity -= direction * reelInSpeed;
                 StopGrapple();
             }
         }
+        Vector3.ClampMagnitude(rb.velocity, maxSpeed);
 
-       
+
 
 
     }
@@ -69,20 +71,19 @@ public class GrapplingGun : MonoBehaviour {
             float distanceFromPoint = Vector3.Distance(player.position, grapplePoint);
 
             //The distance grapple will try to keep from grapple point. 
-            joint.maxDistance = distanceFromPoint * 0.1f;
+            joint.maxDistance = distanceFromPoint * 0.8f;
             joint.minDistance = 0;
 
             //Adjust these values to fit your game.
             joint.spring = 10f;
             joint.damper = 20f;
             joint.massScale = 1f;
-            joint.enableCollision = true;
 
             lr.positionCount = 2;
             currentGrapplePosition = gunTip.position;
         }
 
-       
+
     }
 
 
