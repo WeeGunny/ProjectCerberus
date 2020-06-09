@@ -36,9 +36,8 @@ public class GunManager : MonoBehaviour {
         if (Input.GetButton("Fire1")) {
             if (currentGun.fireType == FireType.Auto)
                 currentGun.AutomaticFire();
-            if (currentGun.fireType == FireType.Laser) {
+            if (currentGun.fireType == FireType.Laser && currentGun.firingLaser ==true) {
                 currentGun.UpdateLaser();
-                currentGun.firingLaser = true;
             }
         }
         if (Input.GetButtonUp("Fire1")) {

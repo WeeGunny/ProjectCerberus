@@ -39,4 +39,17 @@ public class rbCam: MonoBehaviour
         playerTransform.localRotation = Quaternion.AngleAxis(currentLookPos.x, playerTransform.up);
 
     }
+
+    public static void ToggleCam() {
+        if (Cursor.lockState == CursorLockMode.Locked) {
+            Cursor.lockState = CursorLockMode.None;
+  //          rbCam.movePlayerCam = false;
+        }
+        else {
+            Cursor.lockState = CursorLockMode.Locked;
+     //       rbCam.movePlayerCam = true;
+        }
+        movePlayerCam = !movePlayerCam;
+        Cursor.visible = !Cursor.visible;
+    }
 }

@@ -81,6 +81,7 @@ public class Gun : MonoBehaviour {
     public void LaserFire() {
         Debug.Log("Creating Laser");
         laser = Instantiate(primaryAmmo,firePoint);
+        firingLaser = true;
 
     }
 
@@ -129,6 +130,7 @@ public class Gun : MonoBehaviour {
                 }
                 else {
                     Debug.Log("Out of Ammo");
+                    firingLaser = false;
                     Destroy(laser);
                 }
             }
@@ -136,8 +138,6 @@ public class Gun : MonoBehaviour {
         else {
             beam.SetPosition(1, new Vector3( 0,0,range));
         }
-
-       
 
     }
     public virtual void AltFire() {
