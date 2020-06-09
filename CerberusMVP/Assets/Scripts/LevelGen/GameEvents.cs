@@ -15,19 +15,13 @@ public class GameEvents : MonoBehaviour
     public event Action<int> onDoorwayTriggerExit;
     public void DoorwayTriggerExit(int id)
     {
-        if (onDoorwayTriggerExit != null)
-        {
-            onDoorwayTriggerExit(id);
-        }
+        onDoorwayTriggerExit?.Invoke(id);
     }
 
     public event Action<int> onEnemiesDefeated;
     public void EnemiesDefeated(int id)
     {
-        if (onEnemiesDefeated != null)
-        {
-            onEnemiesDefeated(id);
-        }
+        onEnemiesDefeated?.Invoke(id);
     }
 
     private Func<List<GameObject>> onRequestListofDoors;

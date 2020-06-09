@@ -40,6 +40,8 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject WinScreen;
     public GameObject inGameUI;
 
+    int roomNum = 0;
+
     void Start() {
         allMainRooms = mainRoomPrefabs;
         StartCoroutine("GenerateLevel");
@@ -96,6 +98,8 @@ public class LevelGenerator : MonoBehaviour {
         startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity, transform) as StartRoom;
         availableDoorways.Add(startRoom.doorways[0]);
         Debug.Log("Placing Start Room! Wrrrrrrr");
+        startRoom.id = roomNum;
+        roomNum++;
     }
     void PlaceMainRoom() {
         //Instantiate Room
@@ -130,7 +134,8 @@ public class LevelGenerator : MonoBehaviour {
 
                     // Exit Loop if room has been placed
                     roomPlaced = true;
-                    currentRoom.id = placedRooms.Count;
+                    currentRoom.id = roomNum ;
+                    roomNum++;
                 }
 
                 // Check for overlapping rooms false
@@ -181,6 +186,8 @@ public class LevelGenerator : MonoBehaviour {
 
                     // Exit Loop if room has been placed
                     roomPlaced = true;
+                    currentRoom.id = roomNum;
+                    roomNum++;
                 }
 
 
@@ -268,6 +275,8 @@ public class LevelGenerator : MonoBehaviour {
 
                 availableDoorways[doorToPlace].gameObject.SetActive(false);
                 availableDoorways.Remove(availableDoorways[doorToPlace]);
+                startRoom.id = roomNum;
+                roomNum++;
                 break;
             }
 
@@ -308,7 +317,8 @@ public class LevelGenerator : MonoBehaviour {
         placedRooms.Clear();
         availableDoorways.Clear();
         availableMainDoorways.Clear();
-        FindObjectOfType<InventoryUI>().ClearInventory();
+        roomNum = 0;
+       // FindObjectOfType<InventoryUI>().ClearInventory();
 
         StartCoroutine("GenerateLevel");
 
