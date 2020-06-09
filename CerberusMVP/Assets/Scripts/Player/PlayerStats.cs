@@ -50,9 +50,18 @@ public class PlayerStats : MonoBehaviour {
         {
             GritActive = false;
         }
+        if(activeGun != null) {
+            ammoClip.text = activeGun.ammoInClip.ToString();
+            ammoTotal.text = activeGun.currentAmmo.ToString();
+            ammoClip.gameObject.SetActive(true);
+            ammoTotal.gameObject.SetActive(true);
+        }
+        else {
+            ammoClip.gameObject.SetActive(false);
+            ammoTotal.gameObject.SetActive(false);
+        }
 
-        ammoClip.text = activeGun.ammoInClip.ToString();
-        ammoTotal.text = activeGun.currentAmmo.ToString() ;
+       
     }
 
     public void TakeDamage(float damage) {
