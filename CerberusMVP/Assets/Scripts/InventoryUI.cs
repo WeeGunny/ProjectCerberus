@@ -25,6 +25,7 @@ public class InventoryUI : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I)) {
+            Debug.Log("Inventory Key presed");
 
             inventoryUI.SetActive(!inventoryUI.activeSelf);
             rbCam.ToggleCam();

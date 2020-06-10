@@ -14,6 +14,7 @@ public class PlayerStats : MonoBehaviour {
     public float moxieMax =100;
     public float Grit = 100;
     public float gritMax =100;
+    public float gold = 100;
 
     [Header("UI Reference")]
     public TextMeshProUGUI healthText;
