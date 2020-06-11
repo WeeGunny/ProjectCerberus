@@ -6,8 +6,6 @@ public class rbWallRun : MonoBehaviour {
 
     public float rayDistance;
     public float wallRunUpForce;
-    public float wallRunCountdown;
-    float timer;
     public Transform cam;
     rbPlayer player;
     Rigidbody rb;
