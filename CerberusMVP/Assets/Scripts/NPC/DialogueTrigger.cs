@@ -8,11 +8,9 @@ public class DialogueTrigger : MonoBehaviour
 
     public void TriggerDialogue(Collider other)
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
-
         if(other.gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
-            //StartDialogue();
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
         }
     }
 
