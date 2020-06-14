@@ -9,9 +9,14 @@ public class NPC : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.gameObject.tag == "Player") && Input.GetKeyDown(KeyCode.E))
+        if ((other.gameObject.tag == "Player") /*&& Input.GetButtonDown("Interact")*/)
         {
             dialogueManager.StartDialog(myConversation);
+
+            //Enables mouse movement
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
     }
 }
