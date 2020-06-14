@@ -1,46 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public Queue<string> sentences;
+    public GameObject dialoguePanel;
+    public Text npcNameText;
+    public Text dialogueText;
 
+    private List<string> conversation;
+    private int conversationIndex;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        sentences = new Queue<string>();
+        dialoguePanel.SetActive(false);
     }
 
-    public void StartDialogue (Dialogue dialogue)
+    public void StartDialog(Conversation convo)
     {
-        Debug.Log("Starting conversation with " + dialogue.name);
+        npcNameText.text = convo.npcName;
+        conversation = new List<string>(convo.myConversation);
+        dialoguePanel.SetActive(true);
+        conversationIndex = 0;
+        ShowText();
+    }
 
-        sentences.Clear();
+    public void StopDialog()
+    {
+        dialoguePanel.SetActive(false);
+    }
 
-        foreach (string sentence in dialogue.sentences)
+    private void ShowText()
+    {
+        dialogueText.text = conversation[conversationIndex];
+    }
+
+    public void Next()
+    {
+        if (conversationIndex < conversation.Count - 1)
         {
-            sentences.Enqueue(sentence);
+            conversationIndex += 1;
+            ShowText();
         }
-
-        DisplayNextSentence();
-    }
-
-    public void DisplayNextSentence()
-    {
-        if (sentences.Count == 0)
-        {
-            EndDialogue();
-            return;
-        }
-
-        string sentence = sentences.Dequeue();
-        Debug.Log(sentence);
-    }
-
-    void EndDialogue()
-    {
-        Debug.Log("End of conversation");
     }
 }
