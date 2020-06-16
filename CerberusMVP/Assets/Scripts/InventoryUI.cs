@@ -6,6 +6,7 @@ public class InventoryUI : MonoBehaviour
 {
     Inventory inventory;
     public GameObject inventoryUI;
+    public GameObject slotPrefab;
     public Transform itemSlotParent;
 
     InventorySlot[] slots;
@@ -13,6 +14,9 @@ public class InventoryUI : MonoBehaviour
     {
         inventory = Inventory.inventory;
         inventory.OnItemChangedCallBack += UpdateUI;
+        for (int i =0;i < inventory.limit;i++) {
+            Instantiate(slotPrefab,itemSlotParent);
+        }
         slots = itemSlotParent.GetComponentsInChildren<InventorySlot>();
         UpdateUI();
     }
@@ -21,14 +25,10 @@ public class InventoryUI : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I)) {
+            Debug.Log("Inventory Key presed");
 
             inventoryUI.SetActive(!inventoryUI.activeSelf);
-            if(Cursor.lockState == CursorLockMode.Locked) {
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
+            rbCam.ToggleCam();
             
         }
         

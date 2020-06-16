@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
-{
+public class Inventory : MonoBehaviour {
     #region singleton
     public static Inventory inventory;
 
     private void Awake() {
         inventory = this;
+        DontDestroyOnLoad(this);
     }
 
     #endregion
@@ -20,17 +20,17 @@ public class Inventory : MonoBehaviour
     public OnItemChanged OnItemChangedCallBack;
     public bool Add(Item item) {
 
-        if(items.Count >= limit) {
+        if (items.Count >= limit) {
             Debug.Log("No space in inventory");
 
             return false;
         }
 
         items.Add(item);
-        if(OnItemChangedCallBack != null) {
+        if (OnItemChangedCallBack != null) {
             OnItemChangedCallBack.Invoke();
         }
-        
+
 
         return true;
     }
