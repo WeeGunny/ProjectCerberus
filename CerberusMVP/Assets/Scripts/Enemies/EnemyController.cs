@@ -14,6 +14,8 @@ public class EnemyController : MonoBehaviour {
     private float shotDelay, distance;
     public GameObject projectile;
     public Room roomImIn;
+    public DamageType[] Weaknesses, Resistances;
+    public bool takingDotDamage;
     // Start is called before the first frame update
     void Start() {
         agent = GetComponent<NavMeshAgent>();
@@ -44,10 +46,12 @@ public class EnemyController : MonoBehaviour {
             //Possible spot for melee attack trigger
             //if enemy is within their stopping distance of the player
         }
-
-
         else {
             shotDelay -= Time.deltaTime;
+        }
+
+        if (health <= 0) {
+            Death();
         }
     }
 
@@ -64,11 +68,39 @@ public class EnemyController : MonoBehaviour {
         shotDelay = startShotDelay;
     }
 
-    public void TakeDamage(float damage) {
-        health -= damage;
-        if (health <= 0) {
-            Death();
+    public void TakeDamage(float damage,DamageType damageType) {
+        for (int i = 0; i< Weaknesses.Length;i++) {
+            if (Weaknesses[i] == damageType) {
+                damage *= 2;
+                damageType.dotDamage *= 2;
+            }
         }
+        for (int i = 0; i < Resistances.Length; i++) {
+            if (Resistances[i] == damageType) {
+                damage *= .5f;
+                damageType.dotDamage *= .5f;
+            }
+        }
+        health -= damage;
+        if (damageType.hasDOT && !takingDotDamage) {
+            StartCoroutine("DotDamage",damageType);
+        }
+        else if(damageType.hasDOT && takingDotDamage) {
+            //restart the coroutine to refresh ticks without them stacking
+            StopCoroutine("DotDamage");
+            StartCoroutine("DotDamage", damageType);
+        }
+    }
+
+    IEnumerator DotDamage( DamageType type) {
+        takingDotDamage = true;
+        int ticksApplied =0 ;
+        while (ticksApplied < type.dotTicks) {
+            health -= type.dotDamage;
+            yield return new WaitForSeconds(type.dotInterval);
+            ticksApplied++;
+        }
+        takingDotDamage = false;
     }
 
     protected virtual void Death() {
