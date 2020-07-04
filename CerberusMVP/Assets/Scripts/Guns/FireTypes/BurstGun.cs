@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BurstGun : Gun
 {
+    public float burstFireRounds;
     public override void Fire() {
         if (!AmmoCheck()) {
             return;
@@ -17,8 +18,10 @@ public class BurstGun : Gun
         for (int b = 0; b < 3; b++) {
             if (ammoInClip > 0) {
                 ShootProjectile();
-                yield return new WaitForSeconds(.1f);
+               yield return new WaitForSecondsRealtime(0.1f);
             }
+            Debug.Log("are you still going?");
         }
+        yield return null;
     }
 }
