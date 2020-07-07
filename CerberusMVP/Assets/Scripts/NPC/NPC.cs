@@ -6,17 +6,32 @@ public class NPC : MonoBehaviour
 {
     public DialogueManager dialogueManager;
     public Conversation myConversation;
+    bool istalking = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.gameObject.tag == "Player") /*&& Input.GetButtonDown("Interact")*/)
+        if ((other.gameObject.tag == "Player"))
         {
-            dialogueManager.StartDialog(myConversation);
+            dialogueManager.interactUI.SetActive(true);
+        }
+    }
+    private void OnTriggerStay(Collider other) {
 
-            //Enables mouse movement
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
+        if ((other.gameObject.tag == "Player")) {
+            if (Input.GetKeyDown(KeyCode.E) && istalking == false ) {
+                dialogueManager.StartDialog(myConversation);
+                istalking = true;
+            }
+        }
+        
+       
+
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if ((other.gameObject.tag == "Player")) {
+            dialogueManager.interactUI.SetActive(false);
+            istalking = false;
         }
     }
 }

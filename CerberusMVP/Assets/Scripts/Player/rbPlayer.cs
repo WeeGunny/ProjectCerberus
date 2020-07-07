@@ -7,6 +7,7 @@ public class rbPlayer : MonoBehaviour {
     public float movementSpeed = 10f;
     public float jumpHeight = 100f;
     public float rayDistance;
+    public bool movePlayer = true;
     private Vector3 movement;
     // Start is called before the first frame update
     void Start() {
@@ -23,7 +24,10 @@ public class rbPlayer : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        Move();
+        if (movePlayer == true) {
+            Move();
+        }
+        
     }
 
     private void Move() {
@@ -58,5 +62,9 @@ public class rbPlayer : MonoBehaviour {
             PlayerManager.instance.stats.Grit -= Time.deltaTime * 80;
         }
 
+    }
+
+    public void toggleMovement() {
+        movePlayer = !movePlayer;
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
-    public GameObject dialoguePanel;
+    public GameObject dialoguePanel, interactUI;
     public Text npcNameText;
     public Text dialogueText;
     public rbPlayer player;
@@ -26,12 +26,13 @@ public class DialogueManager : MonoBehaviour
         npcNameText.text = convo.npcName;
         conversation = new List<string>(convo.myConversation);
         dialoguePanel.SetActive(true);
+        interactUI.SetActive(false);
         conversationIndex = 0;
         ShowText();
 
         //Disables movement and camera movement
-        player.enabled = false;
-        rbCam.movePlayerCam = false;
+        player.toggleMovement();
+        rbCam.ToggleCam();
     }
 
     public void StopDialog()
@@ -39,16 +40,24 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
 
         //Enables movement again and disables mouse
-        player.enabled = true;
-        rbCam.movePlayerCam = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
+        player.toggleMovement();
+        rbCam.ToggleCam();
     }
 
     private void ShowText()
     {
-        dialogueText.text = conversation[conversationIndex];
+        string sentence = conversation[conversationIndex];
+        StartCoroutine(TypeSentence(sentence));
+        //dialogueText.text = ;
+    }
+
+    IEnumerator TypeSentence(string sentence) {
+        dialogueText.text = "";
+        foreach (char letter in sentence.ToCharArray()) {
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(0.05f);
+
+        }
     }
 
     public void Next()
