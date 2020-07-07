@@ -16,18 +16,14 @@ public class rbPlayer : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
         Jump();
         Grit();
-
-
     }
 
     private void FixedUpdate() {
         if (movePlayer == true) {
             Move();
         }
-        
     }
 
     private void Move() {
