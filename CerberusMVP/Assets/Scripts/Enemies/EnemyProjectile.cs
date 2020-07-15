@@ -42,6 +42,7 @@ public class EnemyProjectile : MonoBehaviour {
         }
 
     }
+
     private void DestroyProjectile() {
         Destroy(gameObject);
     }

@@ -23,8 +23,7 @@ public class LaserGun : Gun {
     }
 
     public override void OnFireHeld() {
-        if (!AmmoCheck()) {
-
+        if (!AmmoCheck() || !firingLaser) {
             return;
         }
         LineRenderer beam = laser.GetComponentInChildren<LineRenderer>();

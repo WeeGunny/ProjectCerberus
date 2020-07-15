@@ -49,32 +49,29 @@ public class Gun : MonoBehaviour {
     }
 
     public void ShootProjectile() {
-
-        Vector3 direction = firePoint.forward;
         GameObject bullet = Instantiate(primaryAmmo, firePoint.position, Quaternion.identity);
         PlayerProjectile bulletProperties = bullet.GetComponent<PlayerProjectile>();
-        bulletProperties.damage = Dmg;
-        bulletProperties.direction = direction;
-        bulletProperties.speed = bulletSpeed;
-        bulletProperties.range = range;
-        bulletProperties.gun = gameObject;
-        bulletProperties.bulletHolePrefab = primaryBH;
+        bulletProperties.SetStats(this);
         lastTimeFired = Time.time;
         ammoInClip--;
 
     }
-    public virtual void AltFire() {
+    public virtual IEnumerator BurstFire() {
 
-        Vector3 direction = firePoint.forward;
+        for (int b = 0; b < 3; b++) {
+            Debug.Log("Burst fire");
+            if (ammoInClip > 0) {
+                ShootProjectile();
+                yield return new WaitForSecondsRealtime(0.1f);
+            }
+
+        }
+    }
+
+    public virtual void AltFire() {
         GameObject bullet = Instantiate(altAmmo, firePoint.position, Quaternion.identity);
         PlayerProjectile bulletProperties = bullet.GetComponent<PlayerProjectile>();
-        bulletProperties.damage = altDmg;
-        bulletProperties.direction = direction;
-        bulletProperties.speed = altSpeed;
-        bulletProperties.range = altRange;
-        bulletProperties.gun = gameObject;
-        bulletProperties.bulletHolePrefab = altBH;
-
+        bulletProperties.SetAltStats(this);
         PlayerManager.instance.stats.Moxie -= moxieRequirement;
     }
 

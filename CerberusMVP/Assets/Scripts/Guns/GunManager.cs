@@ -45,7 +45,6 @@ public class GunManager : MonoBehaviour {
         if (Input.GetButtonDown("Fire2")) {
             if (PlayerManager.instance.stats.Moxie >= currentGun.moxieRequirement) {
                 currentGun.AltFire();
-                PlayerManager.instance.stats.Moxie -= currentGun.moxieRequirement;
             }
             else {
                 Debug.Log("Not Enough moxie to fire");
