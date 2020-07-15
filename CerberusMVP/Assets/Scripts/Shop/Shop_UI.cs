@@ -44,7 +44,7 @@ public class Shop_UI : MonoBehaviour {
         RectTransform shopItemRectTransform = shopItemTransform.GetComponent<RectTransform>();
         shopItemTransform.GetComponent<Shop_Item>().setItem(item);
         //Properly positions the newly spawned shop templates
-        float shopItemHeight = 100f;
+        float shopItemHeight = 75f;
         shopItemRectTransform.anchoredPosition = new Vector2(0, -shopItemHeight * positionIndex);
     }
 
@@ -62,13 +62,9 @@ public class Shop_UI : MonoBehaviour {
     public void ShowShop() {
         Debug.Log("Inshop");
         gameObject.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void HideShop() {
         gameObject.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 }

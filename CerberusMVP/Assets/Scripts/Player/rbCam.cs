@@ -26,7 +26,7 @@ public class rbCam: MonoBehaviour
         }            
     }
 
-    private void RotateCamera() {
+    public void RotateCamera() {
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
         Vector2 lookInput = new Vector2(mouseX, mouseY);
