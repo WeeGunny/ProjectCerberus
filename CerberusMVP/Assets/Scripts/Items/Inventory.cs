@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour {
     #region singleton
-    public static Inventory inventory;
 
     private void Awake() {
-        inventory = this;
+        PlayerManager.instance.inventory = this;
         DontDestroyOnLoad(this);
     }
 
@@ -18,11 +17,12 @@ public class Inventory : MonoBehaviour {
 
     public delegate void OnItemChanged();
     public OnItemChanged OnItemChangedCallBack;
+    //public delegate void OnSlotIncrease(int increaseAmount);
+    //public OnItemChanged OnSlotIncreaseCallBack;
     public bool Add(Item item) {
 
         if (items.Count >= limit) {
             Debug.Log("No space in inventory");
-
             return false;
         }
 
@@ -42,4 +42,9 @@ public class Inventory : MonoBehaviour {
             OnItemChangedCallBack.Invoke();
         }
     }
+
+    //public void IncreaseLimit(int increaseAmount) {
+
+    //    limit += increaseAmount;
+    //}
 }

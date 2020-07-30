@@ -8,9 +8,11 @@ public class rbPlayer : MonoBehaviour {
     public float jumpHeight = 100f;
     public float rayDistance;
     public bool movePlayer = true;
-    private Vector3 movement;
+    private Vector3 movementVector;
     // Start is called before the first frame update
     void Start() {
+        PlayerManager.playerExists = true;
+        PlayerManager.instance.player = this.gameObject;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -27,10 +29,11 @@ public class rbPlayer : MonoBehaviour {
     }
 
     private void Move() {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputZ = Input.GetAxis("Vertical");
-        movement = new Vector3(inputX, 0, inputZ) * movementSpeed * Time.fixedDeltaTime;
-        Vector3 newPosition = rb.position + rb.transform.TransformDirection(movement);
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputZ = Input.GetAxisRaw("Vertical");
+        movementVector = new Vector3(inputX * movementSpeed, rb.velocity.y, inputZ * movementSpeed) *Time.deltaTime;
+        //rb.velocity = movementVector;
+        Vector3 newPosition = rb.position + rb.transform.TransformDirection(movementVector);
         rb.MovePosition(newPosition);
 
     }

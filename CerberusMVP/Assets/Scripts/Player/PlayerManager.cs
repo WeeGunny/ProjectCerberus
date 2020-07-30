@@ -16,4 +16,5 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject player = null;
     public PlayerStats stats = null;
+    public Inventory inventory = null;
 }

@@ -51,16 +51,9 @@ public class PlayerStats : MonoBehaviour {
         {
             GritActive = false;
         }
-        if(activeGun != null) {
-            ammoClip.text = activeGun.ammoInClip.ToString();
-            ammoTotal.text = activeGun.currentAmmo.ToString();
-            ammoClip.gameObject.SetActive(true);
-            ammoTotal.gameObject.SetActive(true);
-        }
-        else {
-            ammoClip.gameObject.SetActive(false);
-            ammoTotal.gameObject.SetActive(false);
-        }
+
+        UpdateAmmoUI();
+
 
        
     }
@@ -72,7 +65,7 @@ public class PlayerStats : MonoBehaviour {
         UpdateHealthUI();
         
         if (Health <= 0) {
-
+            Death();
         }
     }
 
@@ -94,4 +87,22 @@ public class PlayerStats : MonoBehaviour {
         healthBar.fillAmount = Health / 100;
 
     }
+
+    private void UpdateAmmoUI() {
+        if (activeGun != null) {
+            ammoClip.text = activeGun.ammoInClip.ToString();
+            ammoTotal.text = activeGun.currentAmmo.ToString();
+            ammoClip.gameObject.SetActive(true);
+            ammoTotal.gameObject.SetActive(true);
+        }
+        else {
+            ammoClip.gameObject.SetActive(false);
+            ammoTotal.gameObject.SetActive(false);
+        }
+    }
+
+    private void Death() {
+        Debug.Log("The player has died");
+    }
+
 }

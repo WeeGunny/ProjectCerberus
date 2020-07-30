@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class GunManager : MonoBehaviour {
     public List<Gun> guns = new List<Gun>();
     public Camera fpsCam;
+    public static bool canFire =true;
     Gun currentGun;
     GameObject currentGunObject;
     List<GameObject> gunObjects = new List<GameObject>();
@@ -24,9 +26,15 @@ public class GunManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        CheckForShooting();
-        CheckForReload();
-        SwitchGun();
+        if(currentGunObject == null) {
+            canFire = false;
+        }
+        if (canFire) {
+            CheckForShooting();
+            CheckForReload();
+            SwitchGun();
+        }   
+        
     }  
 
     private void CheckForShooting() {
@@ -61,7 +69,9 @@ public class GunManager : MonoBehaviour {
     }
 
     void SwitchGun() {
-        currentGunObject.SetActive(false);
+        if (currentGunObject!= null) {
+            currentGunObject.SetActive(false);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             if (gunObjects[0] != null) {
                 currentGunObject = gunObjects[0];
@@ -82,8 +92,15 @@ public class GunManager : MonoBehaviour {
                 currentGunObject = gunObjects[3];
             }
         }
-        currentGun = currentGunObject.GetComponent<Gun>();
-        PlayerManager.instance.stats.activeGun = currentGun;
-        currentGunObject.SetActive(true);
+        if (currentGunObject!= null) {
+            currentGun = currentGunObject.GetComponent<Gun>();
+            PlayerManager.instance.stats.activeGun = currentGun;
+            currentGunObject.SetActive(true);
+        }
+       
+    }
+
+    public static void ToggleFire() {
+        canFire = !canFire;
     }
 }

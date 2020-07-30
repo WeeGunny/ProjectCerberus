@@ -12,12 +12,13 @@ public class InventoryUI : MonoBehaviour
     InventorySlot[] slots;
     void Start()
     {
-        inventory = Inventory.inventory;
+        inventory = PlayerManager.instance.inventory;
         inventory.OnItemChangedCallBack += UpdateUI;
         for (int i =0;i < inventory.limit;i++) {
             Instantiate(slotPrefab,itemSlotParent);
         }
         slots = itemSlotParent.GetComponentsInChildren<InventorySlot>();
+        itemSlotParent.gameObject.SetActive(false);
         UpdateUI();
     }
 
@@ -25,11 +26,7 @@ public class InventoryUI : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I)) {
-            Debug.Log("Inventory Key presed");
-
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
-            rbCam.ToggleCam();
-            
+            ToggleInventory();       
         }
         
     }
@@ -50,4 +47,27 @@ public class InventoryUI : MonoBehaviour
         inventory.items.Clear();
         UpdateUI();
     }
+
+    private void ToggleInventory() {
+
+        inventoryUI.SetActive(!inventoryUI.activeSelf);
+        rbCam.ToggleCam();
+
+    }
+
+    public void showInventory() {
+        inventoryUI.SetActive(true);
+    }
+
+    public void HideInventory() {
+        inventoryUI.SetActive(false);
+    }
+
+    //public void AddSlot(int slotAmount) {
+    //    for (int i = 0;i<slotAmount;i++) {
+    //        Instantiate(slotPrefab, itemSlotParent);
+    //    }     
+    //    slots = itemSlotParent.GetComponentsInChildren<InventorySlot>();
+    //    UpdateUI();
+    //}
 }
