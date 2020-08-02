@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlechettePistol : ManualGun
-{
+public class FlechettePistol : ManualGun {
     public float burstFireRounds;
+    MonoBehaviour mono;
     public override void AltFire() {
         if (!AmmoCheck()) {
             return;
@@ -16,8 +16,10 @@ public class FlechettePistol : ManualGun
     public IEnumerator BurstFire() {
 
         Debug.Log("Starting Burst fire");
-       for (int b = 0; b < burstFireRounds; b++) {
+        for (int b = 0; b < burstFireRounds; b++) {
             if (ammoInClip > 0) {
+                ShootProjectile();
+                ShootProjectile();
                 ShootProjectile();
                 Debug.Log("Shot a bullet");
 

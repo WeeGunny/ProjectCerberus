@@ -18,7 +18,7 @@ public class InventoryUI : MonoBehaviour
             Instantiate(slotPrefab,itemSlotParent);
         }
         slots = itemSlotParent.GetComponentsInChildren<InventorySlot>();
-        itemSlotParent.gameObject.SetActive(false);
+        inventoryUI.SetActive(false);
         UpdateUI();
     }
 
@@ -57,10 +57,12 @@ public class InventoryUI : MonoBehaviour
 
     public void showInventory() {
         inventoryUI.SetActive(true);
+        rbCam.ToggleCam();
     }
 
     public void HideInventory() {
         inventoryUI.SetActive(false);
+        rbCam.ToggleCam();
     }
 
     //public void AddSlot(int slotAmount) {

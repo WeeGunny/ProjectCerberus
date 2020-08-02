@@ -31,7 +31,7 @@ public class rbPlayer : MonoBehaviour {
     private void Move() {
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputZ = Input.GetAxisRaw("Vertical");
-        movementVector = new Vector3(inputX * movementSpeed, rb.velocity.y, inputZ * movementSpeed) *Time.deltaTime;
+        movementVector = new Vector3(inputX , 0, inputZ) * movementSpeed * Time.deltaTime;
         //rb.velocity = movementVector;
         Vector3 newPosition = rb.position + rb.transform.TransformDirection(movementVector);
         rb.MovePosition(newPosition);

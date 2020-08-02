@@ -132,7 +132,7 @@ public class LevelGenerator : MonoBehaviour {
 
                     // Exit Loop if room has been placed
                     roomPlaced = true;
-                    currentRoom.id = roomNum ;
+                    currentRoom.id = roomNum;
                     roomNum++;
                 }
 
@@ -316,7 +316,7 @@ public class LevelGenerator : MonoBehaviour {
         availableDoorways.Clear();
         availableMainDoorways.Clear();
         roomNum = 0;
-       // FindObjectOfType<InventoryUI>().ClearInventory();
+        // FindObjectOfType<InventoryUI>().ClearInventory();
 
         StartCoroutine("GenerateLevel");
 

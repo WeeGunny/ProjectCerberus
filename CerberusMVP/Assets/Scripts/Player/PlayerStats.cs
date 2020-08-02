@@ -17,6 +17,7 @@ public class PlayerStats : MonoBehaviour {
     public float gold = 100;
 
     [Header("UI Reference")]
+    public TextMeshProUGUI goldText;
     public TextMeshProUGUI healthText;
     public Image healthBar;
     public TextMeshProUGUI moxieText;
@@ -53,9 +54,14 @@ public class PlayerStats : MonoBehaviour {
         }
 
         UpdateAmmoUI();
+        UpdateGoldUI();
 
 
        
+    }
+
+    private void UpdateGoldUI() {
+        goldText.text = "Gold Amount: " + gold;
     }
 
     public void TakeDamage(float damage) {

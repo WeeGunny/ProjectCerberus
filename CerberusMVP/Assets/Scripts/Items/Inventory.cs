@@ -3,15 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour {
-    #region singleton
 
-    private void Awake() {
-        PlayerManager.instance.inventory = this;
-        DontDestroyOnLoad(this);
-    }
-
-    #endregion
-
+    public static Inventory inventory;
     public List<Item> items = new List<Item>();
     public int limit = 16;
 
@@ -19,6 +12,17 @@ public class Inventory : MonoBehaviour {
     public OnItemChanged OnItemChangedCallBack;
     //public delegate void OnSlotIncrease(int increaseAmount);
     //public OnItemChanged OnSlotIncreaseCallBack;
+    private void Awake() {
+        inventory = this;
+    }
+
+    private void Start() {
+        PlayerManager.instance.inventory = inventory;
+        Debug.Log("Inventory set");
+        DontDestroyOnLoad(this);
+    }
+
+  
     public bool Add(Item item) {
 
         if (items.Count >= limit) {

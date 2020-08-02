@@ -51,5 +51,6 @@ public class rbCam: MonoBehaviour
         }
         movePlayerCam = !movePlayerCam;
         Cursor.visible = !Cursor.visible;
+        GunManager.canFire = !GunManager.canFire;
     }
 }

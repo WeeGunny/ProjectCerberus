@@ -14,7 +14,8 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
-    public GameObject player = null;
+    public GameObject player = null;  
     public PlayerStats stats = null;
     public Inventory inventory = null;
+
 }
