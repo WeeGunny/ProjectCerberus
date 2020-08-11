@@ -68,6 +68,7 @@ public class DialogueManager : MonoBehaviour
         {
             conversationIndex += 1;
             ShowText();
+            Debug.Log("Next button clicked");
         }
     }
 
