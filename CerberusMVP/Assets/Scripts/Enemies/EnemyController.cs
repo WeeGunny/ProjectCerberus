@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour {
     public Room roomImIn;
     public DamageType[] Weaknesses, Resistances;
     public bool takingDotDamage;
+    public LootTableGameObject lootTable;
     // Start is called before the first frame update
     void Start() {
         agent = GetComponent<NavMeshAgent>();
@@ -107,6 +108,11 @@ public class EnemyController : MonoBehaviour {
         Destroy(gameObject);
         Debug.Log("Enemy Has died");
         roomImIn.enemiesAlive--;
+        LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
+        GameObject loot = lootTableElement.lootObject;
+        if (loot != null) {
+            Instantiate(loot,transform.position,Quaternion.identity);
+        }
     }
 
     private void OnDrawGizmosSelected() {
