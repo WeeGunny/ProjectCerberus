@@ -3,9 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour {
-    public float health = 10f;
+
+    [Header("Health")]
+    public float StartHealth = 20f;
+    private float health;
+    public Image healthBar;
+
+    [Header("Other Parameters")]
     public float lookRadius = 10f;
     public float shootRadius = 5f;
     public Transform target, gun;
@@ -14,10 +21,14 @@ public class EnemyController : MonoBehaviour {
     private float shotDelay, distance;
     public GameObject projectile;
     public Room roomImIn;
+
+    
+
     // Start is called before the first frame update
     void Start() {
         agent = GetComponent<NavMeshAgent>();
         shotDelay = startShotDelay;
+        health = StartHealth;
     }
 
     // Update is called once per frame
@@ -66,6 +77,9 @@ public class EnemyController : MonoBehaviour {
 
     public void TakeDamage(float damage) {
         health -= damage;
+
+        healthBar.fillAmount = health / StartHealth;
+
         if (health <= 0) {
             Death();
         }
