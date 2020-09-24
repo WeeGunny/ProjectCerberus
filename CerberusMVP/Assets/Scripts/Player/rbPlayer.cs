@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class rbPlayer : MonoBehaviour {
     public Rigidbody rb;
+
+    [Header ("Variables")]
     public float movementSpeed = 10f;
     public float jumpHeight = 100f;
+    public int MaxDoubleJumps = 1;
+    public int DoubleJumpCounter = 0;
+
     public float rayDistance;
     private Vector3 movement;
     // Start is called before the first frame update
@@ -38,6 +43,12 @@ public class rbPlayer : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space)) {
             if (Grounded())
                 rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
+            DoubleJumpCounter = 0;
+
+            //If in mid air after a jump, allow another jump
+            if(!Grounded() && DoubleJumpCounter < MaxDoubleJumps)
+                rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
+            DoubleJumpCounter++;
         }
     }
 
