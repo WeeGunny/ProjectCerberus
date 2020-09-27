@@ -36,13 +36,13 @@ public class EnemyController : MonoBehaviour {
         if (PlayerManager.playerExists && target == null) {
             target = PlayerManager.instance.player.transform;
         }
+
         if (target != null) {
             distance = Vector3.Distance(target.position, transform.position);
             if (distance <= lookRadius) {
                 FaceTarget();
             }
         }
-
 
         if (distance <= lookRadius && distance >= shootRadius) {
             agent.SetDestination(target.position);
@@ -87,6 +87,7 @@ public class EnemyController : MonoBehaviour {
 
     protected virtual void Death() {
         Destroy(gameObject);
+        //Add death animation
         Debug.Log("Enemy Has died");
         roomImIn.enemiesAlive--;
     }
