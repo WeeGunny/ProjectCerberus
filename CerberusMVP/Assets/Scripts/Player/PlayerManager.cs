@@ -14,6 +14,6 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
-    public GameObject player = null;
-    public PlayerStats stats = null;
+    public GameObject player;
+    public PlayerStats stats;
 }
