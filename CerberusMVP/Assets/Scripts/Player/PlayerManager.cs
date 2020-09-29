@@ -11,6 +11,9 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake() {
         instance = this;
+        PlayerPrefs.GetFloat("Health");
+        PlayerPrefs.GetFloat("Moxie");
+        PlayerPrefs.GetFloat("Grit");
     }
     #endregion
 
