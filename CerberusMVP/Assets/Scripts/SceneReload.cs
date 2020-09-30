@@ -12,15 +12,16 @@ public class SceneReload : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene("Main");
-
             PlayerPrefs.SetFloat("Health", stats.Health);
             PlayerPrefs.SetFloat("Moxie", stats.Moxie);
             PlayerPrefs.SetFloat("Grit", stats.Grit);
 
             DontDestroyOnLoad(stats);
             DontDestroyOnLoad(manager);
+
+            SceneManager.UnloadSceneAsync("Main");
+            SceneManager.LoadScene("Main");
+            
         }
     }
 }
