@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneReload : MonoBehaviour
 {
-    private static PlayerStats stats;
-    private static PlayerManager manager;
+    private PlayerStats stats;
+    private PlayerManager manager;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             PlayerPrefs.SetFloat("Health", stats.Health);
             PlayerPrefs.SetFloat("Moxie", stats.Moxie);
@@ -21,7 +21,15 @@ public class SceneReload : MonoBehaviour
 
             SceneManager.UnloadSceneAsync("Main");
             SceneManager.LoadScene("Main");
-            
+
+            SceneLoaded();
         }
+    }
+
+    void SceneLoaded()
+    {
+        PlayerPrefs.GetFloat("Health", stats.Health);
+        PlayerPrefs.GetFloat("Moxie", stats.Moxie);
+        PlayerPrefs.GetFloat("Grit", stats.Grit);
     }
 }
