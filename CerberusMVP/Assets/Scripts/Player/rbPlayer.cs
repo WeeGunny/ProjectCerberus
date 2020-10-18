@@ -72,15 +72,4 @@ public class rbPlayer : MonoBehaviour {
         }
 
     }
-
-    //Saving Player Stats
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "LevelEnd")
-        {
-            PlayerPrefs.SetFloat("Health", stats.Health);
-            PlayerPrefs.SetFloat("Moxie", stats.Moxie);
-            PlayerPrefs.SetFloat("Grit", stats.Grit);
-        }
-    }
 }

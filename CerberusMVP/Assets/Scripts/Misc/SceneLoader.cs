@@ -9,15 +9,9 @@ public class SceneLoader : MonoBehaviour
     public Slider slider;
     public Text progressText;
 
-    private PlayerStats stats;
-
     public void LoadScene(int sceneIndex)
     {
         StartCoroutine(LoadAsync(sceneIndex));
-
-        PlayerPrefs.GetFloat("Health", stats.Health);
-        PlayerPrefs.GetFloat("Moxie", stats.Moxie);
-        PlayerPrefs.GetFloat("Grit", stats.Grit);
     }
 
     IEnumerator LoadAsync (int sceneIndex)
