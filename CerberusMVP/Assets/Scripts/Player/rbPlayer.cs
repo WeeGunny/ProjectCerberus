@@ -13,9 +13,11 @@ public class rbPlayer : MonoBehaviour {
 
     public float rayDistance;
     private Vector3 movement;
+    private PlayerStats stats;
     // Start is called before the first frame update
     void Start() {
         rb = GetComponent<Rigidbody>();
+        stats = GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
@@ -69,5 +71,16 @@ public class rbPlayer : MonoBehaviour {
             PlayerManager.instance.stats.Grit -= Time.deltaTime * 80;
         }
 
+    }
+
+    //Saving Player Stats
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "LevelEnd")
+        {
+            PlayerPrefs.SetFloat("Health", stats.Health);
+            PlayerPrefs.SetFloat("Moxie", stats.Moxie);
+            PlayerPrefs.SetFloat("Grit", stats.Grit);
+        }
     }
 }
