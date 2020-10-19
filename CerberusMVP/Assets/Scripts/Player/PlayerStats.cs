@@ -8,11 +8,11 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
     [Header("Player Stats")]
-    static public float Health = 100;
+    public float Health = 100;
     public float maxHeath;
-    static public float Moxie = 100;
+    public float Moxie = 100;
     public float moxieMax = 100;
-    static public float Grit = 100;
+    public float Grit = 100;
     public float gritMax =100;
     public float gold = 100;
 

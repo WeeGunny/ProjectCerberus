@@ -9,6 +9,7 @@ public class SceneLoader : MonoBehaviour
     public Slider slider;
     public Text progressText;
 
+    //Load the next scene while the current one is still active
     public void LoadScene(int sceneIndex)
     {
         StartCoroutine(LoadAsync(sceneIndex));
