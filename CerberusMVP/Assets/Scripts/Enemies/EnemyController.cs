@@ -14,24 +14,21 @@ public class EnemyController : MonoBehaviour {
     private float shotDelay, distance;
     public GameObject projectile;
     public Room roomImIn;
-<<<<<<< Updated upstream
     public DamageType[] Weaknesses, Resistances;
     public bool takingDotDamage;
+    public float StartHealth = 10f;
+
     public LootTableGameObject lootTable;
-=======
 
-    public Animator anim;    
+    public Animator anim;
+    public Rigidbody rb;
 
->>>>>>> Stashed changes
     // Start is called before the first frame update
     void Start() {
         agent = GetComponent<NavMeshAgent>();
         shotDelay = startShotDelay;
-<<<<<<< Updated upstream
-=======
         health = StartHealth;
         anim = gameObject.GetComponent<Animator>();
->>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -49,12 +46,21 @@ public class EnemyController : MonoBehaviour {
 
         if (distance <= lookRadius && distance >= shootRadius) {
             agent.SetDestination(target.position);
+            agent.isStopped = false;
             anim.SetBool("playerSpotted", true);
+            anim.SetBool("playerAttackable", false);
         }
         if (shotDelay <= 0 && distance <= shootRadius) {
-            //anim.SetBool("playerAttackable", true);
-            
+            agent.isStopped = true;
+            anim.SetBool("playerAttackable", true);
+            anim.SetBool("playerSpotted", false);
             Shoot();
+        }
+
+        if (distance >= lookRadius && distance >= shootRadius)
+        {
+            anim.SetBool("playerSpotted", false);
+            agent.isStopped = true;
         }
 
         if (distance <= agent.stoppingDistance) {
@@ -119,7 +125,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     protected virtual void Death() {
-        Destroy(gameObject);
+        anim.SetBool("isDead", true);
         Debug.Log("Enemy Has died");
         roomImIn.enemiesAlive--;
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
