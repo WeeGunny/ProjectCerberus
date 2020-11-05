@@ -14,13 +14,24 @@ public class EnemyController : MonoBehaviour {
     private float shotDelay, distance;
     public GameObject projectile;
     public Room roomImIn;
+<<<<<<< Updated upstream
     public DamageType[] Weaknesses, Resistances;
     public bool takingDotDamage;
     public LootTableGameObject lootTable;
+=======
+
+    public Animator anim;    
+
+>>>>>>> Stashed changes
     // Start is called before the first frame update
     void Start() {
         agent = GetComponent<NavMeshAgent>();
         shotDelay = startShotDelay;
+<<<<<<< Updated upstream
+=======
+        health = StartHealth;
+        anim = gameObject.GetComponent<Animator>();
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -38,8 +49,11 @@ public class EnemyController : MonoBehaviour {
 
         if (distance <= lookRadius && distance >= shootRadius) {
             agent.SetDestination(target.position);
+            anim.SetBool("playerSpotted", true);
         }
         if (shotDelay <= 0 && distance <= shootRadius) {
+            //anim.SetBool("playerAttackable", true);
+            
             Shoot();
         }
 
