@@ -40,7 +40,6 @@ public class rbPlayer : MonoBehaviour {
         movement = new Vector3(inputX, 0, inputZ) * movementSpeed * Time.fixedDeltaTime;
         Vector3 newPosition = rb.position + rb.transform.TransformDirection(movement);
         rb.MovePosition(newPosition);
-        anim.SetFloat("Speed", (Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal"))));
     }
     private void Jump() {
         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -53,8 +52,6 @@ public class rbPlayer : MonoBehaviour {
                 rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
             DoubleJumpCounter++;
         }
-
-        anim.SetBool("isGrounded", Grounded());
     }
 
     public bool Grounded() {
