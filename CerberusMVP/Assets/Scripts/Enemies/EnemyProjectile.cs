@@ -16,7 +16,7 @@ public class EnemyProjectile : MonoBehaviour {
         player = PlayerManager.instance.player.transform;
         target = new Vector3(player.position.x, player.position.y, player.position.z);
         //direction = (target - transform.position).normalized;
-        rb.AddForce(direction * speed *100);
+        rb.AddForce(direction * speed);
 
     }
 
