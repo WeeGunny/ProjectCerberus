@@ -83,6 +83,8 @@ public class Gun : MonoBehaviour {
         laser = Instantiate(primaryAmmo,firePoint);
         firingLaser = true;
 
+        FindObjectOfType<AudioManager>().Play("Laser");
+
     }
 
     public IEnumerator BurstFire() {

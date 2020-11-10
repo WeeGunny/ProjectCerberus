@@ -40,6 +40,7 @@ public class rbPlayer : MonoBehaviour {
         movement = new Vector3(inputX, 0, inputZ) * movementSpeed * Time.fixedDeltaTime;
         Vector3 newPosition = rb.position + rb.transform.TransformDirection(movement);
         rb.MovePosition(newPosition);
+        FindObjectOfType<AudioManager>().Play("Running");
     }
     private void Jump() {
         if (Input.GetKeyDown(KeyCode.Space)) {
