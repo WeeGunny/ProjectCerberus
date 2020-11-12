@@ -36,6 +36,7 @@ public class Gun : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.R) && ammoInClip < maxClipAmmo) {
             Reload();
+            FindObjectOfType<AudioManager>().Play("Reload");
         }
         if(laser != null && !firingLaser) {
            Debug.Log("laser Destroyed");
@@ -129,6 +130,7 @@ public class Gun : MonoBehaviour {
                     lastTimeFired = Time.time;
                     Debug.Log("Laser hit:" + hit.collider.name);
                     ammoInClip--;
+                    FindObjectOfType<AudioManager>().Play("Laser");
                 }
                 else {
                     Debug.Log("Out of Ammo");
@@ -155,6 +157,8 @@ public class Gun : MonoBehaviour {
         bulletProperties.bulletHolePrefab = altBH;
 
         PlayerManager.instance.stats.Moxie -= moxieRequirement;
+
+        FindObjectOfType<AudioManager>().Play("AltFire");
     }
 
     private void OnDrawGizmosSelected() {
@@ -174,6 +178,7 @@ public class Gun : MonoBehaviour {
             currentAmmo = 0;
         }
 
+        
 
     }
 
