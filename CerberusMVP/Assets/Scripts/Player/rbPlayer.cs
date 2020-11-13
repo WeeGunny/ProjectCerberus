@@ -32,6 +32,7 @@ public class rbPlayer : MonoBehaviour {
 
     private void FixedUpdate() {
         Move();
+        FindObjectOfType<AudioManager>().Play("Footsteps");
     }
 
     private void Move() {
@@ -40,7 +41,7 @@ public class rbPlayer : MonoBehaviour {
         movement = new Vector3(inputX, 0, inputZ) * movementSpeed * Time.fixedDeltaTime;
         Vector3 newPosition = rb.position + rb.transform.TransformDirection(movement);
         rb.MovePosition(newPosition);
-        FindObjectOfType<AudioManager>().Play("Footsteps");
+        
     }
     private void Jump() {
         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -52,6 +53,8 @@ public class rbPlayer : MonoBehaviour {
             if(!Grounded() && DoubleJumpCounter < MaxDoubleJumps)
                 rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
             DoubleJumpCounter++;
+
+            FindObjectOfType<AudioManager>().Play("Jump");
         }
     }
 
