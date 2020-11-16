@@ -35,6 +35,10 @@ public class LaserGun : Gun {
                 enemy.TakeDamage(Dmg, damageType);
                 DmgPopUp.Create(hit.point, Dmg);
             }
+            SpiderController spider = hit.collider.GetComponent<SpiderController>();
+            if (spider != null) {
+                spider.TakeDamage(Dmg,damageType);
+            }
         }
         else {
             beam.SetPosition(1, new Vector3(0, 0, range));
