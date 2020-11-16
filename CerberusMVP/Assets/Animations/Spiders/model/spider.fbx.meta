@@ -1,0 +1,1332 @@
+fileFormatVersion: 2
+guid: 7b12ff0838c1bfc46970414ffe81e813
+ModelImporter:
+  serializedVersion: 20101
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: abdomen
+  - first:
+      1: 100002
+    second: ankle1_L
+  - first:
+      1: 100004
+    second: ankle1_R
+  - first:
+      1: 100006
+    second: ankle2_L
+  - first:
+      1: 100008
+    second: ankle2_R
+  - first:
+      1: 100010
+    second: ankle3_L
+  - first:
+      1: 100012
+    second: ankle3_R
+  - first:
+      1: 100014
+    second: ankle4_L
+  - first:
+      1: 100016
+    second: ankle4_R
+  - first:
+      1: 100018
+    second: Armature
+  - first:
+      1: 100020
+    second: Bone
+  - first:
+      1: 100022
+    second: Camera
+  - first:
+      1: 100024
+    second: fang_L
+  - first:
+      1: 100026
+    second: fang_R
+  - first:
+      1: 100028
+    second: foot1_L
+  - first:
+      1: 100030
+    second: foot1_R
+  - first:
+      1: 100032
+    second: foot2_L
+  - first:
+      1: 100034
+    second: foot2_R
+  - first:
+      1: 100036
+    second: foot3_L
+  - first:
+      1: 100038
+    second: foot3_R
+  - first:
+      1: 100040
+    second: foot4_L
+  - first:
+      1: 100042
+    second: foot4_R
+  - first:
+      1: 100044
+    second: hip1_L
+  - first:
+      1: 100046
+    second: hip1_R
+  - first:
+      1: 100048
+    second: hip2_L
+  - first:
+      1: 100050
+    second: hip2_R
+  - first:
+      1: 100052
+    second: hip3_L
+  - first:
+      1: 100054
+    second: hip3_R
+  - first:
+      1: 100056
+    second: hip4_L
+  - first:
+      1: 100058
+    second: hip4_R
+  - first:
+      1: 100060
+    second: knee1_L
+  - first:
+      1: 100062
+    second: knee1_R
+  - first:
+      1: 100064
+    second: knee2_L
+  - first:
+      1: 100066
+    second: knee2_R
+  - first:
+      1: 100068
+    second: knee3_L
+  - first:
+      1: 100070
+    second: knee3_R
+  - first:
+      1: 100072
+    second: knee4_L
+  - first:
+      1: 100074
+    second: knee4_R
+  - first:
+      1: 100076
+    second: Lamp
+  - first:
+      1: 100078
+    second: leg1_L
+  - first:
+      1: 100080
+    second: leg1_R
+  - first:
+      1: 100082
+    second: leg2_L
+  - first:
+      1: 100084
+    second: leg2_R
+  - first:
+      1: 100086
+    second: leg3_L
+  - first:
+      1: 100088
+    second: leg3_R
+  - first:
+      1: 100090
+    second: leg4_L
+  - first:
+      1: 100092
+    second: leg4_R
+  - first:
+      1: 100094
+    second: master
+  - first:
+      1: 100096
+    second: shin1_L
+  - first:
+      1: 100098
+    second: shin1_R
+  - first:
+      1: 100100
+    second: shin2_L
+  - first:
+      1: 100102
+    second: shin2_R
+  - first:
+      1: 100104
+    second: shin3_L
+  - first:
+      1: 100106
+    second: shin3_R
+  - first:
+      1: 100108
+    second: shin4_L
+  - first:
+      1: 100110
+    second: shin4_R
+  - first:
+      1: 100112
+    second: Sphere
+  - first:
+      1: 100114
+    second: //RootNode
+  - first:
+      1: 100116
+    second: thigh1_L
+  - first:
+      1: 100118
+    second: thigh1_R
+  - first:
+      1: 100120
+    second: thigh2_L
+  - first:
+      1: 100122
+    second: thigh2_R
+  - first:
+      1: 100124
+    second: thigh3_L
+  - first:
+      1: 100126
+    second: thigh3_R
+  - first:
+      1: 100128
+    second: thigh4_L
+  - first:
+      1: 100130
+    second: thigh4_R
+  - first:
+      4: 400000
+    second: abdomen
+  - first:
+      4: 400002
+    second: ankle1_L
+  - first:
+      4: 400004
+    second: ankle1_R
+  - first:
+      4: 400006
+    second: ankle2_L
+  - first:
+      4: 400008
+    second: ankle2_R
+  - first:
+      4: 400010
+    second: ankle3_L
+  - first:
+      4: 400012
+    second: ankle3_R
+  - first:
+      4: 400014
+    second: ankle4_L
+  - first:
+      4: 400016
+    second: ankle4_R
+  - first:
+      4: 400018
+    second: Armature
+  - first:
+      4: 400020
+    second: Bone
+  - first:
+      4: 400022
+    second: Camera
+  - first:
+      4: 400024
+    second: fang_L
+  - first:
+      4: 400026
+    second: fang_R
+  - first:
+      4: 400028
+    second: foot1_L
+  - first:
+      4: 400030
+    second: foot1_R
+  - first:
+      4: 400032
+    second: foot2_L
+  - first:
+      4: 400034
+    second: foot2_R
+  - first:
+      4: 400036
+    second: foot3_L
+  - first:
+      4: 400038
+    second: foot3_R
+  - first:
+      4: 400040
+    second: foot4_L
+  - first:
+      4: 400042
+    second: foot4_R
+  - first:
+      4: 400044
+    second: hip1_L
+  - first:
+      4: 400046
+    second: hip1_R
+  - first:
+      4: 400048
+    second: hip2_L
+  - first:
+      4: 400050
+    second: hip2_R
+  - first:
+      4: 400052
+    second: hip3_L
+  - first:
+      4: 400054
+    second: hip3_R
+  - first:
+      4: 400056
+    second: hip4_L
+  - first:
+      4: 400058
+    second: hip4_R
+  - first:
+      4: 400060
+    second: knee1_L
+  - first:
+      4: 400062
+    second: knee1_R
+  - first:
+      4: 400064
+    second: knee2_L
+  - first:
+      4: 400066
+    second: knee2_R
+  - first:
+      4: 400068
+    second: knee3_L
+  - first:
+      4: 400070
+    second: knee3_R
+  - first:
+      4: 400072
+    second: knee4_L
+  - first:
+      4: 400074
+    second: knee4_R
+  - first:
+      4: 400076
+    second: Lamp
+  - first:
+      4: 400078
+    second: leg1_L
+  - first:
+      4: 400080
+    second: leg1_R
+  - first:
+      4: 400082
+    second: leg2_L
+  - first:
+      4: 400084
+    second: leg2_R
+  - first:
+      4: 400086
+    second: leg3_L
+  - first:
+      4: 400088
+    second: leg3_R
+  - first:
+      4: 400090
+    second: leg4_L
+  - first:
+      4: 400092
+    second: leg4_R
+  - first:
+      4: 400094
+    second: master
+  - first:
+      4: 400096
+    second: shin1_L
+  - first:
+      4: 400098
+    second: shin1_R
+  - first:
+      4: 400100
+    second: shin2_L
+  - first:
+      4: 400102
+    second: shin2_R
+  - first:
+      4: 400104
+    second: shin3_L
+  - first:
+      4: 400106
+    second: shin3_R
+  - first:
+      4: 400108
+    second: shin4_L
+  - first:
+      4: 400110
+    second: shin4_R
+  - first:
+      4: 400112
+    second: Sphere
+  - first:
+      4: 400114
+    second: //RootNode
+  - first:
+      4: 400116
+    second: thigh1_L
+  - first:
+      4: 400118
+    second: thigh1_R
+  - first:
+      4: 400120
+    second: thigh2_L
+  - first:
+      4: 400122
+    second: thigh2_R
+  - first:
+      4: 400124
+    second: thigh3_L
+  - first:
+      4: 400126
+    second: thigh3_R
+  - first:
+      4: 400128
+    second: thigh4_L
+  - first:
+      4: 400130
+    second: thigh4_R
+  - first:
+      43: 4300000
+    second: Sphere
+  - first:
+      74: 7400000
+    second: Walk
+  - first:
+      74: 7400002
+    second: Action
+  - first:
+      74: 7400004
+    second: Idle
+  - first:
+      74: 7400006
+    second: Attack
+  - first:
+      74: 7400008
+    second: Death
+  - first:
+      74: 7400010
+    second: Default Take
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      111: 11100000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Sphere
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Default Take
+      internalID: 0
+      firstFrame: 2.2
+      lastFrame: 4.1
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/master
+        weight: 1
+      - path: Armature/master/ankle1_L
+        weight: 1
+      - path: Armature/master/ankle1_R
+        weight: 1
+      - path: Armature/master/ankle2_L
+        weight: 1
+      - path: Armature/master/ankle2_R
+        weight: 1
+      - path: Armature/master/ankle3_L
+        weight: 1
+      - path: Armature/master/ankle3_R
+        weight: 1
+      - path: Armature/master/ankle4_L
+        weight: 1
+      - path: Armature/master/ankle4_R
+        weight: 1
+      - path: Armature/master/Bone
+        weight: 1
+      - path: Armature/master/Bone/abdomen
+        weight: 1
+      - path: Armature/master/Bone/fang_L
+        weight: 1
+      - path: Armature/master/Bone/fang_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_L/thigh1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_L/thigh1_L/shin1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_R/thigh1_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_R/thigh1_R/shin1_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_L/thigh2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_L/thigh2_L/shin2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_R/thigh2_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_R/thigh2_R/shin2_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_L/thigh3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_L/thigh3_L/shin3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_R/thigh3_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_R/thigh3_R/shin3_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_L/thigh4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_L/thigh4_L/shin4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_R/thigh4_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_R/thigh4_R/shin4_R
+        weight: 1
+      - path: Armature/master/knee1_L
+        weight: 1
+      - path: Armature/master/knee1_R
+        weight: 1
+      - path: Armature/master/knee2_L
+        weight: 1
+      - path: Armature/master/knee2_R
+        weight: 1
+      - path: Armature/master/knee3_L
+        weight: 1
+      - path: Armature/master/knee3_R
+        weight: 1
+      - path: Armature/master/knee4_L
+        weight: 1
+      - path: Armature/master/knee4_R
+        weight: 1
+      - path: Armature/master/leg1_L
+        weight: 1
+      - path: Armature/master/leg1_L/foot1_L
+        weight: 1
+      - path: Armature/master/leg1_R
+        weight: 1
+      - path: Armature/master/leg1_R/foot1_R
+        weight: 1
+      - path: Armature/master/leg2_L
+        weight: 1
+      - path: Armature/master/leg2_L/foot2_L
+        weight: 1
+      - path: Armature/master/leg2_R
+        weight: 1
+      - path: Armature/master/leg2_R/foot2_R
+        weight: 1
+      - path: Armature/master/leg3_L
+        weight: 1
+      - path: Armature/master/leg3_L/foot3_L
+        weight: 1
+      - path: Armature/master/leg3_R
+        weight: 1
+      - path: Armature/master/leg3_R/foot3_R
+        weight: 1
+      - path: Armature/master/leg4_L
+        weight: 1
+      - path: Armature/master/leg4_L/foot4_L
+        weight: 1
+      - path: Armature/master/leg4_R
+        weight: 1
+      - path: Armature/master/leg4_R/foot4_R
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Default Take
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 2
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/master
+        weight: 1
+      - path: Armature/master/ankle1_L
+        weight: 1
+      - path: Armature/master/ankle1_R
+        weight: 1
+      - path: Armature/master/ankle2_L
+        weight: 1
+      - path: Armature/master/ankle2_R
+        weight: 1
+      - path: Armature/master/ankle3_L
+        weight: 1
+      - path: Armature/master/ankle3_R
+        weight: 1
+      - path: Armature/master/ankle4_L
+        weight: 1
+      - path: Armature/master/ankle4_R
+        weight: 1
+      - path: Armature/master/Bone
+        weight: 1
+      - path: Armature/master/Bone/abdomen
+        weight: 1
+      - path: Armature/master/Bone/fang_L
+        weight: 1
+      - path: Armature/master/Bone/fang_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_L/thigh1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_L/thigh1_L/shin1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_R/thigh1_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_R/thigh1_R/shin1_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_L/thigh2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_L/thigh2_L/shin2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_R/thigh2_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_R/thigh2_R/shin2_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_L/thigh3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_L/thigh3_L/shin3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_R/thigh3_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_R/thigh3_R/shin3_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_L/thigh4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_L/thigh4_L/shin4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_R/thigh4_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_R/thigh4_R/shin4_R
+        weight: 1
+      - path: Armature/master/knee1_L
+        weight: 1
+      - path: Armature/master/knee1_R
+        weight: 1
+      - path: Armature/master/knee2_L
+        weight: 1
+      - path: Armature/master/knee2_R
+        weight: 1
+      - path: Armature/master/knee3_L
+        weight: 1
+      - path: Armature/master/knee3_R
+        weight: 1
+      - path: Armature/master/knee4_L
+        weight: 1
+      - path: Armature/master/knee4_R
+        weight: 1
+      - path: Armature/master/leg1_L
+        weight: 1
+      - path: Armature/master/leg1_L/foot1_L
+        weight: 1
+      - path: Armature/master/leg1_R
+        weight: 1
+      - path: Armature/master/leg1_R/foot1_R
+        weight: 1
+      - path: Armature/master/leg2_L
+        weight: 1
+      - path: Armature/master/leg2_L/foot2_L
+        weight: 1
+      - path: Armature/master/leg2_R
+        weight: 1
+      - path: Armature/master/leg2_R/foot2_R
+        weight: 1
+      - path: Armature/master/leg3_L
+        weight: 1
+      - path: Armature/master/leg3_L/foot3_L
+        weight: 1
+      - path: Armature/master/leg3_R
+        weight: 1
+      - path: Armature/master/leg3_R/foot3_R
+        weight: 1
+      - path: Armature/master/leg4_L
+        weight: 1
+      - path: Armature/master/leg4_L/foot4_L
+        weight: 1
+      - path: Armature/master/leg4_R
+        weight: 1
+      - path: Armature/master/leg4_R/foot4_R
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack
+      takeName: Default Take
+      internalID: 0
+      firstFrame: 4.4
+      lastFrame: 6.4
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/master
+        weight: 1
+      - path: Armature/master/ankle1_L
+        weight: 1
+      - path: Armature/master/ankle1_R
+        weight: 1
+      - path: Armature/master/ankle2_L
+        weight: 1
+      - path: Armature/master/ankle2_R
+        weight: 1
+      - path: Armature/master/ankle3_L
+        weight: 1
+      - path: Armature/master/ankle3_R
+        weight: 1
+      - path: Armature/master/ankle4_L
+        weight: 1
+      - path: Armature/master/ankle4_R
+        weight: 1
+      - path: Armature/master/Bone
+        weight: 1
+      - path: Armature/master/Bone/abdomen
+        weight: 1
+      - path: Armature/master/Bone/fang_L
+        weight: 1
+      - path: Armature/master/Bone/fang_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_L/thigh1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_L/thigh1_L/shin1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_R/thigh1_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_R/thigh1_R/shin1_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_L/thigh2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_L/thigh2_L/shin2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_R/thigh2_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_R/thigh2_R/shin2_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_L/thigh3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_L/thigh3_L/shin3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_R/thigh3_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_R/thigh3_R/shin3_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_L/thigh4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_L/thigh4_L/shin4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_R/thigh4_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_R/thigh4_R/shin4_R
+        weight: 1
+      - path: Armature/master/knee1_L
+        weight: 1
+      - path: Armature/master/knee1_R
+        weight: 1
+      - path: Armature/master/knee2_L
+        weight: 1
+      - path: Armature/master/knee2_R
+        weight: 1
+      - path: Armature/master/knee3_L
+        weight: 1
+      - path: Armature/master/knee3_R
+        weight: 1
+      - path: Armature/master/knee4_L
+        weight: 1
+      - path: Armature/master/knee4_R
+        weight: 1
+      - path: Armature/master/leg1_L
+        weight: 1
+      - path: Armature/master/leg1_L/foot1_L
+        weight: 1
+      - path: Armature/master/leg1_R
+        weight: 1
+      - path: Armature/master/leg1_R/foot1_R
+        weight: 1
+      - path: Armature/master/leg2_L
+        weight: 1
+      - path: Armature/master/leg2_L/foot2_L
+        weight: 1
+      - path: Armature/master/leg2_R
+        weight: 1
+      - path: Armature/master/leg2_R/foot2_R
+        weight: 1
+      - path: Armature/master/leg3_L
+        weight: 1
+      - path: Armature/master/leg3_L/foot3_L
+        weight: 1
+      - path: Armature/master/leg3_R
+        weight: 1
+      - path: Armature/master/leg3_R/foot3_R
+        weight: 1
+      - path: Armature/master/leg4_L
+        weight: 1
+      - path: Armature/master/leg4_L/foot4_L
+        weight: 1
+      - path: Armature/master/leg4_R
+        weight: 1
+      - path: Armature/master/leg4_R/foot4_R
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Death
+      takeName: Default Take
+      internalID: 0
+      firstFrame: 6.4
+      lastFrame: 8.4
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/master
+        weight: 1
+      - path: Armature/master/ankle1_L
+        weight: 1
+      - path: Armature/master/ankle1_R
+        weight: 1
+      - path: Armature/master/ankle2_L
+        weight: 1
+      - path: Armature/master/ankle2_R
+        weight: 1
+      - path: Armature/master/ankle3_L
+        weight: 1
+      - path: Armature/master/ankle3_R
+        weight: 1
+      - path: Armature/master/ankle4_L
+        weight: 1
+      - path: Armature/master/ankle4_R
+        weight: 1
+      - path: Armature/master/Bone
+        weight: 1
+      - path: Armature/master/Bone/abdomen
+        weight: 1
+      - path: Armature/master/Bone/fang_L
+        weight: 1
+      - path: Armature/master/Bone/fang_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_L/thigh1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_L/thigh1_L/shin1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_R/thigh1_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_R/thigh1_R/shin1_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_L/thigh2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_L/thigh2_L/shin2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_R/thigh2_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_R/thigh2_R/shin2_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_L/thigh3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_L/thigh3_L/shin3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_R/thigh3_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_R/thigh3_R/shin3_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_L/thigh4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_L/thigh4_L/shin4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_R/thigh4_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_R/thigh4_R/shin4_R
+        weight: 1
+      - path: Armature/master/knee1_L
+        weight: 1
+      - path: Armature/master/knee1_R
+        weight: 1
+      - path: Armature/master/knee2_L
+        weight: 1
+      - path: Armature/master/knee2_R
+        weight: 1
+      - path: Armature/master/knee3_L
+        weight: 1
+      - path: Armature/master/knee3_R
+        weight: 1
+      - path: Armature/master/knee4_L
+        weight: 1
+      - path: Armature/master/knee4_R
+        weight: 1
+      - path: Armature/master/leg1_L
+        weight: 1
+      - path: Armature/master/leg1_L/foot1_L
+        weight: 1
+      - path: Armature/master/leg1_R
+        weight: 1
+      - path: Armature/master/leg1_R/foot1_R
+        weight: 1
+      - path: Armature/master/leg2_L
+        weight: 1
+      - path: Armature/master/leg2_L/foot2_L
+        weight: 1
+      - path: Armature/master/leg2_R
+        weight: 1
+      - path: Armature/master/leg2_R/foot2_R
+        weight: 1
+      - path: Armature/master/leg3_L
+        weight: 1
+      - path: Armature/master/leg3_L/foot3_L
+        weight: 1
+      - path: Armature/master/leg3_R
+        weight: 1
+      - path: Armature/master/leg3_R/foot3_R
+        weight: 1
+      - path: Armature/master/leg4_L
+        weight: 1
+      - path: Armature/master/leg4_L/foot4_L
+        weight: 1
+      - path: Armature/master/leg4_R
+        weight: 1
+      - path: Armature/master/leg4_R/foot4_R
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      internalID: 0
+      firstFrame: -1
+      lastFrame: 83
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/master
+        weight: 1
+      - path: Armature/master/ankle1_L
+        weight: 1
+      - path: Armature/master/ankle1_R
+        weight: 1
+      - path: Armature/master/ankle2_L
+        weight: 1
+      - path: Armature/master/ankle2_R
+        weight: 1
+      - path: Armature/master/ankle3_L
+        weight: 1
+      - path: Armature/master/ankle3_R
+        weight: 1
+      - path: Armature/master/ankle4_L
+        weight: 1
+      - path: Armature/master/ankle4_R
+        weight: 1
+      - path: Armature/master/Bone
+        weight: 1
+      - path: Armature/master/Bone/abdomen
+        weight: 1
+      - path: Armature/master/Bone/fang_L
+        weight: 1
+      - path: Armature/master/Bone/fang_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_L/thigh1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_L/thigh1_L/shin1_L
+        weight: 1
+      - path: Armature/master/Bone/hip1_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_R/thigh1_R
+        weight: 1
+      - path: Armature/master/Bone/hip1_R/thigh1_R/shin1_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_L/thigh2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_L/thigh2_L/shin2_L
+        weight: 1
+      - path: Armature/master/Bone/hip2_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_R/thigh2_R
+        weight: 1
+      - path: Armature/master/Bone/hip2_R/thigh2_R/shin2_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_L/thigh3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_L/thigh3_L/shin3_L
+        weight: 1
+      - path: Armature/master/Bone/hip3_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_R/thigh3_R
+        weight: 1
+      - path: Armature/master/Bone/hip3_R/thigh3_R/shin3_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_L/thigh4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_L/thigh4_L/shin4_L
+        weight: 1
+      - path: Armature/master/Bone/hip4_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_R/thigh4_R
+        weight: 1
+      - path: Armature/master/Bone/hip4_R/thigh4_R/shin4_R
+        weight: 1
+      - path: Armature/master/knee1_L
+        weight: 1
+      - path: Armature/master/knee1_R
+        weight: 1
+      - path: Armature/master/knee2_L
+        weight: 1
+      - path: Armature/master/knee2_R
+        weight: 1
+      - path: Armature/master/knee3_L
+        weight: 1
+      - path: Armature/master/knee3_R
+        weight: 1
+      - path: Armature/master/knee4_L
+        weight: 1
+      - path: Armature/master/knee4_R
+        weight: 1
+      - path: Armature/master/leg1_L
+        weight: 1
+      - path: Armature/master/leg1_L/foot1_L
+        weight: 1
+      - path: Armature/master/leg1_R
+        weight: 1
+      - path: Armature/master/leg1_R/foot1_R
+        weight: 1
+      - path: Armature/master/leg2_L
+        weight: 1
+      - path: Armature/master/leg2_L/foot2_L
+        weight: 1
+      - path: Armature/master/leg2_R
+        weight: 1
+      - path: Armature/master/leg2_R/foot2_R
+        weight: 1
+      - path: Armature/master/leg3_L
+        weight: 1
+      - path: Armature/master/leg3_L/foot3_L
+        weight: 1
+      - path: Armature/master/leg3_R
+        weight: 1
+      - path: Armature/master/leg3_R/foot3_R
+        weight: 1
+      - path: Armature/master/leg4_L
+        weight: 1
+      - path: Armature/master/leg4_L/foot4_L
+        weight: 1
+      - path: Armature/master/leg4_R
+        weight: 1
+      - path: Armature/master/leg4_R/foot4_R
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.2
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 80
+    normalImportMode: 0
+    tangentImportMode: 0
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 0.2
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
