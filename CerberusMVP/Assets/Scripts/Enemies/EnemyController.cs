@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour {
     private bool isDead = false;
     NavMeshAgent agent;
     public float startShotDelay;
-    private float shotDelay, distance;
+    protected float shotDelay, distance;
     public GameObject projectile;
     public Room roomImIn;
     public DamageType[] Weaknesses, Resistances;
@@ -83,7 +83,7 @@ public class EnemyController : MonoBehaviour {
             shotDelay -= Time.deltaTime;
         }
 
-        if (health <= 0) {
+        if (health <= 0 && !isDead) {
             Death();
         }
     }
@@ -150,6 +150,7 @@ public class EnemyController : MonoBehaviour {
         isDead = true;
         anim.SetBool("isDead", true);
         Debug.Log("Enemy Has died");
+        if(roomImIn!=null)
         roomImIn.enemiesAlive--;
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
         GameObject loot = lootTableElement.lootObject;
