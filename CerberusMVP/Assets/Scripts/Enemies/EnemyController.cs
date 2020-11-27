@@ -25,7 +25,6 @@ public class EnemyController : MonoBehaviour {
     private bool isReloading = false;
 
     public Animator anim;
-    public Rigidbody rb;
 
     // Start is called before the first frame update
     void Start() {
