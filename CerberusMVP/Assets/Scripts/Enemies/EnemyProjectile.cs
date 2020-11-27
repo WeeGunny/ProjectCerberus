@@ -42,6 +42,10 @@ public class EnemyProjectile : MonoBehaviour {
         }
 
     }
+    
+    public void Setup() {
+
+    }
 
     private void DestroyProjectile() {
         Destroy(gameObject);

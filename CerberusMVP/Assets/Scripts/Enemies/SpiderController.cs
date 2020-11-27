@@ -70,7 +70,7 @@ public class SpiderController : MonoBehaviour
             agent.isStopped = true;
         }
 
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
             Death();
         }
@@ -152,6 +152,7 @@ public class SpiderController : MonoBehaviour
         isDead = true;
         anim.SetBool("isDead", true);
         Debug.Log("Enemy Has died");
+        if(roomImIn != null)
         roomImIn.enemiesAlive--;
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
         GameObject loot = lootTableElement.lootObject;
