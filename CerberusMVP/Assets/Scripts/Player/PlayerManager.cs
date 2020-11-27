@@ -11,11 +11,19 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake() {
         instance = this;
+        PlayerPrefs.GetFloat("Health");
+        PlayerPrefs.GetFloat("Moxie");
+        PlayerPrefs.GetFloat("Grit");
     }
     #endregion
 
+<<<<<<< HEAD
     public GameObject player = null;  
     public PlayerStats stats = null;
     public Inventory inventory = null;
 
+=======
+    public GameObject player;
+    public PlayerStats stats;
+>>>>>>> Boss
 }

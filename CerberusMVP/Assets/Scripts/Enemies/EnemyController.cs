@@ -3,9 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour {
-    public float health = 10f;
+
+    [Header("Health")]
+    public float StartHealth = 20f;
+    private float health;
+    public Image healthBar;
+
+    [Header("Other Parameters")]
     public float lookRadius = 10f;
     public float shootRadius = 5f;
     public Transform target, gun;
@@ -14,13 +21,14 @@ public class EnemyController : MonoBehaviour {
     private float shotDelay, distance;
     public GameObject projectile;
     public Room roomImIn;
-    public DamageType[] Weaknesses, Resistances;
-    public bool takingDotDamage;
-    public LootTableGameObject lootTable;
+
+    
+
     // Start is called before the first frame update
     void Start() {
         agent = GetComponent<NavMeshAgent>();
         shotDelay = startShotDelay;
+        health = StartHealth;
     }
 
     // Update is called once per frame
@@ -28,13 +36,13 @@ public class EnemyController : MonoBehaviour {
         if (PlayerManager.playerExists && target == null) {
             target = PlayerManager.instance.player.transform;
         }
+
         if (target != null) {
             distance = Vector3.Distance(target.position, transform.position);
             if (distance <= lookRadius) {
                 FaceTarget();
             }
         }
-
 
         if (distance <= lookRadius && distance >= shootRadius) {
             agent.SetDestination(target.position);
@@ -47,12 +55,10 @@ public class EnemyController : MonoBehaviour {
             //Possible spot for melee attack trigger
             //if enemy is within their stopping distance of the player
         }
+
+
         else {
             shotDelay -= Time.deltaTime;
-        }
-
-        if (health <= 0) {
-            Death();
         }
     }
 
@@ -69,50 +75,21 @@ public class EnemyController : MonoBehaviour {
         shotDelay = startShotDelay;
     }
 
-    public void TakeDamage(float damage,DamageType damageType) {
-        for (int i = 0; i< Weaknesses.Length;i++) {
-            if (Weaknesses[i] == damageType) {
-                damage *= 2;
-                damageType.dotDamage *= 2;
-            }
-        }
-        for (int i = 0; i < Resistances.Length; i++) {
-            if (Resistances[i] == damageType) {
-                damage *= .5f;
-                damageType.dotDamage *= .5f;
-            }
-        }
+    public void TakeDamage(float damage) {
         health -= damage;
-        if (damageType.hasDOT && !takingDotDamage) {
-            StartCoroutine("DotDamage",damageType);
-        }
-        else if(damageType.hasDOT && takingDotDamage) {
-            //restart the coroutine to refresh ticks without them stacking
-            StopCoroutine("DotDamage");
-            StartCoroutine("DotDamage", damageType);
-        }
-    }
 
-    IEnumerator DotDamage( DamageType type) {
-        takingDotDamage = true;
-        int ticksApplied =0 ;
-        while (ticksApplied < type.dotTicks) {
-            health -= type.dotDamage;
-            yield return new WaitForSeconds(type.dotInterval);
-            ticksApplied++;
+        healthBar.fillAmount = health / StartHealth;
+
+        if (health <= 0) {
+            Death();
         }
-        takingDotDamage = false;
     }
 
     protected virtual void Death() {
         Destroy(gameObject);
+        //Add death animation
         Debug.Log("Enemy Has died");
         roomImIn.enemiesAlive--;
-        LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
-        GameObject loot = lootTableElement.lootObject;
-        if (loot != null) {
-            Instantiate(loot,transform.position,Quaternion.identity);
-        }
     }
 
     private void OnDrawGizmosSelected() {

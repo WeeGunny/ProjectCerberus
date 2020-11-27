@@ -11,7 +11,7 @@ public class PlayerStats : MonoBehaviour {
     public float Health = 100;
     public float maxHeath;
     public float Moxie = 100;
-    public float moxieMax =100;
+    public float moxieMax = 100;
     public float Grit = 100;
     public float gritMax =100;
     public float gold = 100;
