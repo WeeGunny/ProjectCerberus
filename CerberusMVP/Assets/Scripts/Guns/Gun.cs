@@ -30,24 +30,13 @@ public class Gun : MonoBehaviour {
         Reload();
     }
 
-<<<<<<< HEAD
     protected virtual void Update() {
-=======
-    private void Update() {
 
 
         if (Input.GetKeyDown(KeyCode.R) && ammoInClip < maxClipAmmo) {
             Reload();
             FindObjectOfType<AudioManager>().Play("Reload");
         }
-        if(laser != null && !firingLaser) {
-           Debug.Log("laser Destroyed");
-            Destroy(laser);
-        }
-    }
->>>>>>> Boss
-
-       
     }
 
     public virtual void Fire() {
@@ -73,7 +62,6 @@ public class Gun : MonoBehaviour {
         ammoInClip--;
 
     }
-<<<<<<< HEAD
     public virtual IEnumerator BurstFire() {
 
         for (int b = 0; b < 3; b++) {
@@ -81,34 +69,12 @@ public class Gun : MonoBehaviour {
             if (ammoInClip > 0) {
                 ShootProjectile();
                 yield return new WaitForSecondsRealtime(0.1f);
-=======
-    public void UpdateLaser() {
-        LineRenderer beam = laser.GetComponentInChildren<LineRenderer>();
-        RaycastHit hit;
-        if(Physics.Raycast(firePoint.position, firePoint.forward, out hit, range)) {
-            if ((Time.time - lastTimeFired) > 1 / fireRate) {
-                // will shoot 
-                if (ammoInClip > 0) {
-                    beam.SetPosition(1, new Vector3(0,0,hit.point.z));
-                    EnemyController enemy = hit.collider.GetComponent<EnemyController>();
-                    if(enemy != null) {
-                        enemy.TakeDamage(Damage);
-                    }
-                    lastTimeFired = Time.time;
-                    Debug.Log("Laser hit:" + hit.collider.name);
-                    ammoInClip--;
-                    FindObjectOfType<AudioManager>().Play("Laser");
-                }
-                else {
-                    Debug.Log("Out of Ammo");
-                    firingLaser = false;
-                    Destroy(laser);
-                }
->>>>>>> Boss
-            }
 
+            }
         }
     }
+
+
 
     public virtual void AltFire() {
         GameObject bullet = Instantiate(altAmmo, firePoint.position, Quaternion.identity);
