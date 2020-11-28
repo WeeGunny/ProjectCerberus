@@ -6,7 +6,22 @@ ModelImporter:
   - first:
       74: -203655887218126122
     second: mixamo.com
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: vanguard_diffuse
+    second: {fileID: 2800000, guid: 9d2b78a212a31f24998466c055f978d0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: vanguard_normal
+    second: {fileID: 2800000, guid: 4ec110bc0e614b64da1b0402a716f100, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: vanguard_specular
+    second: {fileID: 2800000, guid: b44442697ed6e26418892a709da25a86, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
