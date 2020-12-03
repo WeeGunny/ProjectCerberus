@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerProjectile : MonoBehaviour {
-    public float speed;
     public float damage;
     public float range;
-    public Vector3 direction, origin;
+    protected Vector3 origin;
     public GameObject bulletHolePrefab;
     public DamageType damageType;
     protected Rigidbody rb;
     // Start is called before the first frame update
     protected virtual void Start() {
-        rb = GetComponent<Rigidbody>();
-        rb.AddForce(direction * speed, ForceMode.Impulse);
         origin = transform.position;
     }
     // Update is called once per frame
@@ -44,26 +41,6 @@ public class PlayerProjectile : MonoBehaviour {
             DestroyProjectile();
             Debug.Log("bullet destroyed, hit: " + hit.name);
         }
-    }
-
-    public void SetStats(Gun gun) {
-        speed = gun.bulletSpeed;
-        damage = gun.Dmg;
-        damageType = gun.damageType;
-        range = gun.range;
-        bulletHolePrefab = gun.primaryBH;
-        direction = gun.firePoint.forward;
-
-    }
-
-    public virtual void SetAltStats(Gun gun) {
-        speed = gun.altSpeed;
-        damage = gun.altDmg;
-        damageType = gun.damageType;
-        range = gun.altRange;
-        bulletHolePrefab = gun.altBH;
-        direction = gun.firePoint.forward;
-
     }
 
     public void DestroyProjectile() {

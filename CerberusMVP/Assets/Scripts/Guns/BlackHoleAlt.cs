@@ -10,6 +10,7 @@ public class BlackHoleAlt : PlayerProjectile {
     float countdown;
     protected override void Start() {
         base.Start();
+        damageCountDown = FindObjectOfType<Gun>().fireRate;
     }
     protected override void Update() {
 
@@ -53,11 +54,6 @@ public class BlackHoleAlt : PlayerProjectile {
             }
            
         }
-    }
-
-    public override void SetAltStats(Gun gun) {
-        base.SetAltStats(gun);
-        damageCountDown = gun.fireRate;
     }
 }
 

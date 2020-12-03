@@ -57,7 +57,7 @@ public class EnemyController : MonoBehaviour {
             agent.isStopped = true;
             anim.SetBool("playerAttackable", true);
             anim.SetBool("playerSpotted", false);
-            Shoot();
+            Attack();
         }
 
         if (distance >= lookRadius && distance >= shootRadius)
@@ -93,7 +93,7 @@ public class EnemyController : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
-    protected virtual void Shoot() {
+    protected virtual void Attack() {
         GameObject bullet = Instantiate(projectile, gun.position, Quaternion.identity);
         EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
         bulletProperties.direction = transform.forward;

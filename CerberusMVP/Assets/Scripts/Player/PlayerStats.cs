@@ -96,7 +96,7 @@ public class PlayerStats : MonoBehaviour {
 
     private void UpdateAmmoUI() {
         if (activeGun != null) {
-            ammoClip.text = activeGun.ammoInClip.ToString();
+            ammoClip.text = activeGun.clipAmmo.ToString();
             ammoTotal.text = activeGun.currentAmmo.ToString();
             ammoClip.gameObject.SetActive(true);
             ammoTotal.gameObject.SetActive(true);

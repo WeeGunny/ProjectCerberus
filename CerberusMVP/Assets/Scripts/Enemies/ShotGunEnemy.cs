@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShotGunEnemy : EnemyController
 {
-    protected override void Shoot() {
+    protected override void Attack() {
         GameObject bullet = Instantiate(projectile, gun.position, Quaternion.identity);
         EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
         bulletProperties.direction = transform.forward - new Vector3(0, 0, 0);
