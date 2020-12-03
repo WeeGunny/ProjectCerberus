@@ -8,15 +8,11 @@ public class LaserGun : Gun {
     public float laserRange;
     public DamageType damageType;
     LineRenderer beam;
-    
-    private void Awake() {
-    }
 
     private void Update() {
         GunInput();
-        if (laser != null && !firingLaser) {
-            Debug.Log("laser Destroyed");
-            Destroy(laser);
+        if (firingLaser) {
+            UpdateLaser();
         }
     }
 
@@ -24,16 +20,11 @@ public class LaserGun : Gun {
         if (allowHold) {
             shooting = Input.GetKey(KeyCode.Mouse0);
         }
-        else {
-            shooting = Input.GetKeyDown(KeyCode.Mouse0);
-        }
-
-        if (readyToShoot && shooting && !reloading && clipAmmo > 0) {
-            Debug.Log("Firing");
+        if (readyToShoot && shooting && !reloading && clipAmmo > 0 ) {
             Fire();
         }
-        if (shooting && Input.GetKeyUp(KeyCode.Mouse0)) {
-
+        if (firingLaser && Input.GetKeyUp(KeyCode.Mouse0)) {
+            StopLaser();
         }
 
         if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) Reload();
@@ -41,10 +32,34 @@ public class LaserGun : Gun {
         if (readyToShoot && shooting && !reloading && clipAmmo <= 0) Reload();
     }
     public override void Fire() {
-        Debug.Log("Creating Laser");
-        laser = Instantiate(primaryAmmo, firePoint);
-        firingLaser = true;
+        readyToShoot = false;
+        if(firingLaser== false) {
+            Debug.Log("Creating Laser");
+            laser = Instantiate(primaryAmmo);
+            beam = laser.GetComponent<LineRenderer>();
+            firingLaser = true;
+        }
+        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, laserRange)) {
+            EnemyController enemy = hit.collider.GetComponent<EnemyController>();
+            if (enemy != null) {
+                enemy.TakeDamage(Dmg, damageType);
+            }
+            SpiderController spider = hit.collider.GetComponent<SpiderController>();
+            if (spider != null) {
+                spider.TakeDamage(Dmg, damageType);
+            }
+        }
+
+        clipAmmo--;
         beam.SetPosition(0, firePoint.position);
+        if (allowInvoke) {
+            Invoke("ResetShot", 1 / fireRate);
+            allowInvoke = false;
+        }
+
+
 
     }
 
@@ -54,30 +69,43 @@ public class LaserGun : Gun {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, laserRange)) {
             beam.SetPosition(1, hit.point);
-            EnemyController enemy = hit.collider.GetComponent<EnemyController>();
-            if (enemy != null) {
-                enemy.TakeDamage(Dmg, damageType);
-                DmgPopUp.Create(hit.point, Dmg);
-            }
-            SpiderController spider = hit.collider.GetComponent<SpiderController>();
-            if (spider != null) {
-                spider.TakeDamage(Dmg,damageType);
-            }
         }
         else {
             beam.SetPosition(1, ray.GetPoint(laserRange));
         }
-        clipAmmo--;
         if (clipAmmo == 0) {
             firingLaser = false;
+            StopLaser();
             Destroy(laser);
-
         }
     }
 
+    public void LaserDamage() {
+        readyToShoot = false;
+        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, laserRange)) {
+            EnemyController enemy = hit.collider.GetComponent<EnemyController>();
+            if (enemy != null) {
+                enemy.TakeDamage(Dmg, damageType);
+            }
+            SpiderController spider = hit.collider.GetComponent<SpiderController>();
+            if (spider != null) {
+                spider.TakeDamage(Dmg, damageType);
+            }
+        }
+        clipAmmo--;
+
+
+    }
     public void StopLaser() {
         firingLaser = false;
+        shooting = false;
         Destroy(laser);
+        if (allowInvoke) {
+            Invoke("ResetShot", 1 / fireRate);
+            allowInvoke = false;
+        }
     }
 
 }

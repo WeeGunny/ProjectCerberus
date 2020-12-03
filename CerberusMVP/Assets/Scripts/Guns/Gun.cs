@@ -21,10 +21,10 @@ public class Gun : MonoBehaviour {
     public float fireRate = 1, bulletsPerShot = 1, reloadTime;
     public bool shooting, readyToShoot, reloading;
     public bool allowHold;
-    bool allowInvoke = true;
+    protected bool allowInvoke = true;
 
 
-    private void Awake() {
+    protected void Awake() {
         currentAmmo = maxAmmo;
         readyToShoot = true;
         fpsCam = FindObjectOfType<GunManager>().fpsCam;
@@ -93,7 +93,7 @@ public class Gun : MonoBehaviour {
         }
     }
 
-    private void ResetShot() {
+    protected void ResetShot() {
         Debug.Log("ResetShot");
         animator.SetBool("isShooting", false);
         readyToShoot = true;
