@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BlackHoleAlt : PlayerProjectile {
 
@@ -11,23 +13,25 @@ public class BlackHoleAlt : PlayerProjectile {
     protected override void Start() {
         base.Start();
         damageCountDown = FindObjectOfType<Gun>().fireRate;
+        rb = GetComponent<Rigidbody>();
     }
     protected override void Update() {
 
         float distance = Vector3.Distance(origin, transform.position);
         if (distance >= range) {
             Debug.Log("Projectile Ranged out");
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
             rb.mass = 100f;
         }
         blackHoleDuration -= Time.deltaTime;
-        if(blackHoleDuration <= 0) {
+        if (blackHoleDuration <= 0) {
             DestroyProjectile();
         }
     }
 
     protected override void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.tag != "Player")
-        rb.velocity = Vector3.zero;
+        if (collision.gameObject.tag != "Player")
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
         rb.mass = 100f;
 
     }
@@ -36,23 +40,22 @@ public class BlackHoleAlt : PlayerProjectile {
     }
 
     private void OnTriggerStay(Collider other) {
-       Rigidbody thing = other.GetComponent<Rigidbody>();
-        if (thing != null && other.tag!= "Player") {
+        Rigidbody thing = other.GetComponent<Rigidbody>();
+        if (thing != null && other.tag != "Player") {
             Vector3 direction = (transform.position - other.gameObject.transform.position).normalized;
-            float distance = Vector3.Distance(transform.position,other.transform.position);
+            float distance = Vector3.Distance(transform.position, other.transform.position);
             float force = pullStrength / (distance * distance);
-            thing.AddForce(direction *force,ForceMode.Force);
+            thing.AddForce(direction * force, ForceMode.Force);
         }
         EnemyController enemy = other.GetComponent<EnemyController>();
-        if(enemy != null) {
-
-
+        if (enemy != null) {
+            
             countdown -= Time.deltaTime;
-            if(countdown<= 0) {
+            if (countdown <= 0) {
                 enemy.TakeDamage(damage, damageType);
                 countdown = damageCountDown;
             }
-           
+
         }
     }
 }

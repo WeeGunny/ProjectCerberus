@@ -11,7 +11,7 @@ public class Gun : MonoBehaviour {
     protected Camera fpsCam;
     public float Dmg = 10f, altDmg = 10f;
     public float bulletSpeed = 25f, altSpeed = 25f;
-    float bulletsShot;
+    protected float bulletsShot;
     public float spread;
 
     public float moxieRequirement = 20;
@@ -37,7 +37,6 @@ public class Gun : MonoBehaviour {
     }
 
     protected virtual void GunInput() {
-
         if (allowHold) {
             shooting = Input.GetKey(KeyCode.Mouse0);
         }
@@ -51,9 +50,11 @@ public class Gun : MonoBehaviour {
             Fire();
         }
 
+        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerManager.instance.stats.Moxie> moxieRequirement) AltFire();
+
         if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) Reload();
 
-        if (readyToShoot && shooting && !reloading && clipAmmo <= 0) Reload();
+        if (readyToShoot && shooting && !reloading && clipAmmo <= 0) Reload(); // auto reload if out of ammo
 
     }
 
@@ -74,7 +75,7 @@ public class Gun : MonoBehaviour {
 
         float spreadX = Random.Range(-spread, spread);
         float spreadY = Random.Range(-spread, spread);
-        Vector3 directionWithSpread = directionNoSpread + new Vector3(spreadX, spreadY, 0);
+        Vector3 directionWithSpread = directionNoSpread + new Vector3(spreadX/10, spreadY/10, 0);
 
         GameObject bullet = Instantiate(primaryAmmo, firePoint.position, Quaternion.identity);
         bullet.transform.forward = directionWithSpread;
@@ -122,10 +123,6 @@ public class Gun : MonoBehaviour {
             clipAmmo += currentAmmo;
             currentAmmo = 0;
         }
-
         reloading = false;
     }
-
-
-
 }

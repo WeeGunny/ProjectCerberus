@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LaserGun : Gun {
     GameObject laser;
+    public Transform CoreBoneTransform;
     public bool firingLaser = false;
     public float laserRange;
     public DamageType damageType;
@@ -13,6 +14,11 @@ public class LaserGun : Gun {
         GunInput();
         if (firingLaser) {
             UpdateLaser();
+        }
+        //Changes the size of black hole core depending on moxie left 
+        CoreBoneTransform.localScale = new Vector3(0.01f, 0.01f, 0.01f) * PlayerManager.instance.stats.Moxie;
+        if (PlayerManager.instance.stats.Moxie < moxieRequirement) {
+            CoreBoneTransform.localScale = new Vector3(0f, 0f, 0f);
         }
     }
 
@@ -26,10 +32,9 @@ public class LaserGun : Gun {
         if (firingLaser && Input.GetKeyUp(KeyCode.Mouse0)) {
             StopLaser();
         }
+        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerManager.instance.stats.Moxie > moxieRequirement) AltFire();
 
         if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) Reload();
-
-        if (readyToShoot && shooting && !reloading && clipAmmo <= 0) Reload();
     }
     public override void Fire() {
         readyToShoot = false;
@@ -51,16 +56,19 @@ public class LaserGun : Gun {
                 spider.TakeDamage(Dmg, damageType);
             }
         }
-
         clipAmmo--;
         beam.SetPosition(0, firePoint.position);
         if (allowInvoke) {
-            Invoke("ResetShot", 1 / fireRate);
+            Invoke("ResetShot", 1 / fireRate); // fire resets how often damage is taken and ammo is consumed
             allowInvoke = false;
         }
+    }
 
-
-
+    public override void AltFire() {
+        base.AltFire();
+        readyToShoot = false;
+        GameObject altBullet = Instantiate(altAmmo, firePoint.position, Quaternion.identity);
+        altBullet.GetComponent<Rigidbody>().AddForce(firePoint.forward*altSpeed,ForceMode.Impulse);
     }
 
     public void UpdateLaser() {
@@ -78,25 +86,6 @@ public class LaserGun : Gun {
             StopLaser();
             Destroy(laser);
         }
-    }
-
-    public void LaserDamage() {
-        readyToShoot = false;
-        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, laserRange)) {
-            EnemyController enemy = hit.collider.GetComponent<EnemyController>();
-            if (enemy != null) {
-                enemy.TakeDamage(Dmg, damageType);
-            }
-            SpiderController spider = hit.collider.GetComponent<SpiderController>();
-            if (spider != null) {
-                spider.TakeDamage(Dmg, damageType);
-            }
-        }
-        clipAmmo--;
-
-
     }
     public void StopLaser() {
         firingLaser = false;

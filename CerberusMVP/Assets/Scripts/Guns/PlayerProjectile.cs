@@ -31,7 +31,6 @@ public class PlayerProjectile : MonoBehaviour {
             DestroyProjectile();
             hit.GetComponent<EnemyController>().TakeDamage(damage,damageType);
             Debug.Log("Enemy Hit");
-            DmgPopUp.Create(contact.point,damage);
         }
         else if (hit.tag != "Player" && hit.tag != "Bullet") {
 
