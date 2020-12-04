@@ -17,6 +17,7 @@ public class PlayerStats : MonoBehaviour {
     public float gold = 100;
 
     [Header("UI Reference")]
+    public TextMeshProUGUI goldText;
     public TextMeshProUGUI healthText;
     public Image healthBar;
     public TextMeshProUGUI moxieText;
@@ -51,18 +52,16 @@ public class PlayerStats : MonoBehaviour {
         {
             GritActive = false;
         }
-        if(activeGun != null) {
-            ammoClip.text = activeGun.ammoInClip.ToString();
-            ammoTotal.text = activeGun.currentAmmo.ToString();
-            ammoClip.gameObject.SetActive(true);
-            ammoTotal.gameObject.SetActive(true);
-        }
-        else {
-            ammoClip.gameObject.SetActive(false);
-            ammoTotal.gameObject.SetActive(false);
-        }
+
+        UpdateAmmoUI();
+        UpdateGoldUI();
+
 
        
+    }
+
+    private void UpdateGoldUI() {
+        goldText.text = "Gold Amount: " + gold;
     }
 
     public void TakeDamage(float damage) {
@@ -72,7 +71,7 @@ public class PlayerStats : MonoBehaviour {
         UpdateHealthUI();
         
         if (Health <= 0) {
-
+            Death();
         }
     }
 
@@ -94,4 +93,22 @@ public class PlayerStats : MonoBehaviour {
         healthBar.fillAmount = Health / 100;
 
     }
+
+    private void UpdateAmmoUI() {
+        if (activeGun != null) {
+            ammoClip.text = activeGun.clipAmmo.ToString();
+            ammoTotal.text = activeGun.currentAmmo.ToString();
+            ammoClip.gameObject.SetActive(true);
+            ammoTotal.gameObject.SetActive(true);
+        }
+        else {
+            ammoClip.gameObject.SetActive(false);
+            ammoTotal.gameObject.SetActive(false);
+        }
+    }
+
+    private void Death() {
+        Debug.Log("The player has died");
+    }
+
 }

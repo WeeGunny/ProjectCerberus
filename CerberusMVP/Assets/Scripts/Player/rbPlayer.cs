@@ -13,33 +13,44 @@ public class rbPlayer : MonoBehaviour {
 
     public Animator anim;
     public float rayDistance;
+<<<<<<< HEAD
     private Vector3 movement;
     private PlayerStats stats;
+=======
+    public bool movePlayer = true;
+    private Vector3 movementVector;
+>>>>>>> Enemies
     // Start is called before the first frame update
     void Start() {
+        PlayerManager.playerExists = true;
+        PlayerManager.instance.player = this.gameObject;
         rb = GetComponent<Rigidbody>();
         stats = GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
     void Update() {
-
         Jump();
         Grit();
-
-
     }
 
     private void FixedUpdate() {
+<<<<<<< HEAD
         Move();
         FindObjectOfType<AudioManager>().Play("Footsteps");
+=======
+        if (movePlayer == true) {
+            Move();
+        }
+>>>>>>> Enemies
     }
 
     private void Move() {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputZ = Input.GetAxis("Vertical");
-        movement = new Vector3(inputX, 0, inputZ) * movementSpeed * Time.fixedDeltaTime;
-        Vector3 newPosition = rb.position + rb.transform.TransformDirection(movement);
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputZ = Input.GetAxisRaw("Vertical");
+        movementVector = new Vector3(inputX , 0, inputZ) * movementSpeed * Time.deltaTime;
+        //rb.velocity = movementVector;
+        Vector3 newPosition = rb.position + rb.transform.TransformDirection(movementVector);
         rb.MovePosition(newPosition);
         
     }
@@ -77,5 +88,9 @@ public class rbPlayer : MonoBehaviour {
             PlayerManager.instance.stats.Grit -= Time.deltaTime * 80;
         }
 
+    }
+
+    public void toggleMovement() {
+        movePlayer = !movePlayer;
     }
 }

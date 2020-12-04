@@ -83,8 +83,6 @@ public class LevelGenerator : MonoBehaviour {
         //once all rooms placed, spawn the player at the spawnpoint and remove loadscreen
         inGameUI.SetActive(true);
         player = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
-        PlayerManager.playerExists = true;
-        PlayerManager.instance.player = player;
         LoadScreen.SetActive(false);
 
 
@@ -134,7 +132,7 @@ public class LevelGenerator : MonoBehaviour {
 
                     // Exit Loop if room has been placed
                     roomPlaced = true;
-                    currentRoom.id = roomNum ;
+                    currentRoom.id = roomNum;
                     roomNum++;
                 }
 
@@ -318,7 +316,7 @@ public class LevelGenerator : MonoBehaviour {
         availableDoorways.Clear();
         availableMainDoorways.Clear();
         roomNum = 0;
-       // FindObjectOfType<InventoryUI>().ClearInventory();
+        // FindObjectOfType<InventoryUI>().ClearInventory();
 
         StartCoroutine("GenerateLevel");
 

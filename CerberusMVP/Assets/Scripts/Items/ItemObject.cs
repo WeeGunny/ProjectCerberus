@@ -12,7 +12,7 @@ public class ItemObject : MonoBehaviour {
             Destroy(gameObject);
         }
         else {
-            bool wasPickedUp = Inventory.inventory.Add(item);
+            bool wasPickedUp = PlayerManager.instance.inventory.Add(item);
             if (wasPickedUp) {
                 Debug.Log("You picked up: " + item.name);
                 Destroy(gameObject);

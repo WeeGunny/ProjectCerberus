@@ -1,37 +1,39 @@
 ﻿
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
-
-public enum FireType { Semi, Auto, Burst, Laser };
+using UnityEngine.PlayerLoop;
 
 public class Gun : MonoBehaviour {
     public GameObject gunPrefab;
+    public Animator animator;
     public Transform firePoint;
-    public float Damage = 10f, altDmg = 10f;
-    public float bulletSpeed = 25f, altSpeed = 25f;
-    //These are the bullet prefabs to shoot, if laser put laser prefab here
     public GameObject primaryAmmo, altAmmo;
-    //primaryBH and altBH are the bullet hole prefab to be created;
-    public GameObject primaryBH, altBH;
-    //how far the bullet will travel before they range out
-    public float range = 25f, altRange;
+    protected Camera fpsCam;
+    public float Dmg = 10f, altDmg = 10f;
+    public float bulletSpeed = 25f, altSpeed = 25f;
+    protected float bulletsShot;
+    public float spread;
+
     public float moxieRequirement = 20;
     public float maxAmmo, maxClipAmmo;
-    public float ammoInClip, currentAmmo;
-    public FireType fireType;
-    public float fireRate;
-    private float lastTimeFired = 0;
-    GameObject laser;
-    public bool firingLaser = false;
+    public float clipAmmo, currentAmmo;
+    //FireRate is shots per second
+    public float fireRate = 1, bulletsPerShot = 1, reloadTime;
+    public bool shooting, readyToShoot, reloading;
+    public bool allowHold;
+    protected bool allowInvoke = true;
 
 
-    private void Start() {
+    protected void Awake() {
         currentAmmo = maxAmmo;
+        readyToShoot = true;
+        fpsCam = FindObjectOfType<GunManager>().fpsCam;
+        Debug.Log("Loaded Gun");
         Reload();
     }
 
     private void Update() {
+<<<<<<< HEAD
 
 
         if (Input.GetKeyDown(KeyCode.R) && ammoInClip < maxClipAmmo) {
@@ -42,82 +44,45 @@ public class Gun : MonoBehaviour {
            Debug.Log("laser Destroyed");
             Destroy(laser);
         }
+=======
+        GunInput();
+>>>>>>> Enemies
     }
 
-    public void ManualFire() {
-        //included a firerate in manual fire so they couldn't spam the button as fast as they wanted too
-        if ((Time.time - lastTimeFired) > 1 / fireRate) {
-            if (ammoInClip > 0) {
-                if(fireType == FireType.Semi) {
-                    ShootProjectile();
-                    
-                }
-                if(fireType == FireType.Burst) {
-
-                    StartCoroutine("BurstFire");
-                   
-                }
-               
-            }
-            else {
-                Debug.Log("Out of Ammo");
-            }
+    protected virtual void GunInput() {
+        if (allowHold) {
+            shooting = Input.GetKey(KeyCode.Mouse0);
         }
-    }
-
-    public void AutomaticFire() {
-
-        if ((Time.time - lastTimeFired) > 1 / fireRate) {
-            // will shoot 
-            if (ammoInClip > 0) {
-                ShootProjectile();
-                lastTimeFired = Time.time;
-            }
-            else {
-                Debug.Log("Out of Ammo");
-            }
+        else {
+            shooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
-    }
 
-    public void LaserFire() {
-        Debug.Log("Creating Laser");
-        laser = Instantiate(primaryAmmo,firePoint);
-        firingLaser = true;
+        if (readyToShoot && shooting && !reloading && clipAmmo>0) {
+            bulletsShot = 0;
+            Debug.Log("Firing");
+            Fire();
+        }
 
+<<<<<<< HEAD
         FindObjectOfType<AudioManager>().Play("Laser");
 
     }
+=======
+        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerManager.instance.stats.Moxie> moxieRequirement) AltFire();
+>>>>>>> Enemies
 
-    public IEnumerator BurstFire() {
+        if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) Reload();
 
-        Debug.Log("Starting Burst fire");
-        for (int b = 0; b < 3; b++) {
-            if (ammoInClip > 0) {
-                ShootProjectile();
-                yield return new WaitForSeconds(.1f);
-            }
-        }
-       
+        if (readyToShoot && shooting && !reloading && clipAmmo <= 0) Reload(); // auto reload if out of ammo
 
     }
-    void ShootProjectile() {
 
-        Vector3 direction = firePoint.forward;
-        GameObject bullet = Instantiate(primaryAmmo, firePoint.position, Quaternion.identity);
-        PlayerProjectile bulletProperties = bullet.GetComponent<PlayerProjectile>();
-        bulletProperties.damage = Damage;
-        bulletProperties.direction = direction;
-        bulletProperties.speed = bulletSpeed;
-        bulletProperties.range = range;
-        bulletProperties.gun = gameObject;
-        bulletProperties.bulletHolePrefab = primaryBH;
-        lastTimeFired = Time.time;
-        ammoInClip--;
+    public virtual void Fire() {
+        readyToShoot = false;
 
-    }
-    public void UpdateLaser() {
-        LineRenderer beam = laser.GetComponentInChildren<LineRenderer>();
+        Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
         RaycastHit hit;
+<<<<<<< HEAD
         if(Physics.Raycast(firePoint.position, firePoint.forward, out hit, range)) {
             if ((Time.time - lastTimeFired) > 1 / fireRate) {
                 // will shoot 
@@ -138,50 +103,79 @@ public class Gun : MonoBehaviour {
                     Destroy(laser);
                 }
             }
+=======
+        Vector3 targetPoint;
+        if (Physics.Raycast(ray, out hit)) {
+            targetPoint = hit.point;
+>>>>>>> Enemies
         }
         else {
-            beam.SetPosition(1, new Vector3( 0,0,range));
+            targetPoint = ray.GetPoint(75);
         }
 
+        Vector3 directionNoSpread = targetPoint - firePoint.position;
+
+        float spreadX = Random.Range(-spread, spread);
+        float spreadY = Random.Range(-spread, spread);
+        Vector3 directionWithSpread = directionNoSpread + new Vector3(spreadX/10, spreadY/10, 0);
+
+        GameObject bullet = Instantiate(primaryAmmo, firePoint.position, Quaternion.identity);
+        bullet.transform.forward = directionWithSpread;
+        bullet.GetComponent<PlayerProjectile>().damage = Dmg;
+        bullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * bulletSpeed, ForceMode.Impulse);
+        clipAmmo--;
+        bulletsShot++;
+
+        if (allowInvoke) {
+            Invoke("ResetShot", 1 / fireRate);
+            allowInvoke = false;
+        }
+
+        if (bulletsShot < bulletsPerShot && clipAmmo > 0) {
+            Invoke("ShootProjectile", 1 / (fireRate*bulletsPerShot));
+        }
     }
+
+    protected void ResetShot() {
+        Debug.Log("ResetShot");
+        animator.SetBool("isShooting", false);
+        readyToShoot = true;
+        allowInvoke = true;
+    }
+
     public virtual void AltFire() {
-
-        Vector3 direction = firePoint.forward;
-        GameObject bullet = Instantiate(altAmmo, firePoint.position, Quaternion.identity);
-        PlayerProjectile bulletProperties = bullet.GetComponent<PlayerProjectile>();
-        bulletProperties.damage = altDmg;
-        bulletProperties.direction = direction;
-        bulletProperties.speed = altSpeed;
-        bulletProperties.range = altRange;
-        bulletProperties.gun = gameObject;
-        bulletProperties.bulletHolePrefab = altBH;
-
         PlayerManager.instance.stats.Moxie -= moxieRequirement;
+<<<<<<< HEAD
 
         FindObjectOfType<AudioManager>().Play("AltFire");
+=======
+        animator.SetTrigger("altFire");
+>>>>>>> Enemies
     }
 
-    private void OnDrawGizmosSelected() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
-
+    public void ReloadDelay() {
+        reloading = true;
+        Invoke("Reload", reloadTime);
     }
 
-    void Reload() {
-        float reloadAmount = maxClipAmmo - ammoInClip;
+    public void Reload() {
+        Debug.Log("Reloading");
+        animator.SetTrigger("isReloading");
+        float reloadAmount = maxClipAmmo - clipAmmo;
         if (currentAmmo >= reloadAmount) {
-            ammoInClip += reloadAmount;
+            clipAmmo += reloadAmount;
             currentAmmo -= reloadAmount;
         }
         else {
-            ammoInClip += currentAmmo;
+            clipAmmo += currentAmmo;
             currentAmmo = 0;
         }
+<<<<<<< HEAD
 
         
 
+=======
+        reloading = false;
+>>>>>>> Enemies
     }
-
-
-
 }
