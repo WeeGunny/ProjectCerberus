@@ -33,20 +33,7 @@ public class Gun : MonoBehaviour {
     }
 
     private void Update() {
-<<<<<<< HEAD
-
-
-        if (Input.GetKeyDown(KeyCode.R) && ammoInClip < maxClipAmmo) {
-            Reload();
-            FindObjectOfType<AudioManager>().Play("Reload");
-        }
-        if(laser != null && !firingLaser) {
-           Debug.Log("laser Destroyed");
-            Destroy(laser);
-        }
-=======
         GunInput();
->>>>>>> Enemies
     }
 
     protected virtual void GunInput() {
@@ -63,13 +50,7 @@ public class Gun : MonoBehaviour {
             Fire();
         }
 
-<<<<<<< HEAD
-        FindObjectOfType<AudioManager>().Play("Laser");
-
-    }
-=======
         if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerManager.instance.stats.Moxie> moxieRequirement) AltFire();
->>>>>>> Enemies
 
         if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) Reload();
 
@@ -82,32 +63,9 @@ public class Gun : MonoBehaviour {
 
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
         RaycastHit hit;
-<<<<<<< HEAD
-        if(Physics.Raycast(firePoint.position, firePoint.forward, out hit, range)) {
-            if ((Time.time - lastTimeFired) > 1 / fireRate) {
-                // will shoot 
-                if (ammoInClip > 0) {
-                    beam.SetPosition(1, new Vector3(0,0,hit.point.z));
-                    EnemyController enemy = hit.collider.GetComponent<EnemyController>();
-                    if(enemy != null) {
-                        enemy.TakeDamage(Damage);
-                    }
-                    lastTimeFired = Time.time;
-                    Debug.Log("Laser hit:" + hit.collider.name);
-                    ammoInClip--;
-                    FindObjectOfType<AudioManager>().Play("Laser");
-                }
-                else {
-                    Debug.Log("Out of Ammo");
-                    firingLaser = false;
-                    Destroy(laser);
-                }
-            }
-=======
         Vector3 targetPoint;
         if (Physics.Raycast(ray, out hit)) {
             targetPoint = hit.point;
->>>>>>> Enemies
         }
         else {
             targetPoint = ray.GetPoint(75);
@@ -145,12 +103,8 @@ public class Gun : MonoBehaviour {
 
     public virtual void AltFire() {
         PlayerManager.instance.stats.Moxie -= moxieRequirement;
-<<<<<<< HEAD
-
         FindObjectOfType<AudioManager>().Play("AltFire");
-=======
         animator.SetTrigger("altFire");
->>>>>>> Enemies
     }
 
     public void ReloadDelay() {
@@ -170,12 +124,6 @@ public class Gun : MonoBehaviour {
             clipAmmo += currentAmmo;
             currentAmmo = 0;
         }
-<<<<<<< HEAD
-
-        
-
-=======
         reloading = false;
->>>>>>> Enemies
     }
 }

@@ -7,11 +7,8 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-<<<<<<< HEAD:CerberusMVP/Assets/Scripts/General UI/MainMenu.cs
         SceneManager.LoadScene("Main");
-=======
         SceneManager.LoadScene("HubArea");
->>>>>>> Enemies:CerberusMVP/Assets/Scripts/MainMenu.cs
     }
 
     public void QuitGame()

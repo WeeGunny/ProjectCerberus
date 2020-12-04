@@ -13,19 +13,13 @@ public class rbPlayer : MonoBehaviour {
 
     public Animator anim;
     public float rayDistance;
-<<<<<<< HEAD
-    private Vector3 movement;
-    private PlayerStats stats;
-=======
     public bool movePlayer = true;
     private Vector3 movementVector;
->>>>>>> Enemies
     // Start is called before the first frame update
     void Start() {
         PlayerManager.playerExists = true;
         PlayerManager.instance.player = this.gameObject;
         rb = GetComponent<Rigidbody>();
-        stats = GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
@@ -35,14 +29,10 @@ public class rbPlayer : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-<<<<<<< HEAD
-        Move();
         FindObjectOfType<AudioManager>().Play("Footsteps");
-=======
         if (movePlayer == true) {
             Move();
         }
->>>>>>> Enemies
     }
 
     private void Move() {
