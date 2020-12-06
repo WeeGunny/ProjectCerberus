@@ -15,10 +15,10 @@ public class GunManager : MonoBehaviour {
     [Header ("Recoil")]
     public Vector3 upRecoil;
     Vector3 orignalRotation;
-    public float minRotation = -1f;
-    public float maxRotation = -3f;
-    public float rotatationValue = 0f;
-
+    public float minRotation = -1;
+    public float maxRotation = -3;
+    private float recoilTime = 0f;
+    private float maxTime = 2f;
 
     // Start is called before the first frame update
     void Start() {
@@ -55,12 +55,12 @@ public class GunManager : MonoBehaviour {
 
         if (Input.GetButton("Fire1")) {
             currentGun.OnFireHeld();
-            AddRecoil();
+            AutoRecoil();
+
         }
         if (Input.GetButtonUp("Fire1")) {
             currentGun.EndFire();
             StopRecoil();
-
         }
 
         if (Input.GetButtonDown("Fire2")) {
@@ -77,7 +77,20 @@ public class GunManager : MonoBehaviour {
     private void AddRecoil()
     {
         transform.localEulerAngles += upRecoil;
-        float maxRecoil = Mathf.Clamp(rotatationValue, minRotation, maxRotation);
+        
+    }
+
+    private void AutoRecoil()
+    {
+        transform.localEulerAngles += upRecoil ;
+        Vector3 currentRotation = transform.localRotation.eulerAngles;
+        currentRotation.x = Mathf.Clamp(currentRotation.x, minRotation, maxRotation);
+        transform.localRotation = Quaternion.Euler(currentRotation);
+        recoilTime += Time.deltaTime;
+        if (recoilTime > maxTime)
+        {
+            recoilTime = recoilTime + Time.deltaTime;
+        }
     }
 
     private void StopRecoil()
