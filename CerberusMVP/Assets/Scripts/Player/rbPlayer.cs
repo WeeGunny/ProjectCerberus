@@ -8,9 +8,9 @@ public class rbPlayer : MonoBehaviour {
     [Header ("Variables")]
     public float movementSpeed = 10f;
     public float jumpHeight = 100f;
-    public int MaxDoubleJumps = 1;
-    public int DoubleJumpCounter = 0;
-
+    public bool isGrounded = true;
+    private const int maxJump = 2;
+    private int currentJump = 0;
     public Animator anim;
     public float rayDistance;
     public bool movePlayer = true;
@@ -46,26 +46,26 @@ public class rbPlayer : MonoBehaviour {
         //rb.velocity = movementVector;
         Vector3 newPosition = rb.position + rb.transform.TransformDirection(movementVector);
         rb.MovePosition(newPosition);
-        
     }
-    private void Jump() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            if (Grounded())
-                rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
-            DoubleJumpCounter = 0;
 
-            //If in mid air after a jump, allow another jump
-            if(!Grounded() && DoubleJumpCounter < MaxDoubleJumps)
+    private void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || maxJump > currentJump))
+        {
+            {
                 rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
-            DoubleJumpCounter++;
+                isGrounded = false;
+                currentJump++;
+            }
 
             FindObjectOfType<AudioManager>().Play("Jump");
         }
     }
 
-    public bool Grounded() {
-
-        return Physics.Raycast(transform.position, Vector3.down, rayDistance, LayerMask.GetMask("Room"));
+    void OnCollisionEnter(Collision collision)
+    {
+        isGrounded = true;
+        currentJump = 0;
     }
 
     void Grit() {
@@ -78,7 +78,8 @@ public class rbPlayer : MonoBehaviour {
 
             FindObjectOfType<AudioManager>().Play("Grit");
         }
-        if (PlayerManager.instance.stats.GritActive == true) {
+        if (PlayerManager.instance.stats.GritActive == true)
+        {
             PlayerManager.instance.stats.Grit -= Time.deltaTime * 80;
         }
 
