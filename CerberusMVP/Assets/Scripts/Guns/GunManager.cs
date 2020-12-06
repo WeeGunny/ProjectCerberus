@@ -92,6 +92,13 @@ public class GunManager : MonoBehaviour {
                 currentGunObject = gunObjects[3];
             }
         }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            if (gunObjects[2] != null)
+            {
+                currentGunObject = gunObjects[4];
+            }
+        }
         if (currentGunObject!= null) {
             currentGun = currentGunObject.GetComponent<Gun>();
             PlayerManager.instance.stats.activeGun = currentGun;
