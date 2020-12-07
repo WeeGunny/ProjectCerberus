@@ -9,18 +9,29 @@ public class EnemyController : MonoBehaviour {
     public float lookRadius = 10f;
     public float shootRadius = 5f;
     public Transform target, gun;
+    private bool isDead = false;
     NavMeshAgent agent;
     public float startShotDelay;
-    private float shotDelay, distance;
+    protected float shotDelay, distance;
     public GameObject projectile;
     public Room roomImIn;
     public DamageType[] Weaknesses, Resistances;
     public bool takingDotDamage;
+    public float StartHealth = 10f;
+
     public LootTableGameObject lootTable;
+
+    public int ammo = 20;
+    private bool isReloading = false;
+
+    public Animator anim;
+
     // Start is called before the first frame update
     void Start() {
         agent = GetComponent<NavMeshAgent>();
         shotDelay = startShotDelay;
+        health = StartHealth;
+        anim = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -28,7 +39,7 @@ public class EnemyController : MonoBehaviour {
         if (PlayerManager.playerExists && target == null) {
             target = PlayerManager.instance.player.transform;
         }
-        if (target != null) {
+        if (target != null && !isDead) {
             distance = Vector3.Distance(target.position, transform.position);
             if (distance <= lookRadius) {
                 FaceTarget();
@@ -36,22 +47,42 @@ public class EnemyController : MonoBehaviour {
         }
 
 
-        if (distance <= lookRadius && distance >= shootRadius) {
+        if (distance <= lookRadius && distance >= shootRadius && !isDead) {
             agent.SetDestination(target.position);
+            agent.isStopped = false;
+            anim.SetBool("playerSpotted", true);
+            anim.SetBool("playerAttackable", false);
         }
-        if (shotDelay <= 0 && distance <= shootRadius) {
-            Shoot();
+        if (shotDelay <= 0 && distance <= shootRadius && !isDead && !isReloading) {
+            agent.isStopped = true;
+            anim.SetBool("playerAttackable", true);
+            anim.SetBool("playerSpotted", false);
+            Attack();
+        }
+
+        if (distance >= lookRadius && distance >= shootRadius)
+        {
+            anim.SetBool("playerSpotted", false);
+            agent.isStopped = true;
         }
 
         if (distance <= agent.stoppingDistance) {
             //Possible spot for melee attack trigger
             //if enemy is within their stopping distance of the player
         }
+
+        if (ammo <= 0)
+        {
+            isReloading = true;
+            anim.SetBool("outOfAmmo", true);
+            StartCoroutine(reload());
+        }
+
         else {
             shotDelay -= Time.deltaTime;
         }
 
-        if (health <= 0) {
+        if (health <= 0 && !isDead) {
             Death();
         }
     }
@@ -62,11 +93,12 @@ public class EnemyController : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
-    protected virtual void Shoot() {
+    protected virtual void Attack() {
         GameObject bullet = Instantiate(projectile, gun.position, Quaternion.identity);
         EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
         bulletProperties.direction = transform.forward;
         shotDelay = startShotDelay;
+        ammo -= 1;
     }
 
     public void TakeDamage(float damage,DamageType damageType) {
@@ -104,14 +136,25 @@ public class EnemyController : MonoBehaviour {
         takingDotDamage = false;
     }
 
+    IEnumerator reload()
+    {
+        yield return new WaitForSeconds(3.267f);
+        ammo = 20;
+        isReloading = false;
+        anim.SetBool("outOfAmmo", false);
+    }
+
     protected virtual void Death() {
-        Destroy(gameObject);
+        agent.isStopped = true;
+        isDead = true;
+        anim.SetBool("isDead", true);
         Debug.Log("Enemy Has died");
+        if(roomImIn!=null)
         roomImIn.enemiesAlive--;
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
-        GameObject loot = lootTableElement.lootObject;
-        if (loot != null) {
-            Instantiate(loot,transform.position,Quaternion.identity);
+        if (lootTableElement.lootObject != null) {
+            GameObject loot = lootTableElement.lootObject;
+            Instantiate(loot, transform.position, Quaternion.identity);
         }
     }
 
