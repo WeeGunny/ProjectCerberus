@@ -14,7 +14,7 @@ public class rbPlayer : MonoBehaviour {
     //Wall Run stuff
     public LayerMask isWall;
     public float maxWallRunSpeed, wallRunForce, maxWallRunTime;
-    bool isWallLeft, isWallRight;
+    public bool isWallLeft, isWallRight;
     [SerializeField]
     bool isWallRunning;
     public float maxCamTilt, wallRunCamTilt;
@@ -48,14 +48,14 @@ public class rbPlayer : MonoBehaviour {
             wallRunCamTilt -= Time.deltaTime * maxCamTilt * 2;
         }
 
-        if (wallRunCamTilt>0 && !isWallRunning) {
+        if (wallRunCamTilt > 0 && !isWallRunning) {
             wallRunCamTilt -= Time.deltaTime * maxCamTilt * 2;
-        } 
-        if (wallRunCamTilt<0 && !isWallRunning) {
+        }
+        if (wallRunCamTilt < 0 && !isWallRunning) {
             wallRunCamTilt += Time.deltaTime * maxCamTilt * 2;
         }
 
-        
+
     }
 
     private void FixedUpdate() {
@@ -65,26 +65,24 @@ public class rbPlayer : MonoBehaviour {
     }
 
     private void Move() {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputZ = Input.GetAxisRaw("Vertical");
-        movementVector = new Vector3(inputX , 0, inputZ) * movementSpeed * Time.deltaTime;
-        //rb.velocity = movementVector;
-        Vector3 newPosition = rb.position + rb.transform.TransformDirection(movementVector);
-        rb.MovePosition(newPosition);
+        Vector3 inputX = transform.right * Input.GetAxis("Horizontal");
+        Vector3 inputZ = transform.forward * Input.GetAxis("Vertical");
+        movementVector = (inputX + inputZ) *movementSpeed;
+        rb.velocity = new Vector3(movementVector.x,rb.velocity.y,movementVector.z);
 
     }
     private void Jump() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             if (Grounded()) {
-                rb.AddForce(Vector2.up *jumpHeight,ForceMode.VelocityChange);
+                rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
             }
 
             if (isWallRunning) {
-                rb.AddForce(Vector2.up * jumpHeight,ForceMode.VelocityChange);
-                rb.AddForce(orientation.forward*jumpHeight*1f, ForceMode.VelocityChange);
+                rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
+                rb.AddForce(normalVector * jumpHeight * 1f, ForceMode.Impulse); ;
                 StopWallRun();
             }
-                
+
         }
     }
 
@@ -93,9 +91,9 @@ public class rbPlayer : MonoBehaviour {
         return Physics.Raycast(transform.position, Vector3.down, rayDistance, LayerMask.GetMask("Room"));
     }
     public void CheckForWall() {
-        isWallRight = Physics.Raycast(transform.position,orientation.right,1f,isWall);
-        isWallLeft = Physics.Raycast(transform.position,-orientation.right,1f,isWall);
-        if(!isWallRight && !isWallLeft) {
+        isWallRight = Physics.Raycast(transform.position, orientation.right, 1f, isWall);
+        isWallLeft = Physics.Raycast(transform.position, -orientation.right, 1f, isWall);
+        if (!isWallRight && !isWallLeft) {
             StopWallRun();
         }
     }
@@ -113,17 +111,16 @@ public class rbPlayer : MonoBehaviour {
     private void StartWallRun() {
         rb.useGravity = false;
         isWallRunning = true;
-        if(rb.velocity.magnitude < maxWallRunSpeed) {
-            rb.AddForce(orientation.forward*wallRunForce*Time.deltaTime);
+        if (rb.velocity.magnitude < maxWallRunSpeed) {
+            rb.AddForce(orientation.forward * wallRunForce * Time.deltaTime);
 
-            //This should work in th
-            ////keeps player on wall by adding force in direction of wall.
-            //if (isWallRight) {
-            //    rb.AddForce(orientation.right * wallRunForce / 5 * Time.deltaTime);
-            //}
-            //else {
-            //    rb.AddForce(-orientation.right * wallRunForce / 5 * Time.deltaTime);
-            //}
+            //keeps player on wall by adding force in direction of wall.
+            if (isWallRight) {
+                rb.AddForce(orientation.right * wallRunForce / 5 * Time.deltaTime);
+            }
+            else {
+                rb.AddForce(-orientation.right * wallRunForce / 5 * Time.deltaTime);
+            }
         }
 
 
