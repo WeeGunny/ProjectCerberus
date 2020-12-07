@@ -152,7 +152,7 @@ public class EnemyController : MonoBehaviour {
         if(roomImIn!=null)
         roomImIn.enemiesAlive--;
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
-        if (lootTableElement.lootObject != null) {
+        if (lootTableElement != null) {
             GameObject loot = lootTableElement.lootObject;
             Instantiate(loot, transform.position, Quaternion.identity);
         }

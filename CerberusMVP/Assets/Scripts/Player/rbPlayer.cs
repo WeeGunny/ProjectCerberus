@@ -79,7 +79,10 @@ public class rbPlayer : MonoBehaviour {
 
             if (isWallRunning) {
                 rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-                rb.AddForce(normalVector * jumpHeight * 1f, ForceMode.Impulse); ;
+                if(isWallLeft) rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+                if(isWallRight) rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+                
+
                 StopWallRun();
             }
 
