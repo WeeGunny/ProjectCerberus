@@ -17,7 +17,8 @@ public class rbPlayer : MonoBehaviour {
     public bool isWallLeft, isWallRight;
     [SerializeField]
     bool isWallRunning;
-    public float maxCamTilt, wallRunCamTilt;
+    public float maxCamTilt;
+    float wallRunCamTilt;
     public Transform orientation;
 
 
@@ -67,8 +68,8 @@ public class rbPlayer : MonoBehaviour {
     private void Move() {
         Vector3 inputX = transform.right * Input.GetAxis("Horizontal");
         Vector3 inputZ = transform.forward * Input.GetAxis("Vertical");
-        movementVector = (inputX + inputZ) *movementSpeed;
-        rb.velocity = new Vector3(movementVector.x,rb.velocity.y,movementVector.z);
+        movementVector = (inputX + inputZ) * movementSpeed;
+        rb.velocity = new Vector3(movementVector.x, rb.velocity.y, movementVector.z);
 
     }
     private void Jump() {
@@ -79,9 +80,9 @@ public class rbPlayer : MonoBehaviour {
 
             if (isWallRunning) {
                 rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-                if(isWallLeft) rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
-                if(isWallRight) rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
-                
+                if (isWallLeft) rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+                if (isWallRight) rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+
 
                 StopWallRun();
             }
