@@ -12,14 +12,6 @@ public class GunManager : MonoBehaviour {
     GameObject currentGunObject;
     List<GameObject> gunObjects = new List<GameObject>();
 
-    [Header ("Recoil")]
-    public Vector3 upRecoil;
-    Vector3 orignalRotation;
-    public float minRotation = -1;
-    public float maxRotation = -3;
-    private float recoilTime = 0f;
-    private float maxTime = 2f;
-
     // Start is called before the first frame update
     void Start() {
         for (int i=0;i<guns.Count;i++) {
@@ -29,9 +21,6 @@ public class GunManager : MonoBehaviour {
         currentGunObject = gunObjects[0];
         currentGun = currentGunObject.GetComponent<Gun>();
         currentGunObject.SetActive(true);
-
-        //Recoil
-        orignalRotation = transform.localEulerAngles;
     }
 
     // Update is called once per frame
@@ -50,52 +39,24 @@ public class GunManager : MonoBehaviour {
     private void CheckForShooting() {
         if (Input.GetButtonDown("Fire1")) {
             currentGun.Fire();
-            AddRecoil();
         }
 
         if (Input.GetButton("Fire1")) {
             currentGun.OnFireHeld();
-            AutoRecoil();
 
         }
         if (Input.GetButtonUp("Fire1")) {
             currentGun.EndFire();
-            StopRecoil();
         }
 
         if (Input.GetButtonDown("Fire2")) {
             if (PlayerManager.instance.stats.Moxie >= currentGun.moxieRequirement) {
                 currentGun.AltFire();
-                StopRecoil();
             }
             else {
                 Debug.Log("Not Enough moxie to fire");
             }
         }
-    }
-
-    private void AddRecoil()
-    {
-        transform.localEulerAngles += upRecoil;
-        
-    }
-
-    private void AutoRecoil()
-    {
-        transform.localEulerAngles += upRecoil ;
-        Vector3 currentRotation = transform.localRotation.eulerAngles;
-        currentRotation.x = Mathf.Clamp(currentRotation.x, minRotation, maxRotation);
-        transform.localRotation = Quaternion.Euler(currentRotation);
-        recoilTime += Time.deltaTime;
-        if (recoilTime > maxTime)
-        {
-            recoilTime = recoilTime + Time.deltaTime;
-        }
-    }
-
-    private void StopRecoil()
-    {
-        transform.localEulerAngles = orignalRotation;
     }
 
     private void CheckForReload() {
