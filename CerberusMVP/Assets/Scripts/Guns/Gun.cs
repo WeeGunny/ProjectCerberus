@@ -43,6 +43,7 @@ public class Gun : MonoBehaviour {
     protected virtual void GunInput() {
         if (allowHold) {
             shooting = Input.GetKey(KeyCode.Mouse0);
+            //FindObjectOfType<AudioManager>().Play("Auto");
         }
         else {
             shooting = Input.GetKeyDown(KeyCode.Mouse0);
@@ -122,6 +123,7 @@ public class Gun : MonoBehaviour {
     public void Reload() {
         Debug.Log("Reloading");
         animator.SetTrigger("isReloading");
+        FindObjectOfType<AudioManager>().Play("Reload");
         float reloadAmount = maxClipAmmo - clipAmmo;
         if (currentAmmo >= reloadAmount) {
             clipAmmo += reloadAmount;

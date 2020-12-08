@@ -75,6 +75,7 @@ public class rbPlayer : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space)) {
             if (Grounded()) {
                 rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
+                FindObjectOfType<AudioManager>().Play("Jump");
             }
 
             if (isWallRunning) {
@@ -116,7 +117,7 @@ public class rbPlayer : MonoBehaviour {
         isWallRunning = true;
         if (rb.velocity.magnitude < maxWallRunSpeed) {
             rb.AddForce(orientation.forward * wallRunForce * Time.deltaTime);
-
+            FindObjectOfType<AudioManager>().Play("WallRun");
             //keeps player on wall by adding force in direction of wall.
             if (isWallRight) {
                 rb.AddForce(orientation.right * wallRunForce / 5 * Time.deltaTime);
