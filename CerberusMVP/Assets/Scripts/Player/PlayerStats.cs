@@ -77,8 +77,9 @@ public class PlayerStats : MonoBehaviour {
 
     public void TakeDamage(float damage) {
 
-        Health -= damage;
+
         Mathf.Clamp(Health, 0, maxHeath);
+        Health -= damage;
         UpdateHealthUI();
 
         if (Health <= 0) {
