@@ -23,6 +23,10 @@ public class Gun : MonoBehaviour {
     public bool allowHold;
     protected bool allowInvoke = true;
 
+    //Recoil
+    public Rigidbody playerRb;
+    public float recoilForce;
+
 
     protected void Awake() {
         currentAmmo = maxAmmo;
@@ -83,6 +87,9 @@ public class Gun : MonoBehaviour {
         bullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * bulletSpeed, ForceMode.Impulse);
         clipAmmo--;
         bulletsShot++;
+
+        //player recoil
+        playerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
 
         if (allowInvoke) {
             Invoke("ResetShot", 1 / fireRate);
