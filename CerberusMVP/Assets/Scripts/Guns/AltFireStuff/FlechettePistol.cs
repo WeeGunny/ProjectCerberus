@@ -14,7 +14,6 @@ public class FlechettePistol : Gun
         //    PlayerManager.instance.stats.Moxie += moxieRequirement;
         //    return;
         //}
-        FindObjectOfType<AudioManager>().Play("AltFire2");
     }
 
     private void MoxieBurst() {

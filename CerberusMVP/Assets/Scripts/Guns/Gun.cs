@@ -24,10 +24,11 @@ public class Gun : MonoBehaviour {
     public string soundName;
     protected bool allowInvoke = true;
 
-    //Recoil
-    public Rigidbody playerRb;
-    public float recoilForce;
-
+    [Header("Recoil")]
+    public Vector3 upRecoil;
+    Vector3 orignalRotation;
+    public float minRecoil = -1;
+    public float maxRecoil = -10;
 
     protected void Awake() {
         currentAmmo = maxAmmo;
@@ -89,12 +90,10 @@ public class Gun : MonoBehaviour {
         clipAmmo--;
         bulletsShot++;
 
-        //player recoil
-        playerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
-
         if (allowInvoke) {
             Invoke("ResetShot", 1 / fireRate);
             allowInvoke = false;
+            AddRecoil();
         }
 
         if (bulletsShot < bulletsPerShot && clipAmmo > 0) {
@@ -102,16 +101,29 @@ public class Gun : MonoBehaviour {
         }
     }
 
+    public void AddRecoil()
+    {
+        transform.localEulerAngles += upRecoil;
+        //Vector3 currentRotation = transform.localRotation.eulerAngles;
+        orignalRotation.z = Mathf.Clamp(orignalRotation.z, minRecoil, maxRecoil);
+        transform.localRotation = Quaternion.Euler(orignalRotation);
+    }
+
+    public void StopRecoil()
+    {
+        transform.localEulerAngles = orignalRotation;
+    }
+
     protected void ResetShot() {
         Debug.Log("ResetShot");
         animator.SetBool("isShooting", false);
         readyToShoot = true;
         allowInvoke = true;
+        StopRecoil();
     }
 
     public virtual void AltFire() {
         PlayerManager.instance.stats.Moxie -= moxieRequirement;
-        //FindObjectOfType<AudioManager>().Play("AltFire");
         animator.SetTrigger("altFire");
     }
 
