@@ -43,7 +43,6 @@ public class Gun : MonoBehaviour {
     protected virtual void GunInput() {
         if (allowHold) {
             shooting = Input.GetKey(KeyCode.Mouse0);
-            //FindObjectOfType<AudioManager>().Play("Auto");
         }
         else {
             shooting = Input.GetKeyDown(KeyCode.Mouse0);
@@ -111,7 +110,7 @@ public class Gun : MonoBehaviour {
 
     public virtual void AltFire() {
         PlayerManager.instance.stats.Moxie -= moxieRequirement;
-        FindObjectOfType<AudioManager>().Play("AltFire");
+        //FindObjectOfType<AudioManager>().Play("AltFire");
         animator.SetTrigger("altFire");
     }
 

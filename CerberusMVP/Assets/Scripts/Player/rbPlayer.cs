@@ -69,7 +69,7 @@ public class rbPlayer : MonoBehaviour {
         Vector3 inputZ = transform.forward * Input.GetAxis("Vertical");
         movementVector = (inputX + inputZ) *movementSpeed;
         rb.velocity = new Vector3(movementVector.x,rb.velocity.y,movementVector.z);
-
+        FindObjectOfType<AudioManager>().Play("Footsteps");
     }
     private void Jump() {
         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -117,10 +117,10 @@ public class rbPlayer : MonoBehaviour {
         isWallRunning = true;
         if (rb.velocity.magnitude < maxWallRunSpeed) {
             rb.AddForce(orientation.forward * wallRunForce * Time.deltaTime);
-            FindObjectOfType<AudioManager>().Play("WallRun");
             //keeps player on wall by adding force in direction of wall.
             if (isWallRight) {
                 rb.AddForce(orientation.right * wallRunForce / 5 * Time.deltaTime);
+                FindObjectOfType<AudioManager>().Play("WallRun");
             }
             else {
                 rb.AddForce(-orientation.right * wallRunForce / 5 * Time.deltaTime);
