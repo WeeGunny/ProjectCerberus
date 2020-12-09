@@ -21,6 +21,7 @@ public class Gun : MonoBehaviour {
     public float fireRate = 1, bulletsPerShot = 1, reloadTime;
     public bool shooting, readyToShoot, reloading;
     public bool allowHold;
+    public string soundName;
     protected bool allowInvoke = true;
 
     //Recoil
@@ -64,7 +65,7 @@ public class Gun : MonoBehaviour {
 
     public virtual void Fire() {
         readyToShoot = false;
-
+        FindObjectOfType<AudioManager>().Play(soundName);
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
         RaycastHit hit;
         Vector3 targetPoint;

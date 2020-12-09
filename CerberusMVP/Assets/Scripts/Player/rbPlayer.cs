@@ -19,6 +19,8 @@ public class rbPlayer : MonoBehaviour {
     bool isWallRunning;
     public float maxCamTilt, wallRunCamTilt;
     public Transform orientation;
+    AudioManager audio;
+    bool playingSound;
 
 
     // Start is called before the first frame update
@@ -26,6 +28,7 @@ public class rbPlayer : MonoBehaviour {
         PlayerManager.playerExists = true;
         PlayerManager.instance.player = this.gameObject;
         rb = GetComponent<Rigidbody>();
+        audio = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -67,9 +70,12 @@ public class rbPlayer : MonoBehaviour {
     private void Move() {
         Vector3 inputX = transform.right * Input.GetAxis("Horizontal");
         Vector3 inputZ = transform.forward * Input.GetAxis("Vertical");
-        movementVector = (inputX + inputZ) *movementSpeed;
-        rb.velocity = new Vector3(movementVector.x,rb.velocity.y,movementVector.z);
-        FindObjectOfType<AudioManager>().Play("Footsteps");
+        movementVector = (inputX + inputZ) * movementSpeed;
+        rb.velocity = new Vector3(movementVector.x, rb.velocity.y, movementVector.z);
+        if (!playingSound && rb.velocity.magnitude>0) {
+            playingSound = true;
+            StartCoroutine(SoundDelays("Footsteps",1));
+        }
     }
     private void Jump() {
         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -80,9 +86,9 @@ public class rbPlayer : MonoBehaviour {
 
             if (isWallRunning) {
                 rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-                if(isWallLeft) rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
-                if(isWallRight) rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
-                
+                if (isWallLeft) rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+                if (isWallRight) rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+
 
                 StopWallRun();
             }
@@ -120,7 +126,7 @@ public class rbPlayer : MonoBehaviour {
             //keeps player on wall by adding force in direction of wall.
             if (isWallRight) {
                 rb.AddForce(orientation.right * wallRunForce / 5 * Time.deltaTime);
-                FindObjectOfType<AudioManager>().Play("WallRun");
+                StartCoroutine(SoundDelays("WallRun",1));
             }
             else {
                 rb.AddForce(-orientation.right * wallRunForce / 5 * Time.deltaTime);
@@ -149,6 +155,12 @@ public class rbPlayer : MonoBehaviour {
             PlayerManager.instance.stats.Grit -= Time.deltaTime * 80;
         }
 
+    }
+
+    IEnumerator SoundDelays(String soundClipName, float delayTime) {
+        yield return new WaitForSeconds(delayTime);
+        audio.Play(soundClipName);
+        playingSound = false;
     }
 
     public void toggleMovement() {
