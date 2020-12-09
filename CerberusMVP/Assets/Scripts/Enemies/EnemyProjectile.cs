@@ -17,7 +17,6 @@ public class EnemyProjectile : MonoBehaviour {
         target = new Vector3(player.position.x, player.position.y, player.position.z);
         //direction = (target - transform.position).normalized;
         rb.AddForce(direction * speed);
-
     }
 
     // Update is called once per frame
@@ -25,8 +24,6 @@ public class EnemyProjectile : MonoBehaviour {
         if (player == null) {
             player = PlayerManager.instance.player.transform;
         }
-
-
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -40,10 +37,6 @@ public class EnemyProjectile : MonoBehaviour {
             DestroyProjectile();
            // Debug.Log("bullet destroyed, hit: " + other.name);
         }
-
-    }
-    
-    public void Setup() {
 
     }
 

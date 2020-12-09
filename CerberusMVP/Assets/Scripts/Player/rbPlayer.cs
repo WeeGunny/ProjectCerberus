@@ -55,8 +55,6 @@ public class rbPlayer : MonoBehaviour {
         if (wallRunCamTilt < 0 && !isWallRunning) {
             wallRunCamTilt += Time.deltaTime * maxCamTilt * 2;
         }
-
-
     }
 
     private void FixedUpdate() {
@@ -70,7 +68,6 @@ public class rbPlayer : MonoBehaviour {
         Vector3 inputZ = transform.forward * Input.GetAxis("Vertical");
         movementVector = (inputX + inputZ) * movementSpeed;
         rb.velocity = new Vector3(movementVector.x, rb.velocity.y, movementVector.z);
-
     }
     private void Jump() {
         if (Input.GetKeyDown(KeyCode.Space)) {

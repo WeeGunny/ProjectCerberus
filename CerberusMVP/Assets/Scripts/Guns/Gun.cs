@@ -23,7 +23,6 @@ public class Gun : MonoBehaviour {
     public bool allowHold;
     protected bool allowInvoke = true;
 
-
     protected void Awake() {
         currentAmmo = maxAmmo;
         readyToShoot = true;
