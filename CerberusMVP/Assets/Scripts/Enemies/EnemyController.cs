@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour {
     [Header("References")]
     public Transform target;
     public Transform gun;
+    public Transform dmgNumberPoint;
     public Canvas heathDisplay;
     public Image healthBar;
     public GameObject popUpPrefab;
@@ -26,6 +27,7 @@ public class EnemyController : MonoBehaviour {
     protected bool isDead = false, canAttack =true;
     protected NavMeshAgent agent;
     protected float distance;
+    protected Transform playerCam;
     public GameObject projectile;
     public Room roomImIn;
     protected bool takingDotDamage;
@@ -38,6 +40,7 @@ public class EnemyController : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         health = StartHealth;
         anim = gameObject.GetComponent<Animator>();
+        playerCam = PlayerManager.instance.player.GetComponent<rbPlayer>().playerCam.transform;
     }
 
     // Update is called once per frame
@@ -91,6 +94,7 @@ public class EnemyController : MonoBehaviour {
             heathDisplay.gameObject.SetActive(true);
         }
         healthBar.fillAmount = health / StartHealth;
+        heathDisplay.transform.LookAt(heathDisplay.transform.position + playerCam.rotation * Vector3.forward, playerCam.rotation * Vector3.up);
 
         if (health <= 0 && !isDead) {
             Death();
@@ -154,7 +158,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     public void DmgPopUp(float damage) {
-        GameObject popUp = Instantiate(popUpPrefab,transform);
+        GameObject popUp = Instantiate(popUpPrefab,dmgNumberPoint);
         popUp.GetComponent<DmgPopUp>().SetUp(damage);
     }
 

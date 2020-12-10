@@ -34,26 +34,34 @@ public class rbPlayer : MonoBehaviour {
         Jump();
         Grit();
         CheckForWall();
-        WallRunInput();
         CameraTilt();
+        WallRunInput();
+
+    }
+    private void LateUpdate() {
+
     }
 
     private void CameraTilt() {
-        playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
+        //playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
 
         //gradually turns cam away from wall left or right;
         if (Math.Abs(wallRunCamTilt) < maxCamTilt && isWallRight && isWallRunning) {
             wallRunCamTilt += Time.deltaTime * maxCamTilt * 2;
+            playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
         }
         if (Math.Abs(wallRunCamTilt) < maxCamTilt && isWallLeft && isWallRunning) {
             wallRunCamTilt -= Time.deltaTime * maxCamTilt * 2;
+            playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
         }
 
         if (wallRunCamTilt > 0 && !isWallRunning) {
             wallRunCamTilt -= Time.deltaTime * maxCamTilt * 2;
+            playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
         }
         if (wallRunCamTilt < 0 && !isWallRunning) {
             wallRunCamTilt += Time.deltaTime * maxCamTilt * 2;
+            playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
         }
     }
 

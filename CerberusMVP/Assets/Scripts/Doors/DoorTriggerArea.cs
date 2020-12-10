@@ -8,6 +8,9 @@ public class DoorTriggerArea : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        GameEvents.current.DoorwayTriggerExit(id);
+        if (other.tag == "Player") {
+            GameEvents.current.DoorwayTriggerExit(id);
+        }
+        
     }
 }
