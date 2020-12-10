@@ -3,170 +3,82 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BossController : MonoBehaviour
-{
-    public float health = 10f;
-    public float lookRadius = 10f;
-    public float shootRadius = 5f;
-    public Transform target, gun;
-    private bool isDead = false;
-    NavMeshAgent agent;
-    public float startShotDelay;
-    private float shotDelay, distance;
-    public GameObject projectile;
-    public Room roomImIn;
-    public DamageType[] Weaknesses, Resistances;
-    public bool takingDotDamage;
-    public float StartHealth = 10f;
+public class BossController : EnemyController {
 
-    public LootTableGameObject lootTable;
+    GameObject enemyToSpawn;
+    public Transform[] minionSpawnPoints;
+    public List<Transform> telePortPoints;
+    Transform currentPoint;
+    public float shotgunBullets, spread;
+    public float actionDelayMin, actionDelayMax;
 
-    public Animator anim;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        shotDelay = startShotDelay;
-        health = StartHealth;
-        anim = gameObject.GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (PlayerManager.playerExists && target == null)
-        {
+    protected override void Update() {
+        if (PlayerManager.playerExists && target == null) {
             target = PlayerManager.instance.player.transform;
         }
-        if (target != null && !isDead)
-        {
+        if (target != null && !isDead) {
             distance = Vector3.Distance(target.position, transform.position);
-            if (distance <= lookRadius)
-            {
+            if (distance <= lookRadius) {
                 FaceTarget();
             }
         }
+        if (canAttack) {
+            float randomAction = Random.Range(0, 2);
 
+            switch (randomAction) {
 
-        if (distance <= lookRadius && distance >= shootRadius && !isDead)
-        {
-            agent.SetDestination(target.position);
-            agent.isStopped = false;
-            anim.SetBool("playerSpotted", true);
-            anim.SetBool("playerAttackable", false);
-        }
-        if (shotDelay <= 0 && distance <= shootRadius && !isDead)
-        {
-            agent.isStopped = true;
-            anim.SetBool("playerAttackable", true);
-            anim.SetBool("playerSpotted", false);
-            Shoot();
-        }
-
-        if (distance >= lookRadius && distance >= shootRadius)
-        {
-            anim.SetBool("playerSpotted", false);
-            agent.isStopped = true;
-        }
-
-        if (distance <= agent.stoppingDistance)
-        {
-            //Possible spot for melee attack trigger
-            //if enemy is within their stopping distance of the player
-        }
-
-        else
-        {
-            shotDelay -= Time.deltaTime;
-        }
-
-        if (health <= 0)
-        {
-            Death();
-        }
-    }
-
-    void FaceTarget()
-    {
-        Vector3 direction = (target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-    }
-
-    protected virtual void Shoot()
-    {
-        GameObject bullet = Instantiate(projectile, gun.position, Quaternion.identity);
-        EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
-        bulletProperties.direction = transform.forward;
-        shotDelay = startShotDelay;
-    }
-
-    public void TakeDamage(float damage, DamageType damageType)
-    {
-        for (int i = 0; i < Weaknesses.Length; i++)
-        {
-            if (Weaknesses[i] == damageType)
-            {
-                damage *= 2;
-                damageType.dotDamage *= 2;
+                case 0:
+                    Attack();
+                    break;
+                case 1:
+                    Teleport();
+                    break;
+                case 2:
+                    Summon();
+                    break;
+                default: break;
             }
-        }
-        for (int i = 0; i < Resistances.Length; i++)
-        {
-            if (Resistances[i] == damageType)
-            {
-                damage *= .5f;
-                damageType.dotDamage *= .5f;
-            }
-        }
-        health -= damage;
-        if (damageType.hasDOT && !takingDotDamage)
-        {
-            StartCoroutine("DotDamage", damageType);
-        }
-        else if (damageType.hasDOT && takingDotDamage)
-        {
-            //restart the coroutine to refresh ticks without them stacking
-            StopCoroutine("DotDamage");
-            StartCoroutine("DotDamage", damageType);
+
         }
     }
 
-    IEnumerator DotDamage(DamageType type)
-    {
-        takingDotDamage = true;
-        int ticksApplied = 0;
-        while (ticksApplied < type.dotTicks)
-        {
-            health -= type.dotDamage;
-            yield return new WaitForSeconds(type.dotInterval);
-            ticksApplied++;
+    void Teleport() {
+        canAttack = false;
+        int randomPort = Random.Range(0, telePortPoints.Count);
+        telePortPoints.Add(currentPoint); //Adds current point to array, then changes it, then removes new current point
+        currentPoint = telePortPoints[randomPort];
+        transform.position = telePortPoints[randomPort].position;
+        Debug.Log("Teleported");
+        telePortPoints.Remove(currentPoint);
+        float randomDelay = Random.Range(actionDelayMin, actionDelayMax);
+        Invoke("AttackReset", randomDelay);
+    }
+
+    void Summon() {
+        canAttack = false;
+        int randomSpawn = Random.Range(0, minionSpawnPoints.Length);
+        Instantiate(enemyToSpawn, minionSpawnPoints[randomSpawn], true);
+        Debug.Log("Summon");
+        float randomDelay = Random.Range(actionDelayMin, actionDelayMax);
+        Invoke("AttackReset", randomDelay);
+
+    }
+
+    protected override void Attack() {
+        canAttack = false;
+        anim.SetBool("playerAttackable", true);
+        for (int i = 0; i < shotgunBullets; i++) {
+            float spreadX = Random.Range(-spread, spread);
+            float spreadY = Random.Range(-spread, spread);
+            GameObject bullet = Instantiate(projectile, gun.position, Quaternion.identity);
+            EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
+            bulletProperties.direction = transform.forward - new Vector3(spreadX, spreadY, 0);
+            ammo -= 1;
         }
-        takingDotDamage = false;
+        Debug.Log("attacked");
+        float randomDelay = Random.Range(actionDelayMin, actionDelayMax);
+        Invoke(nameof(AttackReset), randomDelay);
     }
 
-    protected virtual void Death()
-    {
-        agent.isStopped = true;
-        isDead = true;
-        anim.SetBool("isDead", true);
-        Debug.Log("Enemy Has died");
-        roomImIn.enemiesAlive--;
-        LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
-        GameObject loot = lootTableElement.lootObject;
-        if (loot != null)
-        {
-            Instantiate(loot, transform.position, Quaternion.identity);
-        }
-    }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, shootRadius);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
-
-    }
 }
