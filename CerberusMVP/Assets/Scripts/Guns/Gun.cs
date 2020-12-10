@@ -24,11 +24,11 @@ public class Gun : MonoBehaviour {
     public string soundName;
     protected bool allowInvoke = true;
 
-    [Header("Recoil")]
-    public Vector3 upRecoil;
-    Vector3 orignalRotation;
-    public float minRecoil = -1;
-    public float maxRecoil = -10;
+    //[Header("Recoil")]
+    //public Vector3 upRecoil;
+    //Vector3 orignalRotation;
+    //public float minRecoil = -1;
+    //public float maxRecoil = -10;
 
     protected void Awake() {
         currentAmmo = maxAmmo;
@@ -93,7 +93,7 @@ public class Gun : MonoBehaviour {
         if (allowInvoke) {
             Invoke("ResetShot", 1 / fireRate);
             allowInvoke = false;
-            AddRecoil();
+            //AddRecoil();
         }
 
         if (bulletsShot < bulletsPerShot && clipAmmo > 0) {
@@ -101,25 +101,25 @@ public class Gun : MonoBehaviour {
         }
     }
 
-    public void AddRecoil()
-    {
-        transform.localEulerAngles += upRecoil;
-        //Vector3 currentRotation = transform.localRotation.eulerAngles;
-        orignalRotation.z = Mathf.Clamp(orignalRotation.z, minRecoil, maxRecoil);
-        transform.localRotation = Quaternion.Euler(orignalRotation);
-    }
+    //public void AddRecoil()
+    //{
+    //    transform.localEulerAngles += upRecoil;
+    //    //Vector3 currentRotation = transform.localRotation.eulerAngles;
+    //    orignalRotation.z = Mathf.Clamp(orignalRotation.z, minRecoil, maxRecoil);
+    //    transform.localRotation = Quaternion.Euler(orignalRotation);
+    //}
 
-    public void StopRecoil()
-    {
-        transform.localEulerAngles = orignalRotation;
-    }
+    //public void StopRecoil()
+    //{
+    //    transform.localEulerAngles = orignalRotation;
+    //}
 
     protected void ResetShot() {
         Debug.Log("ResetShot");
         animator.SetBool("isShooting", false);
         readyToShoot = true;
         allowInvoke = true;
-        StopRecoil();
+        //StopRecoil();
     }
 
     public virtual void AltFire() {
