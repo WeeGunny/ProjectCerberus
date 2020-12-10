@@ -79,9 +79,9 @@ public class rbPlayer : MonoBehaviour {
         Vector3 inputZ = transform.forward * Input.GetAxis("Vertical");
         movementVector = (inputX + inputZ) * movementSpeed;
         rb.velocity = new Vector3(movementVector.x, rb.velocity.y, movementVector.z);
-        if (!playingSound && rb.velocity.magnitude>0) {
+        if (!playingSound && rb.velocity.magnitude > 0) {
             playingSound = true;
-            StartCoroutine(SoundDelays("Footsteps",1));
+            StartCoroutine(SoundDelays("Footsteps", 1));
         }
     }
     private void Jump() {
@@ -133,7 +133,7 @@ public class rbPlayer : MonoBehaviour {
             //keeps player on wall by adding force in direction of wall.
             if (isWallRight) {
                 rb.AddForce(orientation.right * wallRunForce / 5 * Time.deltaTime);
-                StartCoroutine(SoundDelays("WallRun",1));
+                StartCoroutine(SoundDelays("WallRun", 1));
             }
             else {
                 rb.AddForce(-orientation.right * wallRunForce / 5 * Time.deltaTime);
@@ -154,24 +154,21 @@ public class rbPlayer : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.G) && PlayerManager.instance.stats.Grit > 0) {
             PlayerManager.instance.stats.GritActive = !PlayerManager.instance.stats.GritActive;
-            if (PlayerManager.instance.stats.GritActive)
-            {
-                Time.timeScale = 0.2f;
-                if(volume.weight < 1.0f)
-                {
-                    volume.weight += Time.deltaTime * 2;
-                    
-                }
+           
+        }
+        if (PlayerManager.instance.stats.GritActive) {
+            Time.timeScale = 0.2f;
+            if (volume.weight < 1.0f) {
+                volume.weight += Time.deltaTime * 2;
+                Debug.Log(volume.weight);
+
             }
-            else
-            {
-                Time.timeScale = 1f;
-                if (volume.weight > 0.0f)
-                {
-                    volume.weight -= Time.deltaTime * 2;
-                }
-            }  
-            Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        }
+        else {
+            Time.timeScale = 1f;
+            if (volume.weight > 0.0f) {
+            volume.weight -= Time.deltaTime * 2;
+            }
         }
         if (PlayerManager.instance.stats.GritActive == true) {
             PlayerManager.instance.stats.Grit -= Time.deltaTime * 40;
