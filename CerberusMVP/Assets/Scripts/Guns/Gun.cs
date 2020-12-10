@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Gun : MonoBehaviour {
     public GameObject gunPrefab;
@@ -23,6 +24,9 @@ public class Gun : MonoBehaviour {
     public bool allowHold;
     public string soundName;
     protected bool allowInvoke = true;
+
+    //Grit Effect
+    public PostProcessVolume ppv;
 
     //[Header("Recoil")]
     //public Vector3 upRecoil;
@@ -66,7 +70,7 @@ public class Gun : MonoBehaviour {
 
     public virtual void Fire() {
         readyToShoot = false;
-        FindObjectOfType<AudioManager>().Play(soundName);
+        //FindObjectOfType<AudioManager>().Play(soundName);
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
         RaycastHit hit;
         Vector3 targetPoint;
@@ -135,7 +139,7 @@ public class Gun : MonoBehaviour {
     public void Reload() {
         Debug.Log("Reloading");
         animator.SetTrigger("isReloading");
-        FindObjectOfType<AudioManager>().Play("Reload");
+        //FindObjectOfType<AudioManager>().Play("Reload");
         float reloadAmount = maxClipAmmo - clipAmmo;
         if (currentAmmo >= reloadAmount) {
             clipAmmo += reloadAmount;

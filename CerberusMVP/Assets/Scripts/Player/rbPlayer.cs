@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 
 public class rbPlayer : MonoBehaviour {
     public Rigidbody rb;
@@ -23,6 +25,8 @@ public class rbPlayer : MonoBehaviour {
     AudioManager audio;
     bool playingSound;
 
+    //Grit Effect
+    public Volume volume;
 
     // Start is called before the first frame update
     void Start() {
@@ -39,10 +43,6 @@ public class rbPlayer : MonoBehaviour {
         CheckForWall();
         CameraTilt();
         WallRunInput();
-
-    }
-    private void LateUpdate() {
-
     }
 
     private void CameraTilt() {
@@ -154,12 +154,27 @@ public class rbPlayer : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.G) && PlayerManager.instance.stats.Grit > 0) {
             PlayerManager.instance.stats.GritActive = !PlayerManager.instance.stats.GritActive;
-            Time.timeScale = 0.2f;
+            if (PlayerManager.instance.stats.GritActive)
+            {
+                Time.timeScale = 0.2f;
+                if(volume.weight < 1.0f)
+                {
+                    volume.weight += Time.deltaTime * 2;
+                    
+                }
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                if (volume.weight > 0.0f)
+                {
+                    volume.weight -= Time.deltaTime * 2;
+                }
+            }  
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
-            Debug.Log("Grit Toggled");
         }
         if (PlayerManager.instance.stats.GritActive == true) {
-            PlayerManager.instance.stats.Grit -= Time.deltaTime * 80;
+            PlayerManager.instance.stats.Grit -= Time.deltaTime * 40;
         }
 
     }
