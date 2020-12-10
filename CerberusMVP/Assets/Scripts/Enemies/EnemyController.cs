@@ -3,39 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour {
-    public float health = 10f;
-    public float lookRadius = 10f;
-    public float shootRadius = 5f;
-    public Transform target, gun;
-    private bool isDead = false;
-    NavMeshAgent agent;
-    public float startShotDelay;
-    protected float shotDelay, distance;
-    public GameObject projectile;
-    public Room roomImIn;
-    public DamageType[] Weaknesses, Resistances;
-    public bool takingDotDamage;
+    [Header("Variables")]
     public float StartHealth = 10f;
+    public int ammo = 20;
+    public float lookRadius = 10f;
+    public float attackRadius = 5f;
+    public float attackDelay;
+    public DamageType[] Weaknesses, Resistances;
+    protected float health = 10f;
 
+    [Header("References")]
+    public Transform target;
+    public Transform gun;
+    public Transform dmgNumberPoint;
+    public Canvas heathDisplay;
+    public Image healthBar;
+    public GameObject popUpPrefab;
     public LootTableGameObject lootTable;
 
-    public int ammo = 20;
-    private bool isReloading = false;
+    protected bool isDead = false, canAttack =true;
+    protected NavMeshAgent agent;
+    protected float distance;
+    protected Transform playerCam;
+    public GameObject projectile;
+    public Room roomImIn;
+    protected bool takingDotDamage;
+    protected bool isReloading = false;
 
-    public Animator anim;
+    [HideInInspector] public Animator anim;
 
     // Start is called before the first frame update
-    void Start() {
+    protected virtual void Start() {
         agent = GetComponent<NavMeshAgent>();
-        shotDelay = startShotDelay;
         health = StartHealth;
         anim = gameObject.GetComponent<Animator>();
+        playerCam = PlayerManager.instance.player.GetComponent<rbPlayer>().playerCam.transform;
     }
 
     // Update is called once per frame
-    void Update() {
+    protected virtual void Update() {
         if (PlayerManager.playerExists && target == null) {
             target = PlayerManager.instance.player.transform;
         }
@@ -47,21 +56,20 @@ public class EnemyController : MonoBehaviour {
         }
 
 
-        if (distance <= lookRadius && distance >= shootRadius && !isDead) {
+        if (distance <= lookRadius && distance >= attackRadius && !isDead) {
             agent.SetDestination(target.position);
             agent.isStopped = false;
             anim.SetBool("playerSpotted", true);
             anim.SetBool("playerAttackable", false);
         }
-        if (shotDelay <= 0 && distance <= shootRadius && !isDead && !isReloading) {
+        if (canAttack && distance <= attackRadius && !isDead && !isReloading) {
             agent.isStopped = true;
             anim.SetBool("playerAttackable", true);
             anim.SetBool("playerSpotted", false);
             Attack();
         }
 
-        if (distance >= lookRadius && distance >= shootRadius)
-        {
+        if (distance >= lookRadius && distance >= attackRadius) {
             anim.SetBool("playerSpotted", false);
             agent.isStopped = true;
         }
@@ -71,38 +79,50 @@ public class EnemyController : MonoBehaviour {
             //if enemy is within their stopping distance of the player
         }
 
-        if (ammo <= 0)
-        {
+        if (ammo <= 0) {
             isReloading = true;
             anim.SetBool("outOfAmmo", true);
             StartCoroutine(reload());
         }
 
-        else {
-            shotDelay -= Time.deltaTime;
+        UpdateHealth();
+
+    }
+
+    public void UpdateHealth() {
+        if (health < StartHealth) {
+            heathDisplay.gameObject.SetActive(true);
         }
+        healthBar.fillAmount = health / StartHealth;
+        heathDisplay.transform.LookAt(heathDisplay.transform.position + playerCam.rotation * Vector3.forward, playerCam.rotation * Vector3.up);
 
         if (health <= 0 && !isDead) {
             Death();
         }
+
     }
 
-    void FaceTarget() {
+    protected virtual void FaceTarget() {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
     protected virtual void Attack() {
+        canAttack = false;
         GameObject bullet = Instantiate(projectile, gun.position, Quaternion.identity);
         EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
         bulletProperties.direction = transform.forward;
-        shotDelay = startShotDelay;
         ammo -= 1;
+        Invoke("AttackReset",attackDelay);
     }
 
-    public void TakeDamage(float damage,DamageType damageType) {
-        for (int i = 0; i< Weaknesses.Length;i++) {
+    protected virtual void AttackReset() {
+        canAttack = true;
+    }
+
+    public void TakeDamage(float damage, DamageType damageType) {
+        for (int i = 0; i < Weaknesses.Length; i++) {
             if (Weaknesses[i] == damageType) {
                 damage *= 2;
                 damageType.dotDamage *= 2;
@@ -115,29 +135,34 @@ public class EnemyController : MonoBehaviour {
             }
         }
         health -= damage;
+        DmgPopUp(damage);
         if (damageType.hasDOT && !takingDotDamage) {
-            StartCoroutine("DotDamage",damageType);
+            StartCoroutine("DotDamage", damageType);
         }
-        else if(damageType.hasDOT && takingDotDamage) {
+        else if (damageType.hasDOT && takingDotDamage) {
             //restart the coroutine to refresh ticks without them stacking
             StopCoroutine("DotDamage");
             StartCoroutine("DotDamage", damageType);
         }
     }
 
-    IEnumerator DotDamage( DamageType type) {
+    protected IEnumerator DotDamage(DamageType type) {
         takingDotDamage = true;
-        int ticksApplied =0 ;
+        int ticksApplied = 0;
         while (ticksApplied < type.dotTicks) {
             health -= type.dotDamage;
-            yield return new WaitForSeconds(type.dotInterval);
             ticksApplied++;
+            yield return new WaitForSeconds(type.dotInterval);
         }
         takingDotDamage = false;
     }
 
-    IEnumerator reload()
-    {
+    public void DmgPopUp(float damage) {
+        GameObject popUp = Instantiate(popUpPrefab,dmgNumberPoint);
+        popUp.GetComponent<DmgPopUp>().SetUp(damage);
+    }
+
+    protected IEnumerator reload() {
         yield return new WaitForSeconds(3.267f);
         ammo = 20;
         isReloading = false;
@@ -149,8 +174,8 @@ public class EnemyController : MonoBehaviour {
         isDead = true;
         anim.SetBool("isDead", true);
         Debug.Log("Enemy Has died");
-        if(roomImIn!=null)
-        roomImIn.enemiesAlive--;
+        if (roomImIn != null)
+            roomImIn.enemiesAlive--;
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
         if (lootTableElement != null) {
             GameObject loot = lootTableElement.lootObject;
@@ -158,9 +183,9 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    private void OnDrawGizmosSelected() {
+    protected virtual void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, shootRadius);
+        Gizmos.DrawWireSphere(transform.position, attackRadius);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
 

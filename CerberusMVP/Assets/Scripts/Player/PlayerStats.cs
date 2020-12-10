@@ -8,13 +8,20 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
     [Header("Player Stats")]
-    public float Health = 100;
     public float maxHeath;
-    public float Moxie = 100;
     public float moxieMax = 100;
-    public float Grit = 100;
-    public float gritMax =100;
-    public float gold = 100;
+    public float gritMax = 100;
+    public float moxieBatteyMax;
+    public float HealthPackMax;
+
+    [HideInInspector] public float Health = 100;
+    [HideInInspector] public float Moxie = 100;
+    [HideInInspector] public float Grit = 100;
+    [HideInInspector] public float gold = 100;
+    [HideInInspector] public float moxieBatteries;
+    [HideInInspector] public float HealthPacks;
+
+
 
     [Header("UI Reference")]
     public TextMeshProUGUI goldText;
@@ -24,40 +31,26 @@ public class PlayerStats : MonoBehaviour {
     public Image MoxieBar;
     public TextMeshProUGUI gritText;
     public Image GritBar;
-    public TextMeshProUGUI ammoClip, ammoTotal;
-    public bool GritActive = false;
-    public Gun activeGun;
+    public TextMeshProUGUI ammoText;
+    public Image ammoBar;
+    public TextMeshProUGUI healthPackText;
+    public Image healthPackBar;
+    public TextMeshProUGUI moxieBatteryText;
+    public Image moxieBatteryBar;
+
+    [HideInInspector] public bool GritActive = false;
+    [HideInInspector] public Gun activeGun;
 
     private void Start() {
         PlayerManager.instance.stats = this;
     }
 
     // Update is called once per frame
-    void Update() {
-        Moxie += Time.deltaTime;
-        Moxie = Mathf.Clamp(Moxie, 0, moxieMax);
-        UpdateMoxxiUI();
-        
-                
-        if(GritActive == false)
-        {
-            Grit += Time.deltaTime;
-            Grit = Mathf.Clamp(Grit, 0, gritMax);
-            Time.timeScale = 1f;
-        }
-        UpdateGritUI();
-        
-
-        if (Grit <= 0)
-        {
-            GritActive = false;
-        }
-
+    void Update() {       
+        UpdateMoxie();     
+        UpdateGrit();
         UpdateAmmoUI();
         UpdateGoldUI();
-
-
-       
     }
 
     private void UpdateGoldUI() {
@@ -65,46 +58,56 @@ public class PlayerStats : MonoBehaviour {
     }
 
     public void TakeDamage(float damage) {
-
         Health -= damage;
         Mathf.Clamp(Health, 0, maxHeath);
         UpdateHealthUI();
-        
+
         if (Health <= 0) {
             Death();
         }
     }
 
-    private void UpdateMoxxiUI() {
+    private void UpdateMoxie() {
+        Moxie += Time.deltaTime;
+        Moxie = Mathf.Clamp(Moxie, 0, moxieMax);
         moxieText.text = "Moxie: " + Moxie.ToString("F0");
-        MoxieBar.fillAmount = Moxie / 100;
-
-
+        MoxieBar.fillAmount = Moxie / moxieMax;
     }
 
-    private void UpdateGritUI() {
+    private void UpdateGrit() {
+        if (GritActive == false) {
+            Grit += Time.deltaTime;
+            Grit = Mathf.Clamp(Grit, 0, gritMax);
+            Time.timeScale = 1f;
+        }
+        if (Grit <= 0) {
+            GritActive = false;
+        }
         gritText.text = "Grit: " + Grit.ToString("F0");
-        GritBar.fillAmount = Grit / 100;
-
+        GritBar.fillAmount = Grit / gritMax;
     }
 
     private void UpdateHealthUI() {
         healthText.text = "Health: " + Health;
-        healthBar.fillAmount = Health / 100;
-
+        healthBar.fillAmount = Health / maxHeath;
     }
 
     private void UpdateAmmoUI() {
         if (activeGun != null) {
-            ammoClip.text = activeGun.clipAmmo.ToString();
-            ammoTotal.text = activeGun.currentAmmo.ToString();
-            ammoClip.gameObject.SetActive(true);
-            ammoTotal.gameObject.SetActive(true);
+            string ammoClip = activeGun.clipAmmo.ToString();
+            string ammoTotal = activeGun.currentAmmo.ToString();
+            ammoText.text = ammoClip + "/" + ammoTotal;
+            ammoBar.fillAmount = activeGun.clipAmmo / activeGun.maxClipAmmo;
         }
         else {
-            ammoClip.gameObject.SetActive(false);
-            ammoTotal.gameObject.SetActive(false);
+            ammoText.text = "0/0";
         }
+
+        moxieBatteryText.text = moxieBatteries.ToString() + "/" + moxieBatteyMax.ToString();
+        moxieBatteryBar.fillAmount = moxieBatteries / moxieBatteyMax;
+
+        healthPackText.text = HealthPacks.ToString() + "/" + HealthPackMax.ToString();
+        healthPackBar.fillAmount = HealthPacks / HealthPackMax;
     }
 
     private void Death() {

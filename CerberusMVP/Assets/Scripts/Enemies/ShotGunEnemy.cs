@@ -40,6 +40,6 @@ public class ShotGunEnemy : EnemyController
         Debug.Log("Bullet6 Fired");
         ammo -= 1;
 
-        shotDelay = startShotDelay;
+        attackDelay = attackDelay;
     }
 }
