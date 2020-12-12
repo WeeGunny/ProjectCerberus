@@ -155,7 +155,6 @@ public class EnemyController : MonoBehaviour {
             ticksApplied++;
             yield return new WaitForSeconds(type.dotInterval);
         }
-        takingDotDamage = false;
     }
 
     public void DmgPopUp(float damage) {

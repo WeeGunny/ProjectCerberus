@@ -37,7 +37,7 @@ public class rbWallRun : MonoBehaviour {
     }
     public bool isWallRunning() {
         player = GetComponent<rbPlayer>();
-        if (!player.Grounded()) {
+        if (!player.isGrounded) {
             if (isWallLeft() || isWallRight()) {
                 if (isMoving()) {
                     Debug.Log("WallRun Running");
