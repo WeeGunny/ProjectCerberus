@@ -31,7 +31,7 @@ public class rbPlayer : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         PlayerManager.playerExists = true;
-        PlayerManager.instance.player = this.gameObject;
+        PlayerManager.player = this.gameObject;
         rb = GetComponent<Rigidbody>();
         audioManager = FindObjectOfType<AudioManager>();
     }
@@ -142,8 +142,8 @@ public class rbPlayer : MonoBehaviour {
     }
 
     void Grit() {
-        PlayerStats stats = PlayerManager.instance.stats;
-        if (Input.GetKeyDown(KeyCode.G) && PlayerManager.instance.stats.Grit > 0) {
+        PlayerStats stats = PlayerManager.stats;
+        if (Input.GetKeyDown(KeyCode.G) && PlayerManager.stats.Grit > 0) {
             stats.GritActive = !stats.GritActive;
             if (stats.GritActive) {
                 movementSpeed = movementSpeed * 5;

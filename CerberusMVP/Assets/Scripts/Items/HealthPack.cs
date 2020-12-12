@@ -8,6 +8,6 @@ public class HealthPack : Item
 
     public override void Use() {
         base.Use();
-        PlayerManager.instance.stats.Health += HealthAmount;
+        PlayerManager.stats.Health += HealthAmount;
     }
 }

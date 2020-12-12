@@ -8,7 +8,7 @@ public class AmmoPack : Item
 
     public override void Use() {
         base.Use();
-        PlayerManager.instance.stats.activeGun.currentAmmo += ammoAmount;
+        PlayerManager.stats.activeGun.currentAmmo += ammoAmount;
     }
 
 }

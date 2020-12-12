@@ -60,7 +60,7 @@ public class Gun : MonoBehaviour {
             Fire();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerManager.instance.stats.Moxie> moxieRequirement) AltFire();
+        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerManager.stats.Moxie> moxieRequirement) AltFire();
 
         if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) ReloadDelay();
 
@@ -127,7 +127,7 @@ public class Gun : MonoBehaviour {
     }
 
     public virtual void AltFire() {
-        PlayerManager.instance.stats.Moxie -= moxieRequirement;
+        PlayerManager.stats.Moxie -= moxieRequirement;
         animator.SetTrigger("altFire");
     }
 

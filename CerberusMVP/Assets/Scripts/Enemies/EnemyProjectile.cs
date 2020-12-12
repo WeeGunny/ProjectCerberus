@@ -12,7 +12,7 @@ public class EnemyProjectile : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         rb = GetComponent<Rigidbody>();
-        player = PlayerManager.instance.player.transform;
+        player = PlayerManager.player.transform;
         target = new Vector3(player.position.x, player.position.y, player.position.z);
         rb.AddForce(direction * speed);
     }
@@ -20,7 +20,7 @@ public class EnemyProjectile : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (player == null) {
-            player = PlayerManager.instance.player.transform;
+            player = PlayerManager.player.transform;
         }
     }
 
@@ -29,7 +29,7 @@ public class EnemyProjectile : MonoBehaviour {
         if (other.CompareTag("Player")) {
             DestroyProjectile();
             //Debug.Log("Player Hit");
-            PlayerManager.instance.stats.TakeDamage(damage);
+            PlayerManager.stats.TakeDamage(damage);
         }
         else if (other.CompareTag("Enemy") || other.CompareTag("Bullet")) {
             Debug.Log("Hit Enemy");

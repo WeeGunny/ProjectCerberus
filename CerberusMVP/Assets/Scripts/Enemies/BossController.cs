@@ -15,7 +15,7 @@ public class BossController : EnemyController {
 
     protected override void Update() {
         if (PlayerManager.playerExists && target == null) {
-            target = PlayerManager.instance.player.transform;
+            target = PlayerManager.player.transform;
         }
         if (target != null && !isDead) {
             distance = Vector3.Distance(target.position, transform.position);

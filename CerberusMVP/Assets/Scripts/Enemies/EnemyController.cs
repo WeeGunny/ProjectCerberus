@@ -41,13 +41,13 @@ public class EnemyController : MonoBehaviour {
         health = StartHealth;
         heathDisplay.SetActive(false);
         anim = gameObject.GetComponent<Animator>();
-        playerCam = PlayerManager.instance.player.GetComponent<rbPlayer>().playerCam.transform;
+        playerCam = PlayerManager.player.GetComponent<rbPlayer>().playerCam.transform;
     }
 
     // Update is called once per frame
     protected virtual void Update() {
         if (PlayerManager.playerExists && target == null) {
-            target = PlayerManager.instance.player.transform;
+            target = PlayerManager.player.transform;
         }
         if (target != null && !isDead) {
             distance = Vector3.Distance(target.position, transform.position);

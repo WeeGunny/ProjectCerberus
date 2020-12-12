@@ -13,7 +13,7 @@ public class SpiderController : EnemyController
     {
         if (PlayerManager.playerExists && target == null)
         {
-            target = PlayerManager.instance.player.transform;
+            target = PlayerManager.player.transform;
         }
         if (target != null && !isDead)
         {

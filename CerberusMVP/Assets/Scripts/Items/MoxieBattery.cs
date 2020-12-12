@@ -7,7 +7,7 @@ public class MoxieBattery : Item
     public float MoxieAmount;
     public override void Use() {
         base.Use();
-        PlayerManager.instance.stats.Moxie += MoxieAmount;
+        PlayerManager.stats.Moxie += MoxieAmount;
 
     }
 }
