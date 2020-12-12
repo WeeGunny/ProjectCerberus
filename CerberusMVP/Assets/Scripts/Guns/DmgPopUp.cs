@@ -11,7 +11,7 @@ public class DmgPopUp : MonoBehaviour {
     Transform camTransform;
 
     private void Awake() {
-        camTransform = PlayerManager.instance.player.GetComponent<rbPlayer>().playerCam.transform;
+        camTransform = PlayerManager.player.GetComponent<rbPlayer>().playerCam.transform;
     }
     public void SetUp(float damage) {
         text.SetText(damage.ToString());

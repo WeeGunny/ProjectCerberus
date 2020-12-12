@@ -43,7 +43,7 @@ public class PlayerStats : MonoBehaviour {
     [HideInInspector] public Gun activeGun;
 
     private void Start() {
-        PlayerManager.instance.stats = this;
+        PlayerManager.stats = this;
     }
 
     // Update is called once per frame

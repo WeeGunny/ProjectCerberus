@@ -6,8 +6,8 @@ public class HealthPack : Item
 {
 
     public override void OnPickup() {
-        float hp = PlayerManager.instance.stats.HealthPacks;
-        if (hp < PlayerManager.instance.stats.HealthPackMax) {
+        float hp = PlayerManager.stats.HealthPacks;
+        if (hp < PlayerManager.stats.HealthPackMax) {
             hp += 1;
             Destroy(gameObject);
         }

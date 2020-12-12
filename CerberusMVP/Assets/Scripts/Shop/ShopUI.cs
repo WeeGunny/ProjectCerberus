@@ -22,7 +22,7 @@ public class ShopUI : MonoBehaviour {
     }
 
     public void BuyItem() {
-        PlayerStats stats = PlayerManager.instance.stats;
+        PlayerStats stats = PlayerManager.stats;
         if (stats.gold>=itemInShop.cost) {
             itemInShop.OnPickup();
             stats.gold -= itemInShop.cost;

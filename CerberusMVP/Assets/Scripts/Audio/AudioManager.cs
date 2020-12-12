@@ -6,13 +6,13 @@ public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
 
-    public static AudioManager instance;
+    public static AudioManager audioManager;
 
     void Awake()
     {
-        if (instance == null)
+        if (audioManager == null)
         {
-            instance = this;
+           audioManager  = this;
         }
         else
         {

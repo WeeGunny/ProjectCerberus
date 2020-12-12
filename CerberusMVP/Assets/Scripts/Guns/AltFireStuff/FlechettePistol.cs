@@ -11,7 +11,7 @@ public class FlechettePistol : Gun
         bulletsShot = 0;
         MoxieBurst();
         //if (clipAmmo <=0) {
-        //    PlayerManager.instance.stats.Moxie += moxieRequirement;
+        //    PlayerManager..stats.Moxie += moxieRequirement;
         //    return;
         //}
     }

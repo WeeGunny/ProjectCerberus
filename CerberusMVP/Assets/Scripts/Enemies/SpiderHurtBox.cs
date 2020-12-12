@@ -12,7 +12,7 @@ public class SpiderHurtBox : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player Hit");
-            PlayerManager.instance.stats.TakeDamage(damage);
+            PlayerManager.stats.TakeDamage(damage);
         }
     }
 }

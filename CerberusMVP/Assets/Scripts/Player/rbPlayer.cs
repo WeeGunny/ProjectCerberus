@@ -46,7 +46,7 @@ public class rbPlayer : MonoBehaviour {
     private void InputManager() {
         if (Input.GetKeyDown(KeyCode.V)) MoxieBattery();
         if (Input.GetKeyDown(KeyCode.C)) HealthPack();
-        if (Input.GetKeyDown(KeyCode.G) && PlayerManager.instance.stats.Grit > 0) PlayerManager.instance.stats.GritActive = !PlayerManager.instance.stats.GritActive;
+        if (Input.GetKeyDown(KeyCode.G) && PlayerManager.stats.Grit > 0) PlayerManager.stats.GritActive = !PlayerManager.stats.GritActive;
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
 
         if (rb.velocity.magnitude > 0 && !Grounded()) {
@@ -89,7 +89,7 @@ public class rbPlayer : MonoBehaviour {
     }
 
     private void MoxieBattery() {
-        PlayerStats ps = PlayerManager.instance.stats;
+        PlayerStats ps = PlayerManager.stats;
         if (ps.moxieBatteries>0 && ps.Moxie<ps.moxieMax) {
             ps.moxieBatteries -= 1;
             ps.Moxie += 50;
@@ -98,7 +98,7 @@ public class rbPlayer : MonoBehaviour {
     }
 
     private void HealthPack() {
-        PlayerStats ps = PlayerManager.instance.stats;
+        PlayerStats ps = PlayerManager.stats;
         if (ps.HealthPacks>0 && ps.Health<ps.maxHeath) {
             ps.HealthPacks -= 1;
             ps.Health += 50;
@@ -149,7 +149,7 @@ public class rbPlayer : MonoBehaviour {
     }
 
     void Grit() {
-        if (PlayerManager.instance.stats.GritActive) {
+        if (PlayerManager.stats.GritActive) {
             Time.timeScale = 0.2f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
             if (volume.weight < 1.0f) {
@@ -163,8 +163,8 @@ public class rbPlayer : MonoBehaviour {
                 volume.weight -= Time.deltaTime * 2;
             }
         }
-        if (stats.GritActive == true) {
-            stats.Grit -= Time.deltaTime * 40;
+        if (PlayerManager.stats.GritActive == true) {
+            PlayerManager.stats.Grit -= Time.deltaTime * 40;
         }
     }
 

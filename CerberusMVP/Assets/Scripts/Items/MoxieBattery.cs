@@ -6,8 +6,8 @@ public class MoxieBattery : Item
 {
 
     public override void OnPickup() {
-        float mb = PlayerManager.instance.stats.moxieBatteries;
-        if (mb< PlayerManager.instance.stats.moxieBatteyMax) {
+        float mb = PlayerManager.stats.moxieBatteries;
+        if (mb< PlayerManager.stats.moxieBatteyMax) {
             mb += 1;
             Destroy(gameObject);
         }

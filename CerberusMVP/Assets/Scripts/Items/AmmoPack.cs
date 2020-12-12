@@ -11,8 +11,8 @@ public class AmmoPack : Item
         ammoAmount = Random.Range(MinAmmo,MaxAmmo);
     }
     public override void OnPickup() {
-        float ammo = PlayerManager.instance.stats.activeGun.currentAmmo;
-        if (ammo < PlayerManager.instance.stats.activeGun.maxAmmo) {
+        float ammo = PlayerManager.stats.activeGun.currentAmmo;
+        if (ammo < PlayerManager.stats.activeGun.maxAmmo) {
             ammo += ammoAmount;
             Destroy(gameObject);
         }

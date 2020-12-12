@@ -57,7 +57,7 @@ public class GunManager : MonoBehaviour {
         }
         if (currentGunObject != null) {
             currentGun = currentGunObject.GetComponent<Gun>(); // sets current gun active and pushes stats to UI
-            PlayerManager.instance.stats.activeGun = currentGun;
+            PlayerManager.stats.activeGun = currentGun;
             currentGunObject.SetActive(true);
         }
     }
