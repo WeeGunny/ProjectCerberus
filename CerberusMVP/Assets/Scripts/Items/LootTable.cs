@@ -8,7 +8,7 @@ public abstract class LootTable<T,U> where T:LootTableElement<U> {
     float totalWeight;
 
 
-    public void setTable() {
+    public void SetTable() {
         float currentWeight = 0;
 
         for (int i = 0; i > lootItems.Count; i++) {

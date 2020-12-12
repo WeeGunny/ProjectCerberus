@@ -62,9 +62,9 @@ public class Gun : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerManager.instance.stats.Moxie> moxieRequirement) AltFire();
 
-        if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) Reload();
+        if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) ReloadDelay();
 
-        if (readyToShoot && shooting && !reloading && clipAmmo <= 0) Reload(); // auto reload if out of ammo
+        if (readyToShoot && shooting && !reloading && clipAmmo <= 0) ReloadDelay(); // auto reload if out of ammo
 
     }
 

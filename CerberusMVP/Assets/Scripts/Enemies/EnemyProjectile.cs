@@ -6,7 +6,6 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour {
     public float speed = 10;
     public float damage = 10;
-    public float range = 25;
     private Transform player;
     public Vector3 target, direction;
     Rigidbody rb;
@@ -15,7 +14,6 @@ public class EnemyProjectile : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         player = PlayerManager.instance.player.transform;
         target = new Vector3(player.position.x, player.position.y, player.position.z);
-        //direction = (target - transform.position).normalized;
         rb.AddForce(direction * speed);
     }
 
@@ -30,12 +28,15 @@ public class EnemyProjectile : MonoBehaviour {
         GameObject other = collision.gameObject;
         if (other.CompareTag("Player")) {
             DestroyProjectile();
-            Debug.Log("Player Hit");
+            //Debug.Log("Player Hit");
             PlayerManager.instance.stats.TakeDamage(damage);
         }
-        else if (other.tag != "Enemy") {
+        else if (other.CompareTag("Enemy") || other.CompareTag("Bullet")) {
+            Debug.Log("Hit Enemy");
+        }
+        else {
             DestroyProjectile();
-           // Debug.Log("bullet destroyed, hit: " + other.name);
+            //Debug.Log("bullet destroyed, hit: " + other.name);
         }
 
     }

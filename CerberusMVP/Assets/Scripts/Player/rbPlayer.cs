@@ -22,7 +22,7 @@ public class rbPlayer : MonoBehaviour {
     public float maxCamTilt;
     float wallRunCamTilt;
     public Transform orientation;
-    AudioManager audio;
+    AudioManager audioManager;
     bool playingSound;
 
     //Grit Effect
@@ -33,7 +33,7 @@ public class rbPlayer : MonoBehaviour {
         PlayerManager.playerExists = true;
         PlayerManager.instance.player = this.gameObject;
         rb = GetComponent<Rigidbody>();
-        audio = FindObjectOfType<AudioManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -95,11 +95,8 @@ public class rbPlayer : MonoBehaviour {
                 rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
                 if (isWallLeft) rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
                 if (isWallRight) rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
-
-
                 StopWallRun();
             }
-
         }
     }
 
@@ -122,7 +119,6 @@ public class rbPlayer : MonoBehaviour {
         else {
             StopWallRun();
         }
-
     }
 
     private void StartWallRun() {
@@ -139,46 +135,49 @@ public class rbPlayer : MonoBehaviour {
                 rb.AddForce(-orientation.right * wallRunForce / 5 * Time.deltaTime);
             }
         }
-
-
-
-
     }
     private void StopWallRun() {
         rb.useGravity = true;
         isWallRunning = false;
-
     }
 
     void Grit() {
-
+        PlayerStats stats = PlayerManager.instance.stats;
         if (Input.GetKeyDown(KeyCode.G) && PlayerManager.instance.stats.Grit > 0) {
-            PlayerManager.instance.stats.GritActive = !PlayerManager.instance.stats.GritActive;
+            stats.GritActive = !stats.GritActive;
+            if (stats.GritActive) {
+                movementSpeed = movementSpeed * 5;
+                stats.activeGun.fireRate *= 5;
+            }
+            if (!stats.GritActive) {
+                movementSpeed = movementSpeed / 5;
+                stats.activeGun.fireRate /= 5;
+            }
+
 
         }
-        if (PlayerManager.instance.stats.GritActive) {
+        if (stats.GritActive) {
             Time.timeScale = 0.2f;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
             if (volume.weight < 1.0f) {
                 volume.weight += Time.deltaTime * 2;
                 Debug.Log(volume.weight);
-
             }
         }
         else {
             Time.timeScale = 1f;
             if (volume.weight > 0.0f) {
-            volume.weight -= Time.deltaTime * 2;
+                volume.weight -= Time.deltaTime * 2;
             }
         }
-        if (PlayerManager.instance.stats.GritActive == true) {
-            PlayerManager.instance.stats.Grit -= Time.deltaTime * 40;
+        if (stats.GritActive == true) {
+            stats.Grit -= Time.deltaTime * 40;
         }
-
     }
 
     IEnumerator SoundDelays(String soundClipName, float delayTime) {
         yield return new WaitForSeconds(delayTime);
-        audio.Play(soundClipName);
+        audioManager.Play(soundClipName);
         playingSound = false;
     }
 

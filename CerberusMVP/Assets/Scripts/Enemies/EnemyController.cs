@@ -17,9 +17,9 @@ public class EnemyController : MonoBehaviour {
 
     [Header("References")]
     public Transform target;
-    public Transform gun;
+    public Transform firePoint;
     public Transform dmgNumberPoint;
-    public Canvas heathDisplay;
+    public GameObject heathDisplay;
     public Image healthBar;
     public GameObject popUpPrefab;
     public LootTableGameObject lootTable;
@@ -39,6 +39,7 @@ public class EnemyController : MonoBehaviour {
     protected virtual void Start() {
         agent = GetComponent<NavMeshAgent>();
         health = StartHealth;
+        heathDisplay.SetActive(false);
         anim = gameObject.GetComponent<Animator>();
         playerCam = PlayerManager.instance.player.GetComponent<rbPlayer>().playerCam.transform;
     }
@@ -82,14 +83,14 @@ public class EnemyController : MonoBehaviour {
         if (ammo <= 0) {
             isReloading = true;
             anim.SetBool("outOfAmmo", true);
-            StartCoroutine(reload());
+            StartCoroutine(Reload());
         }
 
         UpdateHealth();
 
     }
 
-    public void UpdateHealth() {
+    public virtual void UpdateHealth() {
         if (health < StartHealth) {
             heathDisplay.gameObject.SetActive(true);
         }
@@ -110,7 +111,7 @@ public class EnemyController : MonoBehaviour {
 
     protected virtual void Attack() {
         canAttack = false;
-        GameObject bullet = Instantiate(projectile, gun.position, Quaternion.identity);
+        GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
         EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
         bulletProperties.direction = transform.forward;
         ammo -= 1;
@@ -162,7 +163,7 @@ public class EnemyController : MonoBehaviour {
         popUp.GetComponent<DmgPopUp>().SetUp(damage);
     }
 
-    protected IEnumerator reload() {
+    protected IEnumerator Reload() {
         yield return new WaitForSeconds(3.267f);
         ammo = 20;
         isReloading = false;
@@ -172,6 +173,7 @@ public class EnemyController : MonoBehaviour {
     protected virtual void Death() {
         agent.isStopped = true;
         isDead = true;
+        heathDisplay.SetActive(false);
         anim.SetBool("isDead", true);
         Debug.Log("Enemy Has died");
         if (roomImIn != null)
@@ -181,6 +183,7 @@ public class EnemyController : MonoBehaviour {
             GameObject loot = lootTableElement.lootObject;
             Instantiate(loot, transform.position, Quaternion.identity);
         }
+        Destroy(gameObject,5);
     }
 
     protected virtual void OnDrawGizmosSelected() {

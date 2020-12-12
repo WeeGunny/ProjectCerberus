@@ -9,7 +9,7 @@ public class ShotGunEnemy : EnemyController
         for (int i = 0; i < shotgunBullets; i++) {
             float spreadX = Random.Range(-spread, spread);
             float spreadY = Random.Range(-spread, spread);
-            GameObject bullet = Instantiate(projectile, gun.position, Quaternion.identity);
+            GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
             EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
             bulletProperties.direction = transform.forward - new Vector3(spreadX, spreadY, 0);
         }
