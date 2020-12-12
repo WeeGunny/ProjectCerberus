@@ -183,6 +183,15 @@ public class EnemyController : MonoBehaviour {
             GameObject loot = lootTableElement.lootObject;
             Instantiate(loot, transform.position, Quaternion.identity);
         }
+
+        if (isDead == true)
+        {
+            if(gameObject.tag == "Weapon")
+            {
+                GetComponent<Rigidbody>().useGravity = true;
+                GetComponent<Rigidbody>().isKinematic = false;
+            }
+        }
         Destroy(gameObject,5);
     }
 
