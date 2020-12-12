@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class HealthPack : Item
 {
-    public float HealthAmount;
 
-    public override void Use() {
-        base.Use();
-        PlayerManager.stats.Health += HealthAmount;
+    public override void OnPickup() {
+        float hp = PlayerManager.instance.stats.HealthPacks;
+        if (hp < PlayerManager.instance.stats.HealthPackMax) {
+            hp += 1;
+            Destroy(gameObject);
+        }
+        else {
+            Debug.Log("HealthPacks full");
+        }
     }
 }

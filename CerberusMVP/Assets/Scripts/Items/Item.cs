@@ -1,18 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum UseType { Pickup, Inventory }
-[CreateAssetMenu(fileName = "New Item", menuName ="Inventory/Item")]
-public class Item : ScriptableObject
-{
+public class Item : MonoBehaviour {
 
-    public new string name = "New Item";
+    public string itemName;
+    [TextArea(3,10)]
+    public string description;
     public Sprite icon = null;
-    public UseType useType;
     public float cost;
+    public bool shopItem;
 
-    public virtual void Use() {
-        Debug.Log("Using " + name);
+    protected virtual void OnTriggerEnter(Collider other) {
+        if (other.tag == "Player" && !shopItem) {
+            OnPickup();
+        }
+    }
+
+    public virtual void OnPickup() {
     }
 }

@@ -38,7 +38,6 @@ public class Gun : MonoBehaviour {
         currentAmmo = maxAmmo;
         readyToShoot = true;
         fpsCam = FindObjectOfType<GunManager>().fpsCam;
-        Debug.Log("Loaded Gun");
         Reload();
     }
 
@@ -56,7 +55,6 @@ public class Gun : MonoBehaviour {
 
         if (readyToShoot && shooting && !reloading && clipAmmo>0) {
             bulletsShot = 0;
-            Debug.Log("Firing");
             Fire();
         }
 

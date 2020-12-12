@@ -14,6 +14,7 @@ public class PlayerStats : MonoBehaviour {
     public float moxieBatteyMax;
     public float HealthPackMax;
 
+    //public for access but not needed in inspector
     [HideInInspector] public float Health = 100;
     [HideInInspector] public float Moxie = 100;
     [HideInInspector] public float Grit = 100;
