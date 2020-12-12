@@ -22,7 +22,7 @@ public class rbPlayer : MonoBehaviour {
     public float maxCamTilt;
     float wallRunCamTilt;
     public Transform orientation;
-    AudioManager audio;
+    AudioManager audioManager;
     bool playingSound;
 
     //Grit Effect
@@ -33,40 +33,29 @@ public class rbPlayer : MonoBehaviour {
         PlayerManager.playerExists = true;
         PlayerManager.instance.player = this.gameObject;
         rb = GetComponent<Rigidbody>();
-        audio = FindObjectOfType<AudioManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
     void Update() {
-        Jump();
         Grit();
         CheckForWall();
         CameraTilt();
-        WallRunInput();
+        InputManager();
+    }
+    private void InputManager() {
+        if (Input.GetKeyDown(KeyCode.V)) MoxieBattery();
+        if (Input.GetKeyDown(KeyCode.C)) HealthPack();
+        if (Input.GetKeyDown(KeyCode.G) && PlayerManager.instance.stats.Grit > 0) PlayerManager.instance.stats.GritActive = !PlayerManager.instance.stats.GritActive;
+        if (Input.GetKeyDown(KeyCode.Space)) Jump();
+
+        if (rb.velocity.magnitude > 0 && !Grounded()) {
+            if (Input.GetKey(KeyCode.D) && isWallRight) StartWallRun();
+            if (Input.GetKey(KeyCode.A) && isWallLeft) StartWallRun();
+        }
+        else StopWallRun();
     }
 
-    private void CameraTilt() {
-        //playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
-
-        //gradually turns cam away from wall left or right;
-        if (Math.Abs(wallRunCamTilt) < maxCamTilt && isWallRight && isWallRunning) {
-            wallRunCamTilt += Time.deltaTime * maxCamTilt * 2;
-            playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
-        }
-        if (Math.Abs(wallRunCamTilt) < maxCamTilt && isWallLeft && isWallRunning) {
-            wallRunCamTilt -= Time.deltaTime * maxCamTilt * 2;
-            playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
-        }
-
-        if (wallRunCamTilt > 0 && !isWallRunning) {
-            wallRunCamTilt -= Time.deltaTime * maxCamTilt * 2;
-            playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
-        }
-        if (wallRunCamTilt < 0 && !isWallRunning) {
-            wallRunCamTilt += Time.deltaTime * maxCamTilt * 2;
-            playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
-        }
-    }
 
     private void FixedUpdate() {
         if (movePlayer == true) {
@@ -84,27 +73,41 @@ public class rbPlayer : MonoBehaviour {
             StartCoroutine(SoundDelays("Footsteps", 1));
         }
     }
+
     private void Jump() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            if (Grounded()) {
-                rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-                FindObjectOfType<AudioManager>().Play("Jump");
-            }
+        if (Grounded()) {
+            rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
+            FindObjectOfType<AudioManager>().Play("Jump");
+        }
 
-            if (isWallRunning) {
-                rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-                if (isWallLeft) rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
-                if (isWallRight) rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
-
-
-                StopWallRun();
-            }
-
+        if (isWallRunning) {
+            rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
+            if (isWallLeft) rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+            if (isWallRight) rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+            StopWallRun();
         }
     }
 
-    public bool Grounded() {
+    private void MoxieBattery() {
+        PlayerStats ps = PlayerManager.instance.stats;
+        if (ps.moxieBatteries>0 && ps.Moxie<ps.moxieMax) {
+            ps.moxieBatteries -= 1;
+            ps.Moxie += 50;
+            Mathf.Clamp(ps.Moxie,0,ps.moxieMax);
+        }
+    }
 
+    private void HealthPack() {
+        PlayerStats ps = PlayerManager.instance.stats;
+        if (ps.HealthPacks>0 && ps.Health<ps.maxHeath) {
+            ps.HealthPacks -= 1;
+            ps.Health += 50;
+            Mathf.Clamp(ps.Health,0,ps.maxHeath);
+        }
+
+    }
+
+    public bool Grounded() {
         return Physics.Raycast(transform.position, Vector3.down, rayDistance, LayerMask.GetMask("Room"));
     }
     public void CheckForWall() {
@@ -113,16 +116,6 @@ public class rbPlayer : MonoBehaviour {
         if (!isWallRight && !isWallLeft) {
             StopWallRun();
         }
-    }
-    private void WallRunInput() {
-        if (rb.velocity.magnitude > 0 && !Grounded()) {
-            if (Input.GetKey(KeyCode.D) && isWallRight) StartWallRun();
-            if (Input.GetKey(KeyCode.A) && isWallLeft) StartWallRun();
-        }
-        else {
-            StopWallRun();
-        }
-
     }
 
     private void StartWallRun() {
@@ -139,46 +132,44 @@ public class rbPlayer : MonoBehaviour {
                 rb.AddForce(-orientation.right * wallRunForce / 5 * Time.deltaTime);
             }
         }
-
-
-
-
     }
+
     private void StopWallRun() {
         rb.useGravity = true;
         isWallRunning = false;
+    }
 
+    private void CameraTilt() {
+        //gradually turns cam away from wall left or right;
+        if (Math.Abs(wallRunCamTilt) < maxCamTilt && isWallRight && isWallRunning) wallRunCamTilt += Time.deltaTime * maxCamTilt * 2;
+        if (Math.Abs(wallRunCamTilt) < maxCamTilt && isWallLeft && isWallRunning) wallRunCamTilt -= Time.deltaTime * maxCamTilt * 2;
+        if (wallRunCamTilt > 0 && !isWallRunning) wallRunCamTilt -= Time.deltaTime * maxCamTilt * 2;
+        if (wallRunCamTilt < 0 && !isWallRunning) wallRunCamTilt += Time.deltaTime * maxCamTilt * 2;
+        if (wallRunCamTilt != 0) playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
     }
 
     void Grit() {
-
-        if (Input.GetKeyDown(KeyCode.G) && PlayerManager.instance.stats.Grit > 0) {
-            PlayerManager.instance.stats.GritActive = !PlayerManager.instance.stats.GritActive;
-           
-        }
         if (PlayerManager.instance.stats.GritActive) {
             Time.timeScale = 0.2f;
             if (volume.weight < 1.0f) {
                 volume.weight += Time.deltaTime * 2;
                 Debug.Log(volume.weight);
-
             }
         }
         else {
             Time.timeScale = 1f;
             if (volume.weight > 0.0f) {
-            volume.weight -= Time.deltaTime * 2;
+                volume.weight -= Time.deltaTime * 2;
             }
         }
         if (PlayerManager.instance.stats.GritActive == true) {
             PlayerManager.instance.stats.Grit -= Time.deltaTime * 40;
         }
-
     }
 
     IEnumerator SoundDelays(String soundClipName, float delayTime) {
         yield return new WaitForSeconds(delayTime);
-        audio.Play(soundClipName);
+        audioManager.Play(soundClipName);
         playingSound = false;
     }
 

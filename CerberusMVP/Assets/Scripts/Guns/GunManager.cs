@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GunManager : MonoBehaviour {
-    public List<GameObject> gunPrefabs = new List<GameObject>();
-    List<GameObject> gunObjects = new List<GameObject>();
+    public GameObject[] gunPrefabs = new GameObject[2];
+    GameObject[] gunObjects = new GameObject[2];
     public Camera fpsCam;
     public static bool canFire = true;
     Gun currentGun;
@@ -14,10 +14,10 @@ public class GunManager : MonoBehaviour {
 
 
     private void Awake() {
-        if (gunPrefabs.Count > 0) {
-            for (int i = 0; i < gunPrefabs.Count; i++) {
+        if (gunPrefabs.Length > 0) {
+            for (int i = 0; i < gunPrefabs.Length; i++) {
                 GameObject gun = Instantiate(gunPrefabs[i], transform);
-                gunObjects.Add(gun);
+                gunObjects[i] = gun;
             }
         }
     }
@@ -36,6 +36,12 @@ public class GunManager : MonoBehaviour {
         SwitchGun();
     }
 
+    public void EquipGun(GameObject newGun) {
+        Destroy(currentGunObject);
+        currentGunObject = Instantiate(newGun,transform);
+
+    }
+
     void SwitchGun() {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             if (gunObjects[0] != null) {
@@ -47,18 +53,6 @@ public class GunManager : MonoBehaviour {
             if (gunObjects[1] != null) {
                 currentGunObject.SetActive(false);
                 currentGunObject = gunObjects[1];
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) {
-            if (gunObjects[2] != null) {
-                currentGunObject.SetActive(false);
-                currentGunObject = gunObjects[2];
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) {
-            if (gunObjects[2] != null) {
-                currentGunObject.SetActive(false);
-                currentGunObject = gunObjects[3];
             }
         }
         if (currentGunObject != null) {

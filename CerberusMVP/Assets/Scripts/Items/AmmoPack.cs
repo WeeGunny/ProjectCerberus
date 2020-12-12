@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class AmmoPack : Item
 {
-    public float ammoAmount;
+    public float MaxAmmo, MinAmmo;
+    float ammoAmount;
 
-    public override void Use() {
-        base.Use();
-        PlayerManager.instance.stats.activeGun.currentAmmo += ammoAmount;
+    private void Start() {
+        ammoAmount = Random.Range(MinAmmo,MaxAmmo);
+    }
+    public override void OnPickup() {
+        float ammo = PlayerManager.instance.stats.activeGun.currentAmmo;
+        if (ammo < PlayerManager.instance.stats.activeGun.maxAmmo) {
+            ammo += ammoAmount;
+            Destroy(gameObject);
+        }
+        else {
+            Debug.Log("Ammo full");
+        }
     }
 
 }

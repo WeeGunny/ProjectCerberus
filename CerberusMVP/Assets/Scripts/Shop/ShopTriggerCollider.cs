@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShopTriggerCollider : MonoBehaviour
 {
 
-    [SerializeField] private Shop_UI shopUI;
+    [SerializeField] private ShopUI shopUI;
 
     private void OnTriggerEnter(Collider collider)
     {
