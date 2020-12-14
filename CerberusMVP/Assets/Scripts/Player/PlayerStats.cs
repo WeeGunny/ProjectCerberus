@@ -15,12 +15,12 @@ public class PlayerStats : MonoBehaviour {
     public float HealthPackMax;
 
     //public for access but not needed in inspector
-    [HideInInspector] public float Health = 100;
-    [HideInInspector] public float Moxie = 100;
-    [HideInInspector] public float Grit = 100;
-    [HideInInspector] public float gold = 100;
-    [HideInInspector] public float moxieBatteries;
-    [HideInInspector] public float HealthPacks;
+    public static float Health;
+    public static float Moxie;
+    public static float Grit;
+    public static float gold;
+    public static float moxieBatteries;
+    public static float HealthPacks;
 
 
 
@@ -42,13 +42,30 @@ public class PlayerStats : MonoBehaviour {
     [HideInInspector] public bool GritActive = false;
     [HideInInspector] public Gun activeGun;
 
-    private void Start() {
-        PlayerManager.stats = this;
+    private void Awake() {
+        if (PlayerManager.stats == null) {
+            PlayerManager.stats = this;
+            SetUpStats();
+        }
+        else {
+
+        }
+
     }
 
+    private void Start() {
+
+    }
+
+    private void SetUpStats() {
+        Health = maxHeath;
+        UpdateHealthUI();
+        Moxie = moxieMax;
+        Grit = gritMax;
+    }
     // Update is called once per frame
-    void Update() {       
-        UpdateMoxie();     
+    void Update() {
+        UpdateMoxie();
         UpdateGrit();
         UpdateAmmoUI();
         UpdateGoldUI();

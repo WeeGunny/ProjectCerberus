@@ -6,8 +6,7 @@ using UnityEngine.AI;
 public class BossController : EnemyController {
 
     public GameObject enemyToSpawn;
-    public Transform[] minionSpawnPoints;
-    public List<Transform> telePortPoints;
+    public List<Transform> telePortPoints, minionSpawnPoints;
     public Transform parent;
     Transform currentPoint;
     public float shotgunBullets, spread;
@@ -33,10 +32,11 @@ public class BossController : EnemyController {
                     Attack();
                     break;
                 case 1:
-                    Teleport();
+                    if (telePortPoints.Count > 0) Teleport();
+
                     break;
                 case 2:
-                    Summon();
+                    if (minionSpawnPoints.Count > 0) Summon();
                     break;
                 default: break;
             }
@@ -55,8 +55,8 @@ public class BossController : EnemyController {
 
     void Summon() {
         canAttack = false;
-        int randomSpawn = Random.Range(0, minionSpawnPoints.Length);
-        if(enemyToSpawn!=null) Instantiate(enemyToSpawn, minionSpawnPoints[randomSpawn], true);
+        int randomSpawn = Random.Range(0, minionSpawnPoints.Count);
+        if (enemyToSpawn != null) Instantiate(enemyToSpawn, minionSpawnPoints[randomSpawn], true);
         Debug.Log("Summon");
         float randomDelay = Random.Range(actionDelayMin, actionDelayMax);
         Invoke("AttackReset", randomDelay);
@@ -65,7 +65,7 @@ public class BossController : EnemyController {
 
     protected override void Attack() {
         canAttack = false;
-        anim.SetBool("playerAttackable", true);   
+        anim.SetBool("playerAttackable", true);
         float attackAnimationTime = anim.GetCurrentAnimatorStateInfo(0).length;
         float randomDelay = Random.Range(attackAnimationTime, actionDelayMax);
         Invoke(nameof(AttackReset), randomDelay);
@@ -75,7 +75,7 @@ public class BossController : EnemyController {
         for (int i = 0; i < shotgunBullets; i++) {
             float spreadX = Random.Range(-spread, spread);
             float spreadY = Random.Range(-spread, spread);
-            GameObject bullet = Instantiate(projectile,firePoint.transform.position,Quaternion.identity);
+            GameObject bullet = Instantiate(projectile, firePoint.transform.position, Quaternion.identity);
             Vector3 direction = target.position - firePoint.position;
             EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
             bulletProperties.direction = direction + new Vector3(spreadX, spreadY, 0);
@@ -109,4 +109,3 @@ public class BossController : EnemyController {
         Destroy(gameObject, 5);
     }
 }
-    

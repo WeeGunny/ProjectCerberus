@@ -28,12 +28,16 @@ public class rbPlayer : MonoBehaviour {
     //Grit Effect
     public Volume volume;
 
-    // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         PlayerManager.playerExists = true;
-        PlayerManager.player = this.gameObject;
+        if (PlayerManager.player == null) PlayerManager.player = this.gameObject;
         rb = GetComponent<Rigidbody>();
         audioManager = FindObjectOfType<AudioManager>();
+    }
+
+    // Start is called before the first frame update
+    void Start() {
+
     }
 
     // Update is called once per frame
@@ -46,7 +50,7 @@ public class rbPlayer : MonoBehaviour {
     private void InputManager() {
         if (Input.GetKeyDown(KeyCode.V)) MoxieBattery();
         if (Input.GetKeyDown(KeyCode.C)) HealthPack();
-        if (Input.GetKeyDown(KeyCode.G) && PlayerManager.stats.Grit > 0) PlayerManager.stats.GritActive = !PlayerManager.stats.GritActive;
+        if (Input.GetKeyDown(KeyCode.G) && PlayerStats.Grit > 0) PlayerManager.stats.GritActive = !PlayerManager.stats.GritActive;
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
 
         if (rb.velocity.magnitude > 0 && !Grounded()) {
@@ -90,19 +94,19 @@ public class rbPlayer : MonoBehaviour {
 
     private void MoxieBattery() {
         PlayerStats ps = PlayerManager.stats;
-        if (ps.moxieBatteries>0 && ps.Moxie<ps.moxieMax) {
-            ps.moxieBatteries -= 1;
-            ps.Moxie += 50;
-            Mathf.Clamp(ps.Moxie,0,ps.moxieMax);
+        if (PlayerStats.moxieBatteries>0 && PlayerStats.Moxie<ps.moxieMax) {
+            PlayerStats.moxieBatteries -= 1;
+            PlayerStats.Moxie += 50;
+            Mathf.Clamp(PlayerStats.Moxie,0,ps.moxieMax);
         }
     }
 
     private void HealthPack() {
         PlayerStats ps = PlayerManager.stats;
-        if (ps.HealthPacks>0 && ps.Health<ps.maxHeath) {
-            ps.HealthPacks -= 1;
-            ps.Health += 50;
-            Mathf.Clamp(ps.Health,0,ps.maxHeath);
+        if (PlayerStats.HealthPacks>0 && PlayerStats.Health<ps.maxHeath) {
+            PlayerStats.HealthPacks -= 1;
+            PlayerStats.Health += 50;
+            Mathf.Clamp(PlayerStats.Health,0,ps.maxHeath);
         }
 
     }
@@ -164,7 +168,7 @@ public class rbPlayer : MonoBehaviour {
             }
         }
         if (PlayerManager.stats.GritActive == true) {
-            PlayerManager.stats.Grit -= Time.deltaTime * 40;
+            PlayerStats.Grit -= Time.deltaTime * 40;
         }
     }
 

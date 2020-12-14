@@ -16,8 +16,8 @@ public class LaserGun : Gun {
             UpdateLaser();
         }
         //Changes the size of black hole core depending on moxie left 
-        CoreBoneTransform.localScale = new Vector3(0.01f, 0.01f, 0.01f) * PlayerManager.stats.Moxie;
-        if (PlayerManager.stats.Moxie < moxieRequirement) {
+        CoreBoneTransform.localScale = new Vector3(0.01f, 0.01f, 0.01f) * PlayerStats.Moxie;
+        if (PlayerStats.Moxie < moxieRequirement) {
             CoreBoneTransform.localScale = new Vector3(0f, 0f, 0f);
         }
     }
@@ -32,7 +32,7 @@ public class LaserGun : Gun {
         if (firingLaser && Input.GetKeyUp(KeyCode.Mouse0)) {
             StopLaser();
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerManager.stats.Moxie > moxieRequirement) AltFire();
+        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerStats.Moxie > moxieRequirement) AltFire();
 
         if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) Reload();
     }

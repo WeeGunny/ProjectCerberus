@@ -58,7 +58,7 @@ public class Gun : MonoBehaviour {
             Fire();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerManager.stats.Moxie> moxieRequirement) AltFire();
+        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerStats.Moxie> moxieRequirement) AltFire();
 
         if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) ReloadDelay();
 
@@ -95,7 +95,6 @@ public class Gun : MonoBehaviour {
         if (allowInvoke) {
             Invoke("ResetShot", 1 / fireRate);
             allowInvoke = false;
-            //AddRecoil();
         }
 
         if (bulletsShot < bulletsPerShot && clipAmmo > 0) {
@@ -103,29 +102,15 @@ public class Gun : MonoBehaviour {
         }
     }
 
-    //public void AddRecoil()
-    //{
-    //    transform.localEulerAngles += upRecoil;
-    //    //Vector3 currentRotation = transform.localRotation.eulerAngles;
-    //    orignalRotation.z = Mathf.Clamp(orignalRotation.z, minRecoil, maxRecoil);
-    //    transform.localRotation = Quaternion.Euler(orignalRotation);
-    //}
-
-    //public void StopRecoil()
-    //{
-    //    transform.localEulerAngles = orignalRotation;
-    //}
-
     protected void ResetShot() {
         Debug.Log("ResetShot");
         animator.SetBool("isShooting", false);
         readyToShoot = true;
         allowInvoke = true;
-        //StopRecoil();
     }
 
     public virtual void AltFire() {
-        PlayerManager.stats.Moxie -= moxieRequirement;
+        PlayerStats.Moxie -= moxieRequirement;
         animator.SetTrigger("altFire");
     }
 

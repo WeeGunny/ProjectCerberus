@@ -16,8 +16,10 @@ public class GunManager : MonoBehaviour {
     private void Awake() {
         if (gunPrefabs.Length > 0) {
             for (int i = 0; i < gunPrefabs.Length; i++) {
-                GameObject gun = Instantiate(gunPrefabs[i], transform);
-                gunObjects[i] = gun;
+                if (gunPrefabs[i] != null) {
+                    GameObject gun = Instantiate(gunPrefabs[i], transform);
+                    gunObjects[i] = gun;
+                }
             }
         }
     }
@@ -38,7 +40,7 @@ public class GunManager : MonoBehaviour {
 
     public void EquipGun(GameObject newGun) {
         Destroy(currentGunObject);
-        currentGunObject = Instantiate(newGun,transform);
+        currentGunObject = Instantiate(newGun, transform);
 
     }
 

@@ -34,9 +34,9 @@ public class PlayerProjectile : MonoBehaviour {
         }
         else if (hit.tag != "Player" && hit.tag != "Bullet") {
 
-            GameObject hole = Instantiate(bulletHolePrefab, contact.point, Quaternion.LookRotation(contact.normal));
-            hole.transform.Rotate(Vector3.right * 90);
-            hole.transform.Translate(Vector3.one * 0.1f);
+            //GameObject hole = Instantiate(bulletHolePrefab, contact.point, Quaternion.LookRotation(contact.normal),collision.transform);
+            //hole.transform.Rotate(Vector3.right * 90);
+            //hole.transform.Translate(Vector3.one * 0.1f);
             DestroyProjectile();
             Debug.Log("bullet destroyed, hit: " + hit.name);
         }
