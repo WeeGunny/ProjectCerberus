@@ -53,7 +53,7 @@ public class Gun : MonoBehaviour {
             shooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
 
-        if (readyToShoot && shooting && !reloading && clipAmmo>0) {
+        if (readyToShoot && shooting && !reloading && clipAmmo>0 && !NPC.playerIsTalking) {
             bulletsShot = 0;
             Fire();
         }
