@@ -37,6 +37,16 @@ public class ShopkeeperController : MonoBehaviour
                 default: break;
             }
         }
+
+        if (anim.GetBool("isTalking"))
+        {
+            isAnimating = true;
+        }
+
+        if (!anim.GetBool("isTalking"))
+        {
+            isAnimating = false;
+        }
     }
 
     void Animation1()
