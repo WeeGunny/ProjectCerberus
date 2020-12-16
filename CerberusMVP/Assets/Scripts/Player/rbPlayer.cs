@@ -99,6 +99,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.Moxie += 50;
             Mathf.Clamp(PlayerStats.Moxie,0,ps.moxieMax);
         }
+        FindObjectOfType<AudioManager>().Play("Moxie Battery");
     }
 
     private void HealthPack() {
@@ -108,7 +109,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.Health += 50;
             Mathf.Clamp(PlayerStats.Health,0,ps.maxHeath);
         }
-
+        FindObjectOfType<AudioManager>().Play("Health Pack");
     }
 
     public bool Grounded() {
@@ -160,6 +161,7 @@ public class rbPlayer : MonoBehaviour {
                 volume.weight += Time.deltaTime * 2;
                 Debug.Log(volume.weight);
             }
+            StartCoroutine(SoundDelays("Grit Activated", 1));
         }
         else {
             Time.timeScale = 1f;
