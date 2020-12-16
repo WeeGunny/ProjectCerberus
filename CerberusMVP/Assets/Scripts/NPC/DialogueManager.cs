@@ -75,6 +75,6 @@ public class DialogueManager : MonoBehaviour
     public void Travel()
     {
         StopDialog();
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Game");
     }
 }
