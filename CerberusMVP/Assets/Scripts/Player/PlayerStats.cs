@@ -83,6 +83,7 @@ public class PlayerStats : MonoBehaviour {
         if (Health <= 0) {
             Death();
         }
+        FindObjectOfType<AudioManager>().Play("Player Damaged");
     }
 
     private void UpdateMoxie() {
