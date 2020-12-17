@@ -63,13 +63,15 @@ public class LevelGenerator : MonoBehaviour {
             PlaceMainRoom();
             yield return interval;
             i++;
-            if (i < iterations)
-                PlaceConnectingRoom();
+            if (i < iterations) PlaceConnectingRoom();
             yield return interval;
         }
 
         //Place endRoom
         PlaceEndRoom();
+        foreach (Doorway door in availableDoorways) {
+            door.isOutdoor = true;
+        }
         yield return interval;
 
         // Level Generation Finished
@@ -125,13 +127,13 @@ public class LevelGenerator : MonoBehaviour {
                     roomNum++;
                 }
 
-                // Check for overlapping rooms false
-
             }
 
             //if the room is placed it no longer needs to check the remaining available doorways
-            if (roomPlaced)
+            if (roomPlaced) {
+                availableDoorway.gameObject.SetActive(false);
                 break;
+            }
         }
         if (!roomPlaced) {
             Debug.LogError("Room could not be placed: " + currentRoom.gameObject.name);
@@ -208,16 +210,10 @@ public class LevelGenerator : MonoBehaviour {
         // Position room by subtracting door origin by room Origin
         Vector3 roomPositionOffset = roomDoorway.transform.position - room.transform.position;
         room.transform.position = targetDoorway.transform.position - roomPositionOffset;
-
-
     }
     bool CheckRoomOverlap(Room room) {
-
         Bounds bounds = room.RoomBounds;
         bounds.center = room.transform.position;
-
-
-
         Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size/2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
         if (colliders.Length > 0) { // If there is anything within this arary
 

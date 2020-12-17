@@ -52,7 +52,6 @@ public class Room : MonoBehaviour {
         GameEvents.current.onDoorwayTriggerExit += LockDoors;
         GameEvents.current.onEnemiesDefeated += UnlockDoors;
         SpawnItems();
-        UnlockDoors(this.id);
     }
     private void Update() {
         if (id != -1) {
@@ -126,7 +125,7 @@ public class Room : MonoBehaviour {
     public void UnlockDoors(int id) {
         if (id == this.id) {
             foreach (Doorway doorway in doorways) {
-                doorway.gameObject.SetActive(false);
+                if(!doorway.isOutdoor)doorway.gameObject.SetActive(false); // Ensures not to open the doors that go outside the level
             }
 
         }

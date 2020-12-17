@@ -17,8 +17,7 @@ public class rbPlayer : MonoBehaviour {
     public LayerMask isWall;
     public float maxWallRunSpeed, wallRunForce, maxWallRunTime;
     public bool isWallLeft, isWallRight;
-    [SerializeField]
-    bool isWallRunning;
+    bool isWallRunning, doubleJump;
     public float maxCamTilt;
     float wallRunCamTilt;
     public Transform orientation;
@@ -46,6 +45,7 @@ public class rbPlayer : MonoBehaviour {
         CheckForWall();
         CameraTilt();
         InputManager();
+        if (Grounded()) doubleJump = true;
     }
     private void InputManager() {
         if (Input.GetKeyDown(KeyCode.V)) MoxieBattery();
@@ -82,6 +82,12 @@ public class rbPlayer : MonoBehaviour {
         if (Grounded()) {
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
             FindObjectOfType<AudioManager>().Play("Jump");
+        }
+        else if(doubleJump){
+            rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(Vector2.up * (jumpHeight), ForceMode.Impulse);
+            FindObjectOfType<AudioManager>().Play("Jump");
+            doubleJump = false;
         }
 
         if (isWallRunning) {
@@ -182,5 +188,10 @@ public class rbPlayer : MonoBehaviour {
 
     public void toggleMovement() {
         movePlayer = !movePlayer;
+    }
+
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x,transform.position.y-rayDistance,transform.position.z));
     }
 }

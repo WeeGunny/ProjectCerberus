@@ -11,7 +11,6 @@ public class DialogueManager : MonoBehaviour
     public Text npcNameText;
     public Text dialogueText;
     public rbPlayer player;
-    public GameObject shopButton;
     public GameObject nextButton;
 
     private List<string> conversation;
