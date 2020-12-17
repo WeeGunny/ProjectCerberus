@@ -167,7 +167,6 @@ public class rbPlayer : MonoBehaviour {
                 volume.weight += Time.deltaTime * 2;
                 Debug.Log(volume.weight);
             }
-            StartCoroutine(SoundDelays("Grit Activated", 1));
         }
         else {
             Time.timeScale = 1f;
@@ -177,6 +176,8 @@ public class rbPlayer : MonoBehaviour {
         }
         if (PlayerManager.stats.GritActive == true) {
             PlayerStats.Grit -= Time.deltaTime * 40;
+            //StartCoroutine(SoundDelays("Grit Activated", 1));
+            FindObjectOfType<AudioManager>().Play("Grit Activated");
         }
     }
 
