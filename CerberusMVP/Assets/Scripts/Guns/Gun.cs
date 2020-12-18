@@ -112,17 +112,19 @@ public class Gun : MonoBehaviour {
     public virtual void AltFire() {
         PlayerStats.Moxie -= moxieRequirement;
         animator.SetTrigger("altFire");
+        FindObjectOfType<AudioManager>().Play("Moxie");
     }
 
     public void ReloadDelay() {
         reloading = true;
         Invoke("Reload", reloadTime);
+        FindObjectOfType<AudioManager>().Play("Reload");
     }
 
     public void Reload() {
         Debug.Log("Reloading");
         animator.SetTrigger("isReloading");
-        //FindObjectOfType<AudioManager>().Play("Reload");
+        
         float reloadAmount = maxClipAmmo - clipAmmo;
         if (currentAmmo >= reloadAmount) {
             clipAmmo += reloadAmount;

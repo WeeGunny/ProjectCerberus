@@ -50,7 +50,11 @@ public class rbPlayer : MonoBehaviour {
     private void InputManager() {
         if (Input.GetKeyDown(KeyCode.V)) MoxieBattery();
         if (Input.GetKeyDown(KeyCode.C)) HealthPack();
-        if (Input.GetKeyDown(KeyCode.G) && PlayerStats.Grit > 0) PlayerManager.stats.GritActive = !PlayerManager.stats.GritActive;
+        if (Input.GetKeyDown(KeyCode.G) && PlayerStats.Grit > 0)
+        {
+            PlayerManager.stats.GritActive = !PlayerManager.stats.GritActive;
+            FindObjectOfType<AudioManager>().Play("Grit Activated");
+        }
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
 
         if (rb.velocity.magnitude > 0 && !Grounded()) {
@@ -176,8 +180,7 @@ public class rbPlayer : MonoBehaviour {
         }
         if (PlayerManager.stats.GritActive == true) {
             PlayerStats.Grit -= Time.deltaTime * 40;
-            //StartCoroutine(SoundDelays("Grit Activated", 1));
-            FindObjectOfType<AudioManager>().Play("Grit Activated");
+            FindObjectOfType<AudioManager>().Play("Grit Deactivated");
         }
     }
 

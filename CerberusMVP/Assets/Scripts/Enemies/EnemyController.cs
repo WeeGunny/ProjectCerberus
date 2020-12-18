@@ -33,6 +33,9 @@ public class EnemyController : MonoBehaviour {
     protected bool takingDotDamage;
     protected bool isReloading = false;
 
+    AudioManager audioManager;
+    bool playingSound;
+
     [HideInInspector] public Animator anim;
 
     // Start is called before the first frame update
@@ -42,6 +45,7 @@ public class EnemyController : MonoBehaviour {
         heathDisplay.SetActive(false);
         anim = gameObject.GetComponent<Animator>();
         playerCam = PlayerManager.player.GetComponent<rbPlayer>().playerCam.transform;
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -116,6 +120,7 @@ public class EnemyController : MonoBehaviour {
         bulletProperties.direction = transform.forward;
         ammo -= 1;
         Invoke("AttackReset",attackDelay);
+        //StartCoroutine(SoundDelays("AutoRifle", 1));
     }
 
     protected virtual void AttackReset() {
@@ -145,6 +150,7 @@ public class EnemyController : MonoBehaviour {
             StopCoroutine("DotDamage");
             StartCoroutine("DotDamage", damageType);
         }
+        FindObjectOfType<AudioManager>().Play("EnemyHit");
     }
 
     protected IEnumerator DotDamage(DamageType type) {
@@ -192,6 +198,12 @@ public class EnemyController : MonoBehaviour {
             }
         }
         Destroy(gameObject,5);
+    }
+    IEnumerator SoundDelays(String soundClipName, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        audioManager.Play(soundClipName);
+        playingSound = false;
     }
 
     protected virtual void OnDrawGizmosSelected() {
