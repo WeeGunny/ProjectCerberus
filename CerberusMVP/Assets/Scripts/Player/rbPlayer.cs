@@ -42,6 +42,7 @@ public class rbPlayer : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+
         Grit();
         CheckForWall();
         CameraTilt();
@@ -154,7 +155,7 @@ public class rbPlayer : MonoBehaviour {
     }
 
     void Grit() {
-        if (PlayerManager.stats.GritActive) {
+        if (PlayerManager.stats.GritActive && !PauseMenu.GamePaused) {
             Time.timeScale = 0.2f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
             if (volume.weight < 1.0f) {
@@ -163,7 +164,7 @@ public class rbPlayer : MonoBehaviour {
             }
             StartCoroutine(SoundDelays("Grit Activated", 1));
         }
-        else {
+        else if (!PauseMenu.GamePaused) {
             Time.timeScale = 1f;
             if (volume.weight > 0.0f) {
                 volume.weight -= Time.deltaTime * 2;

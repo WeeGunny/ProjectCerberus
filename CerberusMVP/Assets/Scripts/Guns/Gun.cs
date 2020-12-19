@@ -53,12 +53,12 @@ public class Gun : MonoBehaviour {
             shooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
 
-        if (readyToShoot && shooting && !reloading && clipAmmo>0 && !NPC.playerIsTalking) {
+        if (readyToShoot && shooting && !reloading && clipAmmo>0 && !NPC.playerIsTalking && !PauseMenu.GamePaused) {
             bulletsShot = 0;
             Fire();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerStats.Moxie> moxieRequirement) AltFire();
+        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerStats.Moxie> moxieRequirement && !PauseMenu.GamePaused) AltFire();
 
         if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) ReloadDelay();
 
@@ -120,7 +120,6 @@ public class Gun : MonoBehaviour {
     }
 
     public void Reload() {
-        Debug.Log("Reloading");
         animator.SetTrigger("isReloading");
         //FindObjectOfType<AudioManager>().Play("Reload");
         float reloadAmount = maxClipAmmo - clipAmmo;

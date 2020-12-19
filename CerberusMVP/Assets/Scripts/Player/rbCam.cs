@@ -15,15 +15,27 @@ public class rbCam: MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.visible = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(movePlayerCam == true) {
+        if(movePlayerCam == true && !PauseMenu.GamePaused) {
             RotateCamera();
-        }            
+        }
+
+        if (PauseMenu.GamePaused)
+        {
+            //Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        if (!PauseMenu.GamePaused)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void RotateCamera() {
