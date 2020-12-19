@@ -50,8 +50,12 @@ public class rbPlayer : MonoBehaviour {
     private void InputManager() {
         if (Input.GetKeyDown(KeyCode.V)) MoxieBattery();
         if (Input.GetKeyDown(KeyCode.C)) HealthPack();
+<<<<<<< Updated upstream
         if (Input.GetKeyDown(KeyCode.G) && PlayerStats.Grit > 0)
         {
+=======
+        if (Input.GetKeyDown(KeyCode.G) && PlayerStats.Grit > 0) {
+>>>>>>> Stashed changes
             PlayerManager.stats.GritActive = !PlayerManager.stats.GritActive;
             FindObjectOfType<AudioManager>().Play("Grit Activated");
         }
@@ -87,7 +91,7 @@ public class rbPlayer : MonoBehaviour {
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
             FindObjectOfType<AudioManager>().Play("Jump");
         }
-        else if(doubleJump){
+        else if (doubleJump) {
             rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector2.up * (jumpHeight), ForceMode.Impulse);
             FindObjectOfType<AudioManager>().Play("Jump");
@@ -104,20 +108,20 @@ public class rbPlayer : MonoBehaviour {
 
     private void MoxieBattery() {
         PlayerStats ps = PlayerManager.stats;
-        if (PlayerStats.moxieBatteries>0 && PlayerStats.Moxie<ps.moxieMax) {
+        if (PlayerStats.moxieBatteries > 0 && PlayerStats.Moxie < ps.moxieMax) {
             PlayerStats.moxieBatteries -= 1;
             PlayerStats.Moxie += 50;
-            Mathf.Clamp(PlayerStats.Moxie,0,ps.moxieMax);
+            Mathf.Clamp(PlayerStats.Moxie, 0, ps.moxieMax);
         }
         FindObjectOfType<AudioManager>().Play("Moxie Battery");
     }
 
     private void HealthPack() {
         PlayerStats ps = PlayerManager.stats;
-        if (PlayerStats.HealthPacks>0 && PlayerStats.Health<ps.maxHeath) {
+        if (PlayerStats.HealthPacks > 0 && PlayerStats.Health < ps.maxHeath) {
             PlayerStats.HealthPacks -= 1;
             PlayerStats.Health += 50;
-            Mathf.Clamp(PlayerStats.Health,0,ps.maxHeath);
+            Mathf.Clamp(PlayerStats.Health, 0, ps.maxHeath);
         }
         FindObjectOfType<AudioManager>().Play("Health Pack");
     }
@@ -180,7 +184,11 @@ public class rbPlayer : MonoBehaviour {
         }
         if (PlayerManager.stats.GritActive == true) {
             PlayerStats.Grit -= Time.deltaTime * 40;
+<<<<<<< Updated upstream
             FindObjectOfType<AudioManager>().Play("Grit Deactivated");
+=======
+
+>>>>>>> Stashed changes
         }
     }
 
@@ -196,6 +204,6 @@ public class rbPlayer : MonoBehaviour {
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x,transform.position.y-rayDistance,transform.position.z));
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - rayDistance, transform.position.z));
     }
 }
