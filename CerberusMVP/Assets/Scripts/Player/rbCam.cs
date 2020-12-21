@@ -27,7 +27,7 @@ public class rbCam: MonoBehaviour
 
         if (PauseMenu.GamePaused)
         {
-            //Cursor.visible = true;
+            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
 
