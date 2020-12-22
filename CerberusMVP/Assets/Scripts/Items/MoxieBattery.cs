@@ -9,10 +9,9 @@ public class MoxieBattery : Item
     }
 
     public override void OnPickup() {
-        float mb = PlayerStats.moxieBatteries;
-        if (mb< PlayerManager.stats.moxieBatteyMax) {
-            mb += 1;
-            Debug.Log("Picked up Moxie Battery, you have: " + mb);
+        if (PlayerStats.moxieBatteries< PlayerManager.stats.moxieBatteyMax) {
+            PlayerStats.moxieBatteries += 1;
+            Debug.Log("Picked up Moxie Battery, you have: " + PlayerStats.moxieBatteries);
             Destroy(gameObject);
         }
         else {

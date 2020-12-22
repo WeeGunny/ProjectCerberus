@@ -51,12 +51,7 @@ public class rbPlayer : MonoBehaviour {
     private void InputManager() {
         if (Input.GetKeyDown(KeyCode.V)) MoxieBattery();
         if (Input.GetKeyDown(KeyCode.C)) HealthPack();
-<<<<<<< Updated upstream
-        if (Input.GetKeyDown(KeyCode.G) && PlayerStats.Grit > 0)
-        {
-=======
         if (Input.GetKeyDown(KeyCode.G) && PlayerStats.Grit > 0) {
->>>>>>> Stashed changes
             PlayerManager.stats.GritActive = !PlayerManager.stats.GritActive;
             FindObjectOfType<AudioManager>().Play("Grit Activated");
         }
@@ -81,7 +76,7 @@ public class rbPlayer : MonoBehaviour {
         Vector3 inputZ = transform.forward * Input.GetAxis("Vertical");
         movementVector = (inputX + inputZ) * movementSpeed;
         rb.velocity = new Vector3(movementVector.x, rb.velocity.y, movementVector.z);
-        if (!playingSound && rb.velocity.magnitude > 0) {
+        if (!playingSound && rb.velocity.magnitude > 1) {
             playingSound = true;
             StartCoroutine(SoundDelays("Footsteps", 1));
         }
@@ -113,6 +108,13 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.moxieBatteries -= 1;
             PlayerStats.Moxie += 50;
             Mathf.Clamp(PlayerStats.Moxie, 0, ps.moxieMax);
+            Debug.Log("Using moxie Battery" + ps.moxieMax);
+        }
+        else if(PlayerStats.moxieBatteries <= 0) {
+            Debug.Log("You have no moxie Batteries");
+        }
+        else if (PlayerStats.Moxie >= ps.moxieMax) {
+            Debug.Log("Your Moxie is Already full");
         }
         FindObjectOfType<AudioManager>().Play("Moxie Battery");
     }
@@ -185,11 +187,8 @@ public class rbPlayer : MonoBehaviour {
         }
         if (PlayerManager.stats.GritActive == true) {
             PlayerStats.Grit -= Time.deltaTime * 40;
-<<<<<<< Updated upstream
             FindObjectOfType<AudioManager>().Play("Grit Deactivated");
-=======
 
->>>>>>> Stashed changes
         }
     }
 

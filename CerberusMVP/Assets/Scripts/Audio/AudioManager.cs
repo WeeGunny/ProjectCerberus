@@ -24,12 +24,7 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-            
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
+            s.source = gameObject.GetComponent<AudioSource>();
         }
     }
 
@@ -44,6 +39,7 @@ public class AudioManager : MonoBehaviour
 
         if (!PauseMenu.GamePaused)
         {
+            s.source.clip = s.clip;
             s.source.Play();
         }
     }

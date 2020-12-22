@@ -23,7 +23,7 @@ public class NPC : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             dialogueManager.interactUI.SetActive(true);
-            gameUI.SetActive(false);
+            
             playerInRange = true;
         }
     }
@@ -40,11 +40,14 @@ public class NPC : MonoBehaviour {
     }
 
     private void ActivateNPC() {
+        gameUI.SetActive(false);
         anim.SetBool("isTalking", true);
         dialogueManager.StartDialog(myConversation);
         istalking = true;
         playerIsTalking = true;
         dialogueManager.nextButton.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
 
 
     }
