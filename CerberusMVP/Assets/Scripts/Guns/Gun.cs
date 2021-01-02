@@ -58,7 +58,7 @@ public class Gun : MonoBehaviour {
             Fire();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerStats.Moxie> moxieRequirement && !PauseMenu.GamePaused) AltFire();
+        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerStats.Moxie> moxieRequirement && !PauseMenu.GamePaused && !NPC.playerIsTalking) AltFire();
 
         if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) ReloadDelay();
 
@@ -103,7 +103,6 @@ public class Gun : MonoBehaviour {
     }
 
     protected void ResetShot() {
-        Debug.Log("ResetShot");
         animator.SetBool("isShooting", false);
         readyToShoot = true;
         allowInvoke = true;

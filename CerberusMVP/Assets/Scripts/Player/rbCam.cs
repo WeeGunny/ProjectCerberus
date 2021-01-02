@@ -55,14 +55,14 @@ public class rbCam: MonoBehaviour
     public static void ToggleCam() {
         if (Cursor.lockState == CursorLockMode.Locked) {
             Cursor.lockState = CursorLockMode.None;
-  //          rbCam.movePlayerCam = false;
+            Debug.Log("Unlocked Cursor");
         }
         else {
             Cursor.lockState = CursorLockMode.Locked;
-     //       rbCam.movePlayerCam = true;
         }
         movePlayerCam = !movePlayerCam;
         Cursor.visible = !Cursor.visible;
+        Debug.Log(Cursor.visible);
         GunManager.canFire = !GunManager.canFire;
     }
 }

@@ -109,6 +109,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.Moxie += 50;
             Mathf.Clamp(PlayerStats.Moxie, 0, ps.moxieMax);
             Debug.Log("Using moxie Battery" + ps.moxieMax);
+            FindObjectOfType<AudioManager>().Play("Moxie Battery");
         }
         else if(PlayerStats.moxieBatteries <= 0) {
             Debug.Log("You have no moxie Batteries");
@@ -116,7 +117,7 @@ public class rbPlayer : MonoBehaviour {
         else if (PlayerStats.Moxie >= ps.moxieMax) {
             Debug.Log("Your Moxie is Already full");
         }
-        FindObjectOfType<AudioManager>().Play("Moxie Battery");
+
     }
 
     private void HealthPack() {
@@ -125,8 +126,9 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.HealthPacks -= 1;
             PlayerStats.Health += 50;
             Mathf.Clamp(PlayerStats.Health, 0, ps.maxHeath);
+            FindObjectOfType<AudioManager>().Play("Health Pack");
         }
-        FindObjectOfType<AudioManager>().Play("Health Pack");
+        
     }
 
     public bool Grounded() {

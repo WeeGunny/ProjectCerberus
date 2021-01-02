@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour {
     public GameObject popUpPrefab;
     public LootTableGameObject lootTable;
 
-    protected bool isDead = false, canAttack =true;
+    protected bool isDead = false, canAttack =false;
     protected NavMeshAgent agent;
     protected float distance;
     protected Transform playerCam;
@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour {
         health = StartHealth;
         heathDisplay.SetActive(false);
         anim = gameObject.GetComponent<Animator>();
-        playerCam = PlayerManager.player.GetComponent<rbPlayer>().playerCam.transform;
+        //playerCam = PlayerManager.player.GetComponent<rbPlayer>().playerCam.transform;
         audioManager = FindObjectOfType<AudioManager>();
     }
 
@@ -52,6 +52,8 @@ public class EnemyController : MonoBehaviour {
     protected virtual void Update() {
         if (PlayerManager.playerExists && target == null) {
             target = PlayerManager.player.transform;
+            playerCam = PlayerManager.player.GetComponent<rbPlayer>().playerCam.transform;
+            canAttack = true;
         }
         if (target != null && !isDead) {
             distance = Vector3.Distance(target.position, transform.position);
@@ -117,7 +119,7 @@ public class EnemyController : MonoBehaviour {
         canAttack = false;
         GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
         EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
-        bulletProperties.direction = transform.forward;
+        bulletProperties.direction = target.transform.position - transform.position;
         ammo -= 1;
         Invoke("AttackReset",attackDelay);
         //StartCoroutine(SoundDelays("AutoRifle", 1));
@@ -188,6 +190,7 @@ public class EnemyController : MonoBehaviour {
             GameObject loot = lootTableElement.lootObject;
             Instantiate(loot, transform.position, Quaternion.identity);
         }
+        gameObject.GetComponent<BoxCollider>().enabled = false;
 
         if (isDead == true)
         {

@@ -87,7 +87,7 @@ public class BossController : EnemyController {
         anim.SetBool("playerAttackable", false);
     }
     public override void UpdateHealth() {
-        if (target != null) {
+        if (target != null && distance <= lookRadius) {
             heathDisplay.gameObject.SetActive(true);
         }
         healthBar.fillAmount = health / StartHealth;

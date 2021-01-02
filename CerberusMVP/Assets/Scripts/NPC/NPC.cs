@@ -18,24 +18,21 @@ public class NPC : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.E) && !istalking && playerInRange) ActivateNPC();
 
 
+
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            dialogueManager.interactUI.SetActive(true);
-            
+            dialogueManager.interactUI.SetActive(true);       
             playerInRange = true;
         }
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag("Player")) {
-            dialogueManager.interactUI.SetActive(false);
-            gameUI.SetActive(true);
-            istalking = false;
-            playerIsTalking = false;
-            anim.SetBool("isTalking", false);
+            dialogueManager.interactUI.SetActive(false);         
             playerInRange = false;
+            DeactivateNPC();
         }
     }
 
@@ -46,9 +43,17 @@ public class NPC : MonoBehaviour {
         istalking = true;
         playerIsTalking = true;
         dialogueManager.nextButton.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
+    }
 
+    private void DeactivateNPC() {
+        gameUI.SetActive(true);
+        dialogueManager.StopDialog();
+        istalking = false;
+        playerIsTalking = false;
+        anim.SetBool("isTalking", false);
+        if (playerInRange) dialogueManager.interactUI.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
     }
 }

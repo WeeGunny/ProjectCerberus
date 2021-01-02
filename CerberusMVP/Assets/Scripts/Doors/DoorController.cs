@@ -10,10 +10,11 @@ public class DoorController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        id = room.id;
         GameEvents.current.onDoorwayTriggerExit += OnDoorwayClose;
         GameEvents.current.onEnemiesDefeated += OnEnemiesDefeated;
 
-        this.gameObject.SetActive(false);
+       // this.gameObject.SetActive(false);
     }
     
     public void OnDoorwayClose(int id)
@@ -21,7 +22,7 @@ public class DoorController : MonoBehaviour
         if (id == this.id)
         {
             this.gameObject.SetActive(true);
-            room.SpawnEnemies();
+            //room.SpawnEnemies();
         }
             
     }
@@ -30,6 +31,7 @@ public class DoorController : MonoBehaviour
     {
         if (room.enemySPs.Count == 0)
         {
+            this.gameObject.SetActive(true);
             Destroy(gameObject);
         }
     }
