@@ -214,6 +214,7 @@ public class LevelGenerator : MonoBehaviour {
     bool CheckRoomOverlap(Room room) {
         Bounds bounds = room.RoomBounds;
         bounds.center = room.transform.position;
+        bounds.Expand(-0.1f);
         Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size/2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
         if (colliders.Length > 0) { // If there is anything within this arary
 

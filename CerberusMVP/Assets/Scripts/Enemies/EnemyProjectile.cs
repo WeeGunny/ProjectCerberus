@@ -6,22 +6,9 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour {
     public float speed = 10;
     public float damage = 10;
-    private Transform player;
-    public Vector3 target, direction;
-    Rigidbody rb;
     // Start is called before the first frame update
     void Start() {
-        rb = GetComponent<Rigidbody>();
-        player = PlayerManager.player.transform;
-        target = new Vector3(player.position.x, player.position.y, player.position.z);
-        rb.AddForce(direction * speed);
-    }
 
-    // Update is called once per frame
-    void Update() {
-        if (player == null) {
-            player = PlayerManager.player.transform;
-        }
     }
 
     private void OnCollisionEnter(Collision collision) {

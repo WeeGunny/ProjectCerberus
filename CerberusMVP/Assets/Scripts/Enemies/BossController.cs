@@ -5,13 +5,22 @@ using UnityEngine.AI;
 
 public class BossController : EnemyController {
 
+    public string bossName;
     public GameObject enemyToSpawn;
     public List<Transform> telePortPoints, minionSpawnPoints;
     public Transform parent;
     Transform currentPoint;
     public float shotgunBullets, spread;
     public float actionDelayMin, actionDelayMax;
+    public BossUI ui;
 
+    protected override void Start() {
+        health = StartHealth;
+        ui = FindObjectOfType<BossUI>();
+        ui.BossName.text = bossName;
+        //ui.gameObject.SetActive(false);
+
+    }
     protected override void Update() {
         if (PlayerManager.playerExists && target == null) {
             target = PlayerManager.player.transform;
@@ -21,8 +30,9 @@ public class BossController : EnemyController {
             if (distance <= lookRadius) {
                 FaceTarget();
             }
+                    UpdateHealth();
         }
-        UpdateHealth();
+
         if (canAttack) {
             float randomAction = Random.Range(0, 3);
 
@@ -71,6 +81,7 @@ public class BossController : EnemyController {
         Invoke(nameof(AttackReset), randomDelay);
     }
 
+    // In current setup shoot is called by attack animation event so it shoot projectiles when mouth is fully open
     private void Shoot() {
         for (int i = 0; i < shotgunBullets; i++) {
             float spreadX = Random.Range(-spread, spread);
@@ -78,7 +89,8 @@ public class BossController : EnemyController {
             GameObject bullet = Instantiate(projectile, firePoint.transform.position, Quaternion.identity);
             Vector3 direction = target.position - firePoint.position;
             EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
-            bulletProperties.direction = direction + new Vector3(spreadX, spreadY, 0);
+            direction = direction + new Vector3(spreadX, spreadY, 0);
+            bullet.GetComponent<Rigidbody>().AddForce(direction*10,ForceMode.Impulse);
         }
     }
 
@@ -88,9 +100,10 @@ public class BossController : EnemyController {
     }
     public override void UpdateHealth() {
         if (target != null && distance <= lookRadius) {
-            heathDisplay.gameObject.SetActive(true);
+            ui.gameObject.SetActive(true);
         }
-        healthBar.fillAmount = health / StartHealth;
+        ui.healthBar.fillAmount = health / StartHealth;
+        Debug.Log("Current Health is: " + health);
 
         if (health <= 0 && !isDead) {
             Death();
@@ -99,7 +112,7 @@ public class BossController : EnemyController {
 
     protected override void Death() {
         isDead = true;
-        heathDisplay.SetActive(false);
+        healthDisplay.SetActive(false);
         anim.SetBool("isDead", true);
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
         if (lootTableElement != null) {
