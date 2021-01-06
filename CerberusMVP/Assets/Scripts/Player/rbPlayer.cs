@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 public class rbPlayer : MonoBehaviour {
     public Rigidbody rb;
@@ -23,6 +24,7 @@ public class rbPlayer : MonoBehaviour {
     public Transform orientation;
     AudioManager audioManager;
     bool playingSound;
+    public static bool isDead = false;
 
     //Grit Effect
     public Volume volume;
@@ -32,6 +34,7 @@ public class rbPlayer : MonoBehaviour {
         if (PlayerManager.player == null) PlayerManager.player = this.gameObject;
         rb = GetComponent<Rigidbody>();
         audioManager = FindObjectOfType<AudioManager>();
+        isDead = false;
     }
 
     // Start is called before the first frame update
@@ -47,7 +50,13 @@ public class rbPlayer : MonoBehaviour {
         CameraTilt();
         InputManager();
         if (Grounded()) doubleJump = true;
+
+        if (isDead)
+        {
+            SceneManager.LoadScene("DeathScene");
+        }
     }
+
     private void InputManager() {
         if (Input.GetKeyDown(KeyCode.V)) MoxieBattery();
         if (Input.GetKeyDown(KeyCode.C)) HealthPack();

@@ -130,7 +130,7 @@ public class PlayerStats : MonoBehaviour {
     }
 
     private void Death() {
-        Debug.Log("The player has died");
+        rbPlayer.isDead = true;
     }
 
 }
