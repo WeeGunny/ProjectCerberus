@@ -53,12 +53,12 @@ public class Gun : MonoBehaviour {
             shooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
 
-        if (readyToShoot && shooting && !reloading && clipAmmo>0 && !NPC.playerIsTalking && !PauseMenu.GamePaused) {
+        if (readyToShoot && shooting && !reloading && clipAmmo>0 && GunManager.canFire) {
             bulletsShot = 0;
             Fire();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerStats.Moxie> moxieRequirement && !PauseMenu.GamePaused && !NPC.playerIsTalking) AltFire();
+        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerStats.Moxie> moxieRequirement && GunManager.canFire) AltFire();
 
         if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) ReloadDelay();
 

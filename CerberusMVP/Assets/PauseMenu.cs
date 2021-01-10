@@ -35,7 +35,11 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
-        if(!NPC.playerIsTalking)gameUI.SetActive(true);
+        if (!NPC.playerIsTalking) {
+            gameUI.SetActive(true);
+            rbCam.UnlockCam();
+        }
+        
         Time.timeScale = 1f;
         GamePaused = false;
     }
@@ -47,6 +51,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GamePaused = true;
         Debug.Log("Pausing Game");
+        if (!NPC.playerIsTalking) rbCam.LockCam();
     }
 
     public void LoadMenu()

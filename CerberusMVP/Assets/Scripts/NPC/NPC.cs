@@ -15,7 +15,7 @@ public class NPC : MonoBehaviour {
 
     private void Update() {
 
-        if (Input.GetKeyDown(KeyCode.E) && !istalking && playerInRange) ActivateNPC();
+        if (Input.GetKeyDown(KeyCode.E) && !playerIsTalking && playerInRange) ActivateNPC();
 
 
 
@@ -40,20 +40,18 @@ public class NPC : MonoBehaviour {
         gameUI.SetActive(false);
         anim.SetBool("isTalking", true);
         dialogueManager.StartDialog(myConversation);
-        istalking = true;
         playerIsTalking = true;
+        rbCam.LockCam();
         dialogueManager.nextButton.SetActive(true);
     }
 
     private void DeactivateNPC() {
         gameUI.SetActive(true);
         dialogueManager.StopDialog();
-        istalking = false;
         playerIsTalking = false;
         anim.SetBool("isTalking", false);
         if (playerInRange) dialogueManager.interactUI.SetActive(false);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        rbCam.UnlockCam();
 
     }
 }

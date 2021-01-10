@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class rbCam: MonoBehaviour
-{
+public class rbCam : MonoBehaviour {
 
     public float sensitivity = 100f, smoothing = 1f;
     public Transform playerTransform;
@@ -12,29 +11,15 @@ public class rbCam: MonoBehaviour
     private Vector2 currentLookPos;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if(movePlayerCam == true && !PauseMenu.GamePaused) {
+    void Update() {
+        if (movePlayerCam == true && !PauseMenu.GamePaused) {
             RotateCamera();
-        }
-
-        if (PauseMenu.GamePaused)
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
-
-        if (!PauseMenu.GamePaused)
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
@@ -52,17 +37,20 @@ public class rbCam: MonoBehaviour
 
     }
 
-    public static void ToggleCam() {
-        if (Cursor.lockState == CursorLockMode.Locked) {
-            Cursor.lockState = CursorLockMode.None;
-            Debug.Log("Unlocked Cursor");
-        }
-        else {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        movePlayerCam = !movePlayerCam;
-        Cursor.visible = !Cursor.visible;
-        Debug.Log(Cursor.visible);
-        GunManager.canFire = !GunManager.canFire;
+    //locks the camera and shows the mouse to interact with UI
+    public static void LockCam() {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        movePlayerCam = false;
+        GunManager.canFire = false;
+    }
+
+    //unlocks cam and hides mouse
+    public static void UnlockCam() {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        movePlayerCam = true;
+        GunManager.canFire = true;
+
     }
 }

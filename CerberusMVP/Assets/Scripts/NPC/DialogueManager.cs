@@ -4,12 +4,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
     public GameObject dialoguePanel, interactUI;
-    public Text npcNameText;
-    public Text dialogueText;
+    public TextMeshProUGUI npcNameText;
+    public TextMeshProUGUI dialogueText;
     public rbPlayer player;
     public GameObject nextButton;
 
@@ -30,26 +31,17 @@ public class DialogueManager : MonoBehaviour
         interactUI.SetActive(false);
         conversationIndex = 0;
         ShowText();
-
-        //Disables movement and camera movement
-        player.toggleMovement();
-        rbCam.ToggleCam();
     }
 
     public void StopDialog()
     {
-        dialoguePanel.SetActive(false);
-
-        //Enables movement again and disables mouse
-        player.toggleMovement();
-        rbCam.ToggleCam();
+        dialoguePanel.SetActive(false);;
     }
 
     private void ShowText()
     {
         string sentence = conversation[conversationIndex];
         StartCoroutine(TypeSentence(sentence));
-        //dialogueText.text = ;
     }
 
     IEnumerator TypeSentence(string sentence) {
@@ -67,7 +59,7 @@ public class DialogueManager : MonoBehaviour
         {
             conversationIndex += 1;
             ShowText();
-            Debug.Log("Next button clicked");
+            if (conversationIndex == conversation.Count - 1) nextButton.SetActive(false);
         }
     }
 
