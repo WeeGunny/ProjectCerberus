@@ -2,7 +2,7 @@
 
 public class Doorway : MonoBehaviour
 {
-    public bool isOutdoor;
+    public bool isOutdoor = false;
     // Show object's Normal as a red line
     private void OnDrawGizmos()
     {

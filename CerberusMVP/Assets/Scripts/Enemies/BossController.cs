@@ -18,7 +18,9 @@ public class BossController : EnemyController {
         health = StartHealth;
         ui = FindObjectOfType<BossUI>();
         ui.BossName.text = bossName;
-        //ui.gameObject.SetActive(false);
+        HideUI();
+        anim = gameObject.GetComponent<Animator>();
+        AttackReset();
 
     }
     protected override void Update() {
@@ -29,11 +31,14 @@ public class BossController : EnemyController {
             distance = Vector3.Distance(target.position, transform.position);
             if (distance <= lookRadius) {
                 FaceTarget();
+                UpdateHealth();
+                ShowUI();
             }
-                    UpdateHealth();
+            
+                    
         }
 
-        if (canAttack) {
+        if (canAttack && distance<=attackRadius) {
             float randomAction = Random.Range(0, 3);
 
             switch (randomAction) {
@@ -66,7 +71,7 @@ public class BossController : EnemyController {
     void Summon() {
         canAttack = false;
         int randomSpawn = Random.Range(0, minionSpawnPoints.Count);
-        if (enemyToSpawn != null) Instantiate(enemyToSpawn, minionSpawnPoints[randomSpawn], true);
+        if (enemyToSpawn != null) Instantiate(enemyToSpawn, minionSpawnPoints[randomSpawn]);
         Debug.Log("Summon");
         float randomDelay = Random.Range(actionDelayMin, actionDelayMax);
         Invoke("AttackReset", randomDelay);
@@ -98,6 +103,19 @@ public class BossController : EnemyController {
         base.AttackReset();
         anim.SetBool("playerAttackable", false);
     }
+
+
+    void ShowUI() {
+        for (int i = 0; i < ui.transform.childCount; i++) {
+            ui.transform.GetChild(i).gameObject.SetActive(true);
+        }
+    }
+
+    void HideUI() {
+        for (int i = 0; i < ui.transform.childCount; i++) {
+            ui.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
     public override void UpdateHealth() {
         if (target != null && distance <= lookRadius) {
             ui.gameObject.SetActive(true);
@@ -112,8 +130,8 @@ public class BossController : EnemyController {
 
     protected override void Death() {
         isDead = true;
-        healthDisplay.SetActive(false);
-        anim.SetBool("isDead", true);
+        ui.gameObject.SetActive(false);
+        anim.SetTrigger("isDead");
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
         if (lootTableElement != null) {
             GameObject loot = lootTableElement.lootObject;

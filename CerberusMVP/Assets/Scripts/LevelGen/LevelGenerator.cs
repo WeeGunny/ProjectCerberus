@@ -69,6 +69,7 @@ public class LevelGenerator : MonoBehaviour {
 
         //Place endRoom
         PlaceEndRoom();
+        //Makes Sure that all end doors are marked to stay closed
         foreach (Doorway door in availableDoorways) {
             door.isOutdoor = true;
         }

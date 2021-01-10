@@ -10,6 +10,7 @@ public class KillPlane : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             rbPlayer.isDead = true;
+            rbCam.LockCam();
             Debug.Log("Player Dead");
         }
     }

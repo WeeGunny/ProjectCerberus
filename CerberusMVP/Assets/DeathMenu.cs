@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class DeathMenu : MonoBehaviour
 {
+    private void Start() {
+        rbCam.UnlockCam();
+    }
     public void PlayGame()
     {
         SceneManager.LoadScene("HubArea");
