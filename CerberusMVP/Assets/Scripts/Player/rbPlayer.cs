@@ -54,6 +54,7 @@ public class rbPlayer : MonoBehaviour {
         if (isDead)
         {
             SceneManager.LoadScene("DeathScene");
+            
         }
     }
 
@@ -159,7 +160,10 @@ public class rbPlayer : MonoBehaviour {
             //keeps player on wall by adding force in direction of wall.
             if (isWallRight) {
                 rb.AddForce(orientation.right * wallRunForce / 5 * Time.deltaTime);
-                StartCoroutine(SoundDelays("WallRun", 1));
+                if (!playingSound && rb.velocity.magnitude > 1) {
+                    playingSound = true;
+                    StartCoroutine(SoundDelays("Footsteps", 1));
+                }
             }
             else {
                 rb.AddForce(-orientation.right * wallRunForce / 5 * Time.deltaTime);
@@ -216,5 +220,10 @@ public class rbPlayer : MonoBehaviour {
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - rayDistance, transform.position.z));
+    }
+
+    void OnDestroy() {
+        PlayerManager.player = null;
+        PlayerManager.playerExists = false;
     }
 }
