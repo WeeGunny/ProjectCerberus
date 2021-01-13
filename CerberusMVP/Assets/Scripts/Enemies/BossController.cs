@@ -13,6 +13,7 @@ public class BossController : EnemyController {
     public float shotgunBullets, spread;
     public float actionDelayMin, actionDelayMax;
     public BossUI ui;
+    public GameObject goalItem;
 
     protected override void Start() {
         health = StartHealth;
@@ -21,6 +22,7 @@ public class BossController : EnemyController {
         HideUI();
         anim = gameObject.GetComponent<Animator>();
         AttackReset();
+        lootTable.SetTable();
 
     }
     protected override void Update() {
@@ -137,6 +139,7 @@ public class BossController : EnemyController {
             GameObject loot = lootTableElement.lootObject;
             Instantiate(loot, transform.position, Quaternion.identity);
         }
+        Instantiate(goalItem,transform.position,Quaternion.identity);
         Destroy(gameObject, 5);
     }
 }

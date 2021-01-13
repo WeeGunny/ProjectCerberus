@@ -79,7 +79,13 @@ public class LevelGenerator : MonoBehaviour {
         Debug.Log("Level Generation complete. Jobs Done!");
         //once all rooms placed, spawn the player at the spawnpoint and remove loadscreen
         inGameUI.SetActive(true);
-        player = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
+        //if (!PlayerManager.playerExists) {
+            player = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
+        //}
+        //else {
+        //    PlayerManager.player.transform.SetPositionAndRotation(spawnPoint.position,Quaternion.identity);
+        //}
+       
         LoadScreen.SetActive(false);
     }
 

@@ -45,6 +45,7 @@ public class EnemyController : MonoBehaviour {
         healthDisplay.SetActive(false);
         anim = gameObject.GetComponent<Animator>();
         audioManager = FindObjectOfType<AudioManager>();
+        lootTable.SetTable();
     }
 
     // Update is called once per frame

@@ -5,20 +5,22 @@ using UnityEngine;
 public abstract class LootTable<T,U> where T:LootTableElement<U> {
 
     public List<T> lootItems = new List<T>();
-    float totalWeight;
+    [SerializeField]float totalWeight;
 
 
     public void SetTable() {
         float currentWeight = 0;
 
-        for (int i = 0; i > lootItems.Count; i++) {
+        for (int i = 0; i < lootItems.Count; i++) {
             lootItems[i].probablityStart = currentWeight;
             currentWeight += lootItems[i].weight;
+            totalWeight += currentWeight;
             lootItems[i].probablityEnd = currentWeight;
-
-
         }
-        totalWeight = currentWeight;
+
+        foreach(T loot in lootItems) {
+            loot.probablityPercentage = (loot.weight / totalWeight) *100;
+        }
     }
     public T ChooseItem() {
         float pickedNumber = Random.Range(0, totalWeight);
@@ -29,7 +31,7 @@ public abstract class LootTable<T,U> where T:LootTableElement<U> {
             }
         }
 
-        Debug.Log("No Item to return!");
+        Debug.Log("No Item to return!" + " : picked Number was " + pickedNumber);
         return null;
     }
 }

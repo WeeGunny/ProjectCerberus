@@ -31,7 +31,13 @@ public class rbPlayer : MonoBehaviour {
 
     void Awake() {
         PlayerManager.playerExists = true;
-        if (PlayerManager.player == null) PlayerManager.player = this.gameObject;
+        if (PlayerManager.player == null) {
+            PlayerManager.player = this.gameObject;
+            //DontDestroyOnLoad(gameObject);
+        }
+        //else {
+        //    Destroy(gameObject);
+        //}
         rb = GetComponent<Rigidbody>();
         audioManager = FindObjectOfType<AudioManager>();
         isDead = false;
