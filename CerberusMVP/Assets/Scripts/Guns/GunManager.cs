@@ -27,7 +27,7 @@ public class GunManager : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         foreach (GameObject gun in gunObjects) { // sets all guns to false
-            gun.SetActive(false);
+            if(gun != null) gun.SetActive(false);
         }
         currentGunObject = gunObjects[0];
         currentGun = currentGunObject.GetComponent<Gun>();

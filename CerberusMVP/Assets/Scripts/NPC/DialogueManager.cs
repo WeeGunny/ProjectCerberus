@@ -66,6 +66,10 @@ public class DialogueManager : MonoBehaviour
     public void Travel()
     {
         StopDialog();
+        if (rbCam.movePlayerCam == false) {
+            rbCam.UnlockCam();
+        }
         SceneManager.LoadScene("Game");
+        
     }
 }

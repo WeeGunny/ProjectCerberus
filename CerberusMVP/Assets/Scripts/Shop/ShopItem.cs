@@ -9,7 +9,7 @@ public class ShopItem : MonoBehaviour
     bool inShop = false;
 
     private void Start() {
-        shopUI = FindObjectOfType<ShopUI>();
+        shopUI = ShopUI.shopUI;
     }
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Return) && inShop) {
@@ -20,18 +20,18 @@ public class ShopItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            shopUI.ChangeItem(shopItem);
+            shopUI.ChangeItem(shopItem,gameObject);
             shopUI.ShowShop();
+            inShop = true;
         }
-        inShop = true;
+       
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.tag == "Player") {
-            shopUI.ChangeItem(shopItem);
             shopUI.HideShop();
+            inShop = false;
         }
-        inShop = false;
     }
     
 }

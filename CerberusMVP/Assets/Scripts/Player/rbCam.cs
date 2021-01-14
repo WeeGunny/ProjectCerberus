@@ -34,6 +34,7 @@ public class rbCam : MonoBehaviour {
         currentLookPos.y = Mathf.Clamp(currentLookPos.y, -90, 90);
         transform.localRotation = Quaternion.AngleAxis(-currentLookPos.y, Vector3.right);
         playerTransform.localRotation = Quaternion.AngleAxis(currentLookPos.x, playerTransform.up);
+        Debug.Log("I am moving the camera");
 
     }
 

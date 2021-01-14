@@ -47,9 +47,6 @@ public class PlayerStats : MonoBehaviour {
             PlayerManager.stats = this;
             SetUpStats();
         }
-        else {
-
-        }
 
     }
 
