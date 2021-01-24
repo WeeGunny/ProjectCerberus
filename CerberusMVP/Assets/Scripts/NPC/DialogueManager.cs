@@ -69,7 +69,5 @@ public class DialogueManager : MonoBehaviour
         if (rbCam.movePlayerCam == false) {
             rbCam.UnlockCam();
         }
-        SceneManager.LoadScene("Game");
-        
     }
 }

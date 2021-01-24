@@ -24,10 +24,9 @@ public class SceneLoader : MonoBehaviour
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
-            //Fills slider based on loading progress
-            slider.value = progress;
-            progressText.text = progress * 100f + "%";
 
+            slider.value = progress;
+            progressText.text = progress.ToString("0.0%");
             yield return null;
         }
 
