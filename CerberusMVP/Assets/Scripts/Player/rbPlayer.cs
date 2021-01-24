@@ -9,7 +9,8 @@ using UnityEngine.SceneManagement;
 public class rbPlayer : MonoBehaviour {
     public Rigidbody rb;
     public Camera playerCam;
-    public float movementSpeed = 10f;
+    public float movementSpeed = 6f;
+    public float sprintSpeed = 10f;
     public float jumpHeight = 100f;
     public float rayDistance;
     public bool movePlayer = true;
@@ -25,9 +26,13 @@ public class rbPlayer : MonoBehaviour {
     AudioManager audioManager;
     bool playingSound;
     public static bool isDead = false;
+    public bool isGrounded;
 
     //Grit Effect
     public Volume volume;
+
+    //Animator
+    public Animator anim;
 
     void Awake() {
         PlayerManager.playerExists = true;
@@ -45,7 +50,7 @@ public class rbPlayer : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-
+        
     }
 
     // Update is called once per frame
@@ -55,12 +60,24 @@ public class rbPlayer : MonoBehaviour {
         CheckForWall();
         CameraTilt();
         InputManager();
+        isGrounded = Grounded();
         if (Grounded()) doubleJump = true;
+
 
         if (isDead)
         {
             SceneManager.LoadScene("DeathScene");
             
+        }
+
+        if (rb.velocity.magnitude >1 && Grounded())
+        {
+            anim.SetBool("isWalking", true);
+        }
+
+        if (rb.velocity.magnitude <1 && Grounded())
+        {
+            anim.SetBool("isWalking", false);
         }
     }
 
@@ -71,13 +88,28 @@ public class rbPlayer : MonoBehaviour {
             PlayerManager.stats.GritActive = !PlayerManager.stats.GritActive;
             FindObjectOfType<AudioManager>().Play("Grit Activated");
         }
-        if (Input.GetKeyDown(KeyCode.Space)) Jump();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
 
         if (rb.velocity.magnitude > 0 && !Grounded()) {
             if (Input.GetKey(KeyCode.D) && isWallRight) StartWallRun();
             if (Input.GetKey(KeyCode.A) && isWallLeft) StartWallRun();
         }
         else StopWallRun();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Grounded() && rb.velocity.magnitude > 1)
+        {
+            anim.SetBool("isSprinting", true);
+            movementSpeed = sprintSpeed;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift) || rb.velocity.magnitude < 1)
+        {
+            anim.SetBool("isSprinting", false);
+            movementSpeed = 6f;
+        }
     }
 
 
@@ -100,14 +132,17 @@ public class rbPlayer : MonoBehaviour {
 
     private void Jump() {
         if (Grounded()) {
+            Debug.Log("Grounded");
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
             FindObjectOfType<AudioManager>().Play("Jump");
+            anim.SetTrigger("isJumping");
         }
         else if (doubleJump) {
             rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector2.up * (jumpHeight), ForceMode.Impulse);
             FindObjectOfType<AudioManager>().Play("Jump");
             doubleJump = false;
+            anim.SetTrigger("isDoubleJumping");
         }
 
         if (isWallRunning) {
