@@ -11,6 +11,6 @@ public class SkyboxCamera : MonoBehaviour
     void Update()
     {
         transform.rotation = playerCamera.rotation;
-        //transform.localPosition = playerCamera.position / skyboxScale;    
+        transform.localPosition = playerCamera.position / skyboxScale;    
     }
 }
