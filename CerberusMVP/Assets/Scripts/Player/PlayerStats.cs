@@ -43,15 +43,19 @@ public class PlayerStats : MonoBehaviour {
     [HideInInspector] public Gun activeGun;
 
     private void Awake() {
-        if (PlayerManager.stats == null) {
-            PlayerManager.stats = this;
-            SetUpStats();
-        }
+        //if (PlayerManager.stats == null) {
+        //    PlayerManager.stats = this;
+        //    SetUpStats();
+        //}
 
     }
 
     private void Start() {
-
+        if (PlayerManager.stats == null)
+        {
+            PlayerManager.stats = this;
+            SetUpStats();
+        }
     }
 
     private void SetUpStats() {
