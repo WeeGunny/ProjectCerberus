@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class rbPlayer : MonoBehaviour {
     public Rigidbody rb;
@@ -34,6 +35,10 @@ public class rbPlayer : MonoBehaviour {
     //Animator
     public Animator anim;
 
+    //Controller
+    PlayerControls controls;
+    Vector2 move;
+
     void Awake() {
         PlayerManager.playerExists = true;
         if (PlayerManager.player == null) {
@@ -46,6 +51,25 @@ public class rbPlayer : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         audioManager = FindObjectOfType<AudioManager>();
         isDead = false;
+
+        controls = new PlayerControls();
+        controls.Gameplay.Jump.performed += ctx => Jump();
+        controls.Gameplay.Grit.performed += ctx => Grit();
+        controls.Gameplay.HealthPack.performed += ctx => HealthPack();
+        controls.Gameplay.MoxieBattery.performed += ctx => MoxieBattery();
+
+        controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
+        controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+    }
+
+    private void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
     }
 
     // Start is called before the first frame update
@@ -128,6 +152,9 @@ public class rbPlayer : MonoBehaviour {
             playingSound = true;
             StartCoroutine(SoundDelays("Footsteps", 1));
         }
+
+        Vector2 m = new Vector2(-move.x, move.y) * Time.deltaTime;
+        transform.Translate(m, Space.World);
     }
 
     private void Jump() {
