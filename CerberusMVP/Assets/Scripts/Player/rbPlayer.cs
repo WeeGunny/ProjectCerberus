@@ -147,8 +147,16 @@ public class rbPlayer : MonoBehaviour {
 
         if (isWallRunning) {
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-            if (isWallLeft) rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
-            if (isWallRight) rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+            if (isWallLeft)
+            {
+                rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+                anim.SetBool("isWallRunningLeft", true);
+            }
+            if (isWallRight)
+            {
+                rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
+                anim.SetBool("isWallRunningRight", true);
+            }
             StopWallRun();
         }
     }
@@ -215,6 +223,8 @@ public class rbPlayer : MonoBehaviour {
     private void StopWallRun() {
         rb.useGravity = true;
         isWallRunning = false;
+        anim.SetBool("isWallRunningRight", false);
+        anim.SetBool("isWallRunningLeft", false);
     }
 
     private void CameraTilt() {
