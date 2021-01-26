@@ -64,6 +64,7 @@ public class PlayerStats : MonoBehaviour {
     void Update() {
         UpdateMoxie();
         UpdateGrit();
+        UpdateHealthUI();
         UpdateAmmoUI();
         UpdateGoldUI();
     }

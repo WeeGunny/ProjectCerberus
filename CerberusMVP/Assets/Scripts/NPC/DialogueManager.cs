@@ -11,12 +11,26 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialoguePanel, interactUI;
     public TextMeshProUGUI npcNameText;
     public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI functionButtonText;
     public rbPlayer player;
-    public GameObject nextButton;
+    public GameObject nextButton,FunctionButton;
 
     private List<string> conversation;
     private int conversationIndex;
+    public static DialogueManager dm;
+    public enum ChatType { shopKeeper, travelGuide, Default }
+    public ChatType chatType = ChatType.Default;
 
+    private void Awake() {
+        if (dm == null) {
+            dm = this;
+        }
+        else {
+            Destroy(gameObject);
+            return;
+        }
+    }
+    
     // Start is called before the first frame update
     private void Start()
     {
@@ -59,10 +73,41 @@ public class DialogueManager : MonoBehaviour
         {
             conversationIndex += 1;
             ShowText();
-            if (conversationIndex == conversation.Count - 1) nextButton.SetActive(false);
+            if (conversationIndex == conversation.Count - 1) {
+                nextButton.SetActive(false);
+                ShowFunctionButton();
+            }
         }
     }
 
+
+    public void ShowFunctionButton() {
+
+        switch (chatType) {
+            case ChatType.shopKeeper:
+                functionButtonText.text = "Shop";
+                break;
+            case ChatType.travelGuide:
+                functionButtonText.text = "Travel";
+                break;
+            default:
+                functionButtonText.text = "Good Bye";
+                break;
+
+        }
+
+        FunctionButton.SetActive(true);
+
+    }
+
+    public void Function() {
+        if (chatType == ChatType.shopKeeper) {
+            OpenShop();
+        }
+        if (chatType == ChatType.travelGuide) {
+            Travel();
+        }
+    }
     public void Travel()
     {
         StopDialog();
@@ -72,4 +117,10 @@ public class DialogueManager : MonoBehaviour
         SceneManager.LoadScene("Game");
         
     }
+    public void OpenShop() {
+        StopDialog();
+        ShopUI.shopUI.ShowShop();
+    }
+
+   
 }
