@@ -18,4 +18,14 @@ public class MoxieBattery : Item
             Debug.Log("MoxieBatteries full");
         }
     }
+
+    public override void OnBuy() {
+        if (PlayerStats.moxieBatteries < PlayerManager.stats.moxieBatteyMax) {
+            PlayerStats.moxieBatteries += 1;
+        }
+        else {
+            PlayerStats.gold += cost;
+            Debug.Log("MoxieBatteries full");
+        }
+    }
 }

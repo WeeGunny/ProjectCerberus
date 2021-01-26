@@ -29,6 +29,7 @@ public class ShopUI : MonoBehaviour {
             GameObject shopEntry = Instantiate(shopEntryPrefab, shopEntryParent.transform);
             shopEntry.GetComponent<ShopEntryUI>().SetItem(item);
         }
+        ChangeItem(currentShopItems[0]);
 
     }
 
@@ -43,10 +44,9 @@ public class ShopUI : MonoBehaviour {
 
     public void BuyItem() {
         if (PlayerStats.gold >= selectedItem.cost) {
-            selectedItem.OnPickup();
+            selectedItem.OnBuy();
             PlayerStats.gold -= selectedItem.cost;
-            Destroy(shopItemObject);
-            HideShop();
+            //Destroy(shopItemObject);
         }
 
     }

@@ -16,4 +16,15 @@ public class HealthPack : Item
             Debug.Log("HealthPacks full");
         }
     }
+
+    public override void OnBuy() {
+        if (PlayerStats.HealthPacks < PlayerManager.stats.HealthPackMax) {
+            PlayerStats.HealthPacks += 1;
+        }
+        else {
+            PlayerStats.gold += cost;
+            Debug.Log("HealthPacks full");
+        }
+
+    }
 }

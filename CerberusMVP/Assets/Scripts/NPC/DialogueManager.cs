@@ -13,13 +13,14 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI functionButtonText;
     public rbPlayer player;
-    public GameObject nextButton,FunctionButton;
+    public GameObject nextButton,functionButton;
 
     private List<string> conversation;
     private int conversationIndex;
     public static DialogueManager dm;
     public enum ChatType { shopKeeper, travelGuide, Default }
     public ChatType chatType = ChatType.Default;
+    bool isTyping;
 
     private void Awake() {
         if (dm == null) {
@@ -50,21 +51,27 @@ public class DialogueManager : MonoBehaviour
     public void StopDialog()
     {
         dialoguePanel.SetActive(false);;
+        functionButton.SetActive(false);
     }
 
     private void ShowText()
     {
         string sentence = conversation[conversationIndex];
+        if (isTyping) {
+            StopAllCoroutines();
+        }
         StartCoroutine(TypeSentence(sentence));
     }
 
     IEnumerator TypeSentence(string sentence) {
+        isTyping = true;
         dialogueText.text = "";
         foreach (char letter in sentence.ToCharArray()) {
             dialogueText.text += letter;
             yield return new WaitForSeconds(0.05f);
 
         }
+        isTyping = false;
     }
 
     public void Next()
@@ -96,7 +103,7 @@ public class DialogueManager : MonoBehaviour
 
         }
 
-        FunctionButton.SetActive(true);
+        functionButton.SetActive(true);
 
     }
 

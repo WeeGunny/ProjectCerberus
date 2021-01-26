@@ -69,7 +69,7 @@ public class rbPlayer : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.C)) HealthPack();
         if (Input.GetKeyDown(KeyCode.G) && PlayerStats.Grit > 0) {
             PlayerManager.stats.GritActive = !PlayerManager.stats.GritActive;
-            FindObjectOfType<AudioManager>().Play("Grit Activated");
+            FindObjectOfType<AudioManager>().Play("Grit Activated",gameObject);
         }
         if (Input.GetKeyDown(KeyCode.Space)) Jump();
 
@@ -101,12 +101,12 @@ public class rbPlayer : MonoBehaviour {
     private void Jump() {
         if (Grounded()) {
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-            FindObjectOfType<AudioManager>().Play("Jump");
+            FindObjectOfType<AudioManager>().Play("Jump",gameObject);
         }
         else if (doubleJump) {
             rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector2.up * (jumpHeight), ForceMode.Impulse);
-            FindObjectOfType<AudioManager>().Play("Jump");
+            FindObjectOfType<AudioManager>().Play("Jump",gameObject);
             doubleJump = false;
         }
 
@@ -125,7 +125,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.Moxie += 50;
             Mathf.Clamp(PlayerStats.Moxie, 0, ps.moxieMax);
             Debug.Log("Using moxie Battery" + ps.moxieMax);
-            FindObjectOfType<AudioManager>().Play("Moxie Battery");
+            FindObjectOfType<AudioManager>().Play("Moxie Battery",gameObject);
         }
         else if(PlayerStats.moxieBatteries <= 0) {
             Debug.Log("You have no moxie Batteries");
@@ -142,7 +142,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.HealthPacks -= 1;
             PlayerStats.Health += 50;
             Mathf.Clamp(PlayerStats.Health, 0, ps.maxHeath);
-            FindObjectOfType<AudioManager>().Play("Health Pack");
+            FindObjectOfType<AudioManager>().Play("Health Pack",gameObject);
         }
         
     }
@@ -208,14 +208,14 @@ public class rbPlayer : MonoBehaviour {
         }
         if (PlayerManager.stats.GritActive == true) {
             PlayerStats.Grit -= Time.deltaTime * 40;
-            FindObjectOfType<AudioManager>().Play("Grit Deactivated");
+            FindObjectOfType<AudioManager>().Play("Grit Deactivated",gameObject);
 
         }
     }
 
     IEnumerator SoundDelays(String soundClipName, float delayTime) {
         yield return new WaitForSeconds(delayTime);
-        audioManager.Play(soundClipName);
+        audioManager.Play(soundClipName,gameObject);
         playingSound = false;
     }
 
