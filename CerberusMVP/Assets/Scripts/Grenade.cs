@@ -56,7 +56,7 @@ public class Grenade : MonoBehaviour
                 rb.AddExplosionForce(force, transform.position, radius);
             }
         }
-        FindObjectOfType<AudioManager>().Play("Grenade");
+        FindObjectOfType<AudioManager>().Play("Grenade",gameObject);
     }
 
     void destroyObject()

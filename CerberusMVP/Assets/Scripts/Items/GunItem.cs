@@ -10,4 +10,8 @@ public class GunItem : Item
         Debug.Log("Equiping Gun");
         FindObjectOfType<GunManager>().EquipGun(gunPrefab);
     }
+    public override void OnBuy() {
+        Debug.Log("Equiping Gun");
+        FindObjectOfType<GunManager>().EquipGun(gunPrefab);
+    }
 }

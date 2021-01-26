@@ -39,8 +39,15 @@ public class GunManager : MonoBehaviour {
     }
 
     public void EquipGun(GameObject newGun) {
-        Destroy(currentGunObject);
-        currentGunObject = Instantiate(newGun, transform);
+        if(gunObjects[1]== null) {
+            gunObjects[1] = newGun;
+        }
+        else {
+            Destroy(currentGunObject);
+            currentGunObject = Instantiate(newGun, transform);
+            gunObjects[0] = newGun;
+        }
+        
 
     }
 

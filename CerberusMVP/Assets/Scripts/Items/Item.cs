@@ -11,6 +11,11 @@ public class Item : MonoBehaviour {
     public Sprite icon = null;
     public float cost;
     public bool shopItem;
+    [HideInInspector] public GameObject itemObject;
+
+    private void Start() {
+        itemObject = gameObject;
+    }
 
     protected virtual void OnTriggerEnter(Collider other) {
         if (other.tag == "Player" && !shopItem) {
@@ -19,5 +24,9 @@ public class Item : MonoBehaviour {
     }
 
     public virtual void OnPickup() {
+    }
+
+    public virtual void OnBuy() {
+
     }
 }

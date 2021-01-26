@@ -21,4 +21,16 @@ public class AmmoPack : Item
         }
     }
 
+    public override void OnBuy() {
+        float ammo = PlayerManager.stats.activeGun.currentAmmo;
+        if (ammo < PlayerManager.stats.activeGun.maxAmmo) {
+            ammo += ammoAmount;
+        }
+        else {
+            PlayerStats.gold += cost;
+            Debug.Log("Ammo full");
+        }
+
+    }
+
 }

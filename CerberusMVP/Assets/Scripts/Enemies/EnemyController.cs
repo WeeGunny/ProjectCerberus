@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class EnemyController : MonoBehaviour {
     [Header("Variables")]
     public float StartHealth = 10f;
-    public int ammo = 20;
     public float lookRadius = 10f;
     public float attackRadius = 5f;
     public float attackDelay;
@@ -70,30 +69,17 @@ public class EnemyController : MonoBehaviour {
             anim.SetBool("playerSpotted", true);
             anim.SetBool("playerAttackable", false);
         }
-        if (canAttack && distance <= attackRadius && !isDead && !isReloading) {
+
+        if (canAttack && distance <= attackRadius && !isDead) {
             agent.isStopped = true;
             anim.SetBool("playerAttackable", true);
             anim.SetBool("playerSpotted", false);
             Attack();
         }
-
         if (distance >= lookRadius && distance >= attackRadius) {
             anim.SetBool("playerSpotted", false);
             agent.isStopped = true;
         }
-
-        if (distance <= agent.stoppingDistance) {
-            //Possible spot for melee attack trigger
-            //if enemy is within their stopping distance of the player
-        }
-
-        if (ammo <= 0) {
-            isReloading = true;
-            anim.SetBool("outOfAmmo", true);
-            StartCoroutine(Reload());
-        }
-
-       
 
     }
 
@@ -117,14 +103,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     protected virtual void Attack() {
-        canAttack = false;
-        GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
-        Vector3 direction = target.transform.position - transform.position;
-        bullet.GetComponent<Rigidbody>().AddForce(direction * .1f, ForceMode.Impulse);
 
-        ammo -= 1;
-        Invoke("AttackReset",attackDelay);
-        //StartCoroutine(SoundDelays("AutoRifle", 1));
     }
 
     protected virtual void AttackReset() {
@@ -154,7 +133,7 @@ public class EnemyController : MonoBehaviour {
             StopCoroutine("DotDamage");
             StartCoroutine("DotDamage", damageType);
         }
-        FindObjectOfType<AudioManager>().Play("EnemyHit");
+        FindObjectOfType<AudioManager>().Play("EnemyHit",gameObject);
     }
 
     protected IEnumerator DotDamage(DamageType type) {
@@ -172,12 +151,6 @@ public class EnemyController : MonoBehaviour {
         popUp.GetComponent<DmgPopUp>().SetUp(damage);
     }
 
-    protected IEnumerator Reload() {
-        yield return new WaitForSeconds(3.267f);
-        ammo = 20;
-        isReloading = false;
-        anim.SetBool("outOfAmmo", false);
-    }
 
     protected virtual void Death() {
         agent.isStopped = true;
@@ -207,7 +180,7 @@ public class EnemyController : MonoBehaviour {
     IEnumerator SoundDelays(String soundClipName, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        audioManager.Play(soundClipName);
+        audioManager.Play(soundClipName,gameObject);
         playingSound = false;
     }
 

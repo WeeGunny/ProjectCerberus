@@ -43,7 +43,7 @@ public class LaserGun : Gun {
             laser = Instantiate(primaryAmmo);
             beam = laser.GetComponent<LineRenderer>();
             firingLaser = true;
-            FindObjectOfType<AudioManager>().Play(soundName);
+            FindObjectOfType<AudioManager>().Play(soundName,gameObject);
         }
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;

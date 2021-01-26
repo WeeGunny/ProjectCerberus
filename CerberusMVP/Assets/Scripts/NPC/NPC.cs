@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NPC : MonoBehaviour {
-    public DialogueManager dialogueManager;
     public GameObject gameUI;
     public Conversation myConversation;
     bool playerInRange = false;
-    bool istalking = false;
-    public bool isShopkeeper = false;
     public Animator anim;
 
     public static bool playerIsTalking;
 
-    private void Update() {
+
+    protected virtual void Update() {
 
         if (Input.GetKeyDown(KeyCode.E) && !playerIsTalking && playerInRange) ActivateNPC();
 
@@ -21,36 +19,37 @@ public class NPC : MonoBehaviour {
 
     }
 
-    private void OnTriggerEnter(Collider other) {
+    protected void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            dialogueManager.interactUI.SetActive(true);       
+            DialogueManager.dm.interactUI.SetActive(true);
             playerInRange = true;
         }
     }
 
-    private void OnTriggerExit(Collider other) {
+    protected void OnTriggerExit(Collider other) {
         if (other.CompareTag("Player")) {
-            dialogueManager.interactUI.SetActive(false);         
+            DialogueManager.dm.interactUI.SetActive(false);
             playerInRange = false;
             DeactivateNPC();
         }
     }
 
-    private void ActivateNPC() {
+    protected virtual void ActivateNPC() {
         gameUI.SetActive(false);
         anim.SetBool("isTalking", true);
-        dialogueManager.StartDialog(myConversation);
+        DialogueManager.dm.StartDialog(myConversation);
+        DialogueManager.dm.interactUI.SetActive(false);
         playerIsTalking = true;
         rbCam.LockCam();
-        dialogueManager.nextButton.SetActive(true);
+        DialogueManager.dm.nextButton.SetActive(true);
     }
 
-    private void DeactivateNPC() {
+    protected virtual void DeactivateNPC() {
         gameUI.SetActive(true);
-        dialogueManager.StopDialog();
+        DialogueManager.dm.StopDialog();
         playerIsTalking = false;
         anim.SetBool("isTalking", false);
-        if (playerInRange) dialogueManager.interactUI.SetActive(false);
+        if (playerInRange) DialogueManager.dm.interactUI.SetActive(true);
         rbCam.UnlockCam();
 
     }
