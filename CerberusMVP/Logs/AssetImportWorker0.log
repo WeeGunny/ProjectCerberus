@@ -1610,3 +1610,75 @@ System memory in use after: 223.7 MB.
 Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 3954.
 Total: 3.124600 ms (FindLiveObjects: 0.412600 ms CreateObjectMapping: 0.217000 ms MarkObjects: 2.471400 ms  DeleteObjects: 0.021700 ms)
 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002706 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.74 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.401 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 3.00 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3194 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 223.5 MB.
+System memory in use after: 223.7 MB.
+
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 3956.
+Total: 18.655300 ms (FindLiveObjects: 0.737300 ms CreateObjectMapping: 0.423700 ms MarkObjects: 17.461000 ms  DeleteObjects: 0.031700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 792.598000 seconds.
+  path: Assets/Scenes/HubArea.unity
+  artifactKey: Guid(665482ccaee773a49aebb7003c12b0a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/HubArea.unity using Guid(665482ccaee773a49aebb7003c12b0a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d27b37a88c761a47365e1fcc584a126') in 0.025578 seconds
+  Import took 0.035072 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 129.099635 seconds.
+  path: Assets/Scenes/Game.unity
+  artifactKey: Guid(8ca472eaa1794e24ba4bd7897894110a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Game.unity using Guid(8ca472eaa1794e24ba4bd7897894110a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b49f2914aefa3e36df680901ec3c125b') in 0.011222 seconds
+  Import took 0.018704 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.714155 seconds.
+  path: Assets/Scenes/PlayerModel.unity
+  artifactKey: Guid(3423a9c7298d63e40b6fb2e39e4704b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/PlayerModel.unity using Guid(3423a9c7298d63e40b6fb2e39e4704b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8ad9765816b5ff4e063136ec92eb5bd') in 0.009196 seconds
+  Import took 0.016965 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003196 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.99 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.257 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.66 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3194 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 223.5 MB.
+System memory in use after: 223.7 MB.
+
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 3958.
+Total: 3.619600 ms (FindLiveObjects: 0.503000 ms CreateObjectMapping: 0.464300 ms MarkObjects: 2.625400 ms  DeleteObjects: 0.024200 ms)
+
