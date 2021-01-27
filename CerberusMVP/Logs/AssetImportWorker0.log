@@ -1,0 +1,349 @@
+Using pre-set license
+Built from '2020.2/release' branch; Version is '2020.2.1f1 (270dd8c3da1c) revision 2559448'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10  (10.0.0) 64bit' Language: 'en' Physical Memory: 16314 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+D:\Users\Aran\Documents\Unity\2020.2.1f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+D:/Users/Aran/Documents/GitHub/ProjectCerberus/CerberusMVP
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+55834
+Successfully changed project path to: D:/Users/Aran/Documents/GitHub/ProjectCerberus/CerberusMVP
+D:/Users/Aran/Documents/GitHub/ProjectCerberus/CerberusMVP
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 68.66 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.2.1f1 (270dd8c3da1c)
+[Subsystems] Discovering subsystems at path D:/Users/Aran/Documents/Unity/2020.2.1f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Users/Aran/Documents/GitHub/ProjectCerberus/CerberusMVP/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1060 6GB (ID=0x1c03)
+    Vendor:   
+    VRAM:     6052 MB
+    Driver:   27.21.14.6109
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Initialize mono
+Mono path[0] = 'D:/Users/Aran/Documents/Unity/2020.2.1f1/Editor/Data/Managed'
+Mono path[1] = 'D:/Users/Aran/Documents/Unity/2020.2.1f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'D:/Users/Aran/Documents/Unity/2020.2.1f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56376
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: D:/Users/Aran/Documents/Unity/2020.2.1f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.000940 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 59.63 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.899 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.001908 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 61.86 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.436 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3645 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 171.0 MB.
+System memory in use after: 171.2 MB.
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 4102.
+Total: 2.167100 ms (FindLiveObjects: 0.284200 ms CreateObjectMapping: 0.151700 ms MarkObjects: 1.669300 ms  DeleteObjects: 0.061100 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/PlayerControls.inputactions
+  artifactKey: Guid(7712c0bcde1605e4e89261813c5e664a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PlayerControls.inputactions using Guid(7712c0bcde1605e4e89261813c5e664a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '829a38b92c2ed7ecb5d2cb8ac6e1e837') in 0.058921 seconds
+  Import took 0.070513 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1759.432663 seconds.
+  path: Assets/Scenes/MainMenu.unity
+  artifactKey: Guid(673e7c5204745044c9b53f706fa9379d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/MainMenu.unity using Guid(673e7c5204745044c9b53f706fa9379d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '731ffc7b79955fd7394f8577b1a35baa') in 0.005427 seconds
+  Import took 0.026190 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002120 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.901 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.60 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3486 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 162.3 MB.
+System memory in use after: 162.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 4104.
+Total: 2.087600 ms (FindLiveObjects: 0.281800 ms CreateObjectMapping: 0.148400 ms MarkObjects: 1.641900 ms  DeleteObjects: 0.014900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002014 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.60 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.856 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3486 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 162.3 MB.
+System memory in use after: 162.6 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 4106.
+Total: 2.049500 ms (FindLiveObjects: 0.280500 ms CreateObjectMapping: 0.147000 ms MarkObjects: 1.606500 ms  DeleteObjects: 0.014600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001957 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.865 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3486 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 162.4 MB.
+System memory in use after: 162.6 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 4108.
+Total: 2.411500 ms (FindLiveObjects: 0.472800 ms CreateObjectMapping: 0.225900 ms MarkObjects: 1.696200 ms  DeleteObjects: 0.015800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 1226.904791 seconds.
+  path: Assets/SFX/Shapeforms Audio Free Sound Effects/The Mint – Coins and Money Preview/AUDIO/Bank Card Placed Down 03.wav
+  artifactKey: Guid(04a08498de4804732a12c93fd4a6380e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SFX/Shapeforms Audio Free Sound Effects/The Mint – Coins and Money Preview/AUDIO/Bank Card Placed Down 03.wav using Guid(04a08498de4804732a12c93fd4a6380e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f7d0b4cb5ad6dbd51346473fcd148bc') in 0.356330 seconds
+  Import took 0.406819 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/SFX/Shapeforms Audio Free Sound Effects/The Mint – Coins and Money Preview/AUDIO/Coins_Placed_Down_Hardcover_Pitched.wav
+  artifactKey: Guid(7ed1386224f144cc395ef91f69a202c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SFX/Shapeforms Audio Free Sound Effects/The Mint – Coins and Money Preview/AUDIO/Coins_Placed_Down_Hardcover_Pitched.wav using Guid(7ed1386224f144cc395ef91f69a202c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73ea3dcc99640bc462ca009cffb2f09f') in 0.051774 seconds
+  Import took 0.064119 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000142 seconds.
+  path: Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/LASRGun_Plasma Rifle Bullet Stream_02.wav
+  artifactKey: Guid(1af371c55ce7f481192cb3b75db41e69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/LASRGun_Plasma Rifle Bullet Stream_02.wav using Guid(1af371c55ce7f481192cb3b75db41e69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea661b589f5af09eb805a8e160831227') in 0.043004 seconds
+  Import took 0.074765 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000139 seconds.
+  path: Assets/Scenes/Testing/TimeToBreakShit 1/NavMesh-Plane.asset
+  artifactKey: Guid(8a7782b7bfe05da4eb08b95810521e8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Testing/TimeToBreakShit 1/NavMesh-Plane.asset using Guid(8a7782b7bfe05da4eb08b95810521e8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f8d8ac73fab0b22bdf3ae54d2717edb') in 0.021278 seconds
+  Import took 0.050930 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000142 seconds.
+  path: Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/MOTRSrvo_Plasma Rifle Arm_01.wav
+  artifactKey: Guid(006910ae2cc6e426c9797a60920c1243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/MOTRSrvo_Plasma Rifle Arm_01.wav using Guid(006910ae2cc6e426c9797a60920c1243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7764987086ddf310e1b1ad8107f8fb5a') in 0.042777 seconds
+  Import took 0.092608 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/GORESplt_Giblet Splatter_02.wav
+  artifactKey: Guid(e2ef13590109348d19c2566f7381c2f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/GORESplt_Giblet Splatter_02.wav using Guid(e2ef13590109348d19c2566f7381c2f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '136981fd6a90e7163e55c3c4a739a9a6') in 0.050069 seconds
+  Import took 0.067318 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000140 seconds.
+  path: Assets/Meshes/Room Mesh/DONOTDELETE/Rooms/Warehouse.fbx
+  artifactKey: Guid(ca2eb6103b75ce442b05d09a89a8c7aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Meshes/Room Mesh/DONOTDELETE/Rooms/Warehouse.fbx using Guid(ca2eb6103b75ce442b05d09a89a8c7aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db24b30df2af3e0b682a7093847fb14e') in 0.530823 seconds
+  Import took 0.548731 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000146 seconds.
+  path: Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/LIQImpt_Goo Splatter_09.wav
+  artifactKey: Guid(a245ac773194142cfa12c21de3e0980b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/LIQImpt_Goo Splatter_09.wav using Guid(a245ac773194142cfa12c21de3e0980b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6a8ef26feaea87808a5d89c9240416e') in 0.035469 seconds
+  Import took 0.068973 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000140 seconds.
+  path: Assets/Prefabs/rbPlayer.prefab
+  artifactKey: Guid(2c2e47a9cd5a1e640b7e3a90e838ea75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/rbPlayer.prefab using Guid(2c2e47a9cd5a1e640b7e3a90e838ea75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df9c3f81dd1f86b171308bdceb137272') in 0.078713 seconds
+  Import took 0.090398 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000145 seconds.
+  path: Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/LASRBeam_Plasma Loop_01.wav
+  artifactKey: Guid(b47937426fd334cbb9bcd463e67e5744) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/LASRBeam_Plasma Loop_01.wav using Guid(b47937426fd334cbb9bcd463e67e5744) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1dcc8ed661a10b76d429c96f5bba11db') in 0.052609 seconds
+  Import took 0.085872 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000149 seconds.
+  path: Assets/Meshes/Hub_Area/Hub_Area_v6.2_all.fbx
+  artifactKey: Guid(833f58b1eb747c4418d1b4f03a227552) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Meshes/Hub_Area/Hub_Area_v6.2_all.fbx using Guid(833f58b1eb747c4418d1b4f03a227552) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ccc7af3676abcb4314a4086ef240fd6d') in 1.021450 seconds
+  Import took 1.038626 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000159 seconds.
+  path: Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/GUNAuto_Plasmid Machinegun Burst_07.wav
+  artifactKey: Guid(220e070a1453c4cbbb6c8cfe18bc1a4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/GUNAuto_Plasmid Machinegun Burst_07.wav using Guid(220e070a1453c4cbbb6c8cfe18bc1a4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f599ff97dd910f5e9d7ae09412e2f292') in 0.056744 seconds
+  Import took 0.113334 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000296 seconds.
+  path: Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/LASRGun_Plasma Rifle Fire_03.wav
+  artifactKey: Guid(df0e60887b63f45c7801a38fccae1f8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/LASRGun_Plasma Rifle Fire_03.wav using Guid(df0e60887b63f45c7801a38fccae1f8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4b01a50a19d00e229528e7100e356e5d') in 0.050210 seconds
+  Import took 0.071489 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.355697 seconds.
+  path: Assets/Prefabs/Guns/Ammo/LaserBeam.prefab
+  artifactKey: Guid(d6f6b6d7ebc11c84292a5a99c799bf56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Guns/Ammo/LaserBeam.prefab using Guid(d6f6b6d7ebc11c84292a5a99c799bf56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2d2120e6c786cc9a8b2cd18ebe8c746') in 0.013355 seconds
+  Import took 0.069612 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/Meshes/Hub_Area/6.1 Materials/Marble.mat
+  artifactKey: Guid(f189782a86ac00647b1d5d11383ba35a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Meshes/Hub_Area/6.1 Materials/Marble.mat using Guid(f189782a86ac00647b1d5d11383ba35a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1027e8f50997ac0809fb1df5dcc456f') in 0.019923 seconds
+  Import took 0.024928 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/Prefabs/Guns/Ammo/LaserBeam.prefab
+  artifactKey: Guid(d6f6b6d7ebc11c84292a5a99c799bf56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Guns/Ammo/LaserBeam.prefab using Guid(d6f6b6d7ebc11c84292a5a99c799bf56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2d2120e6c786cc9a8b2cd18ebe8c746') in 0.003730 seconds
+  Import took 0.008986 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000154 seconds.
+  path: Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/SCIEnrg_Energy Orb_05.wav
+  artifactKey: Guid(b71edef5d6eb84fe0b6837f05a411bd4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SFX/Shapeforms Audio Free Sound Effects/Sci Fi Weapons Cyberpunk Arsenal Preview/AUDIO/SCIEnrg_Energy Orb_05.wav using Guid(b71edef5d6eb84fe0b6837f05a411bd4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '590cb0a2e69029ed3b3702918ad09911') in 0.039582 seconds
+  Import took 0.044447 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001969 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.60 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.899 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3486 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 169.2 MB.
+System memory in use after: 169.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 4195.
+Total: 2.171400 ms (FindLiveObjects: 0.293500 ms CreateObjectMapping: 0.164000 ms MarkObjects: 1.699800 ms  DeleteObjects: 0.013600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002063 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.60 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.877 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3486 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 169.2 MB.
+System memory in use after: 169.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 4197.
+Total: 2.189800 ms (FindLiveObjects: 0.320300 ms CreateObjectMapping: 0.180300 ms MarkObjects: 1.673600 ms  DeleteObjects: 0.014200 ms)
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

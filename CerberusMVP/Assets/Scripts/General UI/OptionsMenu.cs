@@ -12,6 +12,9 @@ public class OptionsMenu : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
+    
+    
+    private rbCam rbcam;
 
     void Start()
     {
@@ -36,6 +39,10 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        GameObject playerCam = GameObject.Find("Player Camera");
+        rbCam rbcam = playerCam.GetComponent<rbCam>();
+        rbcam.sensitivity = 100f;
     }
 
     public void SetResolution (int resolutionIndex)
@@ -67,5 +74,10 @@ public class OptionsMenu : MonoBehaviour
     public void SetFullscreen (bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+    }
+
+    public void SetCamSensitivity(float CamSensitivtity)
+    {
+        rbcam.sensitivity = CamSensitivtity;
     }
 }
