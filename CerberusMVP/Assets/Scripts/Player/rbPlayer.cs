@@ -135,7 +135,7 @@ public class rbPlayer : MonoBehaviour {
             Debug.Log("Grounded");
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
             FindObjectOfType<AudioManager>().Play("Jump");
-            anim.SetTrigger("isJumping");
+            //anim.SetTrigger("isJumping");
         }
         else if (doubleJump) {
             rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);

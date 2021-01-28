@@ -102,7 +102,7 @@ public class EnemyController : MonoBehaviour {
             healthDisplay.gameObject.SetActive(true);
         }
         healthBar.fillAmount = health / StartHealth;
-        healthDisplay.transform.LookAt(healthDisplay.transform.position + playerCam.rotation * Vector3.forward, playerCam.rotation * Vector3.up);
+        //healthDisplay.transform.LookAt(healthDisplay.transform.position + playerCam.rotation * Vector3.forward, playerCam.rotation * Vector3.up);
 
         if (health <= 0 && !isDead) {
             Death();
