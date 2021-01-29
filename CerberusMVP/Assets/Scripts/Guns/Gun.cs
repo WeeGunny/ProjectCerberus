@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour {
     public GameObject gunPrefab;
@@ -28,6 +29,9 @@ public class Gun : MonoBehaviour {
     //Grit Effect
     public PostProcessVolume ppv;
 
+    //Controller
+    PlayerControls controls;
+
     //[Header("Recoil")]
     //public Vector3 upRecoil;
     //Vector3 orignalRotation;
@@ -39,6 +43,21 @@ public class Gun : MonoBehaviour {
         readyToShoot = true;
         fpsCam = FindObjectOfType<GunManager>().fpsCam;
         Reload();
+
+        controls = new PlayerControls();
+        controls.Gameplay.PrimaryFire.performed += ctx => Fire();
+        controls.Gameplay.AlternateFire.performed += ctx => AltFire();
+        controls.Gameplay.Reload.performed += ctx => Reload();
+    }
+
+    private void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
     }
 
     private void Update() {

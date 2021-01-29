@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -10,6 +11,25 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
     public GameObject gameUI;
+
+    //Controller
+    PlayerControls controls;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+        controls.Gameplay.Pause.performed += ctx => Pause();
+        controls.Gameplay.Pause.performed += ctx => Resume();
+    }
+    private void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
+    }
 
     private void Start() {
         pauseMenuUI.gameObject.SetActive(false);

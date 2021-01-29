@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class rbPlayer : MonoBehaviour {
     public Rigidbody rb;
@@ -14,12 +14,13 @@ public class rbPlayer : MonoBehaviour {
     public float jumpHeight = 100f;
     public float rayDistance;
     public bool movePlayer = true;
+    private Vector2 moveInput;
     private Vector3 movementVector;
     //Wall Run stuff
     public LayerMask isWall;
     public float maxWallRunSpeed, wallRunForce, maxWallRunTime;
     public bool isWallLeft, isWallRight;
-    bool isWallRunning, doubleJump;
+    bool isWallRunning, doubleJump, isSprinting;
     public float maxCamTilt;
     float wallRunCamTilt;
     public Transform orientation;
@@ -34,18 +35,26 @@ public class rbPlayer : MonoBehaviour {
     //Animator
     public Animator anim;
 
+
+    //Controller
+    PlayerControls controls;
+    PlayerInput playerInput;
+
     void Awake() {
         PlayerManager.playerExists = true;
+        controls = new PlayerControls();
         if (PlayerManager.player == null) {
             PlayerManager.player = this.gameObject;
-            //DontDestroyOnLoad(gameObject);
         }
-        //else {
-        //    Destroy(gameObject);
-        //}
+        else {
+            Destroy(gameObject);
+        }
         rb = GetComponent<Rigidbody>();
         audioManager = FindObjectOfType<AudioManager>();
         isDead = false;
+        controls.Gameplay.Sprint.performed += ctx => Sprint();
+        controls.Gameplay.Sprint.canceled += ctx => Sprint();
+        controls.Gameplay.Sprint.Enable();
     }
 
     // Start is called before the first frame update
@@ -55,8 +64,6 @@ public class rbPlayer : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
-        Grit();
         CheckForWall();
         CameraTilt();
         InputManager();
@@ -64,73 +71,48 @@ public class rbPlayer : MonoBehaviour {
         if (Grounded()) doubleJump = true;
 
 
-        if (isDead)
-        {
+        if (isDead) {
             SceneManager.LoadScene("DeathScene");
 
         }
 
-        if (rb.velocity.magnitude >1 && Grounded())
-        {
+        if (rb.velocity.magnitude > 1 && Grounded()) {
             anim.SetBool("isWalking", true);
         }
 
-        if (rb.velocity.magnitude <1 && Grounded())
-        {
+        if (rb.velocity.magnitude < 1 && Grounded()) {
             anim.SetBool("isWalking", false);
         }
     }
 
     private void InputManager() {
-        if (Input.GetKeyDown(KeyCode.V)) MoxieBattery();
-        if (Input.GetKeyDown(KeyCode.C)) HealthPack();
-        if (Input.GetKeyDown(KeyCode.G) && PlayerStats.Grit > 0) {
-            PlayerManager.stats.GritActive = !PlayerManager.stats.GritActive;
-            FindObjectOfType<AudioManager>().Play("Grit Activated",gameObject);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
-
         if (rb.velocity.magnitude > 0 && !Grounded()) {
             if (Input.GetKey(KeyCode.D) && isWallRight) StartWallRun();
             if (Input.GetKey(KeyCode.A) && isWallLeft) StartWallRun();
         }
         else StopWallRun();
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Grounded() && rb.velocity.magnitude > 1)
-        {
-            anim.SetBool("isSprinting", true);
-            movementSpeed = sprintSpeed;
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftShift) || rb.velocity.magnitude < 1)
-        {
-            anim.SetBool("isSprinting", false);
-            movementSpeed = 6f;
-        }
     }
-
 
     private void FixedUpdate() {
-        if (movePlayer == true) {
-            Move();
-        }
-    }
-
-    private void Move() {
-        Vector3 inputX = transform.right * Input.GetAxis("Horizontal");
-        Vector3 inputZ = transform.forward * Input.GetAxis("Vertical");
-        movementVector = (inputX + inputZ) * movementSpeed;
+        Vector3 moveX = transform.right * moveInput.x;
+        Vector3 moveZ = transform.forward * moveInput.y;
+        if(!isSprinting) movementVector = (moveX + moveZ) * movementSpeed;
+        if(isSprinting) movementVector = (moveX + moveZ) * sprintSpeed;
+        if (PlayerStats.GritActive) movementVector = movementVector / Time.timeScale;
         rb.velocity = new Vector3(movementVector.x, rb.velocity.y, movementVector.z);
-        if (!playingSound && rb.velocity.magnitude > 1) {
-            playingSound = true;
-            StartCoroutine(SoundDelays("Footsteps", 1));
-        }
+
     }
 
-    private void Jump() {
+    public void OnMove(InputValue value) {
+        moveInput = value.Get<Vector2>();
+    }
+
+    public void Sprint() {
+        isSprinting = !isSprinting;
+        anim.SetBool("isSprinting", isSprinting);
+    }
+
+    private void OnJump() {
         if (Grounded()) {
             Debug.Log("Grounded");
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
@@ -148,13 +130,11 @@ public class rbPlayer : MonoBehaviour {
 
         if (isWallRunning) {
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-            if (isWallLeft)
-            {
+            if (isWallLeft) {
                 rb.AddForce(orientation.right * jumpHeight * .5f, ForceMode.Impulse);
                 anim.SetBool("isWallRunningLeft", true);
             }
-            if (isWallRight)
-            {
+            if (isWallRight) {
                 rb.AddForce(-orientation.right * jumpHeight * .5f, ForceMode.Impulse);
                 anim.SetBool("isWallRunningRight", true);
             }
@@ -162,7 +142,7 @@ public class rbPlayer : MonoBehaviour {
         }
     }
 
-    private void MoxieBattery() {
+    private void OnMoxieBattery() {
         PlayerStats ps = PlayerManager.stats;
         if (PlayerStats.moxieBatteries > 0 && PlayerStats.Moxie < ps.moxieMax) {
             PlayerStats.moxieBatteries -= 1;
@@ -171,7 +151,7 @@ public class rbPlayer : MonoBehaviour {
             Debug.Log("Using moxie Battery" + ps.moxieMax);
             FindObjectOfType<AudioManager>().Play("Moxie Battery",gameObject);
         }
-        else if(PlayerStats.moxieBatteries <= 0) {
+        else if (PlayerStats.moxieBatteries <= 0) {
             Debug.Log("You have no moxie Batteries");
         }
         else if (PlayerStats.Moxie >= ps.moxieMax) {
@@ -180,7 +160,7 @@ public class rbPlayer : MonoBehaviour {
 
     }
 
-    private void HealthPack() {
+    private void OnHealthPack() {
         PlayerStats ps = PlayerManager.stats;
         if (PlayerStats.HealthPacks > 0 && PlayerStats.Health < ps.maxHeath) {
             PlayerStats.HealthPacks -= 1;
@@ -237,26 +217,19 @@ public class rbPlayer : MonoBehaviour {
         if (wallRunCamTilt != 0) playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
     }
 
-    void Grit() {
-        if (PlayerManager.stats.GritActive && !PauseMenu.GamePaused) {
+    private void OnGrit() {
+        if (PlayerStats.Grit > 0 && PlayerStats.GritActive == false && !PauseMenu.GamePaused) {
+            PlayerStats.GritActive = true;
             Time.timeScale = 0.2f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            if (volume.weight < 1.0f) {
-                volume.weight += Time.deltaTime * 2;
-                Debug.Log(volume.weight);
-            }
         }
-        else if (!PauseMenu.GamePaused) {
+        else if (PlayerStats.GritActive == true) {
+            PlayerStats.GritActive = false;
             Time.timeScale = 1f;
-            if (volume.weight > 0.0f) {
-                volume.weight -= Time.deltaTime * 2;
-            }
-        }
-        if (PlayerManager.stats.GritActive == true) {
-            PlayerStats.Grit -= Time.deltaTime * 40;
-            FindObjectOfType<AudioManager>().Play("Grit Deactivated",gameObject);
+
 
         }
+
     }
 
     IEnumerator SoundDelays(String soundClipName, float delayTime) {
@@ -278,4 +251,6 @@ public class rbPlayer : MonoBehaviour {
         PlayerManager.player = null;
         PlayerManager.playerExists = false;
     }
+
+
 }
