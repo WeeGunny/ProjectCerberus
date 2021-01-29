@@ -87,7 +87,7 @@ public class Gun : MonoBehaviour {
 
     public virtual void Fire() {
         readyToShoot = false;
-        FindObjectOfType<AudioManager>().Play(soundName);
+        FindObjectOfType<AudioManager>().Play(soundName,gameObject);
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
         RaycastHit hit;
         Vector3 targetPoint;
@@ -130,13 +130,13 @@ public class Gun : MonoBehaviour {
     public virtual void AltFire() {
         PlayerStats.Moxie -= moxieRequirement;
         animator.SetTrigger("altFire");
-        FindObjectOfType<AudioManager>().Play("Moxie");
+        FindObjectOfType<AudioManager>().Play("Moxie",gameObject);
     }
 
     public void ReloadDelay() {
         reloading = true;
         Invoke("Reload", reloadTime);
-        FindObjectOfType<AudioManager>().Play("Reload");
+        FindObjectOfType<AudioManager>().Play("Reload",gameObject);
     }
 
     public void Reload() {

@@ -20,7 +20,7 @@ public class ShopItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            shopUI.ChangeItem(shopItem,gameObject);
+            shopUI.ChangeItem(shopItem);
             shopUI.ShowShop();
             inShop = true;
         }

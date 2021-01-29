@@ -2,53 +2,72 @@
 using System;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
-{
+public class AudioManager : MonoBehaviour {
     public Sound[] sounds;
-
+    public AudioMixerGroup mixerGroup,sfxMixerGroup,musicMixerGroup;
     public static AudioManager audioManager;
 
-    void Awake()
-    {
-        if (audioManager == null)
-        {
-           audioManager  = this;
+    void Awake() {
+        if (audioManager == null) {
+            audioManager = this;
+            DontDestroyOnLoad(gameObject);
         }
-        else
-        {
+        else {
             Destroy(gameObject);
             return;
         }
-
-        DontDestroyOnLoad(gameObject);
-
-        foreach (Sound s in sounds)
-        {
-            s.source = gameObject.GetComponent<AudioSource>();
-        }
     }
 
-    public void Play (string name)
-    {
+    public void Play(string name, GameObject emitObject) {
         Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
-        {
+        if (s == null) {
             Debug.LogWarning("Sound: " + name + "not found!");
             return;
         }
 
-        if (!PauseMenu.GamePaused)
-        {
-            s.source.clip = s.clip;
-            s.source.Play();
+        if (!PauseMenu.GamePaused) {
+
+            if(s.soundType == Sound.SoundType.SFX) {
+                PlaySFX(s,emitObject);
+            }
+            if (s.soundType == Sound.SoundType.Music) {
+                PlayMusic(s,emitObject);
+            }
+
+            
         }
     }
 
-    public void Stop(string name)
-    {
+    private void PlaySFX(Sound s, GameObject emitObject) {
+        if (emitObject.GetComponent<AudioSource>() == null) {
+            s.source = emitObject.AddComponent<AudioSource>();
+        }
+        else {
+            s.source = emitObject.GetComponent<AudioSource>();
+        }
+        s.source.outputAudioMixerGroup =sfxMixerGroup;
+        s.source.clip = s.clip;
+        s.source.Play();
+
+    }
+
+    private void PlayMusic(Sound s, GameObject emitObject) {
+
+        if (emitObject.GetComponent<AudioSource>() == null) {
+            s.source = emitObject.AddComponent<AudioSource>();
+        }
+        else {
+            s.source = emitObject.GetComponent<AudioSource>();
+        }
+        s.source.outputAudioMixerGroup = musicMixerGroup;
+        s.source.clip = s.clip;
+        s.source.Play();
+
+    }
+
+    public void Stop(string name) {
         Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
-        {
+        if (s == null) {
             Debug.LogWarning("Sound: " + name + "not found!");
             return;
         }

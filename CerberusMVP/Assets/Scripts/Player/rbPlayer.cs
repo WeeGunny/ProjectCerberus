@@ -116,13 +116,14 @@ public class rbPlayer : MonoBehaviour {
         if (Grounded()) {
             Debug.Log("Grounded");
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-            FindObjectOfType<AudioManager>().Play("Jump");
             anim.SetTrigger("isJumping");
+            FindObjectOfType<AudioManager>().Play("Jump",gameObject);
+
         }
         else if (doubleJump) {
             rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector2.up * (jumpHeight), ForceMode.Impulse);
-            FindObjectOfType<AudioManager>().Play("Jump");
+            FindObjectOfType<AudioManager>().Play("Jump",gameObject);
             doubleJump = false;
             anim.SetTrigger("isDoubleJumping");
         }
@@ -148,7 +149,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.Moxie += 50;
             Mathf.Clamp(PlayerStats.Moxie, 0, ps.moxieMax);
             Debug.Log("Using moxie Battery" + ps.moxieMax);
-            FindObjectOfType<AudioManager>().Play("Moxie Battery");
+            FindObjectOfType<AudioManager>().Play("Moxie Battery",gameObject);
         }
         else if (PlayerStats.moxieBatteries <= 0) {
             Debug.Log("You have no moxie Batteries");
@@ -165,7 +166,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.HealthPacks -= 1;
             PlayerStats.Health += 50;
             Mathf.Clamp(PlayerStats.Health, 0, ps.maxHeath);
-            FindObjectOfType<AudioManager>().Play("Health Pack");
+            FindObjectOfType<AudioManager>().Play("Health Pack",gameObject);
         }
 
     }
@@ -233,7 +234,7 @@ public class rbPlayer : MonoBehaviour {
 
     IEnumerator SoundDelays(String soundClipName, float delayTime) {
         yield return new WaitForSeconds(delayTime);
-        audioManager.Play(soundClipName);
+        audioManager.Play(soundClipName,gameObject);
         playingSound = false;
     }
 

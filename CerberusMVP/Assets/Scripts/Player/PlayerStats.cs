@@ -64,6 +64,7 @@ public class PlayerStats : MonoBehaviour {
     void Update() {
         UpdateMoxie();
         UpdateGrit();
+        UpdateHealthUI();
         UpdateAmmoUI();
         UpdateGoldUI();
     }
@@ -80,7 +81,7 @@ public class PlayerStats : MonoBehaviour {
         if (Health <= 0) {
             Death();
         }
-        FindObjectOfType<AudioManager>().Play("Player Damaged");
+        FindObjectOfType<AudioManager>().Play("Player Damaged",gameObject);
     }
 
     private void UpdateMoxie() {
