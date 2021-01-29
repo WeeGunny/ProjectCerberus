@@ -29,16 +29,12 @@ public class rbPlayer : MonoBehaviour {
     public static bool isDead = false;
     public bool isGrounded;
 
-    //Grit Effect
-    public Volume volume;
-
     //Animator
     public Animator anim;
 
 
     //Controller
     PlayerControls controls;
-    PlayerInput playerInput;
 
     void Awake() {
         PlayerManager.playerExists = true;

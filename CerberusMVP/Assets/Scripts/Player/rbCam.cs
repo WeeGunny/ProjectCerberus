@@ -38,7 +38,7 @@ public class rbCam : MonoBehaviour {
 
     public void RotateCamera() {
         Vector2 lookInput = new Vector2(inputX, inputY);
-        lookInput = Vector2.Scale(lookInput, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+        lookInput = Vector2.Scale(lookInput, new Vector2(sensitivity/5, sensitivity/5));
         smoothedVelocity.x = Mathf.Lerp(smoothedVelocity.x, lookInput.x, 1f / smoothing);
         smoothedVelocity.y = Mathf.Lerp(smoothedVelocity.y, lookInput.y, 1f / smoothing);
         currentLookPos += smoothedVelocity;
