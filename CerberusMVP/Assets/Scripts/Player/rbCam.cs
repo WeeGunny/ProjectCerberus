@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class rbCam : MonoBehaviour {
 
@@ -9,6 +11,10 @@ public class rbCam : MonoBehaviour {
     public static bool movePlayerCam = true;
     private Vector2 smoothedVelocity;
     private Vector2 currentLookPos;
+
+    public Volume volume;
+
+    public float inputX,inputY;
 
     // Start is called before the first frame update
     void Start() {
@@ -21,12 +27,17 @@ public class rbCam : MonoBehaviour {
         if (movePlayerCam == true && !PauseMenu.GamePaused) {
             RotateCamera();
         }
+        GritEffect();
+    }
+
+    private void OnCamera(InputValue value) {
+        Vector2 inputVector = value.Get<Vector2>();
+        inputX = inputVector.x;
+        inputY = inputVector.y;
     }
 
     public void RotateCamera() {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
-        Vector2 lookInput = new Vector2(mouseX, mouseY);
+        Vector2 lookInput = new Vector2(inputX, inputY);
         lookInput = Vector2.Scale(lookInput, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
         smoothedVelocity.x = Mathf.Lerp(smoothedVelocity.x, lookInput.x, 1f / smoothing);
         smoothedVelocity.y = Mathf.Lerp(smoothedVelocity.y, lookInput.y, 1f / smoothing);
@@ -34,6 +45,20 @@ public class rbCam : MonoBehaviour {
         currentLookPos.y = Mathf.Clamp(currentLookPos.y, -90, 90);
         transform.localRotation = Quaternion.AngleAxis(-currentLookPos.y, Vector3.right);
         playerTransform.localRotation = Quaternion.AngleAxis(currentLookPos.x, playerTransform.up);
+    }
+    
+
+
+    public void GritEffect() {
+        if (PlayerStats.GritActive && volume.weight < 1.0f) {
+            volume.weight += Time.deltaTime * 2/Time.timeScale;
+            Debug.Log(volume.weight);
+        }
+
+        if (!PlayerStats.GritActive && volume.weight > 0.0f) {
+            volume.weight -= Time.deltaTime * 2 / Time.timeScale;
+        }
+
     }
 
     //locks the camera and shows the mouse to interact with UI

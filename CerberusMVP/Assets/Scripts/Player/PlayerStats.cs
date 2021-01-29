@@ -39,7 +39,7 @@ public class PlayerStats : MonoBehaviour {
     public TextMeshProUGUI moxieBatteryText;
     public Image moxieBatteryBar;
 
-    [HideInInspector] public bool GritActive = false;
+    public static bool GritActive = false;
     [HideInInspector] public Gun activeGun;
 
     private void Awake() {
@@ -91,13 +91,17 @@ public class PlayerStats : MonoBehaviour {
     }
 
     private void UpdateGrit() {
-        if (GritActive == false) {
+
+        if (GritActive) {
+            PlayerStats.Grit -= Time.deltaTime * (10 / Time.timeScale);
+        }
+        if (!GritActive) {
             Grit += Time.deltaTime;
             Grit = Mathf.Clamp(Grit, 0, gritMax);
-            Time.timeScale = 1f;
         }
         if (Grit <= 0) {
-            GritActive = false;
+            PlayerStats.GritActive = false;
+            Time.timeScale = 1f;
         }
         gritText.text = "Grit: " + Grit.ToString("F0");
         GritBar.fillAmount = Grit / gritMax;
