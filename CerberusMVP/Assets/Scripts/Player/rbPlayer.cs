@@ -20,11 +20,10 @@ public class rbPlayer : MonoBehaviour {
     public LayerMask isWall;
     public float maxWallRunSpeed, wallRunForce, maxWallRunTime;
     public bool isWallLeft, isWallRight;
-    bool isWallRunning, doubleJump, isSprinting;
+    bool isWallRunning =false, doubleJump, isSprinting =false;
     public float maxCamTilt;
     float wallRunCamTilt;
     public Transform orientation;
-    AudioManager audioManager;
     bool playingSound;
     public static bool isDead = false;
     public bool isGrounded;
@@ -46,12 +45,10 @@ public class rbPlayer : MonoBehaviour {
             Destroy(gameObject);
         }
         rb = GetComponent<Rigidbody>();
-        audioManager = FindObjectOfType<AudioManager>();
         isDead = false;
-        controls.Gameplay.Sprint.performed += ctx => Sprint();
-        controls.Gameplay.Sprint.canceled += ctx => Sprint();
-        controls.Gameplay.Sprint.Enable();
+
     }
+
 
     // Start is called before the first frame update
     void Start() {
@@ -92,8 +89,8 @@ public class rbPlayer : MonoBehaviour {
     private void FixedUpdate() {
         Vector3 moveX = transform.right * moveInput.x;
         Vector3 moveZ = transform.forward * moveInput.y;
-        if(!isSprinting) movementVector = (moveX + moveZ) * movementSpeed;
-        if(isSprinting) movementVector = (moveX + moveZ) * sprintSpeed;
+        if (!isSprinting) movementVector = (moveX + moveZ) * movementSpeed;
+        if (isSprinting) movementVector = (moveX + moveZ) * sprintSpeed;
         if (PlayerStats.GritActive) movementVector = movementVector / Time.timeScale;
         rb.velocity = new Vector3(movementVector.x, rb.velocity.y, movementVector.z);
 
@@ -113,13 +110,14 @@ public class rbPlayer : MonoBehaviour {
             Debug.Log("Grounded");
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
             anim.SetTrigger("isJumping");
-            FindObjectOfType<AudioManager>().Play("Jump",gameObject);
+            AudioManager.audioManager.Play("Jump", gameObject);
 
         }
         else if (doubleJump) {
             rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector2.up * (jumpHeight), ForceMode.Impulse);
-            FindObjectOfType<AudioManager>().Play("Jump",gameObject);
+            Debug.Log("doubleJump");
+            AudioManager.audioManager.Play("Jump",gameObject);
             doubleJump = false;
             anim.SetTrigger("isDoubleJumping");
         }
@@ -145,7 +143,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.Moxie += 50;
             Mathf.Clamp(PlayerStats.Moxie, 0, ps.moxieMax);
             Debug.Log("Using moxie Battery" + ps.moxieMax);
-            FindObjectOfType<AudioManager>().Play("Moxie Battery",gameObject);
+            FindObjectOfType<AudioManager>().Play("Moxie Battery", gameObject);
         }
         else if (PlayerStats.moxieBatteries <= 0) {
             Debug.Log("You have no moxie Batteries");
@@ -162,7 +160,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.HealthPacks -= 1;
             PlayerStats.Health += 50;
             Mathf.Clamp(PlayerStats.Health, 0, ps.maxHeath);
-            FindObjectOfType<AudioManager>().Play("Health Pack",gameObject);
+            FindObjectOfType<AudioManager>().Play("Health Pack", gameObject);
         }
 
     }
@@ -188,7 +186,6 @@ public class rbPlayer : MonoBehaviour {
                 rb.AddForce(orientation.right * wallRunForce / 5 * Time.deltaTime);
                 if (!playingSound && rb.velocity.magnitude > 1) {
                     playingSound = true;
-                    StartCoroutine(SoundDelays("Footsteps", 1));
                 }
             }
             else {
@@ -228,10 +225,8 @@ public class rbPlayer : MonoBehaviour {
 
     }
 
-    IEnumerator SoundDelays(String soundClipName, float delayTime) {
-        yield return new WaitForSeconds(delayTime);
-        audioManager.Play(soundClipName,gameObject);
-        playingSound = false;
+    public void PlayStepSound() {
+        if(rb.velocity.magnitude>0.5f && Grounded())AudioManager.audioManager.Play("Footsteps",gameObject);
     }
 
     public void toggleMovement() {
@@ -243,9 +238,18 @@ public class rbPlayer : MonoBehaviour {
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - rayDistance, transform.position.z));
     }
 
-    void OnDestroy() {
+    private void OnEnable() {
+        controls.Gameplay.Sprint.performed += ctx => Sprint();
+        controls.Gameplay.Sprint.canceled += ctx => Sprint();
+        controls.Gameplay.Sprint.Enable();
+
+    }
+    private void OnDisable() {
         PlayerManager.player = null;
         PlayerManager.playerExists = false;
+        controls.Gameplay.Sprint.performed -= ctx => Sprint();
+        controls.Gameplay.Sprint.canceled -= ctx => Sprint();
+        controls.Gameplay.Sprint.Disable();
     }
 
 

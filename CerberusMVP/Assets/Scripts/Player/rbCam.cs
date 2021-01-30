@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class rbCam : MonoBehaviour {
 
-    public float sensitivity = 100f, smoothing = 1f;
+    public static float sensitivity = 1f;
+    private float smoothing = 5f;
     public Transform playerTransform;
     public static bool movePlayerCam = true;
     private Vector2 smoothedVelocity;
@@ -19,7 +20,7 @@ public class rbCam : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame

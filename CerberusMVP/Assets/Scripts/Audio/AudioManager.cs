@@ -58,6 +58,7 @@ public class AudioManager : MonoBehaviour {
         }
         else {
             s.source = emitObject.GetComponent<AudioSource>();
+
         }
         s.source.outputAudioMixerGroup = musicMixerGroup;
         s.source.clip = s.clip;

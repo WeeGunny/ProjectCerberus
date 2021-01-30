@@ -38,7 +38,7 @@ public class CustomProjectiles : MonoBehaviour
     void Update()
     {
         //When to explode:
-        if (collisions > maxCollisions) Explode();
+        if (collisions >= maxCollisions) Explode();
 
         //Count down lifetime
         maxLifetime -= Time.deltaTime;

@@ -11,10 +11,7 @@ public class OptionsMenu : MonoBehaviour
 
     public TMP_Dropdown resolutionDropdown;
 
-    Resolution[] resolutions;
-    
-    
-    private rbCam rbcam;
+    [SerializeField] Resolution[] resolutions;
 
     void Start()
     {
@@ -39,10 +36,6 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-
-        GameObject playerCam = GameObject.Find("Player Camera");
-        rbCam rbcam = playerCam.GetComponent<rbCam>();
-        rbcam.sensitivity = 100f;
     }
 
     public void SetResolution (int resolutionIndex)
@@ -78,6 +71,6 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetCamSensitivity(float CamSensitivtity)
     {
-        rbcam.sensitivity = CamSensitivtity;
+        rbCam.sensitivity = CamSensitivtity;
     }
 }

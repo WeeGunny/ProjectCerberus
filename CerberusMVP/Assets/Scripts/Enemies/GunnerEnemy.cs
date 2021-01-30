@@ -24,7 +24,6 @@ public class GunnerEnemy : EnemyController
 
         ammo -= 1;
         Invoke("AttackReset", attackDelay);
-        //StartCoroutine(SoundDelays("AutoRifle", 1));
     }
 
     protected IEnumerator Reload() {

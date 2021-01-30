@@ -9,6 +9,13 @@ public class BossUI : MonoBehaviour
     public TextMeshProUGUI BossName;
     public Image healthBar;
     // Start is called before the first frame update
+
+    private void Awake() {
+        BossController boss = FindObjectOfType<BossController>();
+        if(boss == null) {
+            gameObject.SetActive(false);
+        }
+    }
     void Start()
     {
         

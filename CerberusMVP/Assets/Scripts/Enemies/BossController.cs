@@ -78,6 +78,8 @@ public class BossController : EnemyController {
         float randomDelay = Random.Range(actionDelayMin, actionDelayMax);
         Invoke("AttackReset", randomDelay);
 
+        AudioManager.audioManager.Play("Grit Active",gameObject);
+
     }
 
     protected override void Attack() {
@@ -95,7 +97,6 @@ public class BossController : EnemyController {
             float spreadY = Random.Range(-spread, spread);
             GameObject bullet = Instantiate(projectile, firePoint.transform.position, Quaternion.identity);
             Vector3 direction = target.position - firePoint.position;
-            EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
             direction = direction + new Vector3(spreadX, spreadY, 0);
             bullet.GetComponent<Rigidbody>().AddForce(direction*10,ForceMode.Impulse);
         }

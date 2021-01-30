@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour {
     public GameObject popUpPrefab;
     public LootTableGameObject lootTable;
 
-    protected bool isDead = false, canAttack =false;
+    protected bool isDead = false, canAttack = false;
     protected NavMeshAgent agent;
     protected float distance;
     protected Transform playerCam;
@@ -133,7 +133,7 @@ public class EnemyController : MonoBehaviour {
             StopCoroutine("DotDamage");
             StartCoroutine("DotDamage", damageType);
         }
-        FindObjectOfType<AudioManager>().Play("EnemyHit",gameObject);
+        FindObjectOfType<AudioManager>().Play("EnemyHit", gameObject);
     }
 
     protected IEnumerator DotDamage(DamageType type) {
@@ -147,7 +147,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     public void DmgPopUp(float damage) {
-        GameObject popUp = Instantiate(popUpPrefab,dmgNumberPoint);
+        GameObject popUp = Instantiate(popUpPrefab, dmgNumberPoint);
         popUp.GetComponent<DmgPopUp>().SetUp(damage);
     }
 
@@ -158,8 +158,7 @@ public class EnemyController : MonoBehaviour {
         healthDisplay.SetActive(false);
         anim.SetBool("isDead", true);
         Debug.Log("Enemy Has died");
-        if (roomImIn != null)
-            roomImIn.enemiesAlive--;
+        if (roomImIn != null) roomImIn.enemiesAlive--;
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
         if (lootTableElement != null) {
             GameObject loot = lootTableElement.lootObject;
@@ -167,20 +166,17 @@ public class EnemyController : MonoBehaviour {
         }
         gameObject.GetComponent<BoxCollider>().enabled = false;
 
-        if (isDead == true)
-        {
-            if(gameObject.tag == "Weapon")
-            {
+        if (isDead == true) {
+            if (gameObject.tag == "Weapon") {
                 GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<Rigidbody>().isKinematic = false;
             }
         }
-        Destroy(gameObject,5);
+        Destroy(gameObject, 5);
     }
-    IEnumerator SoundDelays(String soundClipName, float delayTime)
-    {
+    IEnumerator SoundDelays(String soundClipName, float delayTime) {
         yield return new WaitForSeconds(delayTime);
-        audioManager.Play(soundClipName,gameObject);
+        audioManager.Play(soundClipName, gameObject);
         playingSound = false;
     }
 

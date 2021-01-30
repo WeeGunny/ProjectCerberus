@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
     public GameObject gameUI;
+    private bool isPaused = false;
 
     //Controller
     PlayerControls controls;
@@ -18,9 +20,20 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         controls = new PlayerControls();
-        controls.Gameplay.Pause.performed += ctx => Pause();
-        controls.Gameplay.Pause.performed += ctx => Resume();
+        controls.Gameplay.Pause.performed += ctx => pauseInput();
     }
+
+    private void pauseInput() {
+        isPaused = !isPaused;
+        if (isPaused) {
+            Pause();
+        }
+        else {
+            Resume();
+        }
+        
+    }
+
     private void OnEnable()
     {
         controls.Gameplay.Enable();
@@ -34,23 +47,6 @@ public class PauseMenu : MonoBehaviour
     private void Start() {
         pauseMenuUI.gameObject.SetActive(false);
         Resume();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (GamePaused)
-            {
-                Resume();
-            }
-
-            else
-            {
-                Pause();
-            }
-        }
     }
 
     public void Resume()
