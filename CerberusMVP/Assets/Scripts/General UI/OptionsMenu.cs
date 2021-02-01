@@ -5,37 +5,39 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
 
-public class OptionsMenu : MonoBehaviour
-{
+public class OptionsMenu : MonoBehaviour {
     public AudioMixer audioMixer;
 
     public TMP_Dropdown resolutionDropdown;
+<<<<<<< Updated upstream
 
     Resolution[] resolutions;
     
     
     private rbCam rbcam;
+=======
+    [SerializeField] Resolution[] resolutions;
+    public TMP_Dropdown qualityLevelDropDown;
+>>>>>>> Stashed changes
 
-    void Start()
-    {
+    void Start() {
+        SetupResolutionList();
+        SetupQualityList();
+    }
+
+    private void SetupResolutionList() {
         resolutions = Screen.resolutions;
-
         resolutionDropdown.ClearOptions();
-
         List<string> options = new List<string>();
-
         int currentResolutionIndex = 0;
-        for (int i = 0; i < resolutions.Length; i++)
-        {
+        for (int i = 0; i < resolutions.Length; i++) {
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
 
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
-            {
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height) {
                 currentResolutionIndex = i;
             }
         }
-
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
@@ -45,39 +47,51 @@ public class OptionsMenu : MonoBehaviour
         rbcam.sensitivity = 100f;
     }
 
-    public void SetResolution (int resolutionIndex)
-    {
+    private void SetupQualityList() {
+        List<string> qualityLevels = new List<string>();
+        qualityLevelDropDown.ClearOptions();
+        for(int i = 0; i < QualitySettings.names.Length; i++) {
+            qualityLevels.Add(QualitySettings.names[i]);
+        }
+        qualityLevelDropDown.AddOptions(qualityLevels);
+        qualityLevelDropDown.value = QualitySettings.GetQualityLevel();
+        qualityLevelDropDown.RefreshShownValue();
+
+    }
+
+    public void SetResolution(int resolutionIndex) {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
-    public void SetVolumeMaster(float MasterVolume)
-    {
-        audioMixer.SetFloat("MasterVolume", Mathf.Log10(MasterVolume)*20);
+    public void SetVolumeMaster(float MasterVolume) {
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(MasterVolume) * 20);
     }
 
-    public void SetVolumeMusic(float MusicVolume)
-    {
-        audioMixer.SetFloat("MusicVolume", Mathf.Log10(MusicVolume)*20);
+    public void SetVolumeMusic(float MusicVolume) {
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(MusicVolume) * 20);
     }
 
-    public void SetVolumeSFX(float SFXVolume)
-    {
-        audioMixer.SetFloat("SFXVolume", Mathf.Log10(SFXVolume)*20);
+    public void SetVolumeSFX(float SFXVolume) {
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(SFXVolume) * 20);
     }
 
-    public void SetQuality (int qualityIndex)
-    {
+    public void SetQuality(int qualityIndex) {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
 
-    public void SetFullscreen (bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
+    public void SetFullscreen(bool isFullscreen) {
+        if (isFullscreen) Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        else Screen.fullScreenMode = FullScreenMode.Windowed;
     }
 
+<<<<<<< Updated upstream
     public void SetCamSensitivity(float CamSensitivtity)
     {
         rbcam.sensitivity = CamSensitivtity;
+=======
+    public void SetCamSensitivity(float CamSensitivtity) {
+        rbCam.sensitivity = CamSensitivtity;
+>>>>>>> Stashed changes
     }
 }
