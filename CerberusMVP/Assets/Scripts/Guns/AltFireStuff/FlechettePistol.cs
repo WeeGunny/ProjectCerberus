@@ -9,11 +9,11 @@ public class FlechettePistol : Gun
     public override void AltFire() {
         base.AltFire();
         bulletsShot = 0;
-        if (clipAmmo <=0) {
-            PlayerStats.Moxie += moxieRequirement;
-            return;
-        }
         MoxieBurst();
+        //if (clipAmmo <=0) {
+        //    PlayerManager..stats.Moxie += moxieRequirement;
+        //    return;
+        //}
     }
 
     private void MoxieBurst() {
@@ -47,7 +47,7 @@ public class FlechettePistol : Gun
             allowInvoke = false;
         }
 
-        if (bulletsShot < moxieBurstShots && clipAmmo > 0) {
+        if (bulletsShot < moxieBurstShots /* && clipAmmo > 0*/) {
             Invoke("MoxieBurst", 1 / (fireRate * moxieBurstShots));
         }
 

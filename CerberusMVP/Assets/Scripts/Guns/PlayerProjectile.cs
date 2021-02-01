@@ -26,12 +26,17 @@ public class PlayerProjectile : MonoBehaviour {
     protected virtual void OnCollisionEnter(Collision collision) {
         GameObject hit = collision.gameObject;
         //Debug.Log("You hit: " + hit.name);
+        ContactPoint contact = collision.GetContact(0);
         if (hit.tag == "Enemy") {
             DestroyProjectile();
             hit.GetComponent<EnemyController>().TakeDamage(damage,damageType);
             Debug.Log("Enemy Hit");
         }
         else if (hit.tag != "Player" && hit.tag != "Bullet") {
+
+            //GameObject hole = Instantiate(bulletHolePrefab, contact.point, Quaternion.LookRotation(contact.normal),collision.transform);
+            //hole.transform.Rotate(Vector3.right * 90);
+            //hole.transform.Translate(Vector3.one * 0.1f);
             DestroyProjectile();
             Debug.Log("bullet destroyed, hit: " + hit.name);
         }
