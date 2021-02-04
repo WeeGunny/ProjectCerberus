@@ -27,7 +27,7 @@ public class BossController : EnemyController {
     }
     protected override void Update() {
         if (PlayerManager.playerExists && target == null) {
-            target = PlayerManager.player.transform;
+            target = PlayerManager.player.GetComponent<rbPlayer>().targetPoint;
         }
         if (target != null && !isDead) {
             distance = Vector3.Distance(target.position, transform.position);
@@ -96,7 +96,7 @@ public class BossController : EnemyController {
             float spreadX = Random.Range(-spread, spread);
             float spreadY = Random.Range(-spread, spread);
             GameObject bullet = Instantiate(projectile, firePoint.transform.position, Quaternion.identity);
-            Vector3 direction = target.position - firePoint.position;
+            Vector3 direction = (target.position - firePoint.position).normalized;
             direction = direction + new Vector3(spreadX, spreadY, 0);
             bullet.GetComponent<Rigidbody>().AddForce(direction*10,ForceMode.Impulse);
         }

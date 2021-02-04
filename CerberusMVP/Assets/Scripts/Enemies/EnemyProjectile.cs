@@ -19,6 +19,7 @@ public class EnemyProjectile : MonoBehaviour {
         }
         else if (other.CompareTag("Enemy") || other.CompareTag("Bullet")) {
             Debug.Log("Hit Enemy");
+            return;
         }
         else {
             DestroyProjectile();

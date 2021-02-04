@@ -27,6 +27,7 @@ public class rbPlayer : MonoBehaviour {
     bool playingSound;
     public static bool isDead = false;
     public bool isGrounded;
+    public Transform targetPoint;
 
     //Animator
     public Animator anim;

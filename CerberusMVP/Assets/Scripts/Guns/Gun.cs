@@ -58,7 +58,6 @@ public class Gun : MonoBehaviour {
         float value = context.ReadValue<float>();
         if (allowHold) {
             fireHeld = value >= 0.9f;
-            Debug.Log(value);
         }
     }
 

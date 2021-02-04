@@ -10,16 +10,17 @@ public class GunnerEnemy : EnemyController
     public float reloadDelay = 1.5f;
 
     protected override void Update() {
-        base.Update();
         if (ammo <= 0) {
             anim.SetBool("outOfAmmo", true);
             StartCoroutine(Reload());
         }
+        base.Update();
+       
     }
     protected override void Attack() {
         canAttack = false;
         GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
-        Vector3 direction = target.transform.position - transform.position;
+        Vector3 direction = (target.position - firePoint.position).normalized;
         bullet.GetComponent<Rigidbody>().AddForce(direction * bulletSpeed , ForceMode.Impulse);
 
         ammo -= 1;
