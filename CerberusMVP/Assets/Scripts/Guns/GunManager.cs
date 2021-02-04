@@ -27,7 +27,7 @@ public class GunManager : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         foreach (GameObject gun in gunObjects) { // sets all guns to false
-            if(gun != null) gun.SetActive(false);
+            if (gun != null) gun.SetActive(false);
         }
         currentGunObject = gunObjects[0];
         currentGun = currentGunObject.GetComponent<Gun>();
@@ -39,7 +39,7 @@ public class GunManager : MonoBehaviour {
     }
 
     public void EquipGun(GameObject newGun) {
-        if(gunObjects[1]== null) {
+        if (gunObjects[1] == null) {
             gunObjects[1] = newGun;
         }
         else {
@@ -47,11 +47,25 @@ public class GunManager : MonoBehaviour {
             currentGunObject = Instantiate(newGun, transform);
             gunObjects[0] = newGun;
         }
-        
-
     }
 
-    void SwitchGun() {
+    public void OnSwitchWeapon() { // this is for new input system and is mapped to switch weapon key
+        if (currentGunObject == gunObjects[0] && gunObjects[0] != null) {
+            currentGunObject.SetActive(false); // sets current to false and switches current gun
+            currentGunObject = gunObjects[0];
+        }
+        else if (currentGunObject == gunObjects[1]) {
+            currentGunObject.SetActive(false);
+            currentGunObject = gunObjects[1];
+        }
+        if (currentGunObject != null) {
+            currentGun = currentGunObject.GetComponent<Gun>(); // sets current gun active and pushes stats to UI
+            PlayerManager.stats.activeGun = currentGun;
+            currentGunObject.SetActive(true);
+        }
+    }
+
+    void SwitchGun() { // this is for keyboard controls to allow switching to specific weapon
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             if (gunObjects[0] != null) {
                 currentGunObject.SetActive(false); // sets current to false and switches current gun
@@ -69,9 +83,5 @@ public class GunManager : MonoBehaviour {
             PlayerManager.stats.activeGun = currentGun;
             currentGunObject.SetActive(true);
         }
-    }
-
-    public static void ToggleFire() {
-        canFire = !canFire;
     }
 }

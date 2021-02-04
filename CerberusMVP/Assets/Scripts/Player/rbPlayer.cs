@@ -20,7 +20,7 @@ public class rbPlayer : MonoBehaviour {
     public LayerMask isWall;
     public float maxWallRunSpeed, wallRunForce, maxWallRunTime;
     public bool isWallLeft, isWallRight;
-    bool isWallRunning =false, doubleJump, isSprinting =false;
+    public bool isWallRunning =false, doubleJump, isSprinting =false;
     public float maxCamTilt;
     float wallRunCamTilt;
     public Transform orientation;
