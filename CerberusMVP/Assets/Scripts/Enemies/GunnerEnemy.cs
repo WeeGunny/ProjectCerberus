@@ -21,7 +21,7 @@ public class GunnerEnemy : EnemyController
         canAttack = false;
         GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
         Vector3 direction = (target.position - firePoint.position).normalized;
-        bullet.GetComponent<Rigidbody>().AddForce(direction * bulletSpeed , ForceMode.Impulse);
+        bullet.GetComponent<Rigidbody>().AddForce(direction * bulletSpeed/100 , ForceMode.Impulse);
 
         ammo -= 1;
         Invoke("AttackReset", attackDelay);

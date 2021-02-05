@@ -8,22 +8,30 @@ public class BossUI : MonoBehaviour
 {
     public TextMeshProUGUI BossName;
     public Image healthBar;
+    public static BossUI bossUI;
     // Start is called before the first frame update
 
     private void Awake() {
-        BossController boss = FindObjectOfType<BossController>();
-        if(boss == null) {
+        if (!bossUI) {
+            bossUI = this;
             gameObject.SetActive(false);
         }
     }
-    void Start()
-    {
-        
+
+    public void SetupBoss(string bossName) {
+        BossName.text = bossName;
+        ShowUI();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void UpdateBossHealth(float health, float startHealth) {
+        healthBar.fillAmount = health / startHealth;
+    }
+
+   public void ShowUI() {
+        gameObject.SetActive(true);
+    }
+
+    public void HideUI() {
+        gameObject.SetActive(false);
     }
 }

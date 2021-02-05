@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomProjectiles : MonoBehaviour
-{
+public class CustomProjectiles : MonoBehaviour {
 
     //Assignables
     public Rigidbody rb;
     public GameObject explosion;
-    public LayerMask whatIsEnemies;
+    public LayerMask whatIsTargets;
+    public enum TargetType {
+        Enemy, Player
+    }
+
+    public TargetType targetType;
+
 
     //Stats
     [Range(0f, 1f)]
@@ -19,6 +24,7 @@ public class CustomProjectiles : MonoBehaviour
     public int explosionDamage;
     public float explosionRange;
     public float explosionForce;
+    public DamageType damageType;
 
     //Lifetime
     public int maxCollisions; // Amount of times it can bounce before exploding
@@ -29,14 +35,12 @@ public class CustomProjectiles : MonoBehaviour
     PhysicMaterial physics_mat;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         //When to explode:
         if (collisions >= maxCollisions) Explode();
 
@@ -45,7 +49,7 @@ public class CustomProjectiles : MonoBehaviour
         if (maxLifetime <= 0) Explode();
 
     }
-    private void OnCollisionEnter(Collision collision) {
+    protected virtual void OnCollisionEnter(Collision collision) {
         //Don't count collisions with other bullets
         if (collision.collider.CompareTag("Bullet")) return;
 
@@ -53,23 +57,27 @@ public class CustomProjectiles : MonoBehaviour
         collisions++;
 
         //Explode if bullet hits an enemy directly and explodeOnTouch is activated
-        if (collision.collider.CompareTag("Player") && explodeOnTouch) Explode();
+        if (targetType == TargetType.Enemy && collision.collider.CompareTag("Enemy") && explodeOnTouch) Explode();
+        if (targetType == TargetType.Player && collision.collider.CompareTag("Player") && explodeOnTouch) Explode();
     }
-    private void Explode() {
+    protected virtual void Explode() {
         //Instantiate explosion
         if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
 
         //Check for enemies 
-        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
-        for (int i = 0; i < enemies.Length; i++) {
+        Collider[] targets = Physics.OverlapSphere(transform.position, explosionRange, whatIsTargets);
+        for (int i = 0; i < targets.Length; i++) {
             //Get component of enemy and call Take Damage
-
-            //Just an example!
-            ///enemies[i].GetComponent<ShootingAi>().TakeDamage(explosionDamage);
+            if (targetType == TargetType.Enemy && targets[i].GetComponent<EnemyController>() != null) {
+                targets[i].GetComponent<EnemyController>().TakeDamage(explosionDamage, damageType);
+            }
+            else if (targetType == TargetType.Player && targets[i].GetComponent<rbPlayer>() !=null) {
+                PlayerManager.stats.TakeDamage(explosionDamage);
+            }
 
             //Add explosion force (if enemy has a rigidbody)
-            if (enemies[i].GetComponent<Rigidbody>())
-                enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRange);
+            if (targets[i].GetComponent<Rigidbody>())
+                targets[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRange);
         }
 
         //Add a little delay, just to make sure everything works fine
