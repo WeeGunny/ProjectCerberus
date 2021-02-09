@@ -39,7 +39,7 @@ public class GunManager : MonoBehaviour {
     }
 
     public void EquipGun(GameObject newGun) {
-        if (gunObjects[1] == null) {
+        if (gunObjects[1] == null) { // if gun slot 2 is empty new gun fills the slot
             gunObjects[1] = newGun;
         }
         else {
@@ -61,6 +61,7 @@ public class GunManager : MonoBehaviour {
         if (currentGunObject != null) {
             currentGun = currentGunObject.GetComponent<Gun>(); // sets current gun active and pushes stats to UI
             PlayerManager.stats.activeGun = currentGun;
+            // do UI animation stuff
             currentGunObject.SetActive(true);
         }
     }
