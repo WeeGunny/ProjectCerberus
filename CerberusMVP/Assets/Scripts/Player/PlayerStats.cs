@@ -106,7 +106,7 @@ public class PlayerStats : MonoBehaviour {
     }
 
     private void UpdateHealthUI() {
-        healthText.text = "Health: " + Health;
+        healthText.text = Health.ToString();
         healthBar.fillAmount = Health / maxHeath;
     }
 
