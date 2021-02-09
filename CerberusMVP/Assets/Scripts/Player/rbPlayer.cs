@@ -110,7 +110,6 @@ public class rbPlayer : MonoBehaviour {
         if (Grounded()) {
             Debug.Log("Grounded");
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-            anim.SetTrigger("isJumping");
             AudioManager.audioManager.Play("Jump", gameObject);
 
         }
@@ -120,7 +119,6 @@ public class rbPlayer : MonoBehaviour {
             Debug.Log("doubleJump");
             AudioManager.audioManager.Play("Jump",gameObject);
             doubleJump = false;
-            anim.SetTrigger("isDoubleJumping");
         }
 
         if (isWallRunning) {
