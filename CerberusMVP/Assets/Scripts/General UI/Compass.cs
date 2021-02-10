@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Compass : MonoBehaviour
 {
     public GameObject iconPrefab;
-    List<POIMarker> poiMarkers = new List<POIMarker>();
+    public List<POIMarker> poiMarkers = new List<POIMarker>();
 
     public RawImage compassImage;
     public Transform player;
@@ -16,15 +16,13 @@ public class Compass : MonoBehaviour
 
     float compassUnit;
 
-    public POIMarker one;
-    public POIMarker two;
+    //public POIMarker one;
 
     private void Start()
     {
         compassUnit = compassImage.rectTransform.rect.width / 360f;
 
-        AddPOIMarker(one);
-        AddPOIMarker(two);
+        //AddPOIMarker(one);
     }
 
     // Update is called once per frame

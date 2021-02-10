@@ -15,7 +15,7 @@ public class WeaponDisplay : MonoBehaviour {
     public void FadeOut() {
 
         LeanTween.alphaCanvas(canvasGroup, 0, fadeTime);
-        LeanTween.move(gameObject,);
+        //LeanTween.move(gameObject, ,);
     }
 
     public void FadeIN() {
