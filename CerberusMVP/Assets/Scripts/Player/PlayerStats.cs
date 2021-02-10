@@ -118,7 +118,7 @@ public class PlayerStats : MonoBehaviour {
             totalAmmoText.text = ammoTotal;
         }
         else {
-            ammoText.text = "0/0";
+            ammoText.text = "0";
         }
 
         moxieBatteryText.text = moxieBatteries.ToString();

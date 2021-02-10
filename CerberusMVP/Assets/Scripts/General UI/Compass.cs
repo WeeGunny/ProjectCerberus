@@ -29,19 +29,25 @@ public class Compass : MonoBehaviour
     private void Update()
     {
         compassImage.uvRect = new Rect(player.localEulerAngles.y / 360f, 0f, 1f, 1f);
+        if(poiMarkers.Count > 0) {
+            foreach (POIMarker marker in poiMarkers) {
+                if (marker.image) {
+                    marker.image.rectTransform.anchoredPosition = GetPosOnCompass(marker);
 
-        foreach (POIMarker marker in poiMarkers)
-        {
-            marker.image.rectTransform.anchoredPosition = GetPosOnCompass(marker);
+                    float dist = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), marker.position);
+                    float scale = 0f;
 
-            float dist = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), marker.position);
-            float scale = 0f;
+                    if (dist < maxDistance)
+                        scale = 1f - (dist / maxDistance);
 
-            if (dist < maxDistance)
-                scale = 1f - (dist / maxDistance);
+                    marker.image.rectTransform.localScale = Vector3.one * scale;
+                }
 
-            marker.image.rectTransform.localScale = Vector3.one * scale;
+               
+            }
         }
+
+       
     }
 
     public void AddPOIMarker (POIMarker marker)

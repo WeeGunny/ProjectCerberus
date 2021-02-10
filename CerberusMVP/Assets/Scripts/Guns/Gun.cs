@@ -37,6 +37,9 @@ public class Gun : MonoBehaviour {
         readyToShoot = true;
         controls = new PlayerControls();
         Reload();
+        controls.Gameplay.PrimaryFire.performed += HeldFire;
+        controls.Gameplay.PrimaryFire.canceled += HeldFire;
+        controls.Gameplay.PrimaryFire.Enable();
     }
 
     private void Update() {
@@ -44,6 +47,9 @@ public class Gun : MonoBehaviour {
             if (readyToShoot && !reloading && clipAmmo > 0 && GunManager.canFire) {
                 bulletsShot = 0;
                 Fire();
+            }
+            else if (readyToShoot && !reloading && clipAmmo<=0 && GunManager.canFire) {
+                ReloadDelay();
             }
         }
     }
@@ -141,16 +147,18 @@ public class Gun : MonoBehaviour {
     }
 
     protected virtual void OnEnable() {
-        controls.Gameplay.PrimaryFire.performed += HeldFire;
-        controls.Gameplay.PrimaryFire.canceled += HeldFire;
-        controls.Gameplay.PrimaryFire.Enable();
+       
     }
 
     protected virtual void OnDisable() {
+        
+
+    }
+
+    private void OnDestroy() {
         controls.Gameplay.PrimaryFire.performed -= HeldFire;
         controls.Gameplay.PrimaryFire.canceled -= HeldFire;
         controls.Gameplay.PrimaryFire.Disable();
-
     }
 
 }
