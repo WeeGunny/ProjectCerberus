@@ -16,13 +16,23 @@ public class Compass : MonoBehaviour
 
     float compassUnit;
 
-    //public POIMarker one;
+    public POIMarker one;
+    public POIMarker two;
+    public POIMarker three;
+    public POIMarker four;
+    public POIMarker five;
 
     private void Start()
     {
         compassUnit = compassImage.rectTransform.rect.width / 360f;
 
-        //AddPOIMarker(one);
+        player = transform.Find("rbPlayer").GetComponent<Transform>();
+
+        AddPOIMarker(one);
+        AddPOIMarker(two);
+        AddPOIMarker(three);
+        AddPOIMarker(four);
+        AddPOIMarker(five);
     }
 
     // Update is called once per frame
