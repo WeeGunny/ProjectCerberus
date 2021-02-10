@@ -10,6 +10,7 @@ public class Gun : MonoBehaviour {
     public Animator animator;
     public Transform firePoint;
     public GameObject primaryAmmo, altAmmo;
+    public Sprite gunIcon;
     protected Camera fpsCam => FindObjectOfType<GunManager>().fpsCam;
     public float Dmg = 10f, altDmg = 10f;
     public float bulletSpeed = 25f, altSpeed = 25f;
