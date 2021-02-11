@@ -75,7 +75,7 @@ public class PauseMenu : MonoBehaviour
     {
         //if this doesn't work make sure that the menu is in the game's build
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        SceneLoader.instance.LoadScene(0);
     }
 
     public void Quit()

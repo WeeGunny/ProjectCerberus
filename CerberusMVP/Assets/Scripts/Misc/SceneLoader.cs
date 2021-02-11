@@ -8,6 +8,16 @@ public class SceneLoader : MonoBehaviour
     public GameObject loadingScreen;
     public Slider slider;
     public Text progressText;
+    public static SceneLoader instance;
+
+    private void Awake() {
+        if(instance == null) {
+            instance = this;
+        }
+        else {
+            Destroy(this);
+        }
+    }
 
     //Load the next scene while the current one is still active
     public void LoadScene(int sceneIndex)
