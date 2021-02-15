@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayGame()
     {
-        sceneLoader.LoadScene(1);
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()

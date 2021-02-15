@@ -15,8 +15,6 @@ public class NPC : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.E) && !playerIsTalking && playerInRange) ActivateNPC();
 
-
-
     }
 
     protected void OnTriggerEnter(Collider other) {
