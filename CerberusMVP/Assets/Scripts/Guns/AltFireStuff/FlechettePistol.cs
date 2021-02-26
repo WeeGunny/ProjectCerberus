@@ -39,7 +39,7 @@ public class FlechettePistol : Gun
         bullet.transform.forward = directionWithSpread;
         bullet.GetComponent<PlayerProjectile>().damage = Dmg;
         bullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * bulletSpeed, ForceMode.Impulse);
-        //clipAmmo--;
+        clipAmmo--;
         bulletsShot++;
 
         if (allowInvoke) {

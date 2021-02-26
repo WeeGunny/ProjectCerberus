@@ -9,12 +9,12 @@ public class OptionsMenu : MonoBehaviour {
     public AudioMixer audioMixer;
 
     public TMP_Dropdown resolutionDropdown;
-    [SerializeField] Resolution[] resolutions;
+    Resolution[] resolutions;
     public TMP_Dropdown qualityLevelDropDown;
 
     void Start() {
-        SetupResolutionList();
-        SetupQualityList();
+            SetupResolutionList();
+            SetupQualityList();        
     }
 
     private void SetupResolutionList() {
@@ -31,8 +31,8 @@ public class OptionsMenu : MonoBehaviour {
             }
         }
         resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+        resolutionDropdown.value = currentResolutionIndex;   
     }
 
     private void SetupQualityList() {
@@ -51,6 +51,9 @@ public class OptionsMenu : MonoBehaviour {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
+    public void SetQuality(int qualityIndex) {
+        QualitySettings.SetQualityLevel(qualityIndex);
+    }
 
     public void SetVolumeMaster(float MasterVolume) {
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(MasterVolume) * 20);
@@ -64,9 +67,7 @@ public class OptionsMenu : MonoBehaviour {
         audioMixer.SetFloat("SFXVolume", Mathf.Log10(SFXVolume) * 20);
     }
 
-    public void SetQuality(int qualityIndex) {
-        QualitySettings.SetQualityLevel(qualityIndex);
-    }
+
 
     public void SetFullscreen(bool isFullscreen) {
         if (isFullscreen) Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
