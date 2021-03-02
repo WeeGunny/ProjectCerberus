@@ -20,7 +20,8 @@ public class rbPlayer : MonoBehaviour {
     public LayerMask isWall;
     public float maxWallRunSpeed, wallRunForce, maxWallRunTime;
     public bool isWallLeft, isWallRight;
-    public bool isWallRunning =false, doubleJump, isSprinting =false;
+    public bool isWallRunning = false;
+    public bool doubleJump, isSprinting = false;
     public float maxCamTilt;
     float wallRunCamTilt;
     public Transform orientation;
@@ -28,7 +29,6 @@ public class rbPlayer : MonoBehaviour {
     public static bool isDead = false;
     public bool isGrounded;
     public Transform targetPoint;
-
     //Animator
     public Animator anim;
 
@@ -37,6 +37,7 @@ public class rbPlayer : MonoBehaviour {
     PlayerControls controls;
 
     void Awake() {
+        // We only want one PlayerManager at a time
         PlayerManager.playerExists = true;
         controls = new PlayerControls();
         if (PlayerManager.player == null) {
@@ -47,12 +48,6 @@ public class rbPlayer : MonoBehaviour {
         }
         rb = GetComponent<Rigidbody>();
         isDead = false;
-
-    }
-
-
-    // Start is called before the first frame update
-    void Start() {
 
     }
 
@@ -110,15 +105,16 @@ public class rbPlayer : MonoBehaviour {
         if (Grounded()) {
             Debug.Log("Grounded");
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-            AudioManager.audioManager.Play("Jump", gameObject);
-
+            AudioManager.audioManager.Play("Jump", gameObject); // if AudioManager does not exist, things after this line will _not_ run
+            
         }
         else if (doubleJump) {
+            doubleJump = false;
             rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector2.up * (jumpHeight), ForceMode.Impulse);
             Debug.Log("doubleJump");
             AudioManager.audioManager.Play("Jump",gameObject);
-            doubleJump = false;
+            
         }
 
         if (isWallRunning) {
