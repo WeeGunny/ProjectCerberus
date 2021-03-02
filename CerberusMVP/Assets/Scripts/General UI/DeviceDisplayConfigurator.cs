@@ -13,65 +13,7 @@ public class DeviceDisplayConfigurator : ScriptableObject
         public DeviceDisplaySettings deviceDisplaySettings;
     }
 
-    [System.Serializable]
-    public struct DisconnectedSettings
-    {
-        public string disconnectedDisplayName;
-        public Color disconnectedDisplayColor;
-    }
-
     public List<DeviceSet> listDeviceSets = new List<DeviceSet>();
-
-    public DisconnectedSettings disconnectedDeviceSettings;
-
-    private Color fallbackDisplayColor = Color.white;
-
-
-    public string GetDeviceName(PlayerInput playerInput)
-    {
-
-        string currentDeviceRawPath = playerInput.devices[0].ToString();
-
-        string newDisplayName = null;
-
-        for(int i = 0; i < listDeviceSets.Count; i++)
-        {
-
-            if(listDeviceSets[i].deviceRawPath == currentDeviceRawPath)
-            {   
-                newDisplayName = listDeviceSets[i].deviceDisplaySettings.deviceDisplayName;
-            }
-        }
-
-        if(newDisplayName == null)
-        {
-            newDisplayName = currentDeviceRawPath;
-        }
-
-        return newDisplayName;
-
-    }
-
-    
-    public Color GetDeviceColor(PlayerInput playerInput)
-    {  
-
-        string currentDeviceRawPath = playerInput.devices[0].ToString();
-        
-        Color newDisplayColor = fallbackDisplayColor;
-
-        for(int i = 0; i < listDeviceSets.Count; i++)
-        {
-
-            if(listDeviceSets[i].deviceRawPath == currentDeviceRawPath)
-            {   
-                newDisplayColor = listDeviceSets[i].deviceDisplaySettings.deviceDisplayColor;
-            }
-        }
-
-        return newDisplayColor;
-        
-    }
 
     public Sprite GetDeviceBindingIcon(PlayerInput playerInput, string playerInputDeviceInputBinding)
     {
@@ -160,16 +102,4 @@ public class DeviceDisplayConfigurator : ScriptableObject
 
         return spriteIcon;
     }
-
-    public string GetDisconnectedName()
-    {
-        return disconnectedDeviceSettings.disconnectedDisplayName;
-    }
-
-    public Color GetDisconnectedColor()
-    {
-        return disconnectedDeviceSettings.disconnectedDisplayColor;
-    }
-    
-    
 }

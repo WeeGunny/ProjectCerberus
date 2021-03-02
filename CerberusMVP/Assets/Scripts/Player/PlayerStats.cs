@@ -32,12 +32,9 @@ public class PlayerStats : MonoBehaviour {
     public Image MoxieBar;
     public TextMeshProUGUI gritText;
     public Image GritBar;
-    public TextMeshProUGUI ammoText;
-    public Image ammoBar;
+    public TextMeshProUGUI ammoText, totalAmmoText;
     public TextMeshProUGUI healthPackText;
-    public Image healthPackBar;
     public TextMeshProUGUI moxieBatteryText;
-    public Image moxieBatteryBar;
 
     public static bool GritActive = false;
     [HideInInspector] public Gun activeGun;
@@ -81,13 +78,13 @@ public class PlayerStats : MonoBehaviour {
         if (Health <= 0) {
             Death();
         }
-        FindObjectOfType<AudioManager>().Play("Player Damaged",gameObject);
+        FindObjectOfType<AudioManager>().Play("Player Damaged", gameObject);
     }
 
     private void UpdateMoxie() {
         Moxie += Time.deltaTime;
         Moxie = Mathf.Clamp(Moxie, 0, moxieMax);
-        moxieText.text = "Moxie: " + Moxie.ToString("F0");
+        moxieText.text = Moxie.ToString("F0");
         MoxieBar.fillAmount = Moxie / moxieMax;
     }
 
@@ -104,12 +101,12 @@ public class PlayerStats : MonoBehaviour {
             PlayerStats.GritActive = false;
             Time.timeScale = 1f;
         }
-        gritText.text = "Grit: " + Grit.ToString("F0");
+        gritText.text = Grit.ToString("F0");
         GritBar.fillAmount = Grit / gritMax;
     }
 
     private void UpdateHealthUI() {
-        healthText.text = "Health: " + Health;
+        healthText.text = Health.ToString();
         healthBar.fillAmount = Health / maxHeath;
     }
 
@@ -117,18 +114,16 @@ public class PlayerStats : MonoBehaviour {
         if (activeGun != null) {
             string ammoClip = activeGun.clipAmmo.ToString();
             string ammoTotal = activeGun.currentAmmo.ToString();
-            ammoText.text = ammoClip + "/" + ammoTotal;
-            ammoBar.fillAmount = activeGun.clipAmmo / activeGun.maxClipAmmo;
+            ammoText.text = ammoClip;
+            totalAmmoText.text = ammoTotal;
         }
         else {
-            ammoText.text = "0/0";
+            ammoText.text = "0";
         }
 
-        moxieBatteryText.text = moxieBatteries.ToString() + "/" + moxieBatteyMax.ToString();
-        moxieBatteryBar.fillAmount = moxieBatteries / moxieBatteyMax;
+        moxieBatteryText.text = moxieBatteries.ToString();
 
-        healthPackText.text = HealthPacks.ToString() + "/" + HealthPackMax.ToString();
-        healthPackBar.fillAmount = HealthPacks / HealthPackMax;
+        healthPackText.text = HealthPacks.ToString();
     }
 
     private void Death() {

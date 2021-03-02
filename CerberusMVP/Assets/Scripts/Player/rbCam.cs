@@ -53,7 +53,6 @@ public class rbCam : MonoBehaviour {
     public void GritEffect() {
         if (PlayerStats.GritActive && volume.weight < 1.0f) {
             volume.weight += Time.deltaTime * 2/Time.timeScale;
-            Debug.Log(volume.weight);
         }
 
         if (!PlayerStats.GritActive && volume.weight > 0.0f) {

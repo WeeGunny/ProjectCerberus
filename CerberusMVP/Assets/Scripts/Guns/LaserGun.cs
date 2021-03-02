@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LaserGun : Gun {
     GameObject laser;
@@ -11,9 +12,11 @@ public class LaserGun : Gun {
     LineRenderer beam;
 
     private void Update() {
-        GunInput();
-        if (firingLaser) {
+        if (fireHeld) {
             UpdateLaser();
+        }
+        else if (!fireHeld && firingLaser){
+            StopLaser();
         }
         //Changes the size of black hole core depending on moxie left 
         CoreBoneTransform.localScale = new Vector3(0.01f, 0.01f, 0.01f) * PlayerStats.Moxie;
@@ -22,19 +25,11 @@ public class LaserGun : Gun {
         }
     }
 
-    protected override void GunInput() {
-        if (allowHold) {
-            shooting = Input.GetKey(KeyCode.Mouse0);
-        }
-        if (readyToShoot && shooting && !reloading && clipAmmo > 0 ) {
+    public override void OnPrimaryFire() {
+       
+        if (readyToShoot && !reloading && clipAmmo > 0 ) {
             Fire();
         }
-        if (firingLaser && Input.GetKeyUp(KeyCode.Mouse0)) {
-            StopLaser();
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerStats.Moxie > moxieRequirement) AltFire();
-
-        if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) Reload();
     }
     public override void Fire() {
         readyToShoot = false;
@@ -90,7 +85,7 @@ public class LaserGun : Gun {
     }
     public void StopLaser() {
         firingLaser = false;
-        shooting = false;
+        fireHeld = false;
         Destroy(laser);
         if (allowInvoke) {
             Invoke("ResetShot", 1 / fireRate);
@@ -98,5 +93,17 @@ public class LaserGun : Gun {
         }
         FindObjectOfType<AudioManager>().Stop(soundName);
     }
+
+    //protected override void OnEnable() {
+    //    base.OnEnable();
+    //    controls.Gameplay.PrimaryFire.canceled += ContextMenu => StopLaser();
+    //    controls.Gameplay.PrimaryFire.Enable();
+    //}
+
+    //protected override void OnDisable() {
+    //    base.OnDisable();
+    //    controls.Gameplay.PrimaryFire.canceled -= ContextMenu => StopLaser();
+    //    controls.Gameplay.PrimaryFire.Disable();
+    //}
 
 }

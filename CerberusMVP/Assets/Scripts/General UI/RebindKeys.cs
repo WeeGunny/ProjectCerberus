@@ -25,7 +25,7 @@ public class RebindKeys : MonoBehaviour {
         startRebindObject.SetActive(false);
         waitingForInput.SetActive(true);
 
-        //sets the input binding to next hit excluding mouse inputs
+        //sets the input binding to next hit excluding mouse movement inputs
         rebindingOperation = inputAction.action.PerformInteractiveRebinding().
             WithControlsExcluding("<Mouse>/Position").
             WithControlsExcluding("<Mouse>/Delta").

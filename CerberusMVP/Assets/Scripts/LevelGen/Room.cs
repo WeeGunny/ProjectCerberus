@@ -53,10 +53,15 @@ public class Room : MonoBehaviour {
         GameEvents.current.onEnemiesDefeated += UnlockDoors;
         SpawnItems();
     }
+    private void OnDestroy() {
+        GameEvents.current.onDoorwayTriggerExit -= LockDoors;
+        GameEvents.current.onEnemiesDefeated -= UnlockDoors;
+    }
     private void Update() {
         if (id != -1) {
             if (enemiesAlive == 0 && roomHasEnemies) {
                 GameEvents.current.EnemiesDefeated(id);
+                roomHasEnemies = false;
             }
         }
     }

@@ -10,7 +10,8 @@ public class Gun : MonoBehaviour {
     public Animator animator;
     public Transform firePoint;
     public GameObject primaryAmmo, altAmmo;
-    protected Camera fpsCam;
+    public Sprite gunIcon;
+    protected Camera fpsCam => FindObjectOfType<GunManager>().fpsCam;
     public float Dmg = 10f, altDmg = 10f;
     public float bulletSpeed = 25f, altSpeed = 25f;
     protected float bulletsShot;
@@ -21,7 +22,7 @@ public class Gun : MonoBehaviour {
     public float clipAmmo, currentAmmo;
     //FireRate is shots per second
     public float fireRate = 1, bulletsPerShot = 1, reloadTime;
-    public bool shooting, readyToShoot, reloading;
+    public bool fireHeld, readyToShoot, reloading;
     public bool allowHold;
     public string soundName;
     protected bool allowInvoke = true;
@@ -29,65 +30,53 @@ public class Gun : MonoBehaviour {
     //Grit Effect
     public PostProcessVolume ppv;
 
-    //Controller
-    PlayerControls controls;
-
-    //[Header("Recoil")]
-    //public Vector3 upRecoil;
-    //Vector3 orignalRotation;
-    //public float minRecoil = -1;
-    //public float maxRecoil = -10;
+    protected PlayerControls controls;
 
     protected void Awake() {
         currentAmmo = maxAmmo;
         readyToShoot = true;
-        fpsCam = FindObjectOfType<GunManager>().fpsCam;
-        Reload();
-
         controls = new PlayerControls();
-        controls.Gameplay.PrimaryFire.performed += ctx => Fire();
-        controls.Gameplay.AlternateFire.performed += ctx => AltFire();
-        controls.Gameplay.Reload.performed += ctx => Reload();
-    }
-
-    private void OnEnable()
-    {
-        controls.Gameplay.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.Gameplay.Disable();
+        Reload();
     }
 
     private void Update() {
-        GunInput();
+        if (fireHeld && allowHold) {
+            if (readyToShoot && !reloading && clipAmmo > 0 && GunManager.canFire) {
+                bulletsShot = 0;
+                Fire();
+            }
+            else if (readyToShoot && !reloading && clipAmmo<=0 && GunManager.canFire) {
+                ReloadDelay();
+            }
+        }
     }
 
-    protected virtual void GunInput() {
-        if (allowHold) {
-            shooting = Input.GetKey(KeyCode.Mouse0);
-        }
-        else {
-            shooting = Input.GetKeyDown(KeyCode.Mouse0);
-        }
-
-        if (readyToShoot && shooting && !reloading && clipAmmo>0 && GunManager.canFire) {
+    public virtual void OnPrimaryFire() {
+        if (readyToShoot && !reloading && clipAmmo > 0 && GunManager.canFire) {
             bulletsShot = 0;
             Fire();
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerStats.Moxie> moxieRequirement && GunManager.canFire) AltFire();
+    public virtual void HeldFire(InputAction.CallbackContext context) {
+        float value = context.ReadValue<float>();
+        if (allowHold) {
+            fireHeld = value >= 0.9f;
+        }
+    }
 
-        if (Input.GetKeyDown(KeyCode.R) && clipAmmo < maxClipAmmo && !reloading) ReloadDelay();
+    public virtual void OnAlternateFire() {
+        if (PlayerStats.Moxie > moxieRequirement && GunManager.canFire) AltFire();
 
-        if (readyToShoot && shooting && !reloading && clipAmmo <= 0) ReloadDelay(); // auto reload if out of ammo
+    }
 
+    public virtual void OnReload() {
+        if (clipAmmo < maxClipAmmo && !reloading) ReloadDelay();
     }
 
     public virtual void Fire() {
         readyToShoot = false;
-        FindObjectOfType<AudioManager>().Play(soundName,gameObject);
+        FindObjectOfType<AudioManager>().Play(soundName, gameObject);
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
         RaycastHit hit;
         Vector3 targetPoint;
@@ -102,7 +91,7 @@ public class Gun : MonoBehaviour {
 
         float spreadX = Random.Range(-spread, spread);
         float spreadY = Random.Range(-spread, spread);
-        Vector3 directionWithSpread = directionNoSpread + new Vector3(spreadX/10, spreadY/10, 0);
+        Vector3 directionWithSpread = directionNoSpread + new Vector3(spreadX / 10, spreadY / 10, 0);
 
         GameObject bullet = Instantiate(primaryAmmo, firePoint.position, Quaternion.identity);
         bullet.transform.forward = directionWithSpread;
@@ -117,7 +106,7 @@ public class Gun : MonoBehaviour {
         }
 
         if (bulletsShot < bulletsPerShot && clipAmmo > 0) {
-            Invoke("ShootProjectile", 1 / (fireRate*bulletsPerShot));
+            Invoke("ShootProjectile", 1 / (fireRate * bulletsPerShot));
         }
     }
 
@@ -130,18 +119,18 @@ public class Gun : MonoBehaviour {
     public virtual void AltFire() {
         PlayerStats.Moxie -= moxieRequirement;
         animator.SetTrigger("altFire");
-        FindObjectOfType<AudioManager>().Play("Moxie",gameObject);
+        FindObjectOfType<AudioManager>().Play("Moxie", gameObject);
     }
 
     public void ReloadDelay() {
         reloading = true;
         Invoke("Reload", reloadTime);
-        FindObjectOfType<AudioManager>().Play("Reload",gameObject);
+        FindObjectOfType<AudioManager>().Play("Reload", gameObject);
     }
 
     public void Reload() {
         animator.SetTrigger("isReloading");
-        
+
         float reloadAmount = maxClipAmmo - clipAmmo;
         if (currentAmmo >= reloadAmount) {
             clipAmmo += reloadAmount;
@@ -153,4 +142,22 @@ public class Gun : MonoBehaviour {
         }
         reloading = false;
     }
+
+    protected virtual void OnEnable() {
+        controls.Gameplay.PrimaryFire.performed += HeldFire;
+        controls.Gameplay.PrimaryFire.canceled += HeldFire;
+        controls.Gameplay.PrimaryFire.Enable();
+    }
+
+    protected virtual void OnDisable() {
+
+        controls.Gameplay.PrimaryFire.performed -= HeldFire;
+        controls.Gameplay.PrimaryFire.canceled -= HeldFire;
+        controls.Gameplay.PrimaryFire.Disable();
+    }
+
+    private void OnDestroy() {
+
+    }
+
 }

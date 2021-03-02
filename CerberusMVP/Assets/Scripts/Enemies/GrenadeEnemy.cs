@@ -8,7 +8,7 @@ public class GrenadeEnemy : GunnerEnemy
     protected override void Attack() {
         canAttack = false;
         GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
-        Vector3 direction = target.transform.position - transform.position;
+        Vector3 direction = (target.transform.position - firePoint.position).normalized;
         bullet.GetComponent<Rigidbody>().AddForce(direction * bulletSpeed, ForceMode.Impulse);
 
         ammo -= 1;

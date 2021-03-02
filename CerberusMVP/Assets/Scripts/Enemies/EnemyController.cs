@@ -50,7 +50,7 @@ public class EnemyController : MonoBehaviour {
     // Update is called once per frame
     protected virtual void Update() {
         if (PlayerManager.playerExists && target == null) {
-            target = PlayerManager.player.transform;
+            target = PlayerManager.player.GetComponent<rbPlayer>().targetPoint;
             playerCam = PlayerManager.player.GetComponent<rbPlayer>().playerCam.transform;
             canAttack = true;
         }

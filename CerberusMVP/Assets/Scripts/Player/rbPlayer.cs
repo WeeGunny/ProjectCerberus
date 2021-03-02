@@ -20,13 +20,14 @@ public class rbPlayer : MonoBehaviour {
     public LayerMask isWall;
     public float maxWallRunSpeed, wallRunForce, maxWallRunTime;
     public bool isWallLeft, isWallRight;
-    bool isWallRunning =false, doubleJump, isSprinting =false;
+    public bool isWallRunning =false, doubleJump, isSprinting =false;
     public float maxCamTilt;
     float wallRunCamTilt;
     public Transform orientation;
     bool playingSound;
     public static bool isDead = false;
     public bool isGrounded;
+    public Transform targetPoint;
 
     //Animator
     public Animator anim;
@@ -109,7 +110,6 @@ public class rbPlayer : MonoBehaviour {
         if (Grounded()) {
             Debug.Log("Grounded");
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-            anim.SetTrigger("isJumping");
             AudioManager.audioManager.Play("Jump", gameObject);
 
         }
@@ -119,7 +119,6 @@ public class rbPlayer : MonoBehaviour {
             Debug.Log("doubleJump");
             AudioManager.audioManager.Play("Jump",gameObject);
             doubleJump = false;
-            anim.SetTrigger("isDoubleJumping");
         }
 
         if (isWallRunning) {

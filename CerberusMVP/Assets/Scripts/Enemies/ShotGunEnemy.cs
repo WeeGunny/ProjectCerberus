@@ -13,8 +13,8 @@ public class ShotGunEnemy : GunnerEnemy
             float spreadY = Random.Range(-spread, spread);
             GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
             EnemyProjectile bulletProperties = bullet.GetComponent<EnemyProjectile>();
-            Vector3 direction = transform.forward - new Vector3(spreadX, spreadY, 0);
-            bullet.GetComponent<Rigidbody>().AddForce(direction*bulletSpeed,ForceMode.Impulse);
+            Vector3 direction = (target.position -firePoint.position) - new Vector3(spreadX, spreadY, 0);
+            bullet.GetComponent<Rigidbody>().AddForce(direction*bulletSpeed/100,ForceMode.Impulse);
         }
         ammo -= 1;
         Invoke("AttackReset", attackDelay);
