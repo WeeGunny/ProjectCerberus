@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public SceneLoader sceneLoader;
+
+    private void Start() {
+        rbCam.LockCam();
+    }
     public void PlayGame()
     {
-        SceneManager.LoadScene("HubArea");
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()

@@ -4,10 +4,27 @@ using UnityEngine;
 
 public class HealthPack : Item
 {
-    public float HealthAmount;
+    private void Start() {
+        LeanTween.rotateAround(this.gameObject, Vector3.up, 360, 3).setLoopClamp();
+    }
+    public override void OnPickup() {
+        if (PlayerStats.HealthPacks < PlayerManager.stats.HealthPackMax) {
+            PlayerStats.HealthPacks += 1;
+            Destroy(gameObject);
+        }
+        else {
+            Debug.Log("HealthPacks full");
+        }
+    }
 
-    public override void Use() {
-        base.Use();
-        PlayerManager.instance.stats.Health += HealthAmount;
+    public override void OnBuy() {
+        if (PlayerStats.HealthPacks < PlayerManager.stats.HealthPackMax) {
+            PlayerStats.HealthPacks += 1;
+        }
+        else {
+            PlayerStats.gold += cost;
+            Debug.Log("HealthPacks full");
+        }
+
     }
 }

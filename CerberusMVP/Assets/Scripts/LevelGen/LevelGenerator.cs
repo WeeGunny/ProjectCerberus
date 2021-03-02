@@ -47,16 +47,10 @@ public class LevelGenerator : MonoBehaviour {
         StartCoroutine("GenerateLevel");
     }
     private void Update() {
-        if (Input.GetKey(KeyCode.LeftControl)) {
-            ResetLevelGenerator();
-        }
 
     }
     IEnumerator GenerateLevel() {
-        // WaitForSeconds startup = new WaitForSeconds(1);
         WaitForFixedUpdate interval = new WaitForFixedUpdate();
-
-        // yield return startup;
 
         //Place startRoom
         PlaceStartRoom();
@@ -69,33 +63,33 @@ public class LevelGenerator : MonoBehaviour {
             PlaceMainRoom();
             yield return interval;
             i++;
-            if (i < iterations)
-                PlaceConnectingRoom();
+            if (i < iterations) PlaceConnectingRoom();
             yield return interval;
         }
 
         //Place endRoom
         PlaceEndRoom();
+        //Makes Sure that all end doors are marked to stay closed
+        foreach (Doorway door in availableDoorways) {
+            door.isOutdoor = true;
+        }
         yield return interval;
-
-        // Level Generation Finished
-        Debug.Log("Level Generation complete. Jobs Done!");
         //once all rooms placed, spawn the player at the spawnpoint and remove loadscreen
         inGameUI.SetActive(true);
-        player = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
+        //if (!PlayerManager.playerExists) {
+            player = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
+        //}
+        //else {
+        //    PlayerManager.player.transform.SetPositionAndRotation(spawnPoint.position,Quaternion.identity);
+        //}
+       
         LoadScreen.SetActive(false);
-
-
-        //uncomment these lines for frequent level building
-        //yield return new WaitForSeconds(3);
-        //ResetLevelGenerator();
     }
 
     void PlaceStartRoom() {
         //Instantiate Room at 0,0,0, rotation identity, and this transform as parent
         startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity, transform) as StartRoom;
         availableDoorways.Add(startRoom.doorways[0]);
-        Debug.Log("Placing Start Room! Wrrrrrrr");
         startRoom.id = roomNum;
         roomNum++;
     }
@@ -103,7 +97,6 @@ public class LevelGenerator : MonoBehaviour {
         //Instantiate Room
         int mainRoomIndex = Random.Range(0, mainRoomPrefabs.Count);
         Room currentRoom = Instantiate(mainRoomPrefabs[mainRoomIndex], transform) as Room;
-        Debug.Log("Placing random Main room!: " + currentRoom.gameObject.name);
         bool roomPlaced = false;
         // Try all available doorways
         foreach (Doorway availableDoorway in availableDoorways) {
@@ -112,11 +105,9 @@ public class LevelGenerator : MonoBehaviour {
                 availableMainDoorways.Add(currentDoorway);
                 if (roomPlaced == false) {
                     PositionRoomAtDoorway(ref currentRoom, currentDoorway, availableDoorway);
-                    Debug.Log("Placing room " + currentRoom + "at " + availableDoorway.name);
 
                 }
                 if (!CheckRoomOverlap(currentRoom) && roomPlaced == false) {
-                    Debug.Log("Room Placed!: " + currentRoom.gameObject.name);
                     // Add room to global room list
                     placedRooms.Add(currentRoom);
 
@@ -136,16 +127,15 @@ public class LevelGenerator : MonoBehaviour {
                     roomNum++;
                 }
 
-                // Check for overlapping rooms false
-
             }
 
             //if the room is placed it no longer needs to check the remaining available doorways
-            if (roomPlaced)
+            if (roomPlaced) {
+                availableDoorway.gameObject.SetActive(false);
                 break;
+            }
         }
         if (!roomPlaced) {
-            Debug.LogError("Room could not be placed: " + currentRoom.gameObject.name);
             Destroy(currentRoom.gameObject);
             ResetLevelGenerator(); // should we reset always? can we try again?
         }
@@ -155,7 +145,6 @@ public class LevelGenerator : MonoBehaviour {
     void PlaceConnectingRoom() {
         //Instantiate Room
         Room currentRoom = Instantiate(connectingRoomPrefabs[Random.Range(0, connectingRoomPrefabs.Count)], transform) as Room;
-        Debug.Log("Placing random Connecting room!: " + currentRoom.gameObject.name);
         bool roomPlaced = false;
         // Try all available doorways
         foreach (Doorway availableDoorway in availableMainDoorways) {
@@ -170,7 +159,6 @@ public class LevelGenerator : MonoBehaviour {
 
                 // Check for overlapping rooms false
                 if (!CheckRoomOverlap(currentRoom) && roomPlaced == false) {
-                    Debug.Log("Room Placed!: " + currentRoom.gameObject.name);
                     // Add room to global room list
                     placedRooms.Add(currentRoom);
 
@@ -197,7 +185,6 @@ public class LevelGenerator : MonoBehaviour {
                 break;
         }
         if (!roomPlaced) {
-            Debug.LogError("Room Destroyed!" + currentRoom.gameObject.name);
             Destroy(currentRoom.gameObject);
             ResetLevelGenerator();
         }
@@ -219,26 +206,20 @@ public class LevelGenerator : MonoBehaviour {
         // Position room by subtracting door origin by room Origin
         Vector3 roomPositionOffset = roomDoorway.transform.position - room.transform.position;
         room.transform.position = targetDoorway.transform.position - roomPositionOffset;
-
-
     }
     bool CheckRoomOverlap(Room room) {
-
         Bounds bounds = room.RoomBounds;
         bounds.center = room.transform.position;
-
-
-
-        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
+        bounds.Expand(-0.1f);
+        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size/2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
         if (colliders.Length > 0) { // If there is anything within this arary
 
             foreach (Collider c in colliders) {
-                if (c.transform.parent.gameObject.Equals(room.gameObject) || c.transform.IsChildOf(room.transform)) // Ignore collisions with parent object
+                if (c.transform.IsChildOf(room.transform)) // Ignore collisions with parent object
                 {
                     continue;
                 }
                 else {
-                    Debug.LogError("Overlap Detected between " + c.gameObject.name + " " + room.gameObject.name);
                     return true;
                 }
             }
@@ -246,7 +227,6 @@ public class LevelGenerator : MonoBehaviour {
         return false;
     }
     void PlaceEndRoom() {
-        Debug.Log("Placing the End Room! Wrrrrrr");
 
         // Instantiate Room
         endRoom = Instantiate(endRoomPrefab, transform) as EndRoom;
@@ -287,10 +267,6 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     public void ResetLevelGenerator() {
-        //// Clears the log so all logs are from current iteration of level gen, reduces clutter in log
-        Type.GetType("UnityEditor.LogEntries,UnityEditor.dll").GetMethod("Clear", BindingFlags.Static | BindingFlags.Public).Invoke(null, null);
-        //Debug.Log("reset");
-        Debug.Log("Could not place room anywhere, resetting levelGen");
 
         StopCoroutine("GenerateLevel");
 

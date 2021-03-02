@@ -2,44 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC : MonoBehaviour
-{
-    public DialogueManager dialogueManager;
+public class NPC : MonoBehaviour {
+    public GameObject gameUI;
     public Conversation myConversation;
-    bool istalking = false;
-    public bool isShopkeeper = false;
+    bool playerInRange = false;
+    public Animator anim;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if ((other.gameObject.tag == "Player"))
-        {
-            dialogueManager.interactUI.SetActive(true);
-        }
+    public static bool playerIsTalking;
+
+
+    protected virtual void Update() {
+
+        if (Input.GetKeyDown(KeyCode.E) && !playerIsTalking && playerInRange) ActivateNPC();
+
     }
-    private void OnTriggerStay(Collider other) {
 
-        if ((other.gameObject.tag == "Player")) {
-            if (Input.GetKeyDown(KeyCode.E) && istalking == false ) {
-                dialogueManager.StartDialog(myConversation);
-                istalking = true;
-                if (isShopkeeper)
-                {
-                    dialogueManager.shopButton.SetActive(true);
-                    dialogueManager.nextButton.SetActive(false);
-                }
-                else
-                {
-                    dialogueManager.shopButton.SetActive(false);
-                    dialogueManager.nextButton.SetActive(true);
-                }
-            }
+    protected void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) {
+            DialogueManager.dm.interactUI.SetActive(true);
+            playerInRange = true;
         }
     }
 
-    private void OnTriggerExit(Collider other) {
-        if ((other.gameObject.tag == "Player")) {
-            dialogueManager.interactUI.SetActive(false);
-            istalking = false;
+    protected void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Player")) {
+            DialogueManager.dm.interactUI.SetActive(false);
+            playerInRange = false;
+            DeactivateNPC();
         }
+    }
+
+    protected virtual void ActivateNPC() {
+        gameUI.SetActive(false);
+        anim.SetBool("isTalking", true);
+        DialogueManager.dm.StartDialog(myConversation);
+        DialogueManager.dm.interactUI.SetActive(false);
+        playerIsTalking = true;
+        rbCam.LockCam();
+        DialogueManager.dm.nextButton.SetActive(true);
+    }
+
+    protected virtual void DeactivateNPC() {
+        gameUI.SetActive(true);
+        DialogueManager.dm.StopDialog();
+        playerIsTalking = false;
+        anim.SetBool("isTalking", false);
+        if (playerInRange) DialogueManager.dm.interactUI.SetActive(true);
+        rbCam.UnlockCam();
+
     }
 }

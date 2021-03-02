@@ -8,13 +8,21 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
     [Header("Player Stats")]
-    public float Health = 100;
     public float maxHeath;
-    public float Moxie = 100;
     public float moxieMax = 100;
-    public float Grit = 100;
-    public float gritMax =100;
-    public float gold = 100;
+    public float gritMax = 100;
+    public float moxieBatteyMax;
+    public float HealthPackMax;
+
+    //public for access but not needed in inspector
+    public static float Health;
+    public static float Moxie;
+    public static float Grit;
+    public static float gold;
+    public static float moxieBatteries;
+    public static float HealthPacks;
+
+
 
     [Header("UI Reference")]
     public TextMeshProUGUI goldText;
@@ -24,40 +32,38 @@ public class PlayerStats : MonoBehaviour {
     public Image MoxieBar;
     public TextMeshProUGUI gritText;
     public Image GritBar;
-    public TextMeshProUGUI ammoClip, ammoTotal;
-    public bool GritActive = false;
-    public Gun activeGun;
+    public TextMeshProUGUI ammoText, totalAmmoText;
+    public TextMeshProUGUI healthPackText;
+    public TextMeshProUGUI moxieBatteryText;
 
-    private void Start() {
-        PlayerManager.instance.stats = this;
+    public static bool GritActive = false;
+    [HideInInspector] public Gun activeGun;
+
+    private void Awake() {
+        if (PlayerManager.stats == null) {
+            PlayerManager.stats = this;
+            SetUpStats();
+        }
+
     }
 
+    private void Start() {
+
+    }
+
+    private void SetUpStats() {
+        Health = maxHeath;
+        UpdateHealthUI();
+        Moxie = moxieMax;
+        Grit = gritMax;
+    }
     // Update is called once per frame
     void Update() {
-        Moxie += Time.deltaTime;
-        Moxie = Mathf.Clamp(Moxie, 0, moxieMax);
-        UpdateMoxxiUI();
-        
-                
-        if(GritActive == false)
-        {
-            Grit += Time.deltaTime;
-            Grit = Mathf.Clamp(Grit, 0, gritMax);
-            Time.timeScale = 1f;
-        }
-        UpdateGritUI();
-        
-
-        if (Grit <= 0)
-        {
-            GritActive = false;
-        }
-
+        UpdateMoxie();
+        UpdateGrit();
+        UpdateHealthUI();
         UpdateAmmoUI();
         UpdateGoldUI();
-
-
-       
     }
 
     private void UpdateGoldUI() {
@@ -65,50 +71,63 @@ public class PlayerStats : MonoBehaviour {
     }
 
     public void TakeDamage(float damage) {
-
         Health -= damage;
         Mathf.Clamp(Health, 0, maxHeath);
         UpdateHealthUI();
-        
+
         if (Health <= 0) {
             Death();
         }
+        FindObjectOfType<AudioManager>().Play("Player Damaged", gameObject);
     }
 
-    private void UpdateMoxxiUI() {
-        moxieText.text = "Moxie: " + Moxie.ToString("F0");
-        MoxieBar.fillAmount = Moxie / 100;
-
-
+    private void UpdateMoxie() {
+        Moxie += Time.deltaTime;
+        Moxie = Mathf.Clamp(Moxie, 0, moxieMax);
+        moxieText.text = Moxie.ToString("F0");
+        MoxieBar.fillAmount = Moxie / moxieMax;
     }
 
-    private void UpdateGritUI() {
-        gritText.text = "Grit: " + Grit.ToString("F0");
-        GritBar.fillAmount = Grit / 100;
+    private void UpdateGrit() {
 
+        if (GritActive) {
+            PlayerStats.Grit -= Time.deltaTime * (10 / Time.timeScale);
+        }
+        if (!GritActive) {
+            Grit += Time.deltaTime;
+            Grit = Mathf.Clamp(Grit, 0, gritMax);
+        }
+        if (Grit <= 0) {
+            PlayerStats.GritActive = false;
+            Time.timeScale = 1f;
+        }
+        gritText.text = Grit.ToString("F0");
+        GritBar.fillAmount = Grit / gritMax;
     }
 
     private void UpdateHealthUI() {
-        healthText.text = "Health: " + Health;
-        healthBar.fillAmount = Health / 100;
-
+        healthText.text = Health.ToString();
+        healthBar.fillAmount = Health / maxHeath;
     }
 
     private void UpdateAmmoUI() {
         if (activeGun != null) {
-            ammoClip.text = activeGun.ammoInClip.ToString();
-            ammoTotal.text = activeGun.currentAmmo.ToString();
-            ammoClip.gameObject.SetActive(true);
-            ammoTotal.gameObject.SetActive(true);
+            string ammoClip = activeGun.clipAmmo.ToString();
+            string ammoTotal = activeGun.currentAmmo.ToString();
+            ammoText.text = ammoClip;
+            totalAmmoText.text = ammoTotal;
         }
         else {
-            ammoClip.gameObject.SetActive(false);
-            ammoTotal.gameObject.SetActive(false);
+            ammoText.text = "0";
         }
+
+        moxieBatteryText.text = moxieBatteries.ToString();
+
+        healthPackText.text = HealthPacks.ToString();
     }
 
     private void Death() {
-        Debug.Log("The player has died");
+        rbPlayer.isDead = true;
     }
 
 }

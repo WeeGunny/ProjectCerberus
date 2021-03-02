@@ -8,15 +8,4 @@ public class DamageType : ScriptableObject {
     public float dotTicks;
     public float dotInterval;
     public bool hasDOT;
-
-    //IEnumerator DotDamage(EnemyController enemy) {
-    //    enemy.takingDotDamage = true;
-    //    int ticksApplied = 0;
-    //    while (ticksApplied < dotTicks) {
-    //        enemy.health -= dotDamage;
-    //        yield return new WaitForSeconds(dotInterval);
-    //        ticksApplied++;
-    //    }
-    //    enemy.takingDotDamage = false;
-    //}
 }
