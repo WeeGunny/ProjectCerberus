@@ -31,6 +31,10 @@ public class rbCam : MonoBehaviour {
         GritEffect();
     }
 
+    private void LateUpdate() {
+      
+    }
+
     private void OnCamera(InputValue value) {
         Vector2 inputVector = value.Get<Vector2>();
         inputX = inputVector.x;

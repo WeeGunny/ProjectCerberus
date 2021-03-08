@@ -26,6 +26,7 @@ public class LevelGenerator : MonoBehaviour {
     // create a startRoom, endRoom and placedRooms for easier referencing
     StartRoom startRoom;
     EndRoom endRoom;
+    Room shopRoom;
     List<Room> placedRooms = new List<Room>();
 
     //Set up player
@@ -58,9 +59,12 @@ public class LevelGenerator : MonoBehaviour {
 
         //Random iterations
         int iterations = Random.Range((int)iterationRange.x, (int)iterationRange.y);
+        int shopRoomNum = Random.Range(0, iterations);
         for (int i = 0; i < iterations; i++) {
             // Place random room from list
-            PlaceMainRoom();
+            if (i == shopRoomNum) {
+            }
+            if (i < iterations) PlaceMainRoom();
             yield return interval;
             i++;
             if (i < iterations) PlaceConnectingRoom();
@@ -71,18 +75,16 @@ public class LevelGenerator : MonoBehaviour {
         PlaceEndRoom();
         //Makes Sure that all end doors are marked to stay closed
         foreach (Doorway door in availableDoorways) {
-            door.isOutdoor = true;
+            door.SetOutdoor();
         }
+        foreach (Doorway door in availableMainDoorways) {
+            door.SetOutdoor();
+        }
+
         yield return interval;
         //once all rooms placed, spawn the player at the spawnpoint and remove loadscreen
         inGameUI.SetActive(true);
-        //if (!PlayerManager.playerExists) {
-            player = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
-        //}
-        //else {
-        //    PlayerManager.player.transform.SetPositionAndRotation(spawnPoint.position,Quaternion.identity);
-        //}
-       
+        player = Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
         LoadScreen.SetActive(false);
     }
 
@@ -116,9 +118,6 @@ public class LevelGenerator : MonoBehaviour {
                     availableMainDoorways.Remove(currentDoorway);
                     // Remove doorway object the room is connecting to
                     availableDoorway.gameObject.SetActive(false);
-                    //if the door it connects to is in mainDoorways remove it from that list as well.
-
-                    availableMainDoorways.Remove(availableDoorway);
                     mainRoomPrefabs.Remove(currentRoom);
 
                     // Exit Loop if room has been placed
@@ -128,10 +127,12 @@ public class LevelGenerator : MonoBehaviour {
                 }
 
             }
-
             //if the room is placed it no longer needs to check the remaining available doorways
             if (roomPlaced) {
-                availableDoorway.gameObject.SetActive(false);
+                availableDoorway.UnlockDoor();
+                //if the door it connects to is in mainDoorways remove it from that list as well.
+                if (availableDoorways.Contains(availableDoorway)) availableDoorways.Remove(availableDoorway);
+                if (availableMainDoorways.Contains(availableDoorway)) availableMainDoorways.Remove(availableDoorway);
                 break;
             }
         }
@@ -151,38 +152,30 @@ public class LevelGenerator : MonoBehaviour {
             // Try all available doorways in current room
             foreach (Doorway currentDoorway in currentRoom.doorways) {
                 availableDoorways.Add(currentDoorway);
-
                 if (roomPlaced == false) {
                     PositionRoomAtDoorway(ref currentRoom, currentDoorway, availableDoorway);
-
+                    // Check for overlapping rooms false
+                    if (!CheckRoomOverlap(currentRoom)) {
+                        // Add room to global room list
+                        placedRooms.Add(currentRoom);
+                        currentRoom.id = roomNum;
+                        roomNum++;
+                        // Remove doorway object in room
+                        currentDoorway.UnlockDoor();
+                        availableDoorways.Remove(currentDoorway);
+                        // Exit Loop if room has been placed
+                        roomPlaced = true;
+                    }
                 }
-
-                // Check for overlapping rooms false
-                if (!CheckRoomOverlap(currentRoom) && roomPlaced == false) {
-                    // Add room to global room list
-                    placedRooms.Add(currentRoom);
-
-                    // Remove doorway object in room
-                    currentDoorway.gameObject.SetActive(false);
-                    // Remove doorway object the room is connecting to
-                    availableDoorway.gameObject.SetActive(false);
-                    availableMainDoorways.Remove(availableDoorway);
-                    availableDoorways.Remove(availableDoorway);
-                    availableDoorways.Remove(currentDoorway);
-
-                    // Exit Loop if room has been placed
-                    roomPlaced = true;
-                    currentRoom.id = roomNum;
-                    roomNum++;
-                }
-
-
-
+            }
+            //if the room is placed it no longer needs to check the remaining available doorways
+            if (roomPlaced) {
+                if (availableMainDoorways.Contains(availableDoorway)) availableMainDoorways.Remove(availableDoorway);
+                //if (availableDoorways.Contains(availableDoorway)) availableDoorways.Remove(availableDoorway);
+                availableDoorway.UnlockDoor();
+                break;
             }
 
-            //if the room is placed it no longer needs to check the remaining available doorways
-            if (roomPlaced)
-                break;
         }
         if (!roomPlaced) {
             Destroy(currentRoom.gameObject);
@@ -211,7 +204,7 @@ public class LevelGenerator : MonoBehaviour {
         Bounds bounds = room.RoomBounds;
         bounds.center = room.transform.position;
         bounds.Expand(-0.1f);
-        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size/2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
+        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask); // Create an array that contains anything this object is colliding with
         if (colliders.Length > 0) { // If there is anything within this arary
 
             foreach (Collider c in colliders) {

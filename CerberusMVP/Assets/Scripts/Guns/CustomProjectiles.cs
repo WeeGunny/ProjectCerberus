@@ -62,7 +62,7 @@ public class CustomProjectiles : MonoBehaviour {
     }
     protected virtual void Explode() {
         //Instantiate explosion
-        if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
+        if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity,transform);
 
         //Check for enemies 
         Collider[] targets = Physics.OverlapSphere(transform.position, explosionRange, whatIsTargets);
