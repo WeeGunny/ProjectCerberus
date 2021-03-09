@@ -20,15 +20,15 @@ public class rbPlayer : MonoBehaviour {
     public LayerMask isWall;
     public float maxWallRunSpeed, wallRunForce, maxWallRunTime;
     public bool isWallLeft, isWallRight;
-    public bool isWallRunning = false, doubleJump, isSprinting = false;
+    public bool isWallRunning = false;
+    public bool doubleJump, isSprinting = false;
     public float maxCamTilt;
-    [SerializeField] float wallRunCamTilt;
+    float wallRunCamTilt;
     public Transform orientation;
     bool playingSound;
     public static bool isDead = false;
     public bool isGrounded;
     public Transform targetPoint;
-
     //Animator
     public Animator anim;
 
@@ -37,6 +37,7 @@ public class rbPlayer : MonoBehaviour {
     PlayerControls controls;
 
     void Awake() {
+        // We only want one PlayerManager at a time
         PlayerManager.playerExists = true;
         controls = new PlayerControls();
         if (PlayerManager.player == null) {
@@ -50,21 +51,18 @@ public class rbPlayer : MonoBehaviour {
 
     }
 
-
-    // Start is called before the first frame update
-    void Start() {
-
-    }
-
     // Update is called once per frame
     void Update() {
         CheckForWall();
+        CameraTilt();
         InputManager();
         isGrounded = Grounded();
         if (Grounded()) doubleJump = true;
 
+
         if (isDead) {
             SceneManager.LoadScene("DeathScene");
+
         }
 
         if (rb.velocity.magnitude > 1 && Grounded()) {
@@ -78,9 +76,10 @@ public class rbPlayer : MonoBehaviour {
 
     private void InputManager() {
         if (rb.velocity.magnitude > 0 && !Grounded()) {
-            if (isSprinting && isWallRight) StartWallRun();
-            if (isSprinting && isWallLeft) StartWallRun();
+            if (Input.GetKey(KeyCode.D) && isWallRight) StartWallRun();
+            if (Input.GetKey(KeyCode.A) && isWallLeft) StartWallRun();
         }
+        else StopWallRun();
     }
 
     private void FixedUpdate() {
@@ -104,15 +103,18 @@ public class rbPlayer : MonoBehaviour {
 
     private void OnJump() {
         if (Grounded()) {
+            Debug.Log("Grounded");
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
-            AudioManager.audioManager.Play("Jump", gameObject);
-
+            AudioManager.audioManager.Play("Jump", gameObject); // if AudioManager does not exist, things after this line will _not_ run
+            
         }
         else if (doubleJump) {
+            doubleJump = false;
             rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector2.up * (jumpHeight), ForceMode.Impulse);
-            AudioManager.audioManager.Play("Jump", gameObject);
-            doubleJump = false;
+            Debug.Log("doubleJump");
+            AudioManager.audioManager.Play("Jump",gameObject);
+            
         }
 
         if (isWallRunning) {
@@ -164,11 +166,10 @@ public class rbPlayer : MonoBehaviour {
     public void CheckForWall() {
         isWallRight = Physics.Raycast(transform.position, orientation.right, 1f, isWall);
         isWallLeft = Physics.Raycast(transform.position, -orientation.right, 1f, isWall);
-        if (!isWallRight && !isWallLeft && isWallRunning) {
+        if (!isWallRight && !isWallLeft) {
             StopWallRun();
         }
     }
-
 
     private void StartWallRun() {
         rb.useGravity = false;
@@ -178,12 +179,12 @@ public class rbPlayer : MonoBehaviour {
             //keeps player on wall by adding force in direction of wall.
             if (isWallRight) {
                 rb.AddForce(orientation.right * wallRunForce / 5 * Time.deltaTime);
-                LeanTween.rotateLocal(playerCam.gameObject, new Vector3(playerCam.transform.localRotation.x, playerCam.transform.localRotation.y, maxCamTilt), 0.5f);
-                
+                if (!playingSound && rb.velocity.magnitude > 1) {
+                    playingSound = true;
+                }
             }
-            else if(isWallLeft) {
+            else {
                 rb.AddForce(-orientation.right * wallRunForce / 5 * Time.deltaTime);
-                LeanTween.rotateLocal(playerCam.gameObject, new Vector3(playerCam.transform.localRotation.x, playerCam.transform.localRotation.y, -maxCamTilt), 0.5f);
             }
         }
     }
@@ -193,7 +194,15 @@ public class rbPlayer : MonoBehaviour {
         isWallRunning = false;
         anim.SetBool("isWallRunningRight", false);
         anim.SetBool("isWallRunningLeft", false);
-        LeanTween.rotateLocal(playerCam.gameObject, new Vector3(playerCam.transform.localRotation.x, playerCam.transform.localRotation.y, 0), 0.5f);
+    }
+
+    private void CameraTilt() {
+        //gradually turns cam away from wall left or right;
+        if (Math.Abs(wallRunCamTilt) < maxCamTilt && isWallRight && isWallRunning) wallRunCamTilt += Time.deltaTime * maxCamTilt * 2;
+        if (Math.Abs(wallRunCamTilt) < maxCamTilt && isWallLeft && isWallRunning) wallRunCamTilt -= Time.deltaTime * maxCamTilt * 2;
+        if (wallRunCamTilt > 0 && !isWallRunning) wallRunCamTilt -= Time.deltaTime * maxCamTilt * 2;
+        if (wallRunCamTilt < 0 && !isWallRunning) wallRunCamTilt += Time.deltaTime * maxCamTilt * 2;
+        if (wallRunCamTilt != 0) playerCam.transform.localRotation = Quaternion.Euler(playerCam.transform.rotation.x, playerCam.transform.rotation.y, wallRunCamTilt);
     }
 
     private void OnGrit() {
@@ -212,7 +221,7 @@ public class rbPlayer : MonoBehaviour {
     }
 
     public void PlayStepSound() {
-        if (rb.velocity.magnitude > 0.5f && Grounded()) AudioManager.audioManager.Play("Footsteps", gameObject);
+        if(rb.velocity.magnitude>0.5f && Grounded())AudioManager.audioManager.Play("Footsteps",gameObject);
     }
 
     public void toggleMovement() {
