@@ -111,8 +111,9 @@ public class rbPlayer : MonoBehaviour {
         else if (doubleJump) {
             rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector2.up * (jumpHeight), ForceMode.Impulse);
-            AudioManager.audioManager.Play("Jump", gameObject);
             doubleJump = false;
+            AudioManager.audioManager.Play("Jump", gameObject);
+           
         }
 
         if (isWallRunning) {
