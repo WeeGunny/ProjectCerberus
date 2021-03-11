@@ -4,20 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShopEntryUI : MonoBehaviour
+public class ShopItemSlot : MonoBehaviour
 {
     public Image itemIcon;
     public TextMeshProUGUI itemName;
-    public Item shopItem;
+    public ItemInfo slotItem;
 
-    public void SetItem(Item item) {
+    public void SetItem(ItemInfo item) {
         itemIcon.sprite = item.icon;
         itemName.text = item.itemName;
-        shopItem = item;
+        slotItem = item;
     }
 
     public void SelectItem() {
-        if (shopItem != null)ShopUI.shopUI.ChangeItem(shopItem);
+        if (slotItem != null)ShopUI.shopUI.ChangeItem(slotItem);
     }
 
 }

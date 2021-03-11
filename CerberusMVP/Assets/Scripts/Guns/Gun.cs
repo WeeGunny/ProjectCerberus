@@ -10,13 +10,12 @@ public class Gun : MonoBehaviour {
     public Animator animator;
     public Transform firePoint;
     public GameObject primaryAmmo, altAmmo;
-    public Sprite gunIcon;
+    public GunInfo gunInfo;
     protected Camera fpsCam => FindObjectOfType<GunManager>().fpsCam;
     public float Dmg = 10f, altDmg = 10f;
     public float bulletSpeed = 25f, altSpeed = 25f;
     protected float bulletsShot;
     public float spread;
-
     public float moxieRequirement = 20;
     public float maxAmmo, maxClipAmmo;
     public float clipAmmo, currentAmmo;
@@ -26,9 +25,6 @@ public class Gun : MonoBehaviour {
     public bool allowHold;
     public string soundName;
     protected bool allowInvoke = true;
-
-    //Grit Effect
-    public PostProcessVolume ppv;
 
     protected PlayerControls controls;
 
@@ -76,7 +72,7 @@ public class Gun : MonoBehaviour {
 
     public virtual void Fire() {
         readyToShoot = false;
-        FindObjectOfType<AudioManager>().Play(soundName, gameObject);
+        AudioManager.audioManager.Play(soundName, gameObject);
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
         RaycastHit hit;
         Vector3 targetPoint;

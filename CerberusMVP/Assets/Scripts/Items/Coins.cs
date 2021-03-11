@@ -2,22 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coins : Item
+public class Coins : ItemFunction
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        LeanTween.rotateAround(this.gameObject, Vector3.up, 360, 3).setLoopClamp();
-    }
 
-    public override void OnPickup() {
+    public override bool TryPickup() {
         PlayerStats.gold += 1;
-        Destroy(gameObject);
+        return true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

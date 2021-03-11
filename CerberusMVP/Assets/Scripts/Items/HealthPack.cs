@@ -2,29 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPack : Item
+public class HealthPack : ItemFunction
 {
-    private void Start() {
-        LeanTween.rotateAround(this.gameObject, Vector3.up, 360, 3).setLoopClamp();
-    }
-    public override void OnPickup() {
+    public override bool TryPickup() {
         if (PlayerStats.HealthPacks < PlayerManager.stats.HealthPackMax) {
             PlayerStats.HealthPacks += 1;
-            Destroy(gameObject);
+            return true;
         }
         else {
+            return false;
             Debug.Log("HealthPacks full");
         }
     }
 
-    public override void OnBuy() {
+    public override bool TryBuy() {
         if (PlayerStats.HealthPacks < PlayerManager.stats.HealthPackMax) {
             PlayerStats.HealthPacks += 1;
+            return true;
         }
         else {
-            PlayerStats.gold += cost;
+            return false;
             Debug.Log("HealthPacks full");
         }
-
     }
 }

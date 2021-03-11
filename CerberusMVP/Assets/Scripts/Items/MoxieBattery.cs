@@ -2,29 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoxieBattery : Item
+public class MoxieBattery : ItemFunction
 {
-    private void Start() {
-        LeanTween.rotateAround(this.gameObject, Vector3.up, 360, 3).setLoopClamp();
-    }
 
-    public override void OnPickup() {
+
+    public override bool TryPickup() {
         if (PlayerStats.moxieBatteries< PlayerManager.stats.moxieBatteyMax) {
             PlayerStats.moxieBatteries += 1;
             Debug.Log("Picked up Moxie Battery, you have: " + PlayerStats.moxieBatteries);
-            Destroy(gameObject);
+            return true;
         }
         else {
+            return false;
             Debug.Log("MoxieBatteries full");
         }
     }
 
-    public override void OnBuy() {
+    public override bool TryBuy() {
         if (PlayerStats.moxieBatteries < PlayerManager.stats.moxieBatteyMax) {
             PlayerStats.moxieBatteries += 1;
+            return true;
         }
         else {
-            PlayerStats.gold += cost;
+            return false;
             Debug.Log("MoxieBatteries full");
         }
     }

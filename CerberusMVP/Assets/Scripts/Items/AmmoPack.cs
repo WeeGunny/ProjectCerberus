@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoPack : Item
+public class AmmoPack : ItemFunction
 {
     public float MaxAmmo, MinAmmo;
     float ammoAmount;
@@ -10,27 +10,28 @@ public class AmmoPack : Item
     private void Start() {
         ammoAmount = Random.Range(MinAmmo,MaxAmmo);
     }
-    public override void OnPickup() {
+    public override bool TryPickup() {
         float ammo = PlayerManager.stats.activeGun.currentAmmo;
         if (ammo < PlayerManager.stats.activeGun.maxAmmo) {
             ammo += ammoAmount;
-            Destroy(gameObject);
+            return true;
         }
         else {
+            return false;
             Debug.Log("Ammo full");
         }
     }
 
-    public override void OnBuy() {
+    public override bool TryBuy() {
         float ammo = PlayerManager.stats.activeGun.currentAmmo;
         if (ammo < PlayerManager.stats.activeGun.maxAmmo) {
             ammo += ammoAmount;
+            return true;
         }
         else {
-            PlayerStats.gold += cost;
+            return false;
             Debug.Log("Ammo full");
         }
-
     }
 
 }
