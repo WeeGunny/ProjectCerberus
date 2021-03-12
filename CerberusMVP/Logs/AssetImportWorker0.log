@@ -15,11 +15,11 @@ C:/Users/HS/Documents/GitHub/ProjectCerberus/CerberusMVP
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-52177
+52516
 Successfully changed project path to: C:/Users/HS/Documents/GitHub/ProjectCerberus/CerberusMVP
 C:/Users/HS/Documents/GitHub/ProjectCerberus/CerberusMVP
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 66.71 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 77.30 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.2.1f1 (270dd8c3da1c)
 [Subsystems] Discovering subsystems at path D:/Unity/2020.2.1f1/Editor/Data/Resources/UnitySubsystems
@@ -36,498 +36,162 @@ Initialize mono
 Mono path[0] = 'D:/Unity/2020.2.1f1/Editor/Data/Managed'
 Mono path[1] = 'D:/Unity/2020.2.1f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'D:/Unity/2020.2.1f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56056
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56528
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: D:/Unity/2020.2.1f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.000722 seconds.
+Registered in 0.000668 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 65.99 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 71.01 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.644 seconds
+- Completed reload, in  0.760 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.001599 seconds.
+Registered in 0.002595 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 65.18 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 73.65 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.246 seconds
+- Completed reload, in  1.472 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 0.82 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 0.88 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3645 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 163.3 MB.
-System memory in use after: 163.5 MB.
+Unloading 3644 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 160.7 MB.
+System memory in use after: 160.9 MB.
 
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 4090.
-Total: 2.623600 ms (FindLiveObjects: 0.446700 ms CreateObjectMapping: 0.099200 ms MarkObjects: 2.013500 ms  DeleteObjects: 0.063100 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/wood_pattern_baseColor.png
-  artifactKey: Guid(8bde8c676f5f19f45b0002972a1a8c61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/wood_pattern_baseColor.png using Guid(8bde8c676f5f19f45b0002972a1a8c61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b9452e2930481808923005298a74094') in 0.069907 seconds
-  Import took 0.075317 seconds .
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 4087.
+Total: 12.002600 ms (FindLiveObjects: 0.424300 ms CreateObjectMapping: 0.098100 ms MarkObjects: 11.397700 ms  DeleteObjects: 0.080900 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000174 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Leaf_4_2K_NormalMap.png
-  artifactKey: Guid(c5f232456c048b443a50f36133dadefc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Leaf_4_2K_NormalMap.png using Guid(c5f232456c048b443a50f36133dadefc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b056146e19b942ce970bb88be9b67f6') in 0.037390 seconds
-  Import took 0.042376 seconds .
+  path: Assets/EffectExamples/SmokeTrail.mat
+  artifactKey: Guid(85320f50710fcfb4d886bc56151bea1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EffectExamples/SmokeTrail.mat using Guid(85320f50710fcfb4d886bc56151bea1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1ec96cd84baeda1deda5a0bc32fe1fc') in 0.380121 seconds
+  Import took 0.386158 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000210 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Sky.mat
-  artifactKey: Guid(aba3c541887cc2c47bbec3569b39e431) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Sky.mat using Guid(aba3c541887cc2c47bbec3569b39e431) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e4e11021b42c2eb7524b3350ba84429e') in 0.185587 seconds
-  Import took 0.191091 seconds .
+  Time since last request: 0.000260 seconds.
+  path: Assets/EffectExamples/Readme.asset
+  artifactKey: Guid(83c2ed844a8c74b779a4c823d16594b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EffectExamples/Readme.asset using Guid(83c2ed844a8c74b779a4c823d16594b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '660d9f6fc6c870c7a425c855d23bb3a1') in 0.008949 seconds
+  Import took 0.013897 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000182 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_3.mat
-  artifactKey: Guid(9eb1aec076e021a44bdc2597670e110b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_3.mat using Guid(9eb1aec076e021a44bdc2597670e110b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '815e99d1b650013fdd3fe9947b63cb8a') in 0.026936 seconds
-  Import took 0.031608 seconds .
+  Time since last request: 48.167250 seconds.
+  path: Assets/EffectExamples/Scenes
+  artifactKey: Guid(6e2175e19ead3b341ad1be4afbe9075a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EffectExamples/Scenes using Guid(6e2175e19ead3b341ad1be4afbe9075a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5719c76bb7d71389d9f0dcb75292df34') in 0.005827 seconds
+  Import took 0.010700 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000283 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/NormalMap.png
-  artifactKey: Guid(08ca1a8f733281e4e87d28b4f44e61ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/NormalMap.png using Guid(08ca1a8f733281e4e87d28b4f44e61ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2fcadb49d7897c978b410e74b8570b59') in 0.019116 seconds
-  Import took 0.026272 seconds .
+  Time since last request: 0.051568 seconds.
+  path: Assets/EffectExamples/Scenes
+  artifactKey: Guid(6e2175e19ead3b341ad1be4afbe9075a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EffectExamples/Scenes using Guid(6e2175e19ead3b341ad1be4afbe9075a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5719c76bb7d71389d9f0dcb75292df34') in 0.002256 seconds
+  Import took 0.007470 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000221 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Grass_Material_Test.001.mat
-  artifactKey: Guid(d17a65bad5ab75f4c88eea3e81e1508d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Grass_Material_Test.001.mat using Guid(d17a65bad5ab75f4c88eea3e81e1508d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40b9b6458c5a78f35780e2d7fbea65e4') in 0.030280 seconds
-  Import took 0.036053 seconds .
+  Time since last request: 1.832350 seconds.
+  path: Assets/EffectExamples/Scenes/Profiles
+  artifactKey: Guid(e53f870e0a6f50d4aa774929c7ba3555) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EffectExamples/Scenes/Profiles using Guid(e53f870e0a6f50d4aa774929c7ba3555) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ba5a0db14053efd5fcafbec377e49a76') in 0.005984 seconds
+  Import took 0.011275 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000165 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/AmbientOcclusionMap.png
-  artifactKey: Guid(0ac65db54d06cbb4087f05027e39e9de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/AmbientOcclusionMap.png using Guid(0ac65db54d06cbb4087f05027e39e9de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd2358f2a9ce5fb18f4f0e26d992c646c') in 0.016321 seconds
-  Import took 0.020867 seconds .
+  Time since last request: 3.460555 seconds.
+  path: Assets/EffectExamples/Scenes/Menu
+  artifactKey: Guid(b5de108a9fe723f48a4771092550f82d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EffectExamples/Scenes/Menu using Guid(b5de108a9fe723f48a4771092550f82d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b31c2082868ea164fa95980ec3bdfd59') in 0.006291 seconds
+  Import took 0.011864 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000181 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_2_2K_Diffuse.png
-  artifactKey: Guid(1b3de26742236cd45a2d185331807a94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_2_2K_Diffuse.png using Guid(1b3de26742236cd45a2d185331807a94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9efd51370440590b51f706fc6e400647') in 0.017808 seconds
-  Import took 0.022800 seconds .
+  Time since last request: 0.038051 seconds.
+  path: Assets/EffectExamples/Scenes/Menu/LightingData.asset
+  artifactKey: Guid(c482561641a25514791bf19c84125d92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EffectExamples/Scenes/Menu/LightingData.asset using Guid(c482561641a25514791bf19c84125d92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '35b2b240001d907fc922cd286179e105') in 0.006465 seconds
+  Import took 0.011468 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000176 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_2_2K_Normal.png
-  artifactKey: Guid(21d9da4e925c1fc419acd31dd22eb416) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_2_2K_Normal.png using Guid(21d9da4e925c1fc419acd31dd22eb416) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92d7fd40dec858340c56f89004d815bd') in 0.015854 seconds
-  Import took 0.020740 seconds .
+  Time since last request: 0.000115 seconds.
+  path: Assets/EffectExamples/Scenes/Menu/ReflectionProbe-0.exr
+  artifactKey: Guid(afa65c6b520779f44bbd494abdfb8cdd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EffectExamples/Scenes/Menu/ReflectionProbe-0.exr using Guid(afa65c6b520779f44bbd494abdfb8cdd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c32340e62c11224b96eb4bdde46a48e9') in 0.087027 seconds
+  Import took 0.091368 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000171 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_8K_Color.png
-  artifactKey: Guid(79209b486bbe93c4887eac54682ac6c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_8K_Color.png using Guid(79209b486bbe93c4887eac54682ac6c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56816cf8f0c63d9eda6ff1bdd1b108ab') in 0.015976 seconds
-  Import took 0.020498 seconds .
+  Time since last request: 0.000158 seconds.
+  path: Assets/EffectExamples/Scenes/Menu/ReflectionProbe-1.exr
+  artifactKey: Guid(169a8370c9af86f46bac118280da2234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EffectExamples/Scenes/Menu/ReflectionProbe-1.exr using Guid(169a8370c9af86f46bac118280da2234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8c027ce6c7cbded9af5abbde85624cfa') in 0.017716 seconds
+  Import took 0.022218 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000170 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Low_Grass.png
-  artifactKey: Guid(e485b06c99d3b2c4c9a1d16100bf4205) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Low_Grass.png using Guid(e485b06c99d3b2c4c9a1d16100bf4205) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ef2c5edf64c3a4aeec25ea87c1d0444') in 0.016884 seconds
-  Import took 0.021623 seconds .
+  Time since last request: 1.442432 seconds.
+  path: Assets/EffectExamples/Scenes/Main
+  artifactKey: Guid(f1c25cae5d366b94bba0899612a4ba45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/EffectExamples/Scenes/Main using Guid(f1c25cae5d366b94bba0899612a4ba45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb63cffaf2dbe6c8414feaf986a1d105') in 0.005821 seconds
+  Import took 0.011299 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000175 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ceiling.mat
-  artifactKey: Guid(cd1bbe30a9b378f47b00027575d1e1ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ceiling.mat using Guid(cd1bbe30a9b378f47b00027575d1e1ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b526754041b3871a3ddc0c52e0edf6af') in 0.013247 seconds
-  Import took 0.018819 seconds .
+  Time since last request: 5.489633 seconds.
+  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4.3.prefab
+  artifactKey: Guid(42f894e92658f534590b047d30297082) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4.3.prefab using Guid(42f894e92658f534590b047d30297082) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a0ca2d927d3cc3a30d042b11165979c1') in 2.271493 seconds
+  Import took 2.291696 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000247 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Leaf_4.003.mat
-  artifactKey: Guid(c681bb948d3248a468a6300311dfdf2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Leaf_4.003.mat using Guid(c681bb948d3248a468a6300311dfdf2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd65d7fac91d30b8ac1c78cd82930f35f') in 0.042696 seconds
-  Import took 0.049484 seconds .
+  Time since last request: 3.009919 seconds.
+  path: Assets/Scenes/Arthur's_Rooms.unity
+  artifactKey: Guid(755a876d9afe9564e8f9101ddae195e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Arthur's_Rooms.unity using Guid(755a876d9afe9564e8f9101ddae195e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '144224109f4f05fe36fe337d5bdca040') in 0.006991 seconds
+  Import took 0.012607 seconds .
 
 ========================================================================
-Received Import Request.
-  Time since last request: 0.000226 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/wood_pattern_height.png
-  artifactKey: Guid(39006534a1ada0a4cbebe7f78be5cb43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/wood_pattern_height.png using Guid(39006534a1ada0a4cbebe7f78be5cb43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5968fc2f730f365020d9799498258819') in 0.013059 seconds
-  Import took 0.018579 seconds .
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002116 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.84 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.868 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.84 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3488 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 159.2 MB.
+System memory in use after: 159.4 MB.
 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000168 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/LeafSet014_2K_Roughness.png
-  artifactKey: Guid(eab10882a5da34b4dbf5a1928ecb9c19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/LeafSet014_2K_Roughness.png using Guid(eab10882a5da34b4dbf5a1928ecb9c19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8f45935c43bb1144e48d202e3221f1f') in 0.014703 seconds
-  Import took 0.019761 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000157 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Tree.mat
-  artifactKey: Guid(a8cd3249bbbcf3a4baa3ed3d4a34eb40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Tree.mat using Guid(a8cd3249bbbcf3a4baa3ed3d4a34eb40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75392771821ecc11c6934113cfa3a3de') in 0.018982 seconds
-  Import took 0.023536 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000172 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Tree.001.mat
-  artifactKey: Guid(5cf4d49e2a9dfc04bbc511cc7be3a017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Tree.001.mat using Guid(5cf4d49e2a9dfc04bbc511cc7be3a017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01f97a3e2de97ce9960a047c1a144110') in 0.017080 seconds
-  Import took 0.022282 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000273 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/DisplacementMap.png
-  artifactKey: Guid(658a76f99492ec749828c8048183d975) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/DisplacementMap.png using Guid(658a76f99492ec749828c8048183d975) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7fedd8c3a4da0f79a51982c203980efc') in 0.010287 seconds
-  Import took 0.015645 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000175 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/PIXNIO-1952940-3810x2540.jpg
-  artifactKey: Guid(fee4d8d18b8a2c84288fcf1ac5a4cd62) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/PIXNIO-1952940-3810x2540.jpg using Guid(fee4d8d18b8a2c84288fcf1ac5a4cd62) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4b83742450547684a34b6a7cac736e35') in 0.021972 seconds
-  Import took 0.028147 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000226 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Low_Grass_Diffuse_2.png
-  artifactKey: Guid(bb3bfe20d057d794c8b32dd11abe462b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Low_Grass_Diffuse_2.png using Guid(bb3bfe20d057d794c8b32dd11abe462b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1cf456518bb2f30dff9845ac68d90b9c') in 0.017770 seconds
-  Import took 0.024176 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000133 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_8K_Normal.png
-  artifactKey: Guid(1451d1cecbe24ae4f8f6599c9b21f085) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_8K_Normal.png using Guid(1451d1cecbe24ae4f8f6599c9b21f085) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2287c4c557aefff46d270d3aed466330') in 0.018966 seconds
-  Import took 0.023796 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000133 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble.mat
-  artifactKey: Guid(9c099a617fb8913459ed7257fb4ea643) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble.mat using Guid(9c099a617fb8913459ed7257fb4ea643) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56bd25330831bf03e011ffd7eb709661') in 0.025844 seconds
-  Import took 0.030662 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000198 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_3_2K_Diffuse.png
-  artifactKey: Guid(85ac035a422a281499c85b02f11de878) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_3_2K_Diffuse.png using Guid(85ac035a422a281499c85b02f11de878) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fafa1c5ac05842647b1ae2e93d1e9744') in 0.015777 seconds
-  Import took 0.021101 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000160 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_3_2K_Normal.png
-  artifactKey: Guid(e50afc5520cf3564091dbc6c240fe976) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_3_2K_Normal.png using Guid(e50afc5520cf3564091dbc6c240fe976) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f8c5fad708aa96d416cb2d2f660e361') in 0.017941 seconds
-  Import took 0.023235 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000185 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_8K_AmbientOcclusion.png
-  artifactKey: Guid(c1c043ea4a805644aaa321c22960fe33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_8K_AmbientOcclusion.png using Guid(c1c043ea4a805644aaa321c22960fe33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6eddd8761300535722b99d9df7a09c3a') in 0.014193 seconds
-  Import took 0.019142 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000160 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Walls.mat
-  artifactKey: Guid(ddc9ebff041ca4641a87fb544a678e20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Walls.mat using Guid(ddc9ebff041ca4641a87fb544a678e20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a77de76c65ed106b7dd0955d2f48dfaa') in 0.012219 seconds
-  Import took 0.016753 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000152 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Outside_Buildings.mat
-  artifactKey: Guid(8cadb35781ac98049bc1eb1a76a48469) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Outside_Buildings.mat using Guid(8cadb35781ac98049bc1eb1a76a48469) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '559d764abb7f5508e15924f52ac022e9') in 0.017526 seconds
-  Import took 0.022350 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000177 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/wood_pattern_roughness.png
-  artifactKey: Guid(1cb2e72edb6625845b4de6bc0180dc0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/wood_pattern_roughness.png using Guid(1cb2e72edb6625845b4de6bc0180dc0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e10e18650758f0451588d1efc398f31e') in 0.016782 seconds
-  Import took 0.022337 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000177 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Invis_Walls.mat
-  artifactKey: Guid(66c2ef5b68e9af040aa3e22da1f146c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Invis_Walls.mat using Guid(66c2ef5b68e9af040aa3e22da1f146c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41bc0e0d9e229c4d0edd8750fbdd1c54') in 0.018377 seconds
-  Import took 0.023391 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000174 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Low_Grass_AmbientOccu.png
-  artifactKey: Guid(22106ae9afeb4ed4cb015c1f7737f872) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Low_Grass_AmbientOccu.png using Guid(22106ae9afeb4ed4cb015c1f7737f872) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '236d5e6b8bc376fc7831685eed634d16') in 0.019738 seconds
-  Import took 0.025128 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000380 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_8K_Roughness.png
-  artifactKey: Guid(33d917e1ee4589744b39fae6abcca91b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_8K_Roughness.png using Guid(33d917e1ee4589744b39fae6abcca91b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13c2917748b3fdf5cb09db85b44d7942') in 0.016596 seconds
-  Import took 0.022698 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000162 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Buildings.mat
-  artifactKey: Guid(19f20960bd17cf349b7580d8501d7a29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Buildings.mat using Guid(19f20960bd17cf349b7580d8501d7a29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26292dca460f611f518f2066247fc92e') in 0.017780 seconds
-  Import took 0.022583 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000206 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Leaf_4_2K_DisplacementMap.png
-  artifactKey: Guid(e12a75697fb85fb4baa8a84ccfe2bfb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Leaf_4_2K_DisplacementMap.png using Guid(e12a75697fb85fb4baa8a84ccfe2bfb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6d2cd0e0de09f048cef1522d7d289cb') in 0.018471 seconds
-  Import took 0.024696 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000202 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/LeafSet014_2K_Opacity.png
-  artifactKey: Guid(f4885b5e1598dee4ca591c7237e7e6b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/LeafSet014_2K_Opacity.png using Guid(f4885b5e1598dee4ca591c7237e7e6b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'edea240b6318e8e0ebdda25941aacece') in 0.015475 seconds
-  Import took 0.021059 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000143 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/New_Rubble.mat
-  artifactKey: Guid(a94ac40dd9be78b41b9ac7c463b00a15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/New_Rubble.mat using Guid(a94ac40dd9be78b41b9ac7c463b00a15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1e55a89c627e50ef478549ac5969ae1') in 0.022718 seconds
-  Import took 0.027677 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000149 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_4_2K_Normal.png
-  artifactKey: Guid(ed885bfdb99703345aa038b3678401ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_4_2K_Normal.png using Guid(ed885bfdb99703345aa038b3678401ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a193c469cbec74a90df46783391d3d5') in 0.016244 seconds
-  Import took 0.020989 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000152 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_4_2K_Diffuse.png
-  artifactKey: Guid(5dada177d6d737440bb0695ae8d8d408) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_Test_4_2K_Diffuse.png using Guid(5dada177d6d737440bb0695ae8d8d408) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee759f01a31b0cf3364354e8cb5f3b95') in 0.015402 seconds
-  Import took 0.020009 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000152 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Shrub_Leaves.mat
-  artifactKey: Guid(e549e70ae1c4c5842960f526c9093780) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Shrub_Leaves.mat using Guid(e549e70ae1c4c5842960f526c9093780) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd58e72b3377d04bc56e03ef0781cec4b') in 0.019840 seconds
-  Import took 0.024478 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000159 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_8K_Displacement.png
-  artifactKey: Guid(c9926a625caa80a4db6d347801ef891d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_8K_Displacement.png using Guid(c9926a625caa80a4db6d347801ef891d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9eeb67f72047a3ce73970f4f2a608ea1') in 0.011143 seconds
-  Import took 0.016028 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000166 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground.mat
-  artifactKey: Guid(602709faf39ae7845bec3c36b94f6a0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground.mat using Guid(602709faf39ae7845bec3c36b94f6a0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfdc80c18f052f12e457f3cda1e959b1') in 0.021919 seconds
-  Import took 0.026943 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000165 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Material.001.mat
-  artifactKey: Guid(89511fbca113e194d98407ef6e1b4f48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Material.001.mat using Guid(89511fbca113e194d98407ef6e1b4f48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e7857955eb076207347111feacdcf41') in 0.016023 seconds
-  Import took 0.021926 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000147 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/LeafSet014_2K_Color_Transparent.png
-  artifactKey: Guid(157f7c151cf56c747876f935f27eb57b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/LeafSet014_2K_Color_Transparent.png using Guid(157f7c151cf56c747876f935f27eb57b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df153b2a1118e87c41bdf39655330b23') in 0.016086 seconds
-  Import took 0.022172 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000146 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Doorways.mat
-  artifactKey: Guid(b2301e96c41500c4f9271cdc2fe5cc51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Doorways.mat using Guid(b2301e96c41500c4f9271cdc2fe5cc51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '291b62fcb380a84d9bf578d98cbb5ae8') in 0.011803 seconds
-  Import took 0.016733 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000194 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Leaf_4_2K.png
-  artifactKey: Guid(cdf8024f872583a4fb457dc6b9846ea9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Leaf_4_2K.png using Guid(cdf8024f872583a4fb457dc6b9846ea9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3175b4522b8a50f0fe7c67f03e338fa6') in 0.019080 seconds
-  Import took 0.025270 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000160 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_2.mat
-  artifactKey: Guid(1f1322c4c6e1dc34aaad8786bffb5200) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Rubble_2.mat using Guid(1f1322c4c6e1dc34aaad8786bffb5200) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b339634fc8234e223a61165e4829dc2c') in 0.021467 seconds
-  Import took 0.026896 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000134 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Leaf_4_2K_AmbientOcclusionMap.png
-  artifactKey: Guid(cfb970fb92b0c674e97732187a5c1a42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Leaf_4_2K_AmbientOcclusionMap.png using Guid(cfb970fb92b0c674e97732187a5c1a42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '853b26a6318326403fff82a0ed34d5e9') in 0.015796 seconds
-  Import took 0.020495 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000181 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/wood_pattern_normal.png
-  artifactKey: Guid(d2ef8f758cd0c2444b368a0785e5c159) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/wood_pattern_normal.png using Guid(d2ef8f758cd0c2444b368a0785e5c159) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bfc00bb382bc8188f8b4ca2cb65653ef') in 0.013759 seconds
-  Import took 0.019997 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000237 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/LeafSet014_2K_Normal.png
-  artifactKey: Guid(1ff72f14374c051449664b010bef94bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/LeafSet014_2K_Normal.png using Guid(1ff72f14374c051449664b010bef94bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98fd1853cf18cb50bdb5331634b370a3') in 0.017737 seconds
-  Import took 0.023665 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000133 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Low_Grass_UV.png
-  artifactKey: Guid(25a7ac27d8fa4dc458e7f572d787db2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Low_Grass_UV.png using Guid(25a7ac27d8fa4dc458e7f572d787db2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6a96cba30d6a52d453617bcd752c36b') in 0.016528 seconds
-  Import took 0.021579 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.998346 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_AmbientOcclusion.png
-  artifactKey: Guid(6892c578e54c45a4fad97f78ece864bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_AmbientOcclusion.png using Guid(6892c578e54c45a4fad97f78ece864bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '158c815e24e4f1d4732b391184e57e24') in 0.017005 seconds
-  Import took 0.022582 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000156 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_Displacement.png
-  artifactKey: Guid(ddac57b5c69c85f40bf4ded30420c80e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_Displacement.png using Guid(ddac57b5c69c85f40bf4ded30420c80e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '620ab3259d7144fce80e391fdf8c3ad1') in 0.016713 seconds
-  Import took 0.021502 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000152 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_Color.png
-  artifactKey: Guid(0956e618dd08c04459cd3257f79e8ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_Color.png using Guid(0956e618dd08c04459cd3257f79e8ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '87fdad84e79a3484ab0e4ae37e40ad8a') in 0.023138 seconds
-  Import took 0.028283 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000144 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_Normal.png
-  artifactKey: Guid(7262b631ead78c440abb5bba21510e74) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_Normal.png using Guid(7262b631ead78c440abb5bba21510e74) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95b231677ffa54622931831cb32e13e5') in 0.016310 seconds
-  Import took 0.021241 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000249 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_Roughness.png
-  artifactKey: Guid(428ee97b953f8df4a8d413dc1bd7be39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_Roughness.png using Guid(428ee97b953f8df4a8d413dc1bd7be39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25bfb7dd83cb70883f58848cfabda6a5') in 0.015778 seconds
-  Import took 0.022142 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 10.859068 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_Normal.png
-  artifactKey: Guid(7262b631ead78c440abb5bba21510e74) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground039_2K_Normal.png using Guid(7262b631ead78c440abb5bba21510e74) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cfe74c1bff9c9b168191031deb98db9') in 0.013832 seconds
-  Import took 0.019292 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 10.874384 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground.mat
-  artifactKey: Guid(602709faf39ae7845bec3c36b94f6a0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground.mat using Guid(602709faf39ae7845bec3c36b94f6a0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6b40e4b4a7a52aeb24f163bb9f9a91e') in 0.019031 seconds
-  Import took 0.024819 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.655540 seconds.
-  path: Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground.mat
-  artifactKey: Guid(602709faf39ae7845bec3c36b94f6a0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Rooms/Arthur's_Rooms/Street_Room_4_Materials/Ground.mat using Guid(602709faf39ae7845bec3c36b94f6a0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '837639fc0b3150c1e3559bdf6262556d') in 0.027855 seconds
-  Import took 0.034061 seconds .
+Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 4169.
+Total: 2.551400 ms (FindLiveObjects: 0.381600 ms CreateObjectMapping: 0.097000 ms MarkObjects: 2.056000 ms  DeleteObjects: 0.016100 ms)
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
