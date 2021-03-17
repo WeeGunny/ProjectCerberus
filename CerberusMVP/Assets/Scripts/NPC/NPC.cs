@@ -36,7 +36,6 @@ public class NPC : MonoBehaviour {
         gameUI.SetActive(false);
         if(anim)anim.SetBool("isTalking", true);
         DialogueManager.dm.StartDialog(myConversation);
-        DialogueManager.dm.interactUI.SetActive(false);
         playerIsTalking = true;
         rbCam.LockCam();
         DialogueManager.dm.nextButton.SetActive(true);

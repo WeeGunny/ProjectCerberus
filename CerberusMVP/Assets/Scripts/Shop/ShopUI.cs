@@ -13,15 +13,16 @@ public class ShopUI : MonoBehaviour {
     public List<ItemInfo> allShopItems = new List<ItemInfo>();
     List<ItemInfo> currentShopItems = new List<ItemInfo>();
     ItemInfo selectedItem;
-   // GameObject shopItemObject;
+    // GameObject shopItemObject;
     public static ShopUI shopUI;
-    private void Start() {
+
+    private void Awake() {
         shopUI = this;
         SetItems();
         HideShop();
     }
     private void SetItems() {
-        if(allShopItems.Count != 0) {
+        if (allShopItems.Count != 0) {
             for (int i = 0; i < itemAmount && i < allShopItems.Count; i++) {
                 int randomItem = Random.Range(0, allShopItems.Count);
                 currentShopItems.Add(allShopItems[randomItem]);
@@ -30,9 +31,17 @@ public class ShopUI : MonoBehaviour {
                 GameObject shopSlot = Instantiate(shopSlotPrefab, shopSlotsParent.transform);
                 shopSlot.GetComponent<ShopItemSlot>().SetItem(item);
             }
-            if (currentShopItems[0]) ChangeItem(currentShopItems[0]);
         }
-       
+    }
+
+    public void FillDisplays(GameObject display1,GameObject display2,GameObject display3) {
+
+        if (currentShopItems[0]) {
+            ChangeItem(currentShopItems[0]);
+            Instantiate(currentShopItems[0].shopModel, display1.transform);
+        }
+        if (currentShopItems[1]) Instantiate(currentShopItems[1].shopModel, display2.transform);
+        if (currentShopItems[2]) Instantiate(currentShopItems[2].shopModel, display3.transform);
 
     }
 
@@ -45,8 +54,8 @@ public class ShopUI : MonoBehaviour {
     }
 
     public void BuyItem() {
-        if (PlayerStats.gold >= selectedItem.cost) {           
-            if(selectedItem.function.TryBuy()) PlayerStats.gold -= selectedItem.cost; 
+        if (PlayerStats.gold >= selectedItem.cost) {
+            if (selectedItem.function.TryBuy()) PlayerStats.gold -= selectedItem.cost;
         }
     }
 

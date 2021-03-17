@@ -9,7 +9,7 @@ using UnityEngine.Rendering;
 public class LevelGenerator : MonoBehaviour {
 
     //What rooms will be the start or end room
-    public Room startRoomPrefab, endRoomPrefab;
+    public Room startRoomPrefab, endRoomPrefab, shopRoomPrefab;
     // List of room Prefabs between start and finish 
     [Header("Random Room Gen")]
     public List<Room> mainRoomPrefabs = new List<Room>();
@@ -26,7 +26,7 @@ public class LevelGenerator : MonoBehaviour {
     // create a startRoom, endRoom and placedRooms for easier referencing
     StartRoom startRoom;
     EndRoom endRoom;
-    Room shopRoom;
+    ShopRoom shopRoom;
     List<Room> placedRooms = new List<Room>();
 
     //Set up player
@@ -63,6 +63,8 @@ public class LevelGenerator : MonoBehaviour {
         for (int i = 0; i < iterations; i++) {
             // Place random room from list
             if (i == shopRoomNum) {
+                PlaceShopRoom();
+                i++;
             }
             if (i < iterations) PlaceMainRoom();
             yield return interval;
@@ -107,7 +109,6 @@ public class LevelGenerator : MonoBehaviour {
                 availableMainDoorways.Add(currentDoorway);
                 if (roomPlaced == false) {
                     PositionRoomAtDoorway(ref currentRoom, currentDoorway, availableDoorway);
-
                 }
                 if (!CheckRoomOverlap(currentRoom) && roomPlaced == false) {
                     // Add room to global room list
@@ -125,7 +126,6 @@ public class LevelGenerator : MonoBehaviour {
                     currentRoom.id = roomNum;
                     roomNum++;
                 }
-
             }
             //if the room is placed it no longer needs to check the remaining available doorways
             if (roomPlaced) {
@@ -175,13 +175,11 @@ public class LevelGenerator : MonoBehaviour {
                 availableDoorway.UnlockDoor();
                 break;
             }
-
         }
         if (!roomPlaced) {
             Destroy(currentRoom.gameObject);
             ResetLevelGenerator();
         }
-
     }
 
     void PositionRoomAtDoorway(ref Room room, Doorway roomDoorway, Doorway targetDoorway) {
@@ -219,8 +217,31 @@ public class LevelGenerator : MonoBehaviour {
         }
         return false;
     }
-    void PlaceEndRoom() {
 
+    void PlaceShopRoom() {
+        shopRoom = Instantiate(shopRoomPrefab, transform) as ShopRoom;
+        Doorway shopDoor = shopRoom.doorways[0];
+        bool roomPlaced = false;
+        for (int i = availableDoorways.Count - 1; i >= 0; i--) {
+            // not sure why casting to room?
+            Room room = shopRoom;
+            PositionRoomAtDoorway(ref room, shopDoor, availableDoorways[i]);
+            // Check for overlapping rooms
+            if (!CheckRoomOverlap(shopRoom)) {
+                roomPlaced = true;
+                // Remove occupied doorways
+                shopDoor.gameObject.SetActive(false);
+                availableDoorways.Remove(shopDoor);
+                availableDoorways[i].gameObject.SetActive(false);
+                availableDoorways.Remove(availableDoorways[i]);
+                startRoom.id = roomNum;
+                roomNum++;
+                break;
+            }
+        }
+        if (!roomPlaced) ResetLevelGenerator();
+    }
+    void PlaceEndRoom() {
         // Instantiate Room
         endRoom = Instantiate(endRoomPrefab, transform) as EndRoom;
 
@@ -228,35 +249,25 @@ public class LevelGenerator : MonoBehaviour {
         Doorway endDoorway = endRoom.doorways[0];
 
         bool roomPlaced = false;
-        int doorToPlace = availableDoorways.Count - 1;
-        // Try all available doorways
-        for (int i = 0; i < availableDoorways.Count; i++) {
+        // Try all available doorways counting down from most recent
+        for (int i = availableDoorways.Count - 1; i >= 0; i--) {
             // not sure why casting to room?
             Room room = endRoom;
-            PositionRoomAtDoorway(ref room, endDoorway, availableDoorways[doorToPlace]);
+            PositionRoomAtDoorway(ref room, endDoorway, availableDoorways[i]);
             // Check for overlapping rooms
-            if (CheckRoomOverlap(endRoom)) {
-                doorToPlace--;
-            }
-            else {
+            if (!CheckRoomOverlap(endRoom)) {
                 roomPlaced = true;
                 // Remove occupied doorways
                 endDoorway.gameObject.SetActive(false);
                 availableDoorways.Remove(endDoorway);
-
-                availableDoorways[doorToPlace].gameObject.SetActive(false);
-                availableDoorways.Remove(availableDoorways[doorToPlace]);
+                availableDoorways[i].gameObject.SetActive(false);
+                availableDoorways.Remove(availableDoorways[i]);
                 startRoom.id = roomNum;
                 roomNum++;
                 break;
             }
-
         }
-        if (!roomPlaced) {
-            Destroy(endRoom.gameObject);
-            ResetLevelGenerator();
-        }
-
+        if (!roomPlaced) ResetLevelGenerator();
     }
 
     public void ResetLevelGenerator() {
@@ -266,6 +277,9 @@ public class LevelGenerator : MonoBehaviour {
         //Remove all current rooms
         if (startRoom) {
             Destroy(startRoom.gameObject);
+        }
+        if (shopRoom) {
+            Destroy(shopRoom.gameObject);
         }
         if (endRoom) {
             Destroy(endRoom.gameObject);

@@ -32,9 +32,6 @@ public class EnemyController : MonoBehaviour {
     protected bool takingDotDamage;
     protected bool isReloading = false;
 
-    AudioManager audioManager;
-    bool playingSound;
-
     [HideInInspector] public Animator anim;
 
     // Start is called before the first frame update
@@ -43,7 +40,6 @@ public class EnemyController : MonoBehaviour {
         health = StartHealth;
         healthDisplay.SetActive(false);
         anim = gameObject.GetComponent<Animator>();
-        audioManager = FindObjectOfType<AudioManager>();
         lootTable.SetTable();
     }
 
@@ -133,7 +129,7 @@ public class EnemyController : MonoBehaviour {
             StopCoroutine("DotDamage");
             StartCoroutine("DotDamage", damageType);
         }
-        FindObjectOfType<AudioManager>().Play("EnemyHit", gameObject);
+        AudioManager.audioManager.Play("EnemyHit", gameObject);
     }
 
     protected IEnumerator DotDamage(DamageType type) {
@@ -173,11 +169,6 @@ public class EnemyController : MonoBehaviour {
             }
         }
         Destroy(gameObject, 5);
-    }
-    IEnumerator SoundDelays(String soundClipName, float delayTime) {
-        yield return new WaitForSeconds(delayTime);
-        audioManager.Play(soundClipName, gameObject);
-        playingSound = false;
     }
 
     protected virtual void OnDrawGizmosSelected() {

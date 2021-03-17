@@ -60,7 +60,7 @@ public class Armory : MonoBehaviour {
     }
 
     public void ConfirmLoadout() {
-        GunManager.instance.ChangeLoadout(tempGun1, tempGun2);
+        if(tempGun1 || tempGun2) GunManager.instance.ChangeLoadout(tempGun1, tempGun2);
 
     }
 
