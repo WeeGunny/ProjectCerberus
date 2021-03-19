@@ -72,6 +72,8 @@ public class rbPlayer : MonoBehaviour {
         if (rb.velocity.magnitude < 1 && Grounded()) {
             anim.SetBool("isWalking", false);
         }
+
+        //audio.pitch = Time.timeScale;
     }
 
     private void InputManager() {
