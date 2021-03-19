@@ -106,15 +106,15 @@ public class rbPlayer : MonoBehaviour {
             Debug.Log("Grounded");
             rb.AddForce(Vector2.up * jumpHeight, ForceMode.Impulse);
             AudioManager.audioManager.Play("Jump", gameObject); // if AudioManager does not exist, things after this line will _not_ run
-            
+
         }
         else if (doubleJump) {
             doubleJump = false;
             rb.velocity.Set(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector2.up * (jumpHeight), ForceMode.Impulse);
-            Debug.Log("doubleJump");
-            AudioManager.audioManager.Play("Jump",gameObject);
-            
+            doubleJump = false;
+            AudioManager.audioManager.Play("Jump", gameObject);
+
         }
 
         if (isWallRunning) {

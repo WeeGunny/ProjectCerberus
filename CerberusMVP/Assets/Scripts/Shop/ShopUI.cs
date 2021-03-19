@@ -8,47 +8,55 @@ public class ShopUI : MonoBehaviour {
 
     public TextMeshProUGUI itemName, itemDecription, itemPrice;
     public Image itemIcon;
-    public GameObject shopEntryPrefab, shopEntryParent;
+    public GameObject shopSlotPrefab, shopSlotsParent;
     public int itemAmount;
-    public List<Item> allShopItems = new List<Item>();
-    List<Item> currentShopItems = new List<Item>();
-    Item selectedItem;
-    GameObject shopItemObject;
+    public List<ItemInfo> allShopItems = new List<ItemInfo>();
+    List<ItemInfo> currentShopItems = new List<ItemInfo>();
+    ItemInfo selectedItem;
+    // GameObject shopItemObject;
     public static ShopUI shopUI;
-    private void Start() {
+
+    private void Awake() {
         shopUI = this;
         SetItems();
         HideShop();
     }
     private void SetItems() {
-        for (int i = 0; i < itemAmount && i < allShopItems.Count; i++) {
-            int randomItem = Random.Range(0, allShopItems.Count);
-            currentShopItems.Add(allShopItems[randomItem]);
+        if (allShopItems.Count != 0) {
+            for (int i = 0; i < itemAmount && i < allShopItems.Count; i++) {
+                int randomItem = Random.Range(0, allShopItems.Count);
+                currentShopItems.Add(allShopItems[randomItem]);
+            }
+            foreach (ItemInfo item in currentShopItems) {
+                GameObject shopSlot = Instantiate(shopSlotPrefab, shopSlotsParent.transform);
+                shopSlot.GetComponent<ShopItemSlot>().SetItem(item);
+            }
         }
-        foreach (Item item in currentShopItems) {
-            GameObject shopEntry = Instantiate(shopEntryPrefab, shopEntryParent.transform);
-            shopEntry.GetComponent<ShopEntryUI>().SetItem(item);
+    }
+
+    public void FillDisplays(GameObject display1,GameObject display2,GameObject display3) {
+
+        if (currentShopItems[0]) {
+            ChangeItem(currentShopItems[0]);
+            Instantiate(currentShopItems[0].shopModel, display1.transform);
         }
-        ChangeItem(currentShopItems[0]);
+        if (currentShopItems[1]) Instantiate(currentShopItems[1].shopModel, display2.transform);
+        if (currentShopItems[2]) Instantiate(currentShopItems[2].shopModel, display3.transform);
 
     }
 
-    public void ChangeItem(Item newItem) {
+    public void ChangeItem(ItemInfo newItem) {
         itemName.text = newItem.itemName;
         itemDecription.text = newItem.description;
         itemPrice.text = "Price: " + newItem.cost.ToString() + "g";
         itemIcon.sprite = newItem.icon;
         selectedItem = newItem;
-        shopItemObject = newItem.itemObject;
     }
 
     public void BuyItem() {
         if (PlayerStats.gold >= selectedItem.cost) {
-            selectedItem.OnBuy();
-            PlayerStats.gold -= selectedItem.cost;
-            //Destroy(shopItemObject);
+            if (selectedItem.function.TryBuy()) PlayerStats.gold -= selectedItem.cost;
         }
-
     }
 
     public void ShowShop() {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Room : MonoBehaviour {
     // Array of available doorways
     public Doorway[] doorways;
+    public Chest roomChest;
 
     //lists of spawn points, used spawn points and prefabs to used for enemies
     public List<GameObject> enemyPrefabs = new List<GameObject>();
@@ -20,6 +21,7 @@ public class Room : MonoBehaviour {
     public int id = 1;
     public bool roomHasEnemies = false;
     public bool doorsLocked = false;
+    
 
 
 
@@ -58,6 +60,7 @@ public class Room : MonoBehaviour {
 
         if (!roomHasEnemies && doorsLocked) {
             UnlockDoors();
+            if (roomChest) roomChest.UnlockChest();
         }
 
         if (PlayerManager.player && RoomBounds.Contains(PlayerManager.player.transform.position)) {
@@ -86,9 +89,11 @@ public class Room : MonoBehaviour {
                 enemySPs.RemoveAt(randomSpawnPoint);
                 enemiesAlive++;
             }
+            if(roomChest)roomChest.gameObject.SetActive(true);
             roomHasEnemies = true;
         }
         else {
+            if(roomChest)roomChest.gameObject.SetActive(false);
             roomHasEnemies = false;
         }
 
@@ -133,7 +138,7 @@ public class Room : MonoBehaviour {
         doorsLocked = false;
     }
 
-    private void OnDrawGizmosSelected() {
+    protected void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(RoomBounds.center, RoomBounds.size);
     }

@@ -18,7 +18,7 @@ public class DialogueManager : MonoBehaviour
     private List<string> conversation;
     private int conversationIndex;
     public static DialogueManager dm;
-    public enum ChatType { shopKeeper, travelGuide, Default }
+    public enum ChatType { shopKeeper, travelGuide,armourer, Default }
     public ChatType chatType = ChatType.Default;
     bool isTyping;
 
@@ -97,6 +97,9 @@ public class DialogueManager : MonoBehaviour
             case ChatType.travelGuide:
                 functionButtonText.text = "Travel";
                 break;
+            case ChatType.armourer:
+                functionButtonText.text = "View Weapons";
+                break;
             default:
                 functionButtonText.text = "Good Bye";
                 break;
@@ -114,6 +117,9 @@ public class DialogueManager : MonoBehaviour
         if (chatType == ChatType.travelGuide) {
             Travel();
         }
+        if (chatType == ChatType.armourer) {
+            OpenArmory();
+        }
     }
     public void Travel()
     {
@@ -127,6 +133,11 @@ public class DialogueManager : MonoBehaviour
     public void OpenShop() {
         StopDialog();
         ShopUI.shopUI.ShowShop();
+    }
+
+    public void OpenArmory() {
+        StopDialog();
+        Armory.armory.ShowArmory();
     }
 
    
