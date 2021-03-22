@@ -82,6 +82,8 @@ public class CustomProjectiles : MonoBehaviour {
 
         //Add a little delay, just to make sure everything works fine
         Invoke("Delay", 0.05f);
+
+        FindObjectOfType<AudioManager>().Play("Grenade", gameObject);
     }
     private void Delay() {
         Destroy(gameObject);

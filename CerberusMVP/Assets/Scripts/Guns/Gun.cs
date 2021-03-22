@@ -24,6 +24,8 @@ public class Gun : MonoBehaviour {
     public bool fireHeld, readyToShoot, reloading;
     public bool allowHold;
     public string soundName;
+    public string AltFireName;
+    public string ReloadName;
     protected bool allowInvoke = true;
 
     protected PlayerControls controls;
@@ -115,13 +117,13 @@ public class Gun : MonoBehaviour {
     public virtual void AltFire() {
         PlayerStats.Moxie -= moxieRequirement;
         animator.SetTrigger("altFire");
-        FindObjectOfType<AudioManager>().Play("Moxie", gameObject);
+        AudioManager.audioManager.Play(AltFireName, gameObject);
     }
 
     public void ReloadDelay() {
         reloading = true;
         Invoke("Reload", reloadTime);
-        FindObjectOfType<AudioManager>().Play("Reload", gameObject);
+        AudioManager.audioManager.Play(ReloadName, gameObject);
     }
 
     public void Reload() {

@@ -23,6 +23,12 @@ public class EnemyController : MonoBehaviour {
     public GameObject popUpPrefab;
     public LootTableGameObject lootTable;
 
+    [Header("Sound")]
+    public string hurtClip;
+    public string fireClip;
+    public string reloadClip;
+
+
     protected bool isDead = false, canAttack = false;
     protected NavMeshAgent agent;
     protected float distance;
@@ -99,7 +105,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     protected virtual void Attack() {
-
+        
     }
 
     protected virtual void AttackReset() {
@@ -129,7 +135,7 @@ public class EnemyController : MonoBehaviour {
             StopCoroutine("DotDamage");
             StartCoroutine("DotDamage", damageType);
         }
-        AudioManager.audioManager.Play("EnemyHit", gameObject);
+        AudioManager.audioManager.Play(hurtClip, gameObject);
     }
 
     protected IEnumerator DotDamage(DamageType type) {

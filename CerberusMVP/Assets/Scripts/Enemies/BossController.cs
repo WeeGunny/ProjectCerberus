@@ -78,6 +78,7 @@ public class BossController : EnemyController {
     protected override void Attack() {
         canAttack = false;
         anim.SetBool("playerAttackable", true);
+        FindObjectOfType<AudioManager>().Play("Boss Attack", gameObject);
         float attackAnimationTime = anim.GetCurrentAnimatorStateInfo(0).length;
         float randomDelay = Random.Range(attackAnimationTime, actionDelayMax);
         Invoke(nameof(AttackReset), randomDelay);

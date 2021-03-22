@@ -25,6 +25,7 @@ public class GunnerEnemy : EnemyController
 
         ammo -= 1;
         Invoke("AttackReset", attackDelay);
+        AudioManager.audioManager.Play(fireClip, gameObject);
     }
 
     protected IEnumerator Reload() {
@@ -34,5 +35,6 @@ public class GunnerEnemy : EnemyController
         isReloading = false;
         anim.SetBool("outOfAmmo", false);
         canAttack = true;
+        AudioManager.audioManager.Play(reloadClip, gameObject);
     }
 }

@@ -101,6 +101,7 @@ public class rbPlayer : MonoBehaviour {
     public void Sprint() {
         isSprinting = !isSprinting;
         anim.SetBool("isSprinting", isSprinting);
+        FindObjectOfType<AudioManager>().Play("Running", gameObject);
     }
 
     private void OnJump() {
@@ -223,7 +224,7 @@ public class rbPlayer : MonoBehaviour {
     }
 
     public void PlayStepSound() {
-        if(rb.velocity.magnitude>0.5f && Grounded())AudioManager.audioManager.Play("Footsteps",gameObject);
+        if(rb.velocity.magnitude>0.5f && Grounded())AudioManager.audioManager.Play("Walking",gameObject);
     }
 
     public void toggleMovement() {
