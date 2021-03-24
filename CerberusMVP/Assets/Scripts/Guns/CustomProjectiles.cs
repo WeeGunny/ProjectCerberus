@@ -30,6 +30,7 @@ public class CustomProjectiles : MonoBehaviour {
     public int maxCollisions; // Amount of times it can bounce before exploding
     public float maxLifetime; // how long before it just explods
     public bool explodeOnTouch = true; //explods on hit or always needs to time out
+    public bool hasExploded = false;
 
     int collisions;
     PhysicMaterial physics_mat;
@@ -42,7 +43,7 @@ public class CustomProjectiles : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         //When to explode:
-        if (collisions >= maxCollisions) Explode();
+        if (collisions >= maxCollisions && !hasExploded) Explode();
 
         //Count down lifetime
         maxLifetime -= Time.deltaTime;
@@ -61,8 +62,13 @@ public class CustomProjectiles : MonoBehaviour {
         if (targetType == TargetType.Player && collision.collider.CompareTag("Player") && explodeOnTouch) Explode();
     }
     protected virtual void Explode() {
+        hasExploded = true;
         //Instantiate explosion
-        if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity,transform);
+        if (explosion != null)
+        {
+            GameObject explosionObject = Instantiate(explosion, transform.position, Quaternion.identity, transform);
+            AudioManager.audioManager.Play("Grenade", explosionObject);
+        }
 
         //Check for enemies 
         Collider[] targets = Physics.OverlapSphere(transform.position, explosionRange, whatIsTargets);
@@ -82,8 +88,6 @@ public class CustomProjectiles : MonoBehaviour {
 
         //Add a little delay, just to make sure everything works fine
         Invoke("Delay", 0.05f);
-
-        FindObjectOfType<AudioManager>().Play("Grenade", gameObject);
     }
     private void Delay() {
         Destroy(gameObject);

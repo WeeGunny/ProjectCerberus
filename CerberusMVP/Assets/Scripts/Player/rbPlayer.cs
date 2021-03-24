@@ -72,8 +72,6 @@ public class rbPlayer : MonoBehaviour {
         if (rb.velocity.magnitude < 1 && Grounded()) {
             anim.SetBool("isWalking", false);
         }
-
-        //audio.pitch = Time.timeScale;
     }
 
     private void InputManager() {
@@ -101,7 +99,7 @@ public class rbPlayer : MonoBehaviour {
     public void Sprint() {
         isSprinting = !isSprinting;
         anim.SetBool("isSprinting", isSprinting);
-        FindObjectOfType<AudioManager>().Play("Running", gameObject);
+        //FindObjectOfType<AudioManager>().Play("Running", gameObject);
     }
 
     private void OnJump() {
@@ -141,7 +139,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.Moxie += 50;
             Mathf.Clamp(PlayerStats.Moxie, 0, ps.moxieMax);
             Debug.Log("Using moxie Battery" + ps.moxieMax);
-            FindObjectOfType<AudioManager>().Play("Moxie Battery", gameObject);
+            AudioManager.audioManager.Play("Moxie Battery", gameObject);
         }
         else if (PlayerStats.moxieBatteries <= 0) {
             Debug.Log("You have no moxie Batteries");

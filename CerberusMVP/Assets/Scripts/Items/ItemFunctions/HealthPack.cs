@@ -6,8 +6,8 @@ public class HealthPack : ItemFunction
 {
     public override bool TryPickup() {
         if (PlayerStats.HealthPacks < PlayerManager.stats.HealthPackMax) {
+            AudioManager.audioManager.Play("Item Pickup", PlayerManager.player);
             PlayerStats.HealthPacks += 1;
-            FindObjectOfType<AudioManager>().Play("Item Pickup", gameObject);
             return true;
         }
         else {

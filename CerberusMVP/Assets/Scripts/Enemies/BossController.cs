@@ -71,8 +71,6 @@ public class BossController : EnemyController {
         float randomDelay = Random.Range(actionDelayMin, actionDelayMax);
         Invoke("AttackReset", randomDelay);
 
-        AudioManager.audioManager.Play("Grit Active",gameObject);
-
     }
 
     protected override void Attack() {
