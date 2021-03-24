@@ -21,6 +21,7 @@ public class DialogueManager : MonoBehaviour
     public enum ChatType { shopKeeper, travelGuide,armourer, Default }
     public ChatType chatType = ChatType.Default;
     bool isTyping;
+    NPC interactingNPC;
 
     private void Awake() {
         if (dm == null) {
@@ -38,8 +39,9 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
     }
 
-    public void StartDialog(Conversation convo)
+    public void StartDialog(Conversation convo,NPC npcTalking)
     {
+        interactingNPC = npcTalking;
         npcNameText.text = convo.npcName;
         conversation = new List<string>(convo.myConversation);
         dialoguePanel.SetActive(true);
@@ -52,6 +54,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialoguePanel.SetActive(false);;
         functionButton.SetActive(false);
+        interactingNPC.DeactivateNPC();
     }
 
     private void ShowText()
