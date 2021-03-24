@@ -12,10 +12,14 @@ public class rbCam : MonoBehaviour {
     public static bool movePlayerCam = true;
     private Vector2 smoothedVelocity;
     private Vector2 currentLookPos;
-
+    public static Camera playerCam;
     public Volume volume;
 
-    public float inputX,inputY;
+    public float inputX, inputY;
+    private void Awake() {
+        if(!playerCam) playerCam = this.GetComponent<Camera>();
+        else { Destroy(this); }
+    }
 
     // Start is called before the first frame update
     void Start() {
@@ -25,16 +29,11 @@ public class rbCam : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (movePlayerCam == true && !PauseMenu.GamePaused) {
+        if(movePlayerCam == true && !PauseMenu.GamePaused) {
             RotateCamera();
         }
         GritEffect();
     }
-
-    private void LateUpdate() {
-      
-    }
-
     private void OnCamera(InputValue value) {
         Vector2 inputVector = value.Get<Vector2>();
         inputX = inputVector.x;
@@ -43,7 +42,7 @@ public class rbCam : MonoBehaviour {
 
     public void RotateCamera() {
         Vector2 lookInput = new Vector2(inputX, inputY);
-        lookInput = Vector2.Scale(lookInput, new Vector2(sensitivity/5, sensitivity/5));
+        lookInput = Vector2.Scale(lookInput, new Vector2(sensitivity / 5, sensitivity / 5));
         smoothedVelocity.x = Mathf.Lerp(smoothedVelocity.x, lookInput.x, 1f / smoothing);
         smoothedVelocity.y = Mathf.Lerp(smoothedVelocity.y, lookInput.y, 1f / smoothing);
         currentLookPos += smoothedVelocity;
@@ -51,15 +50,13 @@ public class rbCam : MonoBehaviour {
         transform.localRotation = Quaternion.AngleAxis(-currentLookPos.y, Vector3.right);
         playerTransform.localRotation = Quaternion.AngleAxis(currentLookPos.x, playerTransform.up);
     }
-    
-
 
     public void GritEffect() {
-        if (PlayerStats.GritActive && volume.weight < 1.0f) {
-            volume.weight += Time.deltaTime * 2/Time.timeScale;
+        if(PlayerStats.GritActive && volume.weight < 1.0f) {
+            volume.weight += Time.deltaTime * 2 / Time.timeScale;
         }
 
-        if (!PlayerStats.GritActive && volume.weight > 0.0f) {
+        if(!PlayerStats.GritActive && volume.weight > 0.0f) {
             volume.weight -= Time.deltaTime * 2 / Time.timeScale;
         }
 
@@ -71,6 +68,7 @@ public class rbCam : MonoBehaviour {
         Cursor.visible = true;
         movePlayerCam = false;
         GunManager.canFire = false;
+        Interacter.instance.IsInteracting = true;
     }
 
     //unlocks cam and hides mouse
@@ -79,6 +77,7 @@ public class rbCam : MonoBehaviour {
         Cursor.visible = false;
         movePlayerCam = true;
         GunManager.canFire = true;
+        Interacter.instance.IsInteracting = false;
 
     }
 }

@@ -11,7 +11,7 @@ public class Gun : MonoBehaviour {
     public Transform firePoint;
     public GameObject primaryAmmo, altAmmo;
     public GunInfo gunInfo;
-    protected Camera fpsCam => FindObjectOfType<GunManager>().fpsCam;
+    protected Camera fpsCam => rbCam.playerCam;
     public float Dmg = 10f, altDmg = 10f;
     public float bulletSpeed = 25f, altSpeed = 25f;
     protected float bulletsShot;

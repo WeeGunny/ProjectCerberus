@@ -14,13 +14,12 @@ public class BossUI : MonoBehaviour
     private void Awake() {
         if (!bossUI) {
             bossUI = this;
-            gameObject.SetActive(false);
+            HideUI();
         }
     }
 
     public void SetupBoss(string bossName) {
         BossName.text = bossName;
-        ShowUI();
     }
 
     public void UpdateBossHealth(float health, float startHealth) {
