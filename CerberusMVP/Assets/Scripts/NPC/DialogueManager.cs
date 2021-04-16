@@ -130,7 +130,7 @@ public class DialogueManager : MonoBehaviour
         if (rbCam.movePlayerCam == false) {
             rbCam.UnlockCam();
         }
-        SceneLoader.instance.LoadScene(2);
+        SceneLoader.instance.LoadScene(3);
         
     }
     public void OpenShop() {
