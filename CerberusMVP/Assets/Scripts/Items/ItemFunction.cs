@@ -9,12 +9,14 @@ public class ItemFunction : MonoBehaviour {
     }
     protected virtual void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            if (TryPickup()) Destroy(gameObject);
+            if (TryPickup()) Destroy(gameObject); 
+            
         }
     }
     public virtual bool TryPickup() {
-
+        
         return false;
+        
     }
 
     public virtual bool TryBuy() {

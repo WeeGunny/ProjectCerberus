@@ -13,5 +13,6 @@ public class GrenadeEnemy : GunnerEnemy
 
         ammo -= 1;
         Invoke("AttackReset", attackDelay);
+        AudioManager.audioManager.Play(fireClip, gameObject);
     }
 }

@@ -90,6 +90,7 @@ public class rbPlayer : MonoBehaviour {
     public void Sprint() {
         isSprinting = !isSprinting;
         anim.SetBool("isSprinting", isSprinting);
+        //FindObjectOfType<AudioManager>().Play("Running", gameObject);
     }
 
     private void OnJump() {
@@ -126,7 +127,7 @@ public class rbPlayer : MonoBehaviour {
             PlayerStats.Moxie += 50;
             Mathf.Clamp(PlayerStats.Moxie, 0, ps.moxieMax);
             Debug.Log("Using moxie Battery" + ps.moxieMax);
-            FindObjectOfType<AudioManager>().Play("Moxie Battery", gameObject);
+            AudioManager.audioManager.Play("Moxie Battery", gameObject);
         }
         else if(PlayerStats.moxieBatteries <= 0) {
             Debug.Log("You have no moxie Batteries");
@@ -201,7 +202,7 @@ public class rbPlayer : MonoBehaviour {
     }
 
     public void PlayStepSound() {
-        if(rb.velocity.magnitude > 0.5f && Grounded()) AudioManager.audioManager.Play("Footsteps", gameObject);
+        if(rb.velocity.magnitude>0.5f && Grounded())AudioManager.audioManager.Play("Walking",gameObject);
     }
 
     public void toggleMovement() {
