@@ -6,7 +6,7 @@ public class CustomProjectiles : MonoBehaviour {
 
     //Assignables
     public Rigidbody rb;
-    public GameObject explosion;
+    public GameObject explosionPrefab;
     public LayerMask whatIsTargets;
     public enum TargetType {
         Enemy, Player
@@ -47,7 +47,7 @@ public class CustomProjectiles : MonoBehaviour {
 
         //Count down lifetime
         maxLifetime -= Time.deltaTime;
-        if (maxLifetime <= 0) Explode();
+        if (maxLifetime <= 0 && !hasExploded ) Explode();
 
     }
     protected virtual void OnCollisionEnter(Collision collision) {
@@ -64,9 +64,9 @@ public class CustomProjectiles : MonoBehaviour {
     protected virtual void Explode() {
         hasExploded = true;
         //Instantiate explosion
-        if (explosion != null)
+        if (explosionPrefab != null)
         {
-            GameObject explosionObject = Instantiate(explosion, transform.position, Quaternion.identity, transform);
+            GameObject explosionObject = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             AudioManager.audioManager.Play("Grenade", explosionObject);
         }
 
