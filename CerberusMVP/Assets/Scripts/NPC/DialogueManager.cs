@@ -18,9 +18,10 @@ public class DialogueManager : MonoBehaviour
     private List<string> conversation;
     private int conversationIndex;
     public static DialogueManager dm;
-    public enum ChatType { shopKeeper, travelGuide, Default }
+    public enum ChatType { shopKeeper, travelGuide,armourer, Default }
     public ChatType chatType = ChatType.Default;
     bool isTyping;
+    NPC interactingNPC;
 
     private void Awake() {
         if (dm == null) {
@@ -38,8 +39,9 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
     }
 
-    public void StartDialog(Conversation convo)
+    public void StartDialog(Conversation convo,NPC npcTalking)
     {
+        interactingNPC = npcTalking;
         npcNameText.text = convo.npcName;
         conversation = new List<string>(convo.myConversation);
         dialoguePanel.SetActive(true);
@@ -52,6 +54,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialoguePanel.SetActive(false);;
         functionButton.SetActive(false);
+        interactingNPC.DeactivateNPC();
     }
 
     private void ShowText()
@@ -97,6 +100,9 @@ public class DialogueManager : MonoBehaviour
             case ChatType.travelGuide:
                 functionButtonText.text = "Travel";
                 break;
+            case ChatType.armourer:
+                functionButtonText.text = "View Weapons";
+                break;
             default:
                 functionButtonText.text = "Good Bye";
                 break;
@@ -114,6 +120,9 @@ public class DialogueManager : MonoBehaviour
         if (chatType == ChatType.travelGuide) {
             Travel();
         }
+        if (chatType == ChatType.armourer) {
+            OpenArmory();
+        }
     }
     public void Travel()
     {
@@ -121,12 +130,17 @@ public class DialogueManager : MonoBehaviour
         if (rbCam.movePlayerCam == false) {
             rbCam.UnlockCam();
         }
-        SceneLoader.instance.LoadScene(2);
+        SceneLoader.instance.LoadScene(3);
         
     }
     public void OpenShop() {
         StopDialog();
         ShopUI.shopUI.ShowShop();
+    }
+
+    public void OpenArmory() {
+        StopDialog();
+        Armory.armory.ShowArmory();
     }
 
    

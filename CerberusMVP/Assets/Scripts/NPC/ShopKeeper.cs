@@ -8,11 +8,9 @@ public class ShopKeeper : NPC {
     private int randInt;
     private bool isAnimating;
 
-    private void Start() {
-        gameUI = FindObjectOfType<PlayerStats>().gameObject;
-    }
     protected override void Update() {
         base.Update();
+        if(!gameUI) gameUI = GameObject.FindObjectOfType<PlayerStats>().gameObject;
         animationDelay -= Time.deltaTime;
 
         if (animationDelay <= 0f && !isAnimating) {
@@ -59,12 +57,12 @@ public class ShopKeeper : NPC {
         isAnimating = false;
     }
 
-    protected override void ActivateNPC() {
+    public override void ActivateNPC() {
         base.ActivateNPC();
         DialogueManager.dm.chatType = DialogueManager.ChatType.shopKeeper;
     }
 
-    protected override void DeactivateNPC() {
+    public override void DeactivateNPC() {
         base.DeactivateNPC();
         DialogueManager.dm.chatType = DialogueManager.ChatType.Default;
 

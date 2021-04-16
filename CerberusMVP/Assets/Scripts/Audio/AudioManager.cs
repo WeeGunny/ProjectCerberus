@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour {
     public Sound[] sounds;
     public AudioMixerGroup mixerGroup,sfxMixerGroup,musicMixerGroup;
     public static AudioManager audioManager;
+    float pitchEffect;
 
     void Awake() {
         if (audioManager == null) {
@@ -16,6 +17,10 @@ public class AudioManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
+    }
+
+    private void Update() {
+        GritEffect();
     }
 
     public void Play(string name, GameObject emitObject) {
@@ -73,5 +78,17 @@ public class AudioManager : MonoBehaviour {
             return;
         }
         s.source.Stop();
+    }
+
+    void GritEffect() {
+        if(PlayerStats.GritActive && pitchEffect>=0.5f) {
+            pitchEffect -= Time.deltaTime * 2 / Time.timeScale;
+            mixerGroup.audioMixer.SetFloat("MasterPitch", pitchEffect);
+        }
+
+        if(!PlayerStats.GritActive && pitchEffect<1) {
+            pitchEffect += Time.deltaTime * 2 / Time.timeScale;
+            mixerGroup.audioMixer.SetFloat("MasterPitch", pitchEffect);
+        }
     }
 }

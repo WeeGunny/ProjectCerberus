@@ -25,7 +25,6 @@ public class PlayerProjectile : MonoBehaviour {
 
     protected virtual void OnCollisionEnter(Collision collision) {
         GameObject hit = collision.gameObject;
-        //Debug.Log("You hit: " + hit.name);
         if (hit.tag == "Enemy") {
             DestroyProjectile();
             hit.GetComponent<EnemyController>().TakeDamage(damage,damageType);
@@ -33,7 +32,6 @@ public class PlayerProjectile : MonoBehaviour {
         }
         else if (hit.tag != "Player" && hit.tag != "Bullet") {
             DestroyProjectile();
-            Debug.Log("bullet destroyed, hit: " + hit.name);
         }
     }
 

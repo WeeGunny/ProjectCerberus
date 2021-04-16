@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Room : MonoBehaviour {
     // Array of available doorways
     public Doorway[] doorways;
+    public Chest roomChest;
 
     //lists of spawn points, used spawn points and prefabs to used for enemies
     public List<GameObject> enemyPrefabs = new List<GameObject>();
@@ -19,6 +20,8 @@ public class Room : MonoBehaviour {
     public int enemiesAlive = 0;
     public int id = 1;
     public bool roomHasEnemies = false;
+    public bool doorsLocked = false;
+    
 
 
 
@@ -49,19 +52,20 @@ public class Room : MonoBehaviour {
 
     private void Start() {
         SpawnEnemies();
-        GameEvents.current.onDoorwayTriggerExit += LockDoors;
-        GameEvents.current.onEnemiesDefeated += UnlockDoors;
         SpawnItems();
     }
-    private void OnDestroy() {
-        GameEvents.current.onDoorwayTriggerExit -= LockDoors;
-        GameEvents.current.onEnemiesDefeated -= UnlockDoors;
-    }
     private void Update() {
-        if (id != -1) {
-            if (enemiesAlive == 0 && roomHasEnemies) {
-                GameEvents.current.EnemiesDefeated(id);
-                roomHasEnemies = false;
+
+        roomHasEnemies = enemiesAlive > 0;
+
+        if (!roomHasEnemies && doorsLocked) {
+            UnlockDoors();
+            if (roomChest) roomChest.UnlockChest();
+        }
+
+        if (PlayerManager.player && RoomBounds.Contains(PlayerManager.player.transform.position)) {
+            if (roomHasEnemies && !doorsLocked) {
+                LockDoors();
             }
         }
     }
@@ -85,9 +89,11 @@ public class Room : MonoBehaviour {
                 enemySPs.RemoveAt(randomSpawnPoint);
                 enemiesAlive++;
             }
+            if(roomChest)roomChest.gameObject.SetActive(true);
             roomHasEnemies = true;
         }
         else {
+            if(roomChest)roomChest.gameObject.SetActive(false);
             roomHasEnemies = false;
         }
 
@@ -113,30 +119,26 @@ public class Room : MonoBehaviour {
         foreach (GameObject spawnPoint in usedItemSPs) {
             itemSPs.Add(spawnPoint);
         }
-
     }
 
 
 
-    public void LockDoors(int id) {
-        if (id == this.id) {
-            foreach (Doorway doorway in doorways) {
-                doorway.gameObject.SetActive(true);
-            }
+    public void LockDoors() {
+        foreach (Doorway doorway in doorways) {
+            if (!doorway.isExterior) doorway.LockDoor();
         }
-
+        doorsLocked = true;
     }
 
-    public void UnlockDoors(int id) {
-        if (id == this.id) {
-            foreach (Doorway doorway in doorways) {
-                if(!doorway.isOutdoor)doorway.gameObject.SetActive(false); // Ensures not to open the doors that go outside the level
-            }
-
+    public void UnlockDoors() {
+        foreach (Doorway doorway in doorways) {
+            if (!doorway.isExterior) doorway.UnlockDoor(); // Ensures not to open the doors that go outside the level
+            Debug.Log("unlocking doors");
         }
+        doorsLocked = false;
     }
 
-    private void OnDrawGizmosSelected() {
+    protected void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(RoomBounds.center, RoomBounds.size);
     }

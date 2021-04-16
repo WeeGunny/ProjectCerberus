@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC : MonoBehaviour {
+public class NPC : MonoBehaviour, IInteractable {
     public GameObject gameUI;
     public Conversation myConversation;
     bool playerInRange = false;
@@ -10,45 +10,30 @@ public class NPC : MonoBehaviour {
 
     public static bool playerIsTalking;
 
-
     protected virtual void Update() {
-
-        if (Input.GetKeyDown(KeyCode.E) && !playerIsTalking && playerInRange) ActivateNPC();
-
     }
 
-    protected void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player")) {
-            DialogueManager.dm.interactUI.SetActive(true);
-            playerInRange = true;
-        }
-    }
-
-    protected void OnTriggerExit(Collider other) {
-        if (other.CompareTag("Player")) {
-            DialogueManager.dm.interactUI.SetActive(false);
-            playerInRange = false;
-            DeactivateNPC();
-        }
-    }
-
-    protected virtual void ActivateNPC() {
+    public virtual void ActivateNPC() {
         gameUI.SetActive(false);
-        anim.SetBool("isTalking", true);
-        DialogueManager.dm.StartDialog(myConversation);
-        DialogueManager.dm.interactUI.SetActive(false);
+        if(anim)anim.SetBool("isTalking", true);
+        DialogueManager.dm.StartDialog(myConversation,this);
         playerIsTalking = true;
         rbCam.LockCam();
         DialogueManager.dm.nextButton.SetActive(true);
     }
 
-    protected virtual void DeactivateNPC() {
+    public virtual void DeactivateNPC() {
         gameUI.SetActive(true);
-        DialogueManager.dm.StopDialog();
         playerIsTalking = false;
-        anim.SetBool("isTalking", false);
-        if (playerInRange) DialogueManager.dm.interactUI.SetActive(true);
+        if(anim)anim.SetBool("isTalking", false);
+        Interacter.instance.IsInteracting = false;
         rbCam.UnlockCam();
 
+    }
+
+    public virtual void Interact()
+    {
+        ActivateNPC();
+        Interacter.instance.IsInteracting = true;
     }
 }
