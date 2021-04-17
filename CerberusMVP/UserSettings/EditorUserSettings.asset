@@ -6,30 +6,33 @@ EditorUserSettings:
   serializedVersion: 4
   m_ConfigSettings:
     RecentlyUsedScenePath-0:
-      value: 22424703114646680e0b0227036c7b15170310192f2d2835633c133af6f9
-      flags: 0
-    RecentlyUsedScenePath-1:
-      value: 22424703114646680e0b0227036c6f1c170e1d38012722352167083debf42d
-      flags: 0
-    RecentlyUsedScenePath-2:
       value: 22424703114646680e0b0227036c691915031738351b2535232c5326ece92021
       flags: 0
-    RecentlyUsedScenePath-3:
+    RecentlyUsedScenePath-1:
       value: 22424703114646680e0b0227036c6b15050311242b671239202c293cc0f23139e9d43ee0f3742a323016f6
       flags: 0
-    RecentlyUsedScenePath-4:
+    RecentlyUsedScenePath-2:
       value: 22424703114646680e0b0227036c6b15050311242b671239202c293cc0f23139e9d43ee0f37a6e722c0ce6281d
       flags: 0
-    RecentlyUsedScenePath-5:
+    RecentlyUsedScenePath-3:
       value: 22424703114646680e0b0227036c78111b12563f22213229
       flags: 0
-    RecentlyUsedScenePath-6:
-      value: 22424703114646680e0b0227036c770514360a2f2d66333e243d04
-      flags: 0
-    RecentlyUsedScenePath-7:
+    RecentlyUsedScenePath-4:
       value: 224247031146466e24412f2d1e374d1f1a1b1d386c01253f233a5d03e3e33f78aae52fa9c92f33300a03f9394d71323cf7040c18b9380b060102f83d12fa1e165fd016cc0ed1
       flags: 0
+    RecentlyUsedScenePath-5:
+      value: 22424703114646680e0b0227036c770514360a2f2d66333e243d04
+      flags: 0
+    RecentlyUsedScenePath-6:
+      value: 22424703114646680c031c2e1530103918070d3e6c1b3f23392c107cb3ae6476b0a819e7aa093c2e3c07e17c27310f2be0050518b9240438121cf80b1fdc1f1d05d717c909fb1e11db151980d813d8f7cc
+      flags: 0
+    RecentlyUsedScenePath-7:
+      value: 22424703114646680c031c2e1530103918070d3e6c1b3f23392c107cb3ae6476b0a81fe7aa1d3e313c42c7350a2a1270db042e0afb0e22021f1aee3d10f2001f14f61bc014cd5109c51008d7
+      flags: 0
     RecentlyUsedScenePath-8:
+      value: 22424703114646680c031c2e1530103918070d3e6c1b3f23392c107cb3ae6476b0a804ece5333138300ce87c31174e0df7080005f202040c2427ce0f1cef1c1622c61dcb1f860a12c20d05
+      flags: 0
+    RecentlyUsedScenePath-9:
       value: 22424703114646680e0b0227036c72111f19352f223d68252320092a
       flags: 0
     UnityEditor.ShaderGraph.FloatingWindowsLayout2:
