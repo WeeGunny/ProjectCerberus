@@ -30,8 +30,8 @@ public class BossRoom_Transformations : MonoBehaviour
             {
                 _platformTransforms.Add(child);
             }
-            
         }
+        
 
     }
     // Update is called once per frame
@@ -39,19 +39,32 @@ public class BossRoom_Transformations : MonoBehaviour
     {
         foreach (Transform platform in _platformTransforms)
         {
-            var transformPosition = platform.transform.position;
+            bool goUp = true;
+            var transformPosition = platform.transform.localPosition;
             // The Z transform should go between 0 and .9 to stay on the rails 
-            if (transformPosition.z <= .9f)
+            if (goUp)
             {
-                transformPosition.z += ElevationSpeed * Time.deltaTime;
+                Debug.Log("Less than 0.9f");
+                platform.Translate(0, 0, -.01f);
+                if (transformPosition.z <= 0.9f)
+                {
+                    goUp = false; // go down haha  silly guy!
+                }
             }
-            else
+            if (!goUp)
             {
-                transformPosition.z -= ElevationSpeed * Time.deltaTime;
+                platform.Translate(0, 0, -.1f);
+                if (transformPosition.z >= 0)
+                {
+                    goUp = true;
+                }
             }
-            
         }
+            
+    }
+        // at random intervals:
+        //_bossRoomTransform.Rotate(0, 0, 45f);
     }
 
     
-}
+
