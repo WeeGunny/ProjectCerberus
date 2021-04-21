@@ -40,16 +40,14 @@ public class BossRoom_Transformations : MonoBehaviour
         foreach (Transform platform in _platformTransforms)
         {
             bool goUp = true;
+            
             var transformPosition = platform.transform.localPosition;
             // The Z transform should go between 0 and .9 to stay on the rails 
-            if (goUp)
+            platform.Translate(0, 0, .01f);
+    
+            if (transformPosition.z <= 0.9f)
             {
-                Debug.Log("Less than 0.9f");
-                platform.Translate(0, 0, -.01f);
-                if (transformPosition.z <= 0.9f)
-                {
-                    goUp = false; // go down haha  silly guy!
-                }
+                goUp = false; // go down haha  silly guy!
             }
             if (!goUp)
             {
