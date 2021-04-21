@@ -81,6 +81,39 @@ public class DeviceDisplayConfigurator : ScriptableObject
             case "leftTriggerButton":
                 spriteIcon = targetDeviceSet.deviceDisplaySettings.triggerLeftIcon;
                 break;
+            case "Start Button":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.startButton;
+                break;
+            case "Select Button":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.selectButton;
+                break;
+            case "Dpad":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.dpad;
+                break;
+            case "Dpad Up":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.dpadUp;
+                break;
+            case "Dpad Down":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.dpadDown;
+                break;
+            case "Dpad Left":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.dpadLeft;
+                break;
+            case "Dpad Right":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.dpadRight;
+                break;
+            case "Left Stick":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.leftStick;
+                break;
+            case "Right Stick":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.rightStick;
+                break;
+            case "Left Stick Press":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.leftStickPress;
+                break;
+            case "Right Stick Press":
+                spriteIcon = targetDeviceSet.deviceDisplaySettings.rightStickPress;
+                break;
 
             default:
 

@@ -29,6 +29,20 @@ public class DeviceDisplaySettings : ScriptableObject
     public Sprite shoulderLeftIcon;
     public Sprite triggerLeftIcon;
 
+    public Sprite startButton;
+    public Sprite selectButton;
+
+    public Sprite dpad;
+    public Sprite dpadUp;
+    public Sprite dpadDown;
+    public Sprite dpadLeft;
+    public Sprite dpadRight;
+
+    public Sprite leftStick;
+    public Sprite rightStick;
+    public Sprite leftStickPress;
+    public Sprite rightStickPress;
+
     public List<CustomInputContextIcon> customContextIcons = new List<CustomInputContextIcon>();
 
 }
