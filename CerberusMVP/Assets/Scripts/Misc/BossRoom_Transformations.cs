@@ -8,17 +8,17 @@ public class BossRoom_Transformations : MonoBehaviour
     // Start is called before the first frame update
 
     public float ElevationSpeed = .1f;
-    public float TimingOffset;
+    public float TimingOffset; // somehow control how out of sync the platforms are
     
     
     private List<Transform> _platformTransforms = new List<Transform>();
     private List<Transform> _bossRoomChildTransforms = new List<Transform>();
-    private Transform _bossRoomTransform; // rotato this obj
+    private Transform _bossRoomTransform; // rotato this obj in 45d increments
     private float _platformHeight;
     
     
 
-    void Start()
+    public void Start()
     {
         _bossRoomTransform = GetComponent<Transform>(); // parent obj transform
         _bossRoomChildTransforms = gameObject.GetComponentsInChildren<Transform>().ToList();
@@ -35,12 +35,12 @@ public class BossRoom_Transformations : MonoBehaviour
 
     }
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         foreach (Transform platform in _platformTransforms)
         {
             var transformPosition = platform.transform.position;
-            // The Z transform should go between 0 and .9 to look right. 
+            // The Z transform should go between 0 and .9 to stay on the rails 
             if (transformPosition.z <= .9f)
             {
                 transformPosition.z += ElevationSpeed * Time.deltaTime;
