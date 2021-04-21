@@ -53,7 +53,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         gameUI.SetActive(true);
-        rbCam.UnlockCam();
+        if (Interacter.interacterExsists) if (!Interacter.instance.IsInteracting)rbCam.UnlockCam();
         
         Time.timeScale = 1f;
         GamePaused = false;
@@ -66,7 +66,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GamePaused = true;
         Debug.Log("Pausing Game");
-        rbCam.LockCam();
+        if (Interacter.interacterExsists) if (!Interacter.instance.IsInteracting)rbCam.LockCam();
     }
 
     public void LoadMenu()

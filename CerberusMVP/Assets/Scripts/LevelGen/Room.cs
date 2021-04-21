@@ -21,9 +21,6 @@ public class Room : MonoBehaviour {
     public int id = 1;
     public bool roomHasEnemies = false;
     public bool doorsLocked = false;
-    
-
-
 
     // Property to contain bounds of Room
     public Bounds RoomBounds {
@@ -45,9 +42,7 @@ public class Room : MonoBehaviour {
                 roomBounds.Encapsulate(renderer.bounds);  // Make the bounds include the local bounds of the renderer
             }
         this.transform.rotation = currentRotation;
-
         return roomBounds; // returns the new encapsulated bounds
-
     }
 
     private void Start() {
@@ -89,15 +84,15 @@ public class Room : MonoBehaviour {
                 enemySPs.RemoveAt(randomSpawnPoint);
                 enemiesAlive++;
             }
-            if(roomChest)roomChest.gameObject.SetActive(true);
+            if (roomChest) roomChest.gameObject.SetActive(true);
             roomHasEnemies = true;
         }
         else {
-            if(roomChest)roomChest.gameObject.SetActive(false);
+            if (roomChest) roomChest.gameObject.SetActive(false);
             roomHasEnemies = false;
         }
-
     }
+
     public void SpawnItems() {
 
         for (int i = 0; i < itemsToSpawn; i++) {
@@ -120,8 +115,6 @@ public class Room : MonoBehaviour {
             itemSPs.Add(spawnPoint);
         }
     }
-
-
 
     public void LockDoors() {
         foreach (Doorway doorway in doorways) {

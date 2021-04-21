@@ -34,7 +34,7 @@ public class ShopUI : MonoBehaviour {
         }
     }
 
-    public void FillDisplays(GameObject display1,GameObject display2,GameObject display3) {
+    public void FillDisplays(GameObject display1, GameObject display2, GameObject display3) {
 
         if (currentShopItems[0]) {
             ChangeItem(currentShopItems[0]);
@@ -62,10 +62,12 @@ public class ShopUI : MonoBehaviour {
     public void ShowShop() {
         gameObject.SetActive(true);
         rbCam.LockCam();
+        if(Interacter.interacterExsists)Interacter.instance.IsInteracting = true;
     }
 
     public void HideShop() {
         gameObject.SetActive(false);
         rbCam.UnlockCam();
+        if(Interacter.interacterExsists)Interacter.instance.IsInteracting = false;
     }
 }

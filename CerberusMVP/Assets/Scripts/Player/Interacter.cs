@@ -5,6 +5,7 @@ using UnityEngine;
 public class Interacter : MonoBehaviour
 {
     public static Interacter instance;
+    public static bool interacterExsists = false;
     public float InteractRange;
     public GameObject InteractUI;
     public static bool CanInteract;
@@ -13,7 +14,10 @@ public class Interacter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(!instance) instance = this;
+        if (!instance) {
+            instance = this;
+            interacterExsists = true;
+        }
         else { Destroy(this); }
         if(!InteractUI) InteractUI = GameObject.Find("Interact UI");
     }

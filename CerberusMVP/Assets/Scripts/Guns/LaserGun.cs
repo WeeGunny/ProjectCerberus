@@ -32,32 +32,14 @@ public class LaserGun : Gun {
         }
     }
     public override void Fire() {
-        readyToShoot = false;
         if(firingLaser== false) {
             Debug.Log("Creating Laser");
             laser = Instantiate(primaryAmmo);
             beam = laser.GetComponent<LineRenderer>();
             firingLaser = true;
             FindObjectOfType<AudioManager>().Play(soundName,gameObject);
-        }
-        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, laserRange)) {
-            EnemyController enemy = hit.collider.GetComponent<EnemyController>();
-            if (enemy != null) {
-                enemy.TakeDamage(Dmg, damageType);
-            }
-            SpiderController spider = hit.collider.GetComponent<SpiderController>();
-            if (spider != null) {
-                spider.TakeDamage(Dmg, damageType);
-            }
-        }
-        clipAmmo--;
+        }     
         beam.SetPosition(0, firePoint.position);
-        if (allowInvoke) {
-            Invoke("ResetShot", 1 / fireRate); // fire resets how often damage is taken and ammo is consumed
-            allowInvoke = false;
-        }
     }
 
     public override void AltFire() {
@@ -77,11 +59,35 @@ public class LaserGun : Gun {
         else {
             beam.SetPosition(1, ray.GetPoint(laserRange));
         }
+
+        if (readyToShoot) BeamDamage();
         if (clipAmmo == 0) {
             firingLaser = false;
             StopLaser();
             Destroy(laser);
         }
+    }
+
+    private void BeamDamage() {
+        readyToShoot = false;
+        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, laserRange)) {
+            EnemyController enemy = hit.collider.GetComponent<EnemyController>();
+            if (enemy != null) {
+                enemy.TakeDamage(Dmg, damageType);
+            }
+            SpiderController spider = hit.collider.GetComponent<SpiderController>();
+            if (spider != null) {
+                spider.TakeDamage(Dmg, damageType);
+            }
+        }
+        clipAmmo--;
+        if (allowInvoke) {
+            Invoke("ResetShot", 1 / fireRate); // fire resets how often damage is taken and ammo is consumed
+            allowInvoke = false;
+        }
+
     }
     public void StopLaser() {
         firingLaser = false;
@@ -93,17 +99,5 @@ public class LaserGun : Gun {
         }
         FindObjectOfType<AudioManager>().Stop(soundName);
     }
-
-    //protected override void OnEnable() {
-    //    base.OnEnable();
-    //    controls.Gameplay.PrimaryFire.canceled += ContextMenu => StopLaser();
-    //    controls.Gameplay.PrimaryFire.Enable();
-    //}
-
-    //protected override void OnDisable() {
-    //    base.OnDisable();
-    //    controls.Gameplay.PrimaryFire.canceled -= ContextMenu => StopLaser();
-    //    controls.Gameplay.PrimaryFire.Disable();
-    //}
 
 }

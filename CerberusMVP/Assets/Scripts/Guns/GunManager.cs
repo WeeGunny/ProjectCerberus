@@ -10,7 +10,7 @@ public class GunManager : MonoBehaviour {
     public Camera fpsCam;
     public static bool canFire = true;
     Gun currentGun, primaryGun, secondaryGun;
-    GameObject currentGunObject;
+   [SerializeField] GameObject currentGunObject;
     public static GunManager instance;
 
     private void Awake() {
@@ -49,7 +49,7 @@ public class GunManager : MonoBehaviour {
     }
 
     public void EquipGun(Gun newGun) {
-        if (secondaryGunObject) { // if gun slot 2 is empty new gun fills the slot
+        if (!secondaryGunObject) { // if gun slot 2 is empty new gun fills the slot
             secondaryGunObject = Instantiate(newGun.gunPrefab, transform);
             secondaryGunObject.SetActive(false);
             WeaponDisplay.instance.SetGunIcon2(newGun.gunInfo.icon);
@@ -60,25 +60,35 @@ public class GunManager : MonoBehaviour {
             currentGunObject = Instantiate(newGun.gunPrefab, transform);
             primaryGunObject = newGun.gunPrefab;
             WeaponDisplay.instance.SetGunIcon1(newGun.gunInfo.icon);
+            WeaponDisplay.instance.SetGun1Active();
         }
     }
 
-    public void ChangeLoadout(Gun newPrimary, Gun newAlt) {
+    public void ChangeLoadout(Gun newPrimary, Gun newAlt) {             
+        currentGun = null;
+        currentGunObject = null;
         if (newPrimary) {
             Destroy(primaryGunObject);
             primaryGunObject = Instantiate(newPrimary.gunPrefab, transform);
+            primaryGun = primaryGunObject.GetComponent<Gun>();
             WeaponDisplay.instance.SetGunIcon1(newPrimary.gunInfo.icon);
             currentGunObject = primaryGunObject;
+            currentGun = primaryGun;
             if (!newAlt) WeaponDisplay.instance.OnlyPrimary();
         }
         if (newAlt) {
             Destroy(secondaryGunObject);
             secondaryGunObject = Instantiate(newAlt.gunPrefab, transform);
-            secondaryGunObject.SetActive(false);
+            secondaryGun = secondaryGunObject.GetComponent<Gun>();
             WeaponDisplay.instance.SetGunIcon2(newAlt.gunInfo.icon);
             if (!newPrimary) {
                 currentGunObject = secondaryGunObject;
+                currentGun = secondaryGun;
                 WeaponDisplay.instance.OnlySecondary();
+            }
+            else {
+                secondaryGunObject.SetActive(false);
+                WeaponDisplay.instance.SetGun1Active();
             }
         }
 
@@ -121,7 +131,10 @@ public class GunManager : MonoBehaviour {
                 WeaponDisplay.instance.SetGun2Active();
             }
         }
-        if (currentGun) PlayerManager.stats.activeGun = currentGun;
-        currentGunObject.SetActive(true);
+        if (currentGun) {
+            PlayerManager.stats.activeGun = currentGun;
+            currentGunObject.SetActive(true);
+        }
+       
     }
 }

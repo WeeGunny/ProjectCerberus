@@ -6,11 +6,13 @@ using TMPro;
 
 public class Armory : MonoBehaviour {
     public static List<GunInfo> UnlockedWeapons = new List<GunInfo>();
-    [SerializeField]List<GunInfo> startingWeapsons = new List<GunInfo>();
+    [SerializeField] List<GunInfo> startingWeapsons = new List<GunInfo>();
     public Transform UIParent;
     public GameObject slotPrefab;
-    [HideInInspector]public Gun tempGun1, tempGun2;
-    [HideInInspector]public GunInfo selectedGun;
+    /*[HideInInspector]*/
+    public Gun tempGun1, tempGun2;
+    /*[HideInInspector]*/
+    public GunInfo selectedGun;
     public TextMeshProUGUI Name, Damage, AltDamage, FireRate, FireType, ReloadTime, Ammo, Descripton;
     public Image gun1Icon, gun2Icon, selectedGunIcon;
     public static Armory armory;
@@ -19,7 +21,7 @@ public class Armory : MonoBehaviour {
     private void Awake() {
         if (!armory) armory = this;
         else Destroy(gameObject);
-        foreach(GunInfo gun in startingWeapsons) {
+        foreach (GunInfo gun in startingWeapsons) {
             if (!UnlockedWeapons.Contains(gun)) UnlockedWeapons.Add(gun);
         }
     }
@@ -41,8 +43,8 @@ public class Armory : MonoBehaviour {
         if (gunInfo.gun.allowHold) FireType.text = "FireType: Automatic";
         else if (gunInfo.gun.bulletsPerShot > 1) FireType.text = "FireType: Burst";
         else FireType.text = "FireType: Manual";
-        ReloadTime.text = "Reload Time: "+ gunInfo.gun.reloadTime.ToString()+"s";
-        Ammo.text = "Ammo: " + gunInfo.gun.maxClipAmmo +"/" + gunInfo.gun.maxAmmo;
+        ReloadTime.text = "Reload Time: " + gunInfo.gun.reloadTime.ToString() + "s";
+        Ammo.text = "Ammo: " + gunInfo.gun.maxClipAmmo + "/" + gunInfo.gun.maxAmmo;
         Descripton.text = gunInfo.description;
         selectedGunIcon.sprite = gunInfo.icon;
         selectedGun = gunInfo;
@@ -60,7 +62,9 @@ public class Armory : MonoBehaviour {
     }
 
     public void ConfirmLoadout() {
-        if(tempGun1 || tempGun2) GunManager.instance.ChangeLoadout(tempGun1, tempGun2);
+        if (tempGun1 && tempGun2) GunManager.instance.ChangeLoadout(tempGun1, tempGun2);
+        else if (tempGun1 && !tempGun2) GunManager.instance.ChangeLoadout(tempGun1, null);
+        else if (!tempGun1 && tempGun2) GunManager.instance.ChangeLoadout(null, tempGun2);
 
     }
 
@@ -79,11 +83,13 @@ public class Armory : MonoBehaviour {
     public void ShowArmory() {
         gameObject.SetActive(true);
         rbCam.LockCam();
+        if (Interacter.interacterExsists) Interacter.instance.IsInteracting = true;
     }
 
     public void HideArmory() {
         gameObject.SetActive(false);
         rbCam.UnlockCam();
+        if (Interacter.interacterExsists) Interacter.instance.IsInteracting = false;
     }
 
 

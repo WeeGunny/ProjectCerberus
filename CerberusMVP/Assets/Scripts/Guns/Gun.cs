@@ -54,6 +54,9 @@ public class Gun : MonoBehaviour {
             bulletsShot = 0;
             Fire();
         }
+        else if (readyToShoot && !reloading && clipAmmo <= 0 && GunManager.canFire) {
+            ReloadDelay();
+        }
     }
 
     public virtual void HeldFire(InputAction.CallbackContext context) {
@@ -116,8 +119,8 @@ public class Gun : MonoBehaviour {
 
     public virtual void AltFire() {
         PlayerStats.Moxie -= moxieRequirement;
-        animator.SetTrigger("altFire");
-        AudioManager.audioManager.Play(AltFireName, gameObject);
+        animator.SetTrigger("isAltFire");
+       
     }
 
     public void ReloadDelay() {

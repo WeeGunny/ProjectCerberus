@@ -7,12 +7,13 @@ public class FlechettePistol : Gun
     public float moxieBurstShots;
 
     public override void AltFire() {
-        base.AltFire();
         bulletsShot = 0;
         if (clipAmmo <=0) {
             PlayerStats.Moxie += moxieRequirement;
             return;
         }
+        PlayerStats.Moxie -= moxieRequirement;
+        animator.SetTrigger("isAltFire");
         MoxieBurst();
     }
 
@@ -39,6 +40,7 @@ public class FlechettePistol : Gun
         bullet.transform.forward = directionWithSpread;
         bullet.GetComponent<PlayerProjectile>().damage = Dmg;
         bullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * bulletSpeed, ForceMode.Impulse);
+        AudioManager.audioManager.Play(AltFireName, gameObject);
         clipAmmo--;
         bulletsShot++;
 

@@ -26,7 +26,7 @@ public class NPC : MonoBehaviour, IInteractable {
         gameUI.SetActive(true);
         playerIsTalking = false;
         if(anim)anim.SetBool("isTalking", false);
-        Interacter.instance.IsInteracting = false;
+        if (Interacter.interacterExsists) Interacter.instance.IsInteracting = false;
         rbCam.UnlockCam();
 
     }
@@ -34,6 +34,6 @@ public class NPC : MonoBehaviour, IInteractable {
     public virtual void Interact()
     {
         ActivateNPC();
-        Interacter.instance.IsInteracting = true;
+        if (Interacter.interacterExsists) Interacter.instance.IsInteracting = true;
     }
 }
