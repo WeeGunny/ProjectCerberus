@@ -13,7 +13,7 @@ public class BossRoom_Transformations : MonoBehaviour
     
     private List<Transform> _platformTransforms = new List<Transform>();
     private List<Transform> _bossRoomChildTransforms = new List<Transform>();
-    private Transform _bossRoomTransform;
+    private Transform _bossRoomTransform; // rotato this obj
     private float _platformHeight;
     
     
@@ -22,6 +22,8 @@ public class BossRoom_Transformations : MonoBehaviour
     {
         _bossRoomTransform = GetComponent<Transform>(); // parent obj transform
         _bossRoomChildTransforms = gameObject.GetComponentsInChildren<Transform>().ToList();
+        
+        // get children that need to move up and down
         foreach (Transform child in _bossRoomChildTransforms)
         {
             if (child.gameObject.CompareTag("BossPlatform"))
