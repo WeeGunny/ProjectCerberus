@@ -1,9 +1,30 @@
 fileFormatVersion: 2
-guid: 42a86ac829d60884f88ae01cdf1b4b02
+guid: 5f71609dcd221e24ea4d576b845a769a
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Boss Platform
+    second: {fileID: 2100000, guid: c859267567172a2409afc78ec60e9e94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Catwalk
+    second: {fileID: -1131680331003364624, guid: ff0e3ee1a988f134ba12fdb4680e5121,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 72bdc7b586d521c449c5e80766af0806, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rails
+    second: {fileID: 2100000, guid: 631def4b0155c114993905ca6713d551, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
