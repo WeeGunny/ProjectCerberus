@@ -6,7 +6,8 @@ public class Coins : ItemFunction
 {
 
     public override bool TryPickup() {
-        PlayerStats.gold += 1;
+        float randomGold = Mathf.Ceil(Random.Range(5, 10));
+        PlayerManager.stats.gold += randomGold;
         return true;
     }
 

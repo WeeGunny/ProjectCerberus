@@ -67,7 +67,7 @@ public class Gun : MonoBehaviour {
     }
 
     public virtual void OnAlternateFire() {
-        if (PlayerStats.Moxie > moxieRequirement && GunManager.canFire) AltFire();
+        if (PlayerManager.stats.Moxie > moxieRequirement && GunManager.canFire) AltFire();
 
     }
 
@@ -118,7 +118,7 @@ public class Gun : MonoBehaviour {
     }
 
     public virtual void AltFire() {
-        PlayerStats.Moxie -= moxieRequirement;
+        PlayerManager.stats.Moxie -= moxieRequirement;
         animator.SetTrigger("isAltFire");
        
     }

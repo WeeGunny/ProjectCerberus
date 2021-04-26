@@ -15,30 +15,31 @@ public class LaserGun : Gun {
         if (fireHeld) {
             UpdateLaser();
         }
-        else if (!fireHeld && firingLaser){
+        else if (!fireHeld && firingLaser) {
             StopLaser();
         }
         //Changes the size of black hole core depending on moxie left 
-        CoreBoneTransform.localScale = new Vector3(0.01f, 0.01f, 0.01f) * PlayerStats.Moxie;
-        if (PlayerStats.Moxie < moxieRequirement) {
+        CoreBoneTransform.localScale = new Vector3(0.01f, 0.01f, 0.01f) * PlayerManager.stats.Moxie;
+        if (PlayerManager.stats.Moxie < moxieRequirement) {
             CoreBoneTransform.localScale = new Vector3(0f, 0f, 0f);
         }
     }
 
     public override void OnPrimaryFire() {
-       
-        if (readyToShoot && !reloading && clipAmmo > 0 ) {
-            Fire();
+
+        if (readyToShoot && !reloading) {
+            if (clipAmmo > 0) Fire();
+            else ReloadDelay();
         }
     }
     public override void Fire() {
-        if(firingLaser== false) {
+        if (firingLaser == false) {
             Debug.Log("Creating Laser");
             laser = Instantiate(primaryAmmo);
             beam = laser.GetComponent<LineRenderer>();
             firingLaser = true;
-            FindObjectOfType<AudioManager>().Play(soundName,gameObject);
-        }     
+            FindObjectOfType<AudioManager>().Play(soundName, gameObject);
+        }
         beam.SetPosition(0, firePoint.position);
     }
 
@@ -46,11 +47,11 @@ public class LaserGun : Gun {
         base.AltFire();
         readyToShoot = false;
         GameObject altBullet = Instantiate(altAmmo, firePoint.position, Quaternion.identity);
-        altBullet.GetComponent<Rigidbody>().AddForce(firePoint.forward*altSpeed,ForceMode.Impulse);
+        altBullet.GetComponent<Rigidbody>().AddForce(firePoint.forward * altSpeed, ForceMode.Impulse);
     }
 
     public void UpdateLaser() {
-        beam.SetPosition(0,firePoint.position);
+        beam.SetPosition(0, firePoint.position);
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, laserRange)) {
@@ -61,10 +62,11 @@ public class LaserGun : Gun {
         }
 
         if (readyToShoot) BeamDamage();
-        if (clipAmmo == 0) {
+        if (clipAmmo <= 0) {
             firingLaser = false;
             StopLaser();
             Destroy(laser);
+            ReloadDelay();
         }
     }
 
@@ -98,6 +100,10 @@ public class LaserGun : Gun {
             allowInvoke = false;
         }
         FindObjectOfType<AudioManager>().Stop(soundName);
+    }
+
+    private void OnDisable() {
+        StopLaser();
     }
 
 }

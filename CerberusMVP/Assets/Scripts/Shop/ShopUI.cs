@@ -54,8 +54,8 @@ public class ShopUI : MonoBehaviour {
     }
 
     public void BuyItem() {
-        if (PlayerStats.gold >= selectedItem.cost) {
-            if (selectedItem.function.TryBuy()) PlayerStats.gold -= selectedItem.cost;
+        if (PlayerManager.stats.gold >= selectedItem.cost) {
+            if (selectedItem.function.TryBuy()) PlayerManager.stats.gold -= selectedItem.cost;
         }
     }
 

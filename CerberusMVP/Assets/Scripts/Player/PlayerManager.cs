@@ -6,5 +6,6 @@ using UnityEngine.SceneManagement;
 public static class PlayerManager {
     public static bool playerExists = false;
     public static GameObject player = null;
-    public static PlayerStats stats = null;
+    public static StatsSO stats = null;
+
 }

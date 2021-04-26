@@ -5,31 +5,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GunManager : MonoBehaviour {
-    public GameObject[] gunPrefabs = new GameObject[2];
     public GameObject primaryGunObject, secondaryGunObject;
     public Camera fpsCam;
     public static bool canFire = true;
-    Gun currentGun, primaryGun, secondaryGun;
+   public Gun currentGun, primaryGun, secondaryGun;
    [SerializeField] GameObject currentGunObject;
+    StatsSO stats;
     public static GunManager instance;
 
     private void Awake() {
         instance = this;
-        if (gunPrefabs[0]) {
-            primaryGunObject = Instantiate(gunPrefabs[0], transform);
-            primaryGunObject.SetActive(false);
+        stats = PlayerManager.stats;
+        if (!stats.isSetUp) {
+            stats.SetUpStats();
+        }
+        if (stats.PrimaryGun) {
+            primaryGunObject = Instantiate(stats.PrimaryGun.gun.gunPrefab, transform);
             primaryGun = primaryGunObject.GetComponent<Gun>();
             currentGunObject = primaryGunObject;
             currentGun = primaryGun;
         }
-        if (gunPrefabs[1]) {
-            secondaryGunObject = Instantiate(gunPrefabs[1], transform);
-            secondaryGunObject.SetActive(false);
+        if (stats.SecondaryGun) {
+            secondaryGunObject = Instantiate(stats.SecondaryGun.gun.gunPrefab, transform);
             secondaryGun = secondaryGunObject.GetComponent<Gun>();
             if (!primaryGun) {
                 currentGunObject = secondaryGunObject;
                 currentGun = secondaryGun;
             }
+            else secondaryGunObject.SetActive(false);
         }
 
     }
@@ -38,9 +41,9 @@ public class GunManager : MonoBehaviour {
     void Start() {
         if (primaryGun) WeaponDisplay.instance.SetGunIcon1(currentGun.gunInfo.icon);
         if (secondaryGun) WeaponDisplay.instance.SetGunIcon2(secondaryGun.gunInfo.icon);
-        if (primaryGun && secondaryGun) {
-            WeaponDisplay.instance.SetGun1Active();
-        }
+        if (primaryGun && secondaryGun)WeaponDisplay.instance.SetGun1Active();
+        if (primaryGun && !secondaryGun) WeaponDisplay.instance.OnlyPrimary();
+        if (secondaryGun && !primaryGun) WeaponDisplay.instance.OnlySecondary();
     }
 
     // Update is called once per frame
@@ -95,7 +98,7 @@ public class GunManager : MonoBehaviour {
     }
 
     public void OnSwitchWeapon() { // this is for new input system and is mapped to switch weapon key
-        if (currentGunObject == primaryGunObject && secondaryGunObject) {
+        if (currentGunObject != primaryGunObject && primaryGunObject) {
             currentGunObject.SetActive(false); // sets current to false and switches current gun
             currentGunObject = primaryGunObject;
             currentGun = primaryGun;
@@ -107,8 +110,7 @@ public class GunManager : MonoBehaviour {
             currentGun = secondaryGun;
             WeaponDisplay.instance.SetGun2Active();
         }
-        if (currentGunObject) {
-            PlayerManager.stats.activeGun = currentGun;
+        if (currentGunObject) { 
             currentGunObject.SetActive(true);
         }
     }
@@ -132,9 +134,18 @@ public class GunManager : MonoBehaviour {
             }
         }
         if (currentGun) {
-            PlayerManager.stats.activeGun = currentGun;
+            PlayerManager.stats.CurrentGun = currentGun.gunInfo;
             currentGunObject.SetActive(true);
         }
        
+    }
+
+    private void OnDisable() {
+
+        stats.SaveGuns(primaryGun.gunInfo,secondaryGun.gunInfo,currentGun.gunInfo);
+    }
+
+    private void OnApplicationQuit() {
+        stats.ResetValues();
     }
 }

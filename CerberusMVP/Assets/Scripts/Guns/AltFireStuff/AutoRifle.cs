@@ -27,8 +27,8 @@ public class AutoRifle : Gun
 
         GameObject bullet = Instantiate(altAmmo, firePoint.position, Quaternion.identity);
         bullet.transform.forward = directionWithSpread;
-        bullet.GetComponent<PlayerProjectile>().damage = PlayerStats.Grit *2;
-        PlayerStats.Grit = 0;
+        bullet.GetComponent<PlayerProjectile>().damage = PlayerManager.stats.Grit *2;
+        PlayerManager.stats.Grit = 0;
         bullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * bulletSpeed, ForceMode.Impulse);
 
         if (allowInvoke) {

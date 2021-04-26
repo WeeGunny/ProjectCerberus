@@ -7,7 +7,7 @@ public class GunItem : ItemFunction {
     public GunInfo itemGun;
 
     public override bool TryBuy() {
-        if (Armory.UnlockedWeapons.Contains(itemGun) && PlayerManager.stats.activeGun == itemGun.gun) {
+        if (Armory.UnlockedWeapons.Contains(itemGun) && PlayerManager.stats.CurrentGun == itemGun.gun) {
             return false;
         }
         if (!Armory.UnlockedWeapons.Contains(itemGun)) {
@@ -20,7 +20,7 @@ public class GunItem : ItemFunction {
     }
 
     public override bool TryPickup() {
-        if (PlayerManager.stats.activeGun == itemGun.gun && GunManager.instance.secondaryGunObject) return false;
+        if (PlayerManager.stats.CurrentGun == itemGun.gun && GunManager.instance.secondaryGunObject) return false;
         EquipGun();
         return true;
     }
