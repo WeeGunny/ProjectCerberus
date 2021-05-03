@@ -29,9 +29,10 @@ public class BlackHoleAlt : PlayerProjectile {
     }
 
     protected override void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.tag != "Player")
+        if (collision.gameObject.tag != "Player") {
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
-        rb.mass = 100f;
+            rb.mass = 100f;
+        }
 
     }
     private void OnTriggerEnter(Collider other) {
@@ -48,7 +49,7 @@ public class BlackHoleAlt : PlayerProjectile {
         }
         EnemyController enemy = other.GetComponent<EnemyController>();
         if (enemy != null) {
-            
+
             countdown -= Time.deltaTime;
             if (countdown <= 0) {
                 enemy.TakeDamage(damage, damageType);

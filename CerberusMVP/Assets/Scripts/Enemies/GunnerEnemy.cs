@@ -11,8 +11,7 @@ public class GunnerEnemy : EnemyController
 
     protected override void Update() {
         if (ammo <= 0) {
-            anim.SetBool("outOfAmmo", true);
-            StartCoroutine(Reload());
+            Reload();     
         }
         base.Update();
        
@@ -28,13 +27,11 @@ public class GunnerEnemy : EnemyController
         AudioManager.audioManager.Play(fireClip, gameObject);
     }
 
-    protected IEnumerator Reload() {
+    protected void Reload() {
         canAttack = false;
-        yield return new WaitForSeconds(reloadDelay);
-        ammo = maxAmmo;
-        isReloading = false;
-        anim.SetBool("outOfAmmo", false);
-        canAttack = true;
+        anim.SetTrigger("outOfAmmo");
         AudioManager.audioManager.Play(reloadClip, gameObject);
+        ammo = maxAmmo;
+        Invoke("AttackReset", reloadDelay);
     }
 }

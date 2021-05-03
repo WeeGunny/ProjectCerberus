@@ -27,7 +27,7 @@ public class rbPlayer : MonoBehaviour {
     public Transform orientation;
     bool playingSound;
     public static bool isDead = false;
-    public bool isGrounded;
+    public bool isGrounded, hasBossKey;
     public Transform targetPoint;
 
     public StatsSO stats;

@@ -28,7 +28,7 @@ public class Interacter : MonoBehaviour
         if(!InteractUI) InteractUI = GameObject.Find("Interact UI");
         if(!IsInteracting) CanInteract = CheckForInteractable();
 
-        if(IsInteracting && InteractUI.activeInHierarchy) HideInteractUI();
+        if(!CanInteract && InteractUI.activeInHierarchy) HideInteractUI();
     }
 
     public bool CheckForInteractable() {
@@ -60,6 +60,6 @@ public class Interacter : MonoBehaviour
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(rbCam.playerCam.transform.position, rbCam.playerCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)).GetPoint(InteractRange));
+        if(rbCam.playerCam)Gizmos.DrawLine(rbCam.playerCam.transform.position, rbCam.playerCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)).GetPoint(InteractRange));
     }
 }

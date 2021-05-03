@@ -46,6 +46,7 @@ public class LaserGun : Gun {
     public override void AltFire() {
         base.AltFire();
         readyToShoot = false;
+        StopLaser();
         GameObject altBullet = Instantiate(altAmmo, firePoint.position, Quaternion.identity);
         altBullet.GetComponent<Rigidbody>().AddForce(firePoint.forward * altSpeed, ForceMode.Impulse);
     }

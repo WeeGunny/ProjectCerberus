@@ -35,8 +35,8 @@ public class StatsSO : ScriptableObject {
     }
 
     private void Death() {
-        rbPlayer.isDead = true;
         ResetValues();
+        rbPlayer.isDead = true;       
     }
     public void SetUpStats() {
         Health = maxHeath;
@@ -65,7 +65,6 @@ public class StatsSO : ScriptableObject {
     }
 
     public void SaveGuns(GunInfo GMPrimary, GunInfo GMSecondary, GunInfo GMCurrent) {
-
         PrimaryGun = GMPrimary;
         SecondaryGun = GMSecondary;
         CurrentGun = GMCurrent;
