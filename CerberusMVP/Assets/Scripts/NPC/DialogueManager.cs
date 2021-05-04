@@ -123,6 +123,9 @@ public class DialogueManager : MonoBehaviour
         if (chatType == ChatType.armourer) {
             OpenArmory();
         }
+        if(chatType == ChatType.Default) {
+            StopDialog();
+        }
     }
     public void Travel()
     {

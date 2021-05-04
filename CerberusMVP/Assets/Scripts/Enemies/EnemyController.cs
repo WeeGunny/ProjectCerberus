@@ -164,7 +164,7 @@ public class EnemyController : MonoBehaviour {
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
         if (lootTableElement != null) {
             GameObject loot = lootTableElement.lootObject;
-            Instantiate(loot, transform.position,loot.transform.rotation);
+            Instantiate(loot, lootDropSpawnPoint.position,loot.transform.rotation);
         }
         gameObject.GetComponent<BoxCollider>().enabled = false;
 

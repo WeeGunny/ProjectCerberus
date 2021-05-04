@@ -23,9 +23,12 @@ public class ShopUI : MonoBehaviour {
     }
     private void SetItems() {
         if (allShopItems.Count != 0) {
-            for (int i = 0; i < itemAmount && i < allShopItems.Count; i++) {
+            for (int i = 0; i < itemAmount;) {
                 int randomItem = Random.Range(0, allShopItems.Count);
-                currentShopItems.Add(allShopItems[randomItem]);
+                if (!currentShopItems.Contains(allShopItems[randomItem])) {
+                    currentShopItems.Add(allShopItems[randomItem]);
+                    i++;
+                }
             }
             foreach (ItemInfo item in currentShopItems) {
                 GameObject shopSlot = Instantiate(shopSlotPrefab, shopSlotsParent.transform);

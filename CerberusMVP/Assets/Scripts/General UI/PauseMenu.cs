@@ -24,13 +24,17 @@ public class PauseMenu : MonoBehaviour
     }
 
     private void pauseInput() {
-        isPaused = !isPaused;
-        if (isPaused) {
-            Pause();
+        if (!NPC.playerIsTalking) {
+            isPaused = !isPaused;
+            if (isPaused) {
+                Pause();
+            }
+            else {
+                Resume();
+            }
         }
-        else {
-            Resume();
-        }
+        else DialogueManager.dm.StopDialog();
+       
         
     }
 

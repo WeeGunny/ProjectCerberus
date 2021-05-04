@@ -33,7 +33,7 @@ public class LaserGun : Gun {
         }
     }
     public override void Fire() {
-        if (firingLaser == false) {
+        if (firingLaser == false && GunManager.canFire) {
             Debug.Log("Creating Laser");
             laser = Instantiate(primaryAmmo);
             beam = laser.GetComponent<LineRenderer>();

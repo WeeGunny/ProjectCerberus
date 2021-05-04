@@ -39,15 +39,9 @@ public class PlayerStats : MonoBehaviour {
     }
 
     private void UpdateGoldUI() {
-        goldText.text = "Gold Amount: " + stats.gold;
+        goldText.text = "x" + stats.gold;
     }
 
-    //public void TakeDamage(float damage) {
-    //    stats.Health -= damage;
-    //    Mathf.Clamp(stats.Health, 0, stats.maxHeath);
-
-    //    FindObjectOfType<AudioManager>().Play("Player Hurt", gameObject);
-    //}
 
     private void UpdateMoxie() {
         stats.Moxie += Time.deltaTime;
