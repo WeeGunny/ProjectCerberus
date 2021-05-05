@@ -9,6 +9,7 @@ public class RebindKeys : MonoBehaviour {
     [SerializeField] private TMP_Text bindingDisplayNameText = null;
     [SerializeField] private GameObject startRebindObject = null;
     [SerializeField] private GameObject waitingForInput = null;
+    public DeviceDisplayConfigurator deviceDisplayConfigurator;
 
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
 
@@ -17,6 +18,7 @@ public class RebindKeys : MonoBehaviour {
         if (bindingDisplayNameText != null) {
             int bindingIndex = inputAction.action.GetBindingIndexForControl(inputAction.action.controls[0]);
             bindingDisplayNameText.text = InputControlPath.ToHumanReadableString(inputAction.action.bindings[bindingIndex].effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
+            
         }
     }
 
@@ -32,6 +34,8 @@ public class RebindKeys : MonoBehaviour {
             OnMatchWaitForAnother(0.1f).
             OnComplete(operation => RebindComplete()).
             Start();
+
+  
 
 
     }
