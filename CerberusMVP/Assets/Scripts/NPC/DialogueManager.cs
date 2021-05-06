@@ -4,6 +4,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class DialogueManager : MonoBehaviour
@@ -48,6 +50,11 @@ public class DialogueManager : MonoBehaviour
         interactUI.SetActive(false);
         conversationIndex = 0;
         ShowText();
+
+        //clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        //Set a new selected object
+        EventSystem.current.SetSelectedGameObject(nextButton);
     }
 
     public void StopDialog()
