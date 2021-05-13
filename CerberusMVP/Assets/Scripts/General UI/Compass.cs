@@ -36,7 +36,7 @@ public class Compass : MonoBehaviour {
             compassImage.uvRect = new Rect(player.localEulerAngles.y / 360f, 0f, 1f, 1f);
             if (poiMarkers.Count > 0) {
                 foreach (POIMarker marker in poiMarkers) {
-                    if (marker.image) {
+                    if (marker.image != null) {
                         marker.image.rectTransform.anchoredPosition = GetPosOnCompass(marker);
 
                         float dist = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), marker.position);
