@@ -16,19 +16,13 @@ public class SimpleRecoil : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
-        {
-            AddRecoil();
-        }
-        else if (Input.GetButtonUp("Fire1") || Input.GetButtonUp("Fire2"))
-        {
-            StopRecoil();
-        }
+        upRecoil.Set(Random.Range(-5, -10), Random.Range(-1, 1), Random.Range(-1, 1));
     }
 
-    private void AddRecoil()
+    public void AddRecoil()
     {
         transform.localEulerAngles += upRecoil;
+        Invoke("StopRecoil", 0.2f);
     }
 
     private void StopRecoil()

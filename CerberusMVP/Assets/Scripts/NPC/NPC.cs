@@ -5,6 +5,7 @@ using UnityEngine;
 public class NPC : MonoBehaviour, IInteractable {
     public GameObject gameUI;
     public Conversation myConversation;
+    public Conversation secondConversation;
     bool playerInRange = false;
     public Animator anim;
 

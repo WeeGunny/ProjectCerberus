@@ -37,6 +37,7 @@ public class GunShoot : MonoBehaviour {
 			muzzleFlash.Play();
 			cartridgeEjection.Play();
 			anim.SetTrigger ("Fire");
+			
 
 			Vector3 rayOrigin = gunEnd.position;
 			RaycastHit hit;
