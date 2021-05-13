@@ -123,12 +123,13 @@ public class Gun : MonoBehaviour {
 
     public void ReloadDelay() {
         reloading = true;
+        animator.SetTrigger("isReloading");
         Invoke("Reload", reloadTime);
         AudioManager.audioManager.Play(ReloadName, gameObject);
     }
 
     public void Reload() {
-        animator.SetTrigger("isReloading");
+        
 
         float reloadAmount = maxClipAmmo - clipAmmo;
         if (currentAmmo >= reloadAmount) {
