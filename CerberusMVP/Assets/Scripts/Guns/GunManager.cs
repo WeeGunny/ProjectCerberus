@@ -3,15 +3,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class GunManager : MonoBehaviour {
     public GameObject primaryGunObject, secondaryGunObject;
     public Camera fpsCam;
     public static bool canFire = true;
-   public Gun currentGun, primaryGun, secondaryGun;
-   [SerializeField] GameObject currentGunObject;
+    public Gun currentGun, primaryGun, secondaryGun;
+    [SerializeField] GameObject currentGunObject;
     StatsSO stats;
     public static GunManager instance;
+    public GunGrips managerGrips;
 
     private void Awake() {
         instance = this;
@@ -41,7 +43,7 @@ public class GunManager : MonoBehaviour {
     void Start() {
         if (primaryGun) WeaponDisplay.instance.SetGunIcon1(currentGun.gunInfo.icon);
         if (secondaryGun) WeaponDisplay.instance.SetGunIcon2(secondaryGun.gunInfo.icon);
-        if (primaryGun && secondaryGun)WeaponDisplay.instance.SetGun1Active();
+        if (primaryGun && secondaryGun) WeaponDisplay.instance.SetGun1Active();
         if (primaryGun && !secondaryGun) WeaponDisplay.instance.OnlyPrimary();
         if (secondaryGun && !primaryGun) WeaponDisplay.instance.OnlySecondary();
     }
@@ -49,6 +51,7 @@ public class GunManager : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
         SelectGunByKey();
+        SetHandGrips();
     }
 
     public void EquipGun(Gun newGun) {
@@ -67,7 +70,7 @@ public class GunManager : MonoBehaviour {
         }
     }
 
-    public void ChangeLoadout(Gun newPrimary, Gun newAlt) {             
+    public void ChangeLoadout(Gun newPrimary, Gun newAlt) {
         currentGun = null;
         currentGunObject = null;
         if (newPrimary) {
@@ -110,7 +113,8 @@ public class GunManager : MonoBehaviour {
             currentGun = secondaryGun;
             WeaponDisplay.instance.SetGun2Active();
         }
-        if (currentGunObject) { 
+        if (currentGunObject) {
+            currentGun.gripInfo.setFingerPosition(managerGrips);
             currentGunObject.SetActive(true);
         }
     }
@@ -121,6 +125,7 @@ public class GunManager : MonoBehaviour {
                 currentGunObject.SetActive(false); // sets current to false and switches current gun
                 currentGunObject = primaryGunObject;
                 currentGun = primaryGun;
+                currentGun.gripInfo.setFingerPosition(managerGrips);
                 currentGunObject.SetActive(true);
                 WeaponDisplay.instance.SetGun1Active();
             }
@@ -129,7 +134,8 @@ public class GunManager : MonoBehaviour {
             if (secondaryGunObject && currentGunObject != secondaryGunObject) {
                 currentGunObject.SetActive(false);
                 currentGunObject = secondaryGunObject;
-                currentGun = secondaryGun;                
+                currentGun.gripInfo.setFingerPosition(managerGrips);
+                currentGun = secondaryGun;
                 WeaponDisplay.instance.SetGun2Active();
             }
         }
@@ -137,12 +143,18 @@ public class GunManager : MonoBehaviour {
             PlayerManager.stats.CurrentGun = currentGun.gunInfo;
             currentGunObject.SetActive(true);
         }
-       
+    }
+
+    void SetHandGrips() {
+        if (currentGun) {
+            if (managerGrips.leftGrip.position != currentGun.gripInfo.leftGrip.position && managerGrips.rightGrip.position != currentGun.gripInfo.rightGrip.position) {
+                currentGun.gripInfo.SetGripPosition(managerGrips);
+            }
+        }
     }
 
     private void OnDisable() {
-
-        stats.SaveGuns(primaryGun.gunInfo,secondaryGun.gunInfo,currentGun.gunInfo);
+        stats.SaveGuns(primaryGun.gunInfo, secondaryGun.gunInfo, currentGun.gunInfo);
     }
 
     private void OnApplicationQuit() {

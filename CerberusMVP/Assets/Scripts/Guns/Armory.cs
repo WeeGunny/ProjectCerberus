@@ -83,13 +83,13 @@ public class Armory : MonoBehaviour {
     public void ShowArmory() {
         gameObject.SetActive(true);
         rbCam.LockCam();
-        if (Interacter.interacterExsists) Interacter.instance.IsInteracting = true;
+        if (Interacter.interacterExists) Interacter.instance.IsInteracting = true;
     }
 
     public void HideArmory() {
         gameObject.SetActive(false);
         rbCam.UnlockCam();
-        if (Interacter.interacterExsists) Interacter.instance.IsInteracting = false;
+        if (Interacter.interacterExists) Interacter.instance.IsInteracting = false;
     }
 
 

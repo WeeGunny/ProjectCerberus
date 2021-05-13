@@ -5,7 +5,7 @@ using UnityEngine;
 public class Interacter : MonoBehaviour
 {
     public static Interacter instance;
-    public static bool interacterExsists = false;
+    public static bool interacterExists = false;
     public float InteractRange;
     public GameObject InteractUI;
     public static bool CanInteract;
@@ -16,7 +16,7 @@ public class Interacter : MonoBehaviour
     {
         if (!instance) {
             instance = this;
-            interacterExsists = true;
+            interacterExists = true;
         }
         else { Destroy(this); }
         if(!InteractUI) InteractUI = GameObject.Find("Interact UI");
@@ -27,6 +27,7 @@ public class Interacter : MonoBehaviour
     {
         if(!InteractUI) InteractUI = GameObject.Find("Interact UI");
         if(!IsInteracting) CanInteract = CheckForInteractable();
+        if (IsInteracting) CanInteract = false;
 
         if(!CanInteract && InteractUI.activeInHierarchy) HideInteractUI();
     }
@@ -40,7 +41,6 @@ public class Interacter : MonoBehaviour
             if(interactable != null) {
                 interactableObject = interactable;
                 ShowInteractUI();
-                Debug.Log("Can Interact with someone");
                 return true;
             }
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.Animations.Rigging;
 
 public class rbPlayer : MonoBehaviour {
     public Rigidbody rb;
@@ -29,7 +30,6 @@ public class rbPlayer : MonoBehaviour {
     public static bool isDead = false;
     public bool isGrounded, hasBossKey;
     public Transform targetPoint;
-
     public StatsSO stats;
 
     //Animator

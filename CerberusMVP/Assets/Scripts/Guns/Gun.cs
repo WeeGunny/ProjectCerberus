@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour {
     public GameObject gunPrefab;
     public Animator animator;
     public Transform firePoint;
+    public GunGrips gripInfo;
     public GameObject primaryAmmo, altAmmo;
     public GunInfo gunInfo;
     protected Camera fpsCam => rbCam.playerCam;
