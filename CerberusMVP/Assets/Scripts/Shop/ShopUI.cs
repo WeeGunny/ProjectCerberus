@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class ShopUI : MonoBehaviour {
 
@@ -62,6 +64,11 @@ public class ShopUI : MonoBehaviour {
     public void ShowShop() {
         gameObject.SetActive(true);
         rbCam.LockCam();
+
+        //clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        //Set a new selected object
+        EventSystem.current.SetSelectedGameObject(shopSlotPrefab);
     }
 
     public void HideShop() {

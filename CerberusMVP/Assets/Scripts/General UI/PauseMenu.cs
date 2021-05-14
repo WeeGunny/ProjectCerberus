@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using System;
 
 public class PauseMenu : MonoBehaviour
@@ -12,6 +13,7 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
     public GameObject gameUI;
+    public GameObject pauseFirstButton;
     private bool isPaused = false;
 
     //Controller
@@ -67,6 +69,11 @@ public class PauseMenu : MonoBehaviour
         GamePaused = true;
         Debug.Log("Pausing Game");
         rbCam.LockCam();
+
+        //clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        //Set a new selected object
+        EventSystem.current.SetSelectedGameObject(pauseFirstButton);
     }
 
     public void LoadMenu()
