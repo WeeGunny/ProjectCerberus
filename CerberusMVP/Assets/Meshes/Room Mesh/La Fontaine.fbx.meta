@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 75640a82803087a4392a05fc678cfd99
+guid: d89e769a3d03bf64ebe7847858bcb55d
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 20200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Concrete
-    second: {fileID: 2100000, guid: 2551dd9501f72644e89d3f741b0988d6, type: 2}
+      name: steel
+    second: {fileID: 2100000, guid: 72bdc7b586d521c449c5e80766af0806, type: 2}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -100,6 +100,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

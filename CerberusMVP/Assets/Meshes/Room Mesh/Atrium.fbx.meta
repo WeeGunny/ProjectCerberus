@@ -1,16 +1,21 @@
 fileFormatVersion: 2
-guid: 75640a82803087a4392a05fc678cfd99
+guid: c9d5ed62bfd553e4eab8f40e748b6796
 ModelImporter:
-  serializedVersion: 20101
+  serializedVersion: 20200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Concrete
-    second: {fileID: 2100000, guid: 2551dd9501f72644e89d3f741b0988d6, type: 2}
+      name: Glass
+    second: {fileID: 2100000, guid: 2b41fc2100fdfa04ea79890e0e23cba8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stone
+    second: {fileID: 2100000, guid: 26bc8648a85c6b041a5d5b00ca61062b, type: 2}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -100,6 +105,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

@@ -1,34 +1,9 @@
 fileFormatVersion: 2
-guid: 1eb5edfdb31b83442a5ced44de83182c
+guid: 6a70c2892e5e0cf4f8c167e204f016f9
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: EnemyBreakWall
-    second: {fileID: 2100000, guid: e11f28f61f9a22e458622074b30bfc7c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Floor
-    second: {fileID: 2100000, guid: cc57eab793902214aaea0fdb7404fe58, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Outta Bounds
-    second: {fileID: 2100000, guid: 1c24f9836c24ab24cb50e495427fdfb0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Sandstone
-    second: {fileID: 2100000, guid: 5eadce7c51a9d9a4faf480bf22fdcd5d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Spire
-    second: {fileID: 2100000, guid: c859267567172a2409afc78ec60e9e94, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
