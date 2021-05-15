@@ -116,7 +116,7 @@ public class LevelGenerator : MonoBehaviour {
             if(roomPlaced) break;
         }
         if(!roomPlaced) {
-            Destroy(currentRoom.gameObject);
+            Destroy(currentRoom.gameObject);     
             ResetLevelGenerator(); // should we reset always? can we try again?
         }
 
