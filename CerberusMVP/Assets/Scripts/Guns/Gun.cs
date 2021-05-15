@@ -78,6 +78,7 @@ public class Gun : MonoBehaviour {
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
         RaycastHit hit;
         Vector3 targetPoint;
+        GetComponent<SimpleRecoil>().AddRecoil();
         if (Physics.Raycast(ray, out hit)) {
             targetPoint = hit.point;
         }
@@ -122,12 +123,13 @@ public class Gun : MonoBehaviour {
 
     public void ReloadDelay() {
         reloading = true;
+        animator.SetTrigger("isReloading");
         Invoke("Reload", reloadTime);
         AudioManager.audioManager.Play(ReloadName, gameObject);
     }
 
     public void Reload() {
-        animator.SetTrigger("isReloading");
+        
 
         float reloadAmount = maxClipAmmo - clipAmmo;
         if (currentAmmo >= reloadAmount) {
