@@ -3,7 +3,12 @@ guid: 5f71609dcd221e24ea4d576b845a769a
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PickupBox
+    second: {fileID: 2100000, guid: 659c77da5cf2e3d4faf51250449c5ec1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
