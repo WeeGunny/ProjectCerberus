@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class Armory : MonoBehaviour {
     public static List<GunInfo> UnlockedWeapons = new List<GunInfo>();
@@ -79,6 +81,11 @@ public class Armory : MonoBehaviour {
     public void ShowArmory() {
         gameObject.SetActive(true);
         rbCam.LockCam();
+
+        //clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        //Set a new selected object
+        EventSystem.current.SetSelectedGameObject(slotPrefab);
     }
 
     public void HideArmory() {
