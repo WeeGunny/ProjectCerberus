@@ -6,15 +6,18 @@ using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour {
+    [Header("References")]
     public GameObject gunPrefab;
     public Animator animator;
     public Transform firePoint;
+    public GunGrips gripInfo;
     public GameObject primaryAmmo, altAmmo;
     public GunInfo gunInfo;
     protected Camera fpsCam => rbCam.playerCam;
+    [Header("Stats")]
     public float Dmg = 10f, altDmg = 10f;
-    public float bulletSpeed = 25f, altSpeed = 25f;
-    protected float bulletsShot;
+    public bool useGunDamageValue;
+    public float bulletSpeed = 1f, altSpeed = 1f;
     public float spread;
     public float moxieRequirement = 20;
     public float maxAmmo, maxClipAmmo;
@@ -23,9 +26,10 @@ public class Gun : MonoBehaviour {
     public float fireRate = 1, bulletsPerShot = 1, reloadTime;
     public bool fireHeld, readyToShoot, reloading;
     public bool allowHold;
-    public string soundName;
-    public string AltFireName;
-    public string ReloadName;
+    protected float bulletsShot;
+    public string fireSoundName;
+    public string AltFireSoundName;
+    public string ReloadSoundName;
     protected bool allowInvoke = true;
 
     protected PlayerControls controls;
@@ -37,13 +41,13 @@ public class Gun : MonoBehaviour {
         Reload();
     }
 
-    private void Update() {
+    protected virtual void Update() {
         if (fireHeld && allowHold) {
             if (readyToShoot && !reloading && clipAmmo > 0 && GunManager.canFire) {
                 bulletsShot = 0;
                 Fire();
             }
-            else if (readyToShoot && !reloading && clipAmmo<=0 && GunManager.canFire) {
+            else if (readyToShoot && !reloading && clipAmmo <= 0 && GunManager.canFire) {
                 ReloadDelay();
             }
         }
@@ -53,6 +57,9 @@ public class Gun : MonoBehaviour {
         if (readyToShoot && !reloading && clipAmmo > 0 && GunManager.canFire) {
             bulletsShot = 0;
             Fire();
+        }
+        else if (readyToShoot && !reloading && clipAmmo <= 0 && GunManager.canFire) {
+            ReloadDelay();
         }
     }
 
@@ -64,7 +71,7 @@ public class Gun : MonoBehaviour {
     }
 
     public virtual void OnAlternateFire() {
-        if (PlayerStats.Moxie > moxieRequirement && GunManager.canFire) AltFire();
+        if (PlayerManager.stats.Moxie > moxieRequirement && GunManager.canFire) AltFire();
 
     }
 
@@ -74,7 +81,7 @@ public class Gun : MonoBehaviour {
 
     public virtual void Fire() {
         readyToShoot = false;
-        AudioManager.audioManager.Play(soundName, gameObject);
+        AudioManager.audioManager.Play(fireSoundName, gameObject);
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
         RaycastHit hit;
         Vector3 targetPoint;
@@ -94,7 +101,7 @@ public class Gun : MonoBehaviour {
 
         GameObject bullet = Instantiate(primaryAmmo, firePoint.position, Quaternion.identity);
         bullet.transform.forward = directionWithSpread;
-        bullet.GetComponent<PlayerProjectile>().damage = Dmg;
+        if(useGunDamageValue)bullet.GetComponent<PlayerProjectile>().damage = Dmg;
         bullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * bulletSpeed, ForceMode.Impulse);
         clipAmmo--;
         bulletsShot++;
@@ -110,26 +117,26 @@ public class Gun : MonoBehaviour {
     }
 
     protected void ResetShot() {
-        animator.SetBool("isShooting", false);
+        if (animator) animator.SetBool("isShooting", false);
         readyToShoot = true;
         allowInvoke = true;
     }
 
     public virtual void AltFire() {
-        PlayerStats.Moxie -= moxieRequirement;
-        animator.SetTrigger("altFire");
-        AudioManager.audioManager.Play(AltFireName, gameObject);
+        PlayerManager.stats.Moxie -= moxieRequirement;
+        if (animator) animator.SetTrigger("isAltFire");
+
     }
 
     public void ReloadDelay() {
         reloading = true;
-        animator.SetTrigger("isReloading");
+        if (animator) animator.SetTrigger("isReloading");
         Invoke("Reload", reloadTime);
-        AudioManager.audioManager.Play(ReloadName, gameObject);
+        AudioManager.audioManager.Play(ReloadSoundName, gameObject);
     }
 
     public void Reload() {
-        
+
 
         float reloadAmount = maxClipAmmo - clipAmmo;
         if (currentAmmo >= reloadAmount) {

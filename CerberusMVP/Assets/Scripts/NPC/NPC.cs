@@ -19,7 +19,7 @@ public class NPC : MonoBehaviour, IInteractable {
         if(anim)anim.SetBool("isTalking", true);
         DialogueManager.dm.StartDialog(myConversation,this);
         playerIsTalking = true;
-        rbCam.LockCam();
+        if (Interacter.interacterExists) Interacter.instance.IsInteracting = true;
         DialogueManager.dm.nextButton.SetActive(true);
     }
 
@@ -27,14 +27,11 @@ public class NPC : MonoBehaviour, IInteractable {
         gameUI.SetActive(true);
         playerIsTalking = false;
         if(anim)anim.SetBool("isTalking", false);
-        Interacter.instance.IsInteracting = false;
-        rbCam.UnlockCam();
-
+        if (Interacter.interacterExists) Interacter.instance.IsInteracting = false;
     }
 
     public virtual void Interact()
     {
         ActivateNPC();
-        Interacter.instance.IsInteracting = true;
     }
 }

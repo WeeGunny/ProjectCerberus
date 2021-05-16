@@ -130,11 +130,14 @@ public class DialogueManager : MonoBehaviour
         if (chatType == ChatType.armourer) {
             OpenArmory();
         }
+        if(chatType == ChatType.Default) {
+            StopDialog();
+        }
     }
     public void Travel()
     {
         StopDialog();
-        if (rbCam.movePlayerCam == false) {
+        if (rbCam.camLocked) {
             rbCam.UnlockCam();
         }
         SceneLoader.instance.LoadScene(3);

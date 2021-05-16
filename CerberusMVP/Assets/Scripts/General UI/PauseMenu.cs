@@ -26,14 +26,18 @@ public class PauseMenu : MonoBehaviour
     }
 
     private void pauseInput() {
-        isPaused = !isPaused;
-        if (isPaused) {
-            Pause();
+        if (!NPC.playerIsTalking) {
+            isPaused = !isPaused;
+            if (isPaused) {
+                Pause();
+            }
+            else {
+                Resume();
+            }
         }
-        else {
-            Resume();
-        }
-        
+        else DialogueManager.dm.StopDialog();
+
+
     }
 
     private void OnEnable()
@@ -55,8 +59,8 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         gameUI.SetActive(true);
-        rbCam.UnlockCam();
-        
+        if(Interacter.instance)if(!Interacter.instance.IsInteracting)rbCam.UnlockCam();
+
         Time.timeScale = 1f;
         GamePaused = false;
     }
@@ -68,7 +72,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GamePaused = true;
         Debug.Log("Pausing Game");
-        rbCam.LockCam();
+        if(!rbCam.camLocked)rbCam.LockCam();
 
         //clear selected object
         EventSystem.current.SetSelectedGameObject(null);
@@ -81,6 +85,7 @@ public class PauseMenu : MonoBehaviour
         //if this doesn't work make sure that the menu is in the game's build
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+        PlayerManager.stats.ResetValues();
     }
 
     public void Quit()

@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour {
     public Image healthBar;
     public GameObject popUpPrefab;
     public LootTableGameObject lootTable;
+    public Transform lootDropSpawnPoint;
 
     [Header("Sound")]
     public string hurtClip;
@@ -36,7 +37,6 @@ public class EnemyController : MonoBehaviour {
     public GameObject projectile;
     public Room roomImIn;
     protected bool takingDotDamage;
-    protected bool isReloading = false;
 
     [HideInInspector] public Animator anim;
 
@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour {
         if (PlayerManager.playerExists && target == null) {
             target = PlayerManager.player.GetComponent<rbPlayer>().targetPoint;
             playerCam = PlayerManager.player.GetComponent<rbPlayer>().playerCam.transform;
-            canAttack = true;
+            AttackReset();
         }
         if (target != null && !isDead) {
             distance = Vector3.Distance(target.position, transform.position);
@@ -164,7 +164,7 @@ public class EnemyController : MonoBehaviour {
         LootTableElementGameObject lootTableElement = lootTable.ChooseItem();
         if (lootTableElement != null) {
             GameObject loot = lootTableElement.lootObject;
-            Instantiate(loot, transform.position, Quaternion.identity);
+            Instantiate(loot, lootDropSpawnPoint.position,loot.transform.rotation);
         }
         gameObject.GetComponent<BoxCollider>().enabled = false;
 

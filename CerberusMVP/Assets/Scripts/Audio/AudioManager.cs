@@ -81,12 +81,13 @@ public class AudioManager : MonoBehaviour {
     }
 
     void GritEffect() {
-        if(PlayerStats.GritActive && pitchEffect>=0.5f) {
+        if (!PlayerManager.stats) return;
+        if(PlayerManager.stats.GritActive && pitchEffect>=0.5f) {
             pitchEffect -= Time.deltaTime * 2 / Time.timeScale;
             mixerGroup.audioMixer.SetFloat("MasterPitch", pitchEffect);
         }
 
-        if(!PlayerStats.GritActive && pitchEffect<1) {
+        if(!PlayerManager.stats.GritActive && pitchEffect<1) {
             pitchEffect += Time.deltaTime * 2 / Time.timeScale;
             mixerGroup.audioMixer.SetFloat("MasterPitch", pitchEffect);
         }

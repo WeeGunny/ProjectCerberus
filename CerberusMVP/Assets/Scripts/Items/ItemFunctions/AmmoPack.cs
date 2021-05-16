@@ -11,8 +11,8 @@ public class AmmoPack : ItemFunction
         ammoAmount = Random.Range(MinAmmo,MaxAmmo);
     }
     public override bool TryPickup() {
-        float ammo = PlayerManager.stats.activeGun.currentAmmo;
-        if (ammo < PlayerManager.stats.activeGun.maxAmmo) {
+        float ammo = GunManager.instance.currentGun.clipAmmo;
+        if (ammo < GunManager.instance.currentGun.maxAmmo) {
             ammo += ammoAmount;
             return true;
         }
@@ -23,8 +23,8 @@ public class AmmoPack : ItemFunction
     }
 
     public override bool TryBuy() {
-        float ammo = PlayerManager.stats.activeGun.currentAmmo;
-        if (ammo < PlayerManager.stats.activeGun.maxAmmo) {
+        float ammo = GunManager.instance.currentGun.currentAmmo;
+        if (ammo < GunManager.instance.currentGun.maxAmmo) {
             ammo += ammoAmount;
             return true;
         }

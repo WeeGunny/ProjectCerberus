@@ -5,9 +5,9 @@ using UnityEngine;
 public class HealthPack : ItemFunction
 {
     public override bool TryPickup() {
-        if (PlayerStats.HealthPacks < PlayerManager.stats.HealthPackMax) {
+        if (PlayerManager.stats.HealthPacks < PlayerManager.stats.HealthPackMax) {
             AudioManager.audioManager.Play("Item Pickup", PlayerManager.player);
-            PlayerStats.HealthPacks += 1;
+            PlayerManager.stats.HealthPacks += 1;
             return true;
         }
         else {
@@ -17,8 +17,8 @@ public class HealthPack : ItemFunction
     }
 
     public override bool TryBuy() {
-        if (PlayerStats.HealthPacks < PlayerManager.stats.HealthPackMax) {
-            PlayerStats.HealthPacks += 1;
+        if (PlayerManager.stats.HealthPacks < PlayerManager.stats.HealthPackMax) {
+            PlayerManager.stats.HealthPacks += 1;
             return true;
         }
         else {

@@ -41,7 +41,6 @@ public class WeaponDisplay : MonoBehaviour {
 
     public void SetGun1Active() {
         LeanTween.alpha(primaryBG.GetComponent<RectTransform>(), 1f, transitionTime);
-        //LeanTween.move(primaryBG.GetComponent<RectTransform>(), new Vector3(-705, -407, 0), transitionTime);
         LeanTween.alpha(SecondaryBG.GetComponent<RectTransform>(), 0f, transitionTime);
         LeanTween.moveX(devideLine.GetComponent<RectTransform>(), -600, transitionTime);
         gunIcon1.gameObject.SetActive(true);
@@ -58,7 +57,6 @@ public class WeaponDisplay : MonoBehaviour {
 
     public void OnlyPrimary() {
         LeanTween.alpha(primaryBG.GetComponent<RectTransform>(), 1f, transitionTime);
-        //LeanTween.move(primaryBG.GetComponent<RectTransform>(), new Vector3(-665, -407, 0), transitionTime);
         LeanTween.alpha(SecondaryBG.GetComponent<RectTransform>(), 0f, transitionTime);
         LeanTween.moveX(devideLine.GetComponent<RectTransform>(), -810, transitionTime);
         gunIcon1.gameObject.SetActive(true);
@@ -69,7 +67,6 @@ public class WeaponDisplay : MonoBehaviour {
     public void OnlySecondary() {
         LeanTween.alpha(primaryBG.GetComponent<RectTransform>(), 0f, transitionTime);
         LeanTween.alpha(SecondaryBG.GetComponent<RectTransform>(), 1f, transitionTime);
-        //LeanTween.move(primaryBG.GetComponent<RectTransform>(), new Vector3(-665, -407, 0), transitionTime);
         LeanTween.moveX(devideLine.GetComponent<RectTransform>(), -518, transitionTime);
         gunIcon1.gameObject.SetActive(false);
         gunIcon2.gameObject.SetActive(true);
