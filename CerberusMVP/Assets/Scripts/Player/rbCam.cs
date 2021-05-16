@@ -9,7 +9,7 @@ public class rbCam : MonoBehaviour {
     public static float sensitivity = 1f;
     private float smoothing = 5f;
     public Transform playerTransform;
-    public static bool movePlayerCam = true;
+    public static bool camLocked;
     private Vector2 smoothedVelocity;
     private Vector2 currentLookPos;
     public static Camera playerCam;
@@ -23,13 +23,12 @@ public class rbCam : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        UnlockCam();
     }
 
     // Update is called once per frame
     void Update() {
-        if(movePlayerCam == true && !PauseMenu.GamePaused) {
+        if(!camLocked) {
             RotateCamera();
         }
         GritEffect();
@@ -64,17 +63,19 @@ public class rbCam : MonoBehaviour {
 
     //locks the camera and shows the mouse to interact with UI
     public static void LockCam() {
+        camLocked = true;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
-        movePlayerCam = false;
+        PlayerManager.player.GetComponent<rbPlayer>().movePlayer = false;
         GunManager.canFire = false;
     }
 
     //unlocks cam and hides mouse
     public static void UnlockCam() {
+        camLocked = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        movePlayerCam = true;
+        if(PlayerManager.player)PlayerManager.player.GetComponent<rbPlayer>().movePlayer = true;
         GunManager.canFire = true;
     }
 }

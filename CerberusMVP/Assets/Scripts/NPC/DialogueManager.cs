@@ -130,7 +130,7 @@ public class DialogueManager : MonoBehaviour
     public void Travel()
     {
         StopDialog();
-        if (rbCam.movePlayerCam == false) {
+        if (rbCam.camLocked) {
             rbCam.UnlockCam();
         }
         SceneLoader.instance.LoadScene(3);

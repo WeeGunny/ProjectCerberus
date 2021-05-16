@@ -6,7 +6,6 @@ public class PlayerProjectile : MonoBehaviour {
     public float damage;
     public float range;
     protected Vector3 origin;
-    public GameObject bulletHolePrefab;
     public DamageType damageType;
     protected Rigidbody rb;
     // Start is called before the first frame update

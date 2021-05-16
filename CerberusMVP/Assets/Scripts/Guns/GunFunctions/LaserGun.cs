@@ -12,7 +12,7 @@ public class LaserGun : Gun {
     LineRenderer beam;
 
     private void Update() {
-        if (fireHeld) {
+        if (fireHeld && firingLaser) {
             UpdateLaser();
         }
         else if (!fireHeld && firingLaser) {
@@ -27,20 +27,20 @@ public class LaserGun : Gun {
 
     public override void OnPrimaryFire() {
 
-        if (readyToShoot && !reloading) {
+        if (readyToShoot && !reloading && GunManager.canFire) {
             if (clipAmmo > 0) Fire();
             else ReloadDelay();
         }
     }
     public override void Fire() {
-        if (firingLaser == false && GunManager.canFire) {
+        if (firingLaser == false ) {
             Debug.Log("Creating Laser");
             laser = Instantiate(primaryAmmo);
             beam = laser.GetComponent<LineRenderer>();
             firingLaser = true;
-            FindObjectOfType<AudioManager>().Play(soundName, gameObject);
-        }
-        beam.SetPosition(0, firePoint.position);
+            FindObjectOfType<AudioManager>().Play(fireSoundName, gameObject);
+            beam.SetPosition(0, firePoint.position);
+        }    
     }
 
     public override void AltFire() {
@@ -100,7 +100,7 @@ public class LaserGun : Gun {
             Invoke("ResetShot", 1 / fireRate);
             allowInvoke = false;
         }
-        FindObjectOfType<AudioManager>().Stop(soundName);
+        FindObjectOfType<AudioManager>().Stop(fireSoundName);
     }
 
     private void OnDisable() {

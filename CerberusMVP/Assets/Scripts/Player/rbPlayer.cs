@@ -80,15 +80,17 @@ public class rbPlayer : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        Vector3 moveX = transform.right * moveInput.x;
-        Vector3 moveZ = transform.forward * moveInput.y;
-        if (!isSprinting) movementVector = (moveX + moveZ) * movementSpeed;
-        if (isSprinting) movementVector = (moveX + moveZ) * sprintSpeed;
-        if (stats.GritActive) {
-            movementVector = movementVector / Time.timeScale;
-            rb.velocity += new Vector3 (0,-19.62f,0)* Time.fixedDeltaTime/ Time.timeScale;
+        if (movePlayer) {
+            Vector3 moveX = transform.right * moveInput.x;
+            Vector3 moveZ = transform.forward * moveInput.y;
+            if (!isSprinting) movementVector = (moveX + moveZ) * movementSpeed;
+            if (isSprinting) movementVector = (moveX + moveZ) * sprintSpeed;
+            if (stats.GritActive) {
+                movementVector = movementVector / Time.timeScale;
+                rb.velocity += new Vector3(0, -19.62f, 0) * Time.fixedDeltaTime / Time.timeScale;
+            }
+            rb.velocity = new Vector3(movementVector.x, rb.velocity.y, movementVector.z);
         }
-        rb.velocity = new Vector3(movementVector.x, rb.velocity.y, movementVector.z);
     }
     public void OnMove(InputValue value) {
         moveInput = value.Get<Vector2>();
@@ -127,7 +129,7 @@ public class rbPlayer : MonoBehaviour {
     }
 
     private void OnMoxieBattery() {
-        
+
         if (stats.moxieBatteries > 0 && stats.Moxie < stats.moxieMax) {
             stats.moxieBatteries -= 1;
             stats.Moxie += 50;
@@ -212,10 +214,6 @@ public class rbPlayer : MonoBehaviour {
 
     public void PlayStepSound() {
         if (rb.velocity.magnitude > 0.5f && Grounded()) AudioManager.audioManager.Play("Walking", gameObject);
-    }
-
-    public void toggleMovement() {
-        movePlayer = !movePlayer;
     }
 
     private void OnDrawGizmosSelected() {
