@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossKey : ItemFunction
 {
     public override bool TryPickup() {
-        PlayerManager.player.GetComponent<rbPlayer>().hasBossKey = true;
+        rbPlayer.Player.GetComponent<rbPlayer>().hasBossKey = true;
         return true;
     }
 }

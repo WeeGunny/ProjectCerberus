@@ -37,7 +37,7 @@ public class Interacter : MonoBehaviour {
     }
 
     public bool CheckForInteractable() {
-        Ray ray = rbCam.playerCam.ViewportPointToRay(new Vector3(.5f, .5f, 0), rbCam.playerCam.stereoActiveEye); // goes to center of screen;
+        Ray ray = rbCam.PlayerCam.ViewportPointToRay(new Vector3(.5f, .5f, 0), rbCam.PlayerCam.stereoActiveEye); // goes to center of screen;
         RaycastHit hit;
         Physics.Raycast(ray, out hit, InteractRange);
         if (hit.collider) {
@@ -63,6 +63,6 @@ public class Interacter : MonoBehaviour {
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.blue;
-        if (rbCam.playerCam) Gizmos.DrawLine(rbCam.playerCam.transform.position, rbCam.playerCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)).GetPoint(InteractRange));
+        if (rbCam.PlayerCam) Gizmos.DrawLine(rbCam.PlayerCam.transform.position, rbCam.PlayerCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)).GetPoint(InteractRange));
     }
 }

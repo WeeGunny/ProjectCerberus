@@ -7,26 +7,24 @@ public class MoxieBattery : ItemFunction
 
 
     public override bool TryPickup() {
-        if (PlayerManager.stats.moxieBatteries< PlayerManager.stats.moxieBatteyMax) {
-            AudioManager.audioManager.Play("Item Pickup", PlayerManager.player);
-            PlayerManager.stats.moxieBatteries += 1;
-            Debug.Log("Picked up Moxie Battery, you have: " + PlayerManager.stats.moxieBatteries);
+        if (PlayerStats.Instance.moxieBatteries< PlayerStats.Instance.moxieBatteyMax) {
+            AudioManager.audioManager.Play("Item Pickup", rbPlayer.Player.gameObject);
+            PlayerStats.Instance.moxieBatteries += 1;
+            Debug.Log("Picked up Moxie Battery, you have: " + PlayerStats.Instance.moxieBatteries);
             return true;
         }
         else {
             return false;
-            Debug.Log("MoxieBatteries full");
         }
     }
 
     public override bool TryBuy() {
-        if (PlayerManager.stats.moxieBatteries < PlayerManager.stats.moxieBatteyMax) {
-            PlayerManager.stats.moxieBatteries += 1;
+        if (PlayerStats.Instance.moxieBatteries < PlayerStats.Instance.moxieBatteyMax) {
+            PlayerStats.Instance.moxieBatteries += 1;
             return true;
         }
         else {
             return false;
-            Debug.Log("MoxieBatteries full");
         }
     }
 }

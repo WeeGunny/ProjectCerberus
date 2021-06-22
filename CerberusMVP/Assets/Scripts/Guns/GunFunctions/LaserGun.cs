@@ -19,8 +19,8 @@ public class LaserGun : Gun {
             StopLaser();
         }
         //Changes the size of black hole core depending on moxie left 
-        CoreBoneTransform.localScale = new Vector3(0.01f, 0.01f, 0.01f) * PlayerManager.stats.Moxie;
-        if (PlayerManager.stats.Moxie < moxieRequirement) {
+        CoreBoneTransform.localScale = new Vector3(0.01f, 0.01f, 0.01f) * PlayerStats.Instance.Moxie;
+        if (PlayerStats.Instance.Moxie < moxieRequirement) {
             CoreBoneTransform.localScale = new Vector3(0f, 0f, 0f);
         }
     }

@@ -11,13 +11,12 @@ public class GunManager : MonoBehaviour {
     public static bool canFire = true;
     public Gun currentGun, primaryGun, secondaryGun;
     [SerializeField] GameObject currentGunObject;
-    StatsSO stats;
+    PlayerStats stats => PlayerStats.Instance;
     public static GunManager instance;
     public GunGrips managerGrips;
 
     private void Awake() {
         instance = this;
-        stats = PlayerManager.stats;
         if (!stats.isSetUp) {
             stats.SetUpStats();
         }
@@ -140,7 +139,7 @@ public class GunManager : MonoBehaviour {
             }
         }
         if (currentGun) {
-            PlayerManager.stats.CurrentGun = currentGun.gunInfo;
+           PlayerStats.Instance.CurrentGun = currentGun.gunInfo;
             currentGunObject.SetActive(true);
         }
     }

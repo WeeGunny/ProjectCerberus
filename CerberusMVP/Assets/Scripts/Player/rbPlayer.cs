@@ -8,7 +8,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.Animations.Rigging;
 
 public class rbPlayer : MonoBehaviour {
-    public Rigidbody rb;
+    static rbPlayer _player;
+    public static rbPlayer Player => _player;
+    public Rigidbody rb =>GetComponent<Rigidbody>();
     public Camera playerCam;
     public float movementSpeed = 6f;
     public float sprintSpeed = 10f;
@@ -28,9 +30,9 @@ public class rbPlayer : MonoBehaviour {
     public Transform orientation;
     bool playingSound;
     public static bool isDead = false;
-    public bool isGrounded, hasBossKey;
+    public bool hasBossKey;
     public Transform targetPoint;
-    public StatsSO stats;
+    public PlayerStats stats  => PlayerStats.Instance;
 
     //Animator
     public Animator anim;
@@ -40,28 +42,23 @@ public class rbPlayer : MonoBehaviour {
     PlayerControls controls;
 
     void Awake() {
-        PlayerManager.playerExists = true;
         controls = new PlayerControls();
-        if (PlayerManager.player == null) {
-            PlayerManager.player = this.gameObject;
+        if (!_player) {
+            _player = this;
+            isDead = false;
         }
         else {
             Destroy(gameObject);
         }
-        rb = GetComponent<Rigidbody>();
-        isDead = false;
+
     }
 
     // Update is called once per frame
     void Update() {
         CheckForWall();
         InputManager();
-        isGrounded = Grounded();
-        if (Grounded()) doubleJump = true;
-
-        if (isDead) {
-            SceneManager.LoadScene("DeathScene");
-        }
+        if(!doubleJump) doubleJump= Grounded();
+        AudioManager.Instance.GritEffect();
 
         if (rb.velocity.magnitude > 1 && Grounded()) {
             anim.SetBool("isWalking", true);
@@ -228,8 +225,6 @@ public class rbPlayer : MonoBehaviour {
 
     }
     private void OnDisable() {
-        PlayerManager.player = null;
-        PlayerManager.playerExists = false;
         controls.Gameplay.Sprint.performed -= ctx => Sprint();
         controls.Gameplay.Sprint.canceled -= ctx => Sprint();
         controls.Gameplay.Sprint.Disable();

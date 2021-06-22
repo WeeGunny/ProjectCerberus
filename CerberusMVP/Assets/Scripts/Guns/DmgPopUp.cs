@@ -8,11 +8,7 @@ using UnityEngine.UIElements;
 public class DmgPopUp : MonoBehaviour {
     public TextMeshPro text;
     public LeanTweenType easeType;
-    Transform camTransform;
-
-    private void Awake() {
-        camTransform = PlayerManager.player.GetComponent<rbPlayer>().playerCam.transform;
-    }
+    Transform camTransform => rbCam.PlayerCam.transform;
     public void SetUp(float damage) {
         text.SetText(damage.ToString());
         LeanTween.scale(gameObject, new Vector3(0, 0, 0), 1).setDestroyOnComplete(true).setEase(easeType);
@@ -20,6 +16,6 @@ public class DmgPopUp : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        transform.LookAt(transform.position+camTransform.rotation * Vector3.forward,camTransform.rotation*Vector3.up);
+        if(camTransform)transform.LookAt(transform.position+camTransform.rotation * Vector3.forward,camTransform.rotation*Vector3.up);
     }
 }

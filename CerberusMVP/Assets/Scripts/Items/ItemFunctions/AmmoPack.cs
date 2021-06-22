@@ -18,7 +18,6 @@ public class AmmoPack : ItemFunction
         }
         else {
             return false;
-            Debug.Log("Ammo full");
         }
     }
 
@@ -30,7 +29,6 @@ public class AmmoPack : ItemFunction
         }
         else {
             return false;
-            Debug.Log("Ammo full");
         }
     }
 

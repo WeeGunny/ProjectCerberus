@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour {
     protected bool isDead = false, canAttack = false;
     protected NavMeshAgent agent;
     protected float distance;
-    protected Transform playerCam;
+    protected Transform playerCam => rbCam.PlayerCam.transform;
     public GameObject projectile;
     public Room roomImIn;
     protected bool takingDotDamage;
@@ -51,9 +51,8 @@ public class EnemyController : MonoBehaviour {
 
     // Update is called once per frame
     protected virtual void Update() {
-        if (PlayerManager.playerExists && target == null) {
-            target = PlayerManager.player.GetComponent<rbPlayer>().targetPoint;
-            playerCam = PlayerManager.player.GetComponent<rbPlayer>().playerCam.transform;
+        if (rbPlayer.Player && target == null) {
+            target = rbPlayer.Player.targetPoint;
             AttackReset();
         }
         if (target != null && !isDead) {
@@ -90,7 +89,7 @@ public class EnemyController : MonoBehaviour {
             healthDisplay.gameObject.SetActive(true);
         }
         healthBar.fillAmount = health / StartHealth;
-        //healthDisplay.transform.LookAt(healthDisplay.transform.position + playerCam.rotation * Vector3.forward, playerCam.rotation * Vector3.up);
+        healthDisplay.transform.LookAt(healthDisplay.transform.position + playerCam.rotation * Vector3.forward, playerCam.rotation * Vector3.up);
 
         if (health <= 0 && !isDead) {
             Death();

@@ -1,96 +1,74 @@
-﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using System;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class PlayerStats : MonoBehaviour {
-    public StatsSO stats;
+[CreateAssetMenu(fileName = "PlayerStats")]
+public class PlayerStats : SingletonScriptableObject<PlayerStats> {
 
-    [Header("UI Reference")]
-    public TextMeshProUGUI goldText;
-    public TextMeshProUGUI healthText;
-    public Image healthBar;
-    public TextMeshProUGUI moxieText;
-    public Image MoxieBar;
-    public TextMeshProUGUI gritText;
-    public Image GritBar;
-    public TextMeshProUGUI ammoText, totalAmmoText;
-    public TextMeshProUGUI healthPackText;
-    public TextMeshProUGUI moxieBatteryText;
+    [Header("Default Player Stats")]
+    public float maxHeath;
+    public float moxieMax = 100;
+    public float gritMax = 100;
+    public float moxieBatteyMax;
+    public float HealthPackMax;
+    public GunInfo StartingPrimary, StartingSecondary;
 
-    private void Awake() {
-        if (PlayerManager.stats == null) {
-            PlayerManager.stats = stats;
-            if (!stats.isSetUp) stats.SetUpStats();
+    [Header("Player Stats")]
+    public float Health;
+    public float Moxie;
+    public float Grit;
+    public float gold;
+    public float moxieBatteries;
+    public float HealthPacks;
+
+    public GunInfo PrimaryGun, SecondaryGun, CurrentGun;
+
+    public bool isSetUp = false, PrimaryGunActive = true;
+    public bool GritActive = false;
+
+    public void TakeDamage(float damage) {
+        Health -= damage;
+        Mathf.Clamp(Health, 0, maxHeath);
+        FindObjectOfType<AudioManager>().Play("Player Hurt", rbPlayer.Player.gameObject);
+        if (Health <= 0) {
+            Death();
         }
-
     }
 
-    // Update is called once per frame
-    void Update() {
-        UpdateMoxie();
-        UpdateGrit();
-        UpdateHealthUI();
-        UpdateAmmoUI();
-        UpdateGoldUI();
+    private void Death() {
+        ResetValues();
+        SceneManager.LoadScene("DeathScene");
+    }
+    public void SetUpStats() {
+        Health = maxHeath;
+        Moxie = moxieMax;
+        Grit = gritMax;
+        HealthPacks = 1;
+        moxieBatteries = 1;
+        isSetUp = true;
+        PrimaryGun = StartingPrimary;
+        SecondaryGun = StartingSecondary;
+        CurrentGun = PrimaryGun;
     }
 
-    private void UpdateGoldUI() {
-        goldText.text = "x" + stats.gold;
+    public void ResetValues() {
+        isSetUp = false;
+        PrimaryGunActive = true;
+        Health = 0;
+        Moxie = 0;
+        Grit = 0;
+        gold = 0;
+        moxieBatteries = 0;
+        HealthPacks = 0;
+        PrimaryGun = null;
+        SecondaryGun = null;
+        CurrentGun = null;
     }
 
-
-    private void UpdateMoxie() {
-        stats.Moxie += Time.deltaTime;
-        stats.Moxie = Mathf.Clamp(stats.Moxie, 0, stats.moxieMax);
-        moxieText.text = stats.Moxie.ToString("F0");
-        MoxieBar.fillAmount = stats.Moxie / stats.moxieMax;
+    public void SaveGuns(GunInfo GMPrimary, GunInfo GMSecondary, GunInfo GMCurrent) {
+        PrimaryGun = GMPrimary;
+        SecondaryGun = GMSecondary;
+        CurrentGun = GMCurrent;
     }
-
-    private void UpdateGrit() {
-
-        if (stats.GritActive) {
-            stats.Grit -= Time.deltaTime * (10 / Time.timeScale);
-            Debug.Log(stats.Grit);
-        }
-        if (!stats.GritActive) {
-            stats.Grit += Time.deltaTime;
-            stats.Grit = Mathf.Clamp(stats.Grit, 0, stats.gritMax);
-        }
-        if (stats.Grit <= 0) {
-            stats.GritActive = false;
-            Time.timeScale = 1f;
-        }
-        gritText.text = stats.Grit.ToString("F0");
-        GritBar.fillAmount = stats.Grit / stats.gritMax;
-    }
-
-    private void UpdateHealthUI() {
-        healthText.text = stats.Health.ToString();
-        healthBar.fillAmount = stats.Health / stats.maxHeath;
-
-    }
-
-    private void UpdateAmmoUI() {
-        string ammoClip = GunManager.instance.currentGun.clipAmmo.ToString();
-        string ammoTotal = GunManager.instance.currentGun.currentAmmo.ToString();
-        ammoText.text = ammoClip;
-        totalAmmoText.text = ammoTotal;
-
-
-        moxieBatteryText.text = stats.moxieBatteries.ToString();
-
-        healthPackText.text = stats.HealthPacks.ToString();
-    }
-
-
-
-    private void OnApplicationQuit() {
-        stats.ResetValues();
-    }
-
-
 }

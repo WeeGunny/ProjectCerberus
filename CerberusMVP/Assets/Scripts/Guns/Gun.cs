@@ -13,7 +13,7 @@ public class Gun : MonoBehaviour {
     public GunGrips gripInfo;
     public GameObject primaryAmmo, altAmmo;
     public GunInfo gunInfo;
-    protected Camera fpsCam => rbCam.playerCam;
+    protected Camera fpsCam => rbCam.PlayerCam;
     [Header("Stats")]
     public float Dmg = 10f, altDmg = 10f;
     public bool useGunDamageValue;
@@ -71,7 +71,7 @@ public class Gun : MonoBehaviour {
     }
 
     public virtual void OnAlternateFire() {
-        if (PlayerManager.stats.Moxie > moxieRequirement && GunManager.canFire) AltFire();
+        if (PlayerStats.Instance.Moxie > moxieRequirement && GunManager.canFire) AltFire();
 
     }
 
@@ -81,11 +81,11 @@ public class Gun : MonoBehaviour {
 
     public virtual void Fire() {
         readyToShoot = false;
-        AudioManager.audioManager.Play(fireSoundName, gameObject);
+        if(fireSoundName!="")AudioManager.audioManager.Play(fireSoundName, gameObject);
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
         RaycastHit hit;
         Vector3 targetPoint;
-        GetComponent<SimpleRecoil>().AddRecoil();
+        GetComponent<SimpleRecoil>()?.AddRecoil();
         if (Physics.Raycast(ray, out hit)) {
             targetPoint = hit.point;
         }
@@ -123,7 +123,7 @@ public class Gun : MonoBehaviour {
     }
 
     public virtual void AltFire() {
-        PlayerManager.stats.Moxie -= moxieRequirement;
+        PlayerStats.Instance.Moxie -= moxieRequirement;
         if (animator) animator.SetTrigger("isAltFire");
 
     }

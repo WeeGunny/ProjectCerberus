@@ -22,8 +22,8 @@ public class BossController : EnemyController {
 
     }
     protected override void Update() {
-        if (PlayerManager.playerExists && target == null) {
-            target = PlayerManager.player.GetComponent<rbPlayer>().targetPoint;
+        if (rbPlayer.Player && target == null) {
+            target = rbPlayer.Player.targetPoint;
         }
         if (target != null && !isDead) {
             distance = Vector3.Distance(target.position, transform.position);

@@ -16,7 +16,7 @@ public class EndRoom : Room {
         if (Chest.bossKeyPlaced == false) bossDoor.UnlockBossDoor();
     }
     private void Update() {
-        if (PlayerManager.player && RoomBounds.Contains(PlayerManager.player.transform.position)) {
+        if (rbPlayer.Player && RoomBounds.Contains(rbPlayer.Player.transform.position)) {
             BossUI.bossUI.ShowUI();
         }
         else {

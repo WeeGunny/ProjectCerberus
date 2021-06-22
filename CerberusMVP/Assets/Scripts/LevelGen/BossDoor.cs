@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossDoor : MonoBehaviour, IInteractable
 {
     public void Interact() {
-        if (PlayerManager.player.GetComponent<rbPlayer>().hasBossKey) {
+        if (rbPlayer.Player.GetComponent<rbPlayer>().hasBossKey) {
             UnlockBossDoor();
         }
         else {

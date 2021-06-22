@@ -58,7 +58,7 @@ public class Room : MonoBehaviour {
             if (roomChest) roomChest.UnlockChest();
         }
 
-        if (PlayerManager.player && RoomBounds.Contains(PlayerManager.player.transform.position)) {
+        if (rbPlayer.Player && RoomBounds.Contains(rbPlayer.Player.transform.position)) {
             if (roomHasEnemies && !doorsLocked) {
                 LockDoors();
             }

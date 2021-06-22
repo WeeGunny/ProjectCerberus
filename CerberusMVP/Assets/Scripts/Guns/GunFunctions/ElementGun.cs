@@ -49,7 +49,7 @@ public class ElementGun : Gun {
 
             if (chargeTime >= 1) {
                 Dmg += chargeTime;
-                PlayerManager.stats.Moxie -= chargeTime;
+                PlayerStats.Instance.Moxie -= chargeTime;
                 Fire();
                 Dmg -= chargeTime;
                 chargeParticles.startColor = new Color(chargeStartRBG.x, chargeStartRBG.y, chargeStartRBG.z);

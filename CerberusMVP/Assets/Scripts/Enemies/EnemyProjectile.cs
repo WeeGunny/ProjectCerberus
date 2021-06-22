@@ -15,7 +15,7 @@ public class EnemyProjectile : MonoBehaviour {
         if (other.CompareTag("Player")) {
             DestroyProjectile();
             //Debug.Log("Player Hit");
-            PlayerManager.stats.TakeDamage(damage);
+            PlayerStats.Instance.TakeDamage(damage);
         }
         else if (other.CompareTag("Enemy") || other.CompareTag("Bullet")) {
             Debug.Log("Hit Enemy");

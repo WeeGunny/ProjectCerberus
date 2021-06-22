@@ -78,7 +78,7 @@ public class CustomProjectiles : MonoBehaviour {
                 targets[i].GetComponent<EnemyController>().TakeDamage(explosionDamage, damageType);
             }
             else if (targetType == TargetType.Player && targets[i].GetComponent<rbPlayer>() !=null) {
-                PlayerManager.stats.TakeDamage(explosionDamage);
+                PlayerStats.Instance.TakeDamage(explosionDamage);
             }
 
             //Add explosion force (if enemy has a rigidbody)

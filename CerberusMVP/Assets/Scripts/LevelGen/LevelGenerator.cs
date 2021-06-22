@@ -240,7 +240,6 @@ public class LevelGenerator : MonoBehaviour {
             Destroy(startRoom.gameObject);
         }
         if(player) {
-            PlayerManager.playerExists = false;
             Destroy(player);
         }
         foreach(Room room in placedRooms) {

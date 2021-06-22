@@ -12,7 +12,8 @@ public class rbCam : MonoBehaviour {
     public static bool camLocked;
     private Vector2 smoothedVelocity;
     private Vector2 currentLookPos;
-    public static Camera playerCam;
+    static Camera playerCam;
+    public static Camera PlayerCam => playerCam;
     public Volume volume;
 
     public float inputX, inputY;
@@ -51,11 +52,11 @@ public class rbCam : MonoBehaviour {
     }
 
     public void GritEffect() {
-        if(PlayerManager.stats.GritActive && volume.weight < 1.0f) {
+        if(PlayerStats.Instance.GritActive && volume.weight < 1.0f) {
             volume.weight += Time.deltaTime * 2 / Time.timeScale;
         }
 
-        if(!PlayerManager.stats.GritActive && volume.weight > 0.0f) {
+        if(!PlayerStats.Instance.GritActive && volume.weight > 0.0f) {
             volume.weight -= Time.deltaTime * 2 / Time.timeScale;
         }
 
@@ -66,7 +67,7 @@ public class rbCam : MonoBehaviour {
         camLocked = true;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
-        PlayerManager.player.GetComponent<rbPlayer>().movePlayer = false;
+        if(rbPlayer.Player)rbPlayer.Player.movePlayer = false;
         GunManager.canFire = false;
         if(Interacter.instance)Interacter.instance.IsInteracting = true;
     }
@@ -76,7 +77,7 @@ public class rbCam : MonoBehaviour {
         camLocked = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        if(PlayerManager.player)PlayerManager.player.GetComponent<rbPlayer>().movePlayer = true;
+        if(rbPlayer.Player)rbPlayer.Player.movePlayer = true;
         GunManager.canFire = true;
         if(Interacter.instance)Interacter.instance.IsInteracting = false;
 

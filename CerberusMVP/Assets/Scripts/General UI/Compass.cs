@@ -8,7 +8,7 @@ public class Compass : MonoBehaviour {
     public List<POIMarker> poiMarkers = new List<POIMarker>();
 
     public RawImage compassImage;
-    public Transform player;
+    public Transform player =>rbPlayer.Player.transform;
     public static Compass compass;
 
     //The maximum distance markers are tracked
@@ -48,10 +48,6 @@ public class Compass : MonoBehaviour {
                 }
             }
         }
-        else if(player == null && PlayerManager.playerExists) {
-            player = PlayerManager.player.transform;
-        }
-
     }
 
     public  void AddPOIMarker(POIMarker marker) {

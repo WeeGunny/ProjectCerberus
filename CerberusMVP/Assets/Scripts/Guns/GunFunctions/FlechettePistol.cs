@@ -9,10 +9,10 @@ public class FlechettePistol : Gun
     public override void AltFire() {
         bulletsShot = 0;
         if (clipAmmo <=0) {
-            PlayerManager.stats.Moxie += moxieRequirement;
+            PlayerStats.Instance.Moxie += moxieRequirement;
             return;
         }
-        PlayerManager.stats.Moxie -= moxieRequirement;
+        PlayerStats.Instance.Moxie -= moxieRequirement;
         animator.SetTrigger("isAltFire");
         MoxieBurst();
     }

@@ -10,7 +10,7 @@ public class ShopKeeper : NPC {
 
     protected override void Update() {
         base.Update();
-        if(!gameUI) gameUI = GameObject.FindObjectOfType<PlayerStats>().gameObject;
+        if(!gameUI) gameUI = GameObject.FindObjectOfType<PlayerStatsUI>().gameObject;
         animationDelay -= Time.deltaTime;
 
         if (animationDelay <= 0f && !isAnimating) {

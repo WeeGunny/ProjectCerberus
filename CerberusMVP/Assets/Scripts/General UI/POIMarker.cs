@@ -12,11 +12,11 @@ public class POIMarker : MonoBehaviour
     }
 
     private void Start() {
-        Compass.compass.AddPOIMarker(this);
+        if(Compass.compass)Compass.compass.AddPOIMarker(this);
     }
 
     private void OnDestroy() {
-        Compass.compass.poiMarkers.Remove(this);
+        if (Compass.compass) Compass.compass.poiMarkers.Remove(this);
     }
 
 }
