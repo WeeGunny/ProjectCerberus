@@ -145,7 +145,7 @@ public class GunManager : MonoBehaviour {
     }
 
     void SetHandGrips() {
-        if (currentGun) {
+        if (currentGun.gripInfo) {
             if (managerGrips.leftGrip.position != currentGun.gripInfo.leftGrip.position && managerGrips.rightGrip.position != currentGun.gripInfo.rightGrip.position) {
                 currentGun.gripInfo.SetGripPosition(managerGrips);
             }

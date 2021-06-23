@@ -95,7 +95,6 @@ public class rbPlayer : MonoBehaviour {
     public void Sprint() {
         isSprinting = !isSprinting;
         anim.SetBool("isSprinting", isSprinting);
-        //FindObjectOfType<AudioManager>().Play("Running", gameObject);
     }
 
     private void OnJump() {
@@ -147,7 +146,7 @@ public class rbPlayer : MonoBehaviour {
             stats.HealthPacks -= 1;
             stats.Health += 50;
             Mathf.Clamp(stats.Health, 0, stats.maxHeath);
-            FindObjectOfType<AudioManager>().Play("Health Pack", gameObject);
+            AudioManager.audioManager.Play("Health Pack", gameObject);
         }
     }
 

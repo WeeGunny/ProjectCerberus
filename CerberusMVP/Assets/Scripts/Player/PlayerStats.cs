@@ -30,7 +30,7 @@ public class PlayerStats : SingletonScriptableObject<PlayerStats> {
     public void TakeDamage(float damage) {
         Health -= damage;
         Mathf.Clamp(Health, 0, maxHeath);
-        FindObjectOfType<AudioManager>().Play("Player Hurt", rbPlayer.Player.gameObject);
+        AudioManager.audioManager.Play("Player Hurt", rbPlayer.Player.gameObject);
         if (Health <= 0) {
             Death();
         }

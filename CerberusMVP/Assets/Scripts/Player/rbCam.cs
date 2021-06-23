@@ -69,7 +69,6 @@ public class rbCam : MonoBehaviour {
         Cursor.visible = true;
         if(rbPlayer.Player)rbPlayer.Player.movePlayer = false;
         GunManager.canFire = false;
-        if(Interacter.instance)Interacter.instance.IsInteracting = true;
     }
 
     //unlocks cam and hides mouse
@@ -79,7 +78,5 @@ public class rbCam : MonoBehaviour {
         Cursor.visible = false;
         if(rbPlayer.Player)rbPlayer.Player.movePlayer = true;
         GunManager.canFire = true;
-        if(Interacter.instance)Interacter.instance.IsInteracting = false;
-
     }
 }

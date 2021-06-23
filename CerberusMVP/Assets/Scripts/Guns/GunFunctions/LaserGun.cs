@@ -38,7 +38,7 @@ public class LaserGun : Gun {
             laser = Instantiate(primaryAmmo);
             beam = laser.GetComponent<LineRenderer>();
             firingLaser = true;
-            FindObjectOfType<AudioManager>().Play(fireSoundName, gameObject);
+            AudioManager.audioManager.Play(fireSoundName, gameObject);
             beam.SetPosition(0, firePoint.position);
         }    
     }
@@ -100,7 +100,7 @@ public class LaserGun : Gun {
             Invoke("ResetShot", 1 / fireRate);
             allowInvoke = false;
         }
-        FindObjectOfType<AudioManager>().Stop(fireSoundName);
+        AudioManager.audioManager.Stop(fireSoundName);
     }
 
     private void OnDisable() {

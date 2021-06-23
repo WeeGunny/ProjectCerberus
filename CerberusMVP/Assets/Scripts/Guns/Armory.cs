@@ -90,13 +90,13 @@ public class Armory : MonoBehaviour {
         EventSystem.current.SetSelectedGameObject(null);
         //Set a new selected object
         EventSystem.current.SetSelectedGameObject(slotPrefab);
-        if (Interacter.interacterExists) Interacter.instance.IsInteracting = true;
+        if (Interacter.instance) Interacter.instance.IsInteracting = true;
     }
 
     public void HideArmory() {
         gameObject.SetActive(false);
         rbCam.UnlockCam();
-        if (Interacter.interacterExists) Interacter.instance.IsInteracting = false;
+        if (Interacter.instance) Interacter.instance.IsInteracting = false;
     }
 
 

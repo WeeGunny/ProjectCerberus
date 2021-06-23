@@ -8,7 +8,7 @@ public class Interacter : MonoBehaviour {
     public float InteractRange;
     public GameObject InteractUI;
     public static bool CanInteract;
-    public bool IsInteracting;
+    public bool IsInteracting = false;
     public static IInteractable interactableObject;
     // Start is called before the first frame update
     void Start() {

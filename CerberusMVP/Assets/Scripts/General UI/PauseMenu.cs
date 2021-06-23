@@ -26,7 +26,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     private void pauseInput() {
-        if (!NPC.playerIsTalking) {
+        if (!Interacter.instance.IsInteracting) {
             isPaused = !isPaused;
             if (isPaused) {
                 Pause();
@@ -59,8 +59,8 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         gameUI.SetActive(true);
-        if(Interacter.instance)if(!Interacter.instance.IsInteracting)rbCam.UnlockCam();
-
+        if(Interacter.instance && !Interacter.instance.IsInteracting)rbCam.UnlockCam();
+        Debug.Log(rbCam.camLocked);
         Time.timeScale = 1f;
         GamePaused = false;
     }

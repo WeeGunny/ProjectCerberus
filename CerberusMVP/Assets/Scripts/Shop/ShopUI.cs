@@ -67,7 +67,7 @@ public class ShopUI : MonoBehaviour {
     public void ShowShop() {
         gameObject.SetActive(true);
         rbCam.LockCam();
-        if(Interacter.interacterExists)Interacter.instance.IsInteracting = true;
+        if(Interacter.instance)Interacter.instance.IsInteracting = true;
 
         //clear selected object
         EventSystem.current.SetSelectedGameObject(null);
@@ -78,6 +78,6 @@ public class ShopUI : MonoBehaviour {
     public void HideShop() {
         gameObject.SetActive(false);
         rbCam.UnlockCam();
-        if(Interacter.interacterExists)Interacter.instance.IsInteracting = false;
+        if(Interacter.instance)Interacter.instance.IsInteracting = false;
     }
 }
