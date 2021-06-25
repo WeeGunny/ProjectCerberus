@@ -43,13 +43,7 @@ public class Gun : MonoBehaviour {
 
     protected virtual void Update() {
         if (fireHeld && allowHold) {
-            if (readyToShoot && !reloading && clipAmmo > 0 && GunManager.canFire) {
-                bulletsShot = 0;
-                Fire();
-            }
-            else if (readyToShoot && !reloading && clipAmmo <= 0 && GunManager.canFire) {
-                ReloadDelay();
-            }
+            OnPrimaryFire();
         }
     }
 
@@ -81,31 +75,7 @@ public class Gun : MonoBehaviour {
 
     public virtual void Fire() {
         readyToShoot = false;
-        if(fireSoundName!="")AudioManager.audioManager.Play(fireSoundName, gameObject);
-        Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
-        RaycastHit hit;
-        Vector3 targetPoint;
-        GetComponent<SimpleRecoil>()?.AddRecoil();
-        if (Physics.Raycast(ray, out hit)) {
-            targetPoint = hit.point;
-        }
-        else {
-            targetPoint = ray.GetPoint(75);
-        }
-
-        Vector3 directionNoSpread = targetPoint - firePoint.position;
-
-        float spreadX = Random.Range(-spread, spread);
-        float spreadY = Random.Range(-spread, spread);
-        Vector3 directionWithSpread = directionNoSpread + new Vector3(spreadX / 10, spreadY / 10, 0);
-
-        GameObject bullet = Instantiate(primaryAmmo, firePoint.position, Quaternion.identity);
-        bullet.transform.forward = directionWithSpread;
-        if(useGunDamageValue)bullet.GetComponent<PlayerProjectile>().damage = Dmg;
-        bullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * bulletSpeed, ForceMode.Impulse);
-        clipAmmo--;
-        bulletsShot++;
-
+        AimAndFireProjectile(primaryAmmo);
         if (allowInvoke) {
             Invoke("ResetShot", 1 / fireRate);
             allowInvoke = false;
@@ -136,8 +106,6 @@ public class Gun : MonoBehaviour {
     }
 
     public void Reload() {
-
-
         float reloadAmount = maxClipAmmo - clipAmmo;
         if (currentAmmo >= reloadAmount) {
             clipAmmo += reloadAmount;
@@ -148,6 +116,37 @@ public class Gun : MonoBehaviour {
             currentAmmo = 0;
         }
         reloading = false;
+    }
+
+
+    protected void AimAndFireProjectile(GameObject projectile)
+    {
+        if (fireSoundName != "") AudioManager.audioManager.Play(fireSoundName, gameObject);
+        Ray ray = fpsCam.ViewportPointToRay(new Vector3(.5f, .5f, 0)); // goes to center of screen;
+        RaycastHit hit;
+        Vector3 targetPoint;
+        GetComponent<SimpleRecoil>()?.AddRecoil();
+        if (Physics.Raycast(ray, out hit))
+        {
+            targetPoint = hit.point;
+        }
+        else
+        {
+            targetPoint = ray.GetPoint(75);
+        }
+
+        Vector3 directionNoSpread = targetPoint - firePoint.position;
+
+        float spreadX = Random.Range(-spread, spread);
+        float spreadY = Random.Range(-spread, spread);
+        Vector3 directionWithSpread = directionNoSpread + new Vector3(spreadX / 10, spreadY / 10, 0);
+
+        GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
+        bullet.transform.forward = directionWithSpread;
+        if (useGunDamageValue) bullet.GetComponent<PlayerProjectile>().damage = Dmg;
+        bullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * bulletSpeed, ForceMode.Impulse);
+        clipAmmo--;
+        bulletsShot++;
     }
 
     protected virtual void OnEnable() {
@@ -161,10 +160,6 @@ public class Gun : MonoBehaviour {
         controls.Gameplay.PrimaryFire.performed -= HeldFire;
         controls.Gameplay.PrimaryFire.canceled -= HeldFire;
         controls.Gameplay.PrimaryFire.Disable();
-    }
-
-    private void OnDestroy() {
-
     }
 
 }

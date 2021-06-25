@@ -11,7 +11,5 @@ public class ItemInfo : ScriptableObject
     public Sprite icon = null;
     public float cost;
     public GameObject itemPrefab, shopModel;
-    public ItemFunction function;
-
-
+    public ItemFunction function => itemPrefab.GetComponent<ItemFunction>();
 }

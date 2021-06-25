@@ -21,6 +21,7 @@ public class ShopUI : MonoBehaviour {
     private void Awake() {
         shopUI = this;
         SetItems();
+        ChangeItem(currentShopItems[0]);
         HideShop();
     }
     private void SetItems() {

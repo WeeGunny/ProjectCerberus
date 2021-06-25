@@ -80,10 +80,6 @@ public class LaserGun : Gun {
             if (enemy != null) {
                 enemy.TakeDamage(Dmg, damageType);
             }
-            SpiderController spider = hit.collider.GetComponent<SpiderController>();
-            if (spider != null) {
-                spider.TakeDamage(Dmg, damageType);
-            }
         }
         clipAmmo--;
         if (allowInvoke) {

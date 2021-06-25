@@ -11,10 +11,8 @@ public class Armory : MonoBehaviour {
     [SerializeField] List<GunInfo> startingWeapsons = new List<GunInfo>();
     public Transform UIParent;
     public GameObject slotPrefab;
-    /*[HideInInspector]*/
-    public Gun tempGun1, tempGun2;
-    /*[HideInInspector]*/
-    public GunInfo selectedGun;
+    Gun tempGun1, tempGun2;
+    GunInfo selectedGun;
     public TextMeshProUGUI Name, Damage, AltDamage, FireRate, FireType, ReloadTime, Ammo, Descripton;
     public Image gun1Icon, gun2Icon, selectedGunIcon;
     public static Armory armory;
@@ -34,6 +32,13 @@ public class Armory : MonoBehaviour {
             slot.UpdateSlot(UnlockedWeapons[i]);
             slotObjects.Add(slot.gameObject);
         }
+        UpdateGunInfoDisplay(UnlockedWeapons[0]);
+        Sprite currentPrimary = GunManager.instance.primaryGun.gunInfo.icon;
+        Sprite currentSecondary = GunManager.instance.secondaryGun.gunInfo.icon;
+        gun1Icon.sprite = currentPrimary ? currentPrimary : null;
+        if (!gun1Icon) gun1Icon.gameObject.SetActive(false);
+        gun2Icon.sprite = currentSecondary ? currentSecondary : null;
+        if (!gun2Icon) gun2Icon.gameObject.SetActive(false);
         HideArmory();
     }
 
@@ -55,11 +60,13 @@ public class Armory : MonoBehaviour {
     public void SelectGun1() {
         tempGun1 = selectedGun.gun;
         gun1Icon.sprite = selectedGun.icon;
+        gun1Icon.gameObject.SetActive(true);
     }
 
     public void SelectGun2() {
         tempGun2 = selectedGun.gun;
         gun2Icon.sprite = selectedGun.icon;
+        gun2Icon.gameObject.SetActive(true);
 
     }
 
