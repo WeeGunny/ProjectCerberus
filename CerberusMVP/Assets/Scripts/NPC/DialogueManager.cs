@@ -10,7 +10,7 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-    public GameObject dialoguePanel, interactUI;
+    public GameObject dialoguePanel;
     public TextMeshProUGUI npcNameText;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI functionButtonText;
@@ -47,7 +47,6 @@ public class DialogueManager : MonoBehaviour
         npcNameText.text = convo.npcName;
         conversation = new List<string>(convo.myConversation);
         dialoguePanel.SetActive(true);
-        interactUI.SetActive(false);
         conversationIndex = 0;
         ShowText();
 
@@ -57,11 +56,11 @@ public class DialogueManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(nextButton);
     }
 
-    public void StopDialog()
+    public void StopDialog(bool deactivateNPC = true)
     {
         dialoguePanel.SetActive(false);;
         functionButton.SetActive(false);
-        interactingNPC.DeactivateNPC();
+        if(deactivateNPC)interactingNPC.DeactivateNPC();
     }
 
     private void ShowText()
@@ -144,12 +143,12 @@ public class DialogueManager : MonoBehaviour
         
     }
     public void OpenShop() {
-        StopDialog();
+        StopDialog(false);
         ShopUI.shopUI.ShowShop();
     }
 
     public void OpenArmory() {
-        StopDialog();
+        StopDialog(false);
         Armory.armory.ShowArmory();
     }
 

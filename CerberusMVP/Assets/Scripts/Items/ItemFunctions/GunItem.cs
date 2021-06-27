@@ -26,6 +26,6 @@ public class GunItem : ItemFunction {
     }
 
     public void EquipGun() {
-        GunManager.instance.EquipGun(itemGun.gun);
+        GunManager.instance.EquipGun(itemGun);
     }
 }

@@ -152,14 +152,14 @@ public class Gun : MonoBehaviour {
     protected virtual void OnEnable() {
         controls.Gameplay.PrimaryFire.performed += HeldFire;
         controls.Gameplay.PrimaryFire.canceled += HeldFire;
-        controls.Gameplay.PrimaryFire.Enable();
+       // controls.Gameplay.PrimaryFire.Enable();
     }
 
     protected virtual void OnDisable() {
 
         controls.Gameplay.PrimaryFire.performed -= HeldFire;
         controls.Gameplay.PrimaryFire.canceled -= HeldFire;
-        controls.Gameplay.PrimaryFire.Disable();
+       // controls.Gameplay.PrimaryFire.Disable();
     }
 
 }

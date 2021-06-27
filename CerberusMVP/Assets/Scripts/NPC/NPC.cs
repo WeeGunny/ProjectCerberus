@@ -8,8 +8,6 @@ public class NPC : MonoBehaviour, IInteractable {
     public Conversation secondConversation;
     public Animator anim;
 
-    public static bool playerIsTalking;
-
     protected virtual void Update() {
     }
 
@@ -17,16 +15,14 @@ public class NPC : MonoBehaviour, IInteractable {
         gameUI.SetActive(false);
         if(anim)anim.SetBool("isTalking", true);
         DialogueManager.dm.StartDialog(myConversation,this);
-        playerIsTalking = true;
-        if (Interacter.instance) Interacter.instance.IsInteracting = true;
+        Interacter.Interact?.Invoke();
         DialogueManager.dm.nextButton.SetActive(true);
     }
 
     public virtual void DeactivateNPC() {
         gameUI.SetActive(true);
-        playerIsTalking = false;
         if(anim)anim.SetBool("isTalking", false);
-        if (Interacter.instance) Interacter.instance.IsInteracting = false;
+        Interacter.EndInteract?.Invoke();
     }
 
     public virtual void Interact()

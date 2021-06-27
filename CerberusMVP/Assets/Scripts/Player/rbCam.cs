@@ -20,6 +20,8 @@ public class rbCam : MonoBehaviour {
     private void Awake() {
         if(!playerCam) playerCam = this.GetComponent<Camera>();
         else { Destroy(this); }
+        Interacter.Interact += LockCam;
+        Interacter.EndInteract += UnlockCam;
     }
 
     // Start is called before the first frame update
@@ -67,7 +69,7 @@ public class rbCam : MonoBehaviour {
         camLocked = true;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
-        if(rbPlayer.Player)rbPlayer.Player.movePlayer = false;
+        rbPlayer.movePlayer = false;
         GunManager.canFire = false;
     }
 
@@ -76,7 +78,7 @@ public class rbCam : MonoBehaviour {
         camLocked = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        if(rbPlayer.Player)rbPlayer.Player.movePlayer = true;
+        rbPlayer.movePlayer = true;
         GunManager.canFire = true;
     }
 }

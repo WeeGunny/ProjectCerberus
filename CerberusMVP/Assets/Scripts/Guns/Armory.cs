@@ -11,7 +11,7 @@ public class Armory : MonoBehaviour {
     [SerializeField] List<GunInfo> startingWeapsons = new List<GunInfo>();
     public Transform UIParent;
     public GameObject slotPrefab;
-    Gun tempGun1, tempGun2;
+    GunInfo tempGun1, tempGun2;
     GunInfo selectedGun;
     public TextMeshProUGUI Name, Damage, AltDamage, FireRate, FireType, ReloadTime, Ammo, Descripton;
     public Image gun1Icon, gun2Icon, selectedGunIcon;
@@ -33,8 +33,8 @@ public class Armory : MonoBehaviour {
             slotObjects.Add(slot.gameObject);
         }
         UpdateGunInfoDisplay(UnlockedWeapons[0]);
-        Sprite currentPrimary = GunManager.instance.primaryGun.gunInfo.icon;
-        Sprite currentSecondary = GunManager.instance.secondaryGun.gunInfo.icon;
+        Sprite currentPrimary = GunManager.instance.primaryGunInfo.icon;
+        Sprite currentSecondary = GunManager.instance.secondaryGunInfo.icon;
         gun1Icon.sprite = currentPrimary ? currentPrimary : null;
         if (!gun1Icon) gun1Icon.gameObject.SetActive(false);
         gun2Icon.sprite = currentSecondary ? currentSecondary : null;
@@ -58,13 +58,13 @@ public class Armory : MonoBehaviour {
 
     }
     public void SelectGun1() {
-        tempGun1 = selectedGun.gun;
+        tempGun1 = selectedGun;
         gun1Icon.sprite = selectedGun.icon;
         gun1Icon.gameObject.SetActive(true);
     }
 
     public void SelectGun2() {
-        tempGun2 = selectedGun.gun;
+        tempGun2 = selectedGun;
         gun2Icon.sprite = selectedGun.icon;
         gun2Icon.gameObject.SetActive(true);
 
@@ -91,19 +91,16 @@ public class Armory : MonoBehaviour {
 
     public void ShowArmory() {
         gameObject.SetActive(true);
-        rbCam.LockCam();
-
         //clear selected object
         EventSystem.current.SetSelectedGameObject(null);
         //Set a new selected object
         EventSystem.current.SetSelectedGameObject(slotPrefab);
-        if (Interacter.instance) Interacter.instance.IsInteracting = true;
+        Interacter.Interact?.Invoke();
     }
 
     public void HideArmory() {
         gameObject.SetActive(false);
-        rbCam.UnlockCam();
-        if (Interacter.instance) Interacter.instance.IsInteracting = false;
+        Interacter.EndInteract?.Invoke();
     }
 
 

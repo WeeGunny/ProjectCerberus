@@ -17,7 +17,7 @@ public class rbPlayer : MonoBehaviour {
     public float jumpHeight = 100f;
     public float groundRayDistance;
     public float GritGravity;
-    public bool movePlayer = true;
+    public static bool movePlayer = true;
     private Vector2 moveInput;
     private Vector3 movementVector;
     //Wall Run stuff

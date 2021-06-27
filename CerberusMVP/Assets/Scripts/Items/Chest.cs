@@ -44,12 +44,6 @@ public class Chest : MonoBehaviour , IInteractable{
         LeanTween.color(gameObject, Color.white, 1);
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("Player")) {
-            DialogueManager.dm.interactUI.SetActive(true);
-        }
-    }
-
     private void OnDestroy() {
         spawnedChests.Remove(this);
     }

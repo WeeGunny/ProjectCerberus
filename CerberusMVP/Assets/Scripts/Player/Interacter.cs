@@ -1,39 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Interacter : MonoBehaviour {
-    public static Interacter instance;
-    public static bool interacterExists = false;
     public float InteractRange;
-    public GameObject InteractUI;
     public static bool CanInteract;
-    public bool IsInteracting = false;
     public static IInteractable interactableObject;
+
+    public static Action Interact = () => { CanInteract = false; GameUI.ToggleUI(false); };
+    public static Action EndInteract = () => { CanInteract = true; GameUI.ToggleUI(true); };
     // Start is called before the first frame update
-    void Start() {
-        if (!instance) {
-            instance = this;
-            interacterExists = true;
-        }
-        else { Destroy(this); }
-        if (!InteractUI) InteractUI = GameObject.Find("Interact UI");
-    }
 
-    // Update is called once per frame
-    void Update() {
-        if (!InteractUI) InteractUI = GameObject.Find("Interact UI");
-        if (!IsInteracting) {
-            CanInteract = CheckForInteractable();
-            if (CanInteract) ShowInteractUI();
-        }
-        if (IsInteracting) {
-            CanInteract = false;
-            if (!rbCam.camLocked) rbCam.LockCam();
-            if (InteractUI.activeInHierarchy) HideInteractUI();
-        }
-
-        if (!CanInteract && InteractUI.activeInHierarchy) HideInteractUI();
+    private void Update()
+    {
+        InteractUI.instance.ToggleUI(CheckForInteractable() && CanInteract);
     }
 
     public bool CheckForInteractable() {
@@ -48,17 +29,7 @@ public class Interacter : MonoBehaviour {
             }
         }
         interactableObject = null;
-        if (InteractUI.activeInHierarchy) HideInteractUI();
         return false;
-    }
-
-    public void HideInteractUI() {
-        InteractUI.SetActive(false);
-
-    }
-    public void ShowInteractUI() {
-        InteractUI.SetActive(true);
-
     }
 
     private void OnDrawGizmosSelected() {

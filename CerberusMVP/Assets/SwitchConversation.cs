@@ -17,8 +17,6 @@ public class SwitchConversation : MonoBehaviour
             DialogueManager.dm.StartDialog(Jimbo2, Jimbo);
             gameObject.SetActive(false);
             gameUI.SetActive(false);
-            NPC.playerIsTalking = true;
-            rbCam.LockCam();
             DialogueManager.dm.nextButton.SetActive(true);
         }
     }
